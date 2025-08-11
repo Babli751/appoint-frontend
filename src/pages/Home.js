@@ -996,7 +996,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/about')}
                 >
                   {t.about}
@@ -1004,7 +1004,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/company')}
                 >
                   {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
@@ -1012,7 +1012,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/company')}
                 >
                   {language === 'en' ? 'Press' : language === 'tr' ? 'Basın' : 'Пресса'}
@@ -1020,7 +1020,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/company')}
                 >
                   {language === 'en' ? 'Partners' : language === 'tr' ? 'Ortaklar' : 'Партнеры'}
@@ -1030,14 +1030,14 @@ const Home = () => {
 
             {/* Support */}
             <Grid item xs={6} md={3}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                 {t.support}
               </Typography>
               <Stack spacing={1}>
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
                   {language === 'en' ? 'Help Center' : language === 'tr' ? 'Yardım Merkezi' : 'Центр помощи'}
@@ -1045,7 +1045,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
                   {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с нами'}
@@ -1053,7 +1053,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
                   {language === 'en' ? 'FAQ' : language === 'tr' ? 'SSS' : 'FAQ'}
@@ -1061,7 +1061,7 @@ const Home = () => {
                 <Link 
                   href="#" 
                   color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
                   {language === 'en' ? 'Safety' : language === 'tr' ? 'Güvenlik' : 'Безопасность'}
@@ -1070,7 +1070,7 @@ const Home = () => {
             </Grid>
           </Grid>
 
-          <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
+          <Divider sx={{ my: { xs: 3, md: 4 }, borderColor: 'rgba(255,255,255,0.1)' }} />
 
           {/* Bottom Footer */}
           <Box sx={{ 
@@ -1081,13 +1081,13 @@ const Home = () => {
             gap: 2,
             textAlign: { xs: 'center', md: 'left' }
           }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Copyright sx={{ mr: 1, fontSize: 16 }} />
-              <Typography variant="body2" sx={{ opacity: 0.8 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
+              <Copyright sx={{ mr: 1, fontSize: { xs: 14, md: 16 } }} />
+              <Typography variant="body2" sx={{ opacity: 0.8, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
                 2024 {t.brand}. {language === 'en' ? 'All rights reserved.' : language === 'tr' ? 'Tüm hakları saklıdır.' : 'Все права защищены.'}
               </Typography>
             </Box>
-            <Typography variant="body2" sx={{ opacity: 0.6 }}>
+            <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
               {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
             </Typography>
           </Box>
