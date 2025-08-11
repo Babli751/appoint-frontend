@@ -851,8 +851,8 @@ const Home = () => {
                     </Box>
 
                     {/* Specialties */}
-                    <Stack direction="row" spacing={0.5} sx={{ mb: 2, flexWrap: 'wrap', gap: 0.5 }}>
-                      {barber.specialties.slice(0, isMobile ? 2 : 3).map((specialty) => (
+                    <Stack direction="row" spacing={0.5} sx={{ mb: { xs: 1.5, md: 2 }, flexWrap: 'wrap', gap: 0.5 }}>
+                      {barber.specialties.slice(0, isMobile ? 2 : isTablet ? 2 : 3).map((specialty) => (
                         <Chip
                           key={specialty}
                           label={specialty}
@@ -860,7 +860,7 @@ const Home = () => {
                           sx={{
                             bgcolor: '#e6f7f5',
                             color: '#00a693',
-                            fontSize: '0.75rem'
+                            fontSize: { xs: '0.65rem', sm: '0.7rem', md: '0.75rem' }
                           }}
                         />
                       ))}
@@ -871,8 +871,8 @@ const Home = () => {
                       bgcolor: '#e6f7f5', 
                       border: '1px solid #b3ece6', 
                       borderRadius: 2, 
-                      p: 1.5, 
-                      mb: 2 
+                      p: { xs: 1, md: 1.5 },
+                      mb: { xs: 1.5, md: 2 } 
                     }}>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
                         {t.nextAvailable}
@@ -895,7 +895,7 @@ const Home = () => {
                     </Box>
 
                     {/* Price and Action */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: { xs: 1.5, md: 2 } }}>
                       <Box>
                         {barber.discount ? (
                           <Box>
@@ -914,14 +914,14 @@ const Home = () => {
                             {barber.price}
                           </Typography>
                         )}
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                           {t.starting}
                         </Typography>
                       </Box>
                     </Box>
 
                     {/* Action Buttons */}
-                    <Stack direction="row" spacing={1}>
+                    <Stack direction="row" spacing={{ xs: 0.5, md: 1 }}>
                       <Button
                         fullWidth
                         variant="contained"
