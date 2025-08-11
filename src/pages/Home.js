@@ -955,15 +955,15 @@ const Home = () => {
       </Box>
 
       {/* Simplified Footer */}
-      <Box sx={{ bgcolor: '#1f2937', color: 'white', py: { xs: 4, md: 6 }, mt: 4 }}>
+      <Box sx={{ bgcolor: '#1f2937', color: 'white', py: { xs: 3, sm: 4, md: 6 }, mt: { xs: 2, md: 4 } }}>
         <Container maxWidth="xl">
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 3, md: 4 }}>
             {/* Brand Section */}
             <Grid item xs={12} md={6}>
-              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+              <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '1.2rem', md: '1.5rem' } }}>
                 {t.brand}
               </Typography>
-              <Typography variant="body2" sx={{ mb: 3, opacity: 0.8, lineHeight: 1.6 }}>
+              <Typography variant="body2" sx={{ mb: 3, opacity: 0.8, lineHeight: 1.6, fontSize: { xs: '0.85rem', md: '0.875rem' } }}>
                 {language === 'en' 
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
@@ -989,7 +989,7 @@ const Home = () => {
 
             {/* Company */}
             <Grid item xs={6} md={3}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                 {t.company}
               </Typography>
               <Stack spacing={1}>
