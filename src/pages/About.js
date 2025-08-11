@@ -36,6 +36,7 @@ const About = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
   const [language, setLanguage] = useState('en');
 
   // Language content
@@ -167,7 +168,7 @@ const About = () => {
     <Box sx={{ bgcolor: '#f8fffe', minHeight: '100vh' }}>
       {/* Header */}
       <AppBar position="static" elevation={0} sx={{ bgcolor: 'white', color: '#1f2937' }}>
-        <Toolbar>
+        <Toolbar sx={{ px: { xs: 1, md: 2 } }}>
           <IconButton 
             edge="start" 
             onClick={() => navigate('/')}
@@ -175,19 +176,20 @@ const About = () => {
           >
             <ArrowBack />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ 
-            flexGrow: 1, 
+          <Typography variant="h6" component="div" sx={{
+            flexGrow: 1,
             fontWeight: 'bold',
             background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
-            color: 'transparent'
+            color: 'transparent',
+            fontSize: { xs: '1.1rem', md: '1.25rem' }
           }}>
             {t.brand}
           </Typography>
           
           {/* Language Selector */}
-          <FormControl size="small" sx={{ minWidth: 100 }}>
+          <FormControl size="small" sx={{ minWidth: { xs: 70, md: 100 } }}>
             <Select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
@@ -195,9 +197,9 @@ const About = () => {
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
             >
-              <MenuItem value="en">🇬🇧 EN</MenuItem>
-              <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="ru">🇷🇺 RU</MenuItem>
+              <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'EN'}</MenuItem>
+              <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'TR'}</MenuItem>
+              <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'RU'}</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
@@ -448,7 +450,7 @@ const About = () => {
               ? 'Find Your Barber'
               : language === 'tr' 
               ? 'Berberinizi Bulun'
-              : 'Найти парикмахера'
+              : 'На��ти парикмахера'
             }
           </Button>
         </Box>
