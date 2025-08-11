@@ -121,7 +121,36 @@ const getTranslations = (lang) => {
       helpCenter: 'Help Center',
       contactUs: 'Contact Us',
       faq: 'FAQ',
-      safety: 'Safety'
+      safety: 'Safety',
+
+      // Additional common translations
+      claimOffer: 'Claim Offer',
+      validUntil: 'Valid until',
+      newCustomers: 'New Customers',
+      limitedTime: 'Limited Time',
+      exclusive: 'Exclusive',
+      termsApply: 'Terms and conditions apply',
+      getStarted: 'Get Started',
+      learnMore: 'Learn More',
+      readMore: 'Read More',
+      showMore: 'Show More',
+      showLess: 'Show Less',
+      save: 'Save',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      delete: 'Delete',
+      edit: 'Edit',
+      update: 'Update',
+      close: 'Close',
+      back: 'Back',
+      next: 'Next',
+      previous: 'Previous',
+      submit: 'Submit',
+      loading: 'Loading...',
+      error: 'Error',
+      success: 'Success',
+      warning: 'Warning',
+      info: 'Information'
     },
     tr: {
       // Common
@@ -202,7 +231,36 @@ const getTranslations = (lang) => {
       helpCenter: 'Yardım Merkezi',
       contactUs: 'İletişim',
       faq: 'SSS',
-      safety: 'Güvenlik'
+      safety: 'Güvenlik',
+
+      // Additional common translations
+      claimOffer: 'Teklifi Al',
+      validUntil: 'Geçerlilik tarihi',
+      newCustomers: 'Yeni Müşteriler',
+      limitedTime: 'Sınırlı Süre',
+      exclusive: 'Özel',
+      termsApply: 'Şartlar ve koşullar geçerlidir',
+      getStarted: 'Başlayın',
+      learnMore: 'Daha Fazla Öğren',
+      readMore: 'Devamını Oku',
+      showMore: 'Daha Fazla Göster',
+      showLess: 'Daha Az Göster',
+      save: 'Kaydet',
+      cancel: 'İptal',
+      confirm: 'Onayla',
+      delete: 'Sil',
+      edit: 'Düzenle',
+      update: 'Güncelle',
+      close: 'Kapat',
+      back: 'Geri',
+      next: 'İleri',
+      previous: 'Önceki',
+      submit: 'Gönder',
+      loading: 'Yükleniyor...',
+      error: 'Hata',
+      success: 'Başarılı',
+      warning: 'Uyarı',
+      info: 'Bilgi'
     },
     ru: {
       // Common
@@ -219,7 +277,7 @@ const getTranslations = (lang) => {
       
       // Home page
       heroTitle: 'Найдите своего идеального парикмахера',
-      heroSubtitle: 'Записывайтесь к лучшим парикмахерам по всей Европе',
+      heroSubtitle: 'Записывайтес�� к лучшим парикмахерам по всей Европе',
       searchService: 'Какая услуга вам нужна?',
       searchLocation: 'Где?',
       searchButton: 'Поиск',
@@ -246,7 +304,7 @@ const getTranslations = (lang) => {
       
       // Services page
       ourServices: 'Наши услуги',
-      servicesSubtitle: 'Профессиональные парикмахерские услуги по всей Европе',
+      servicesSubtitle: 'Профессиональные парикмахерские услуги по всей Ев��опе',
       bookNow: 'Забронировать',
       duration: 'Продолжительность',
       price: 'Начиная от',
@@ -262,7 +320,7 @@ const getTranslations = (lang) => {
       ourValues: 'Наши ценности',
       stats: 'Наше влияние',
       team: 'Команда руководства',
-      joinUs: 'Присоед��няйтесь сегодня',
+      joinUs: 'Присоединяйтесь сегодня',
       
       // Offers page
       specialOffers: 'Специальные предложения',
@@ -283,7 +341,36 @@ const getTranslations = (lang) => {
       helpCenter: 'Центр помощи',
       contactUs: 'Связаться с нами',
       faq: 'FAQ',
-      safety: 'Безопасность'
+      safety: 'Безопасность',
+
+      // Additional common translations
+      claimOffer: 'Получить предложение',
+      validUntil: 'Действительно до',
+      newCustomers: 'Новые клиенты',
+      limitedTime: 'Ограниченное время',
+      exclusive: 'Эксклюзивно',
+      termsApply: 'Применяются условия и положения',
+      getStarted: 'Начать',
+      learnMore: 'Узнать больше',
+      readMore: 'Читать далее',
+      showMore: 'Показать больше',
+      showLess: 'Показать меньше',
+      save: 'Сохранить',
+      cancel: 'Отмена',
+      confirm: 'Подтвердить',
+      delete: 'Удалить',
+      edit: 'Редактировать',
+      update: 'Обновить',
+      close: 'Закрыть',
+      back: 'Назад',
+      next: 'Далее',
+      previous: 'Предыдущий',
+      submit: 'Отправить',
+      loading: 'Загрузка...',
+      error: 'Ошибка',
+      success: 'У��пех',
+      warning: 'Предупреждение',
+      info: 'Информация'
     }
   };
 
