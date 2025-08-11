@@ -265,7 +265,7 @@ const Services = () => {
             ? 'Deep cleansing facial with moisturizing'
             : language === 'tr' 
             ? 'Nemlendirici ile derin temizlik yüz bakım��'
-            : 'Глубокая очищающая процедура с увлажнением',
+            : 'Глубокая очища��щая процедура с увлажнением',
           premium: true
         }
       ]
@@ -307,7 +307,7 @@ const Services = () => {
             >
               <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'EN'}</MenuItem>
               <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'TR'}</MenuItem>
-              <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'RU'}</MenuItem>
+              <MenuItem value="ru">🇷���� {isMobile ? 'RU' : 'RU'}</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
@@ -359,26 +359,30 @@ const Services = () => {
                     />
                   </Grid>
                   <Grid item xs={12} md={8}>
-                    <CardContent sx={{ p: { xs: 1.5, sm: 2, md: 4 }, height: '100%' }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <Box sx={{ 
-                          bgcolor: '#e6f7f5', 
-                          borderRadius: '50%', 
-                          p: 1.5, 
-                          mr: 2,
-                          color: '#00a693'
+                    <CardContent sx={{ p: { xs: 2, sm: 2.5, md: 4 }, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                      <Box sx={{ display: 'flex', alignItems: { xs: 'flex-start', md: 'center' }, mb: { xs: 1.5, md: 2 }, flexDirection: { xs: 'column', sm: 'row' }, gap: { xs: 1, sm: 0 } }}>
+                        <Box sx={{
+                          bgcolor: '#e6f7f5',
+                          borderRadius: '50%',
+                          p: { xs: 1.2, md: 1.5 },
+                          mr: { xs: 0, sm: 2 },
+                          mb: { xs: 1, sm: 0 },
+                          color: '#00a693',
+                          alignSelf: { xs: 'center', sm: 'flex-start' }
                         }}>
-                          {React.cloneElement(category.icon, { sx: { fontSize: 28 } })}
+                          {React.cloneElement(category.icon, { sx: { fontSize: { xs: 24, md: 28 } } })}
                         </Box>
-                        <Box>
+                        <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
                           <Typography variant="h4" sx={{
                             fontWeight: 'bold',
                             color: '#1f2937',
-                            fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' }
+                            fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' },
+                            lineHeight: 1.2,
+                            mb: 0.5
                           }}>
                             {category.name}
                           </Typography>
-                          <Typography variant="body1" color="text.secondary" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                          <Typography variant="body1" color="text.secondary" sx={{ fontSize: { xs: '0.9rem', md: '1rem' }, lineHeight: 1.4 }}>
                             {category.description}
                           </Typography>
                         </Box>
