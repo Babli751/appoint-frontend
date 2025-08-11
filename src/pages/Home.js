@@ -75,7 +75,9 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
   AccountCircle,
-  Close
+  Close,
+  Business,
+  Support as SupportIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
@@ -85,97 +87,103 @@ const Home = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   
-  const [searchLocation, setSearchLocation] = useState('Ankara, Çankaya');
+  const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const [language, setLanguage] = useState('en'); // Default to English
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
 
-  // Language content
+  // Language content adapted for European market
   const content = {
     en: {
       brand: 'BarberPro',
-      heroTitle: 'Best Barber Experience',
-      heroSubtitle: 'Book appointments instantly with professional barbers nearby',
-      searchService: 'What service are you looking for?',
+      heroTitle: 'Find Your Perfect Barber',
+      heroSubtitle: 'Book appointments with top-rated barbers across Europe',
+      searchService: 'What service do you need?',
       searchLocation: 'Where?',
       searchButton: 'Search',
       featuredBarbers: 'Featured Barbers',
-      bookAppointment: 'Book Appointment',
+      bookAppointment: 'Book Now',
       verified: 'Verified',
       new: 'New',
-      mostPreferred: 'Most Preferred',
+      mostPreferred: 'Most Popular',
       nextAvailable: 'Next available',
       today: 'Today',
-      starting: 'starting',
+      starting: 'from',
       results: 'results',
       barbers: 'Barbers',
       services: 'Services',
       offers: 'Offers',
       about: 'About',
-      login: 'Login',
+      company: 'Company',
+      support: 'Support',
+      login: 'Sign In',
       signup: 'Sign Up',
       filter: 'Filter',
       sort: 'Sort',
       nearest: 'Nearest',
       popular: 'Most Popular',
-      cheapest: 'Most Affordable',
+      cheapest: 'Best Price',
       home: 'Home',
-      appointments: 'My Appointments',
+      appointments: 'My Bookings',
       favorites: 'Favorites',
       profile: 'Profile',
-      instantApproval: 'Instant Approval',
+      instantApproval: 'Instant Booking',
       happyCustomers: 'Happy Customers',
-      instantBooking: 'Instant Booking'
+      instantBooking: 'Instant Booking',
+      currency: '€'
     },
     tr: {
       brand: 'BarberPro',
-      heroTitle: 'En İyi Berber Deneyimi',
-      heroSubtitle: 'Yakınınızdaki profesyonel berberlerden hemen randevu alın',
-      searchService: 'Hangi hizmeti arıyorsunuz?',
+      heroTitle: 'Mükemmel Berberinizi Bulun',
+      heroSubtitle: 'Avrupa\'nın en iyi berberlerinden randevu alın',
+      searchService: 'Hangi hizmete ihtiyacınız var?',
       searchLocation: 'Nerede?',
       searchButton: 'Ara',
       featuredBarbers: 'Öne Çıkan Berberler',
-      bookAppointment: 'Randevu Al',
+      bookAppointment: 'Hemen Rezervasyon',
       verified: 'Doğrulanmış',
       new: 'Yeni',
-      mostPreferred: 'En Çok Tercih Edilen',
+      mostPreferred: 'En Popüler',
       nextAvailable: 'Sonraki müsait',
       today: 'Bugün',
       starting: 'başlangıç',
       results: 'sonuç',
       barbers: 'Berberler',
       services: 'Hizmetler',
-      offers: 'Fırsatlar',
+      offers: 'Teklifler',
       about: 'Hakkımızda',
-      login: 'Giriş Yap',
-      signup: 'Üye Ol',
+      company: 'Şirket',
+      support: 'Destek',
+      login: 'Giriş',
+      signup: 'Kayıt Ol',
       filter: 'Filtrele',
       sort: 'Sırala',
       nearest: 'En Yakın',
       popular: 'En Popüler',
       cheapest: 'En Uygun',
       home: 'Ana Sayfa',
-      appointments: 'Randevularım',
+      appointments: 'Rezervasyonlarım',
       favorites: 'Favorilerim',
       profile: 'Profilim',
       instantApproval: 'Anında Onay',
       happyCustomers: 'Mutlu Müşteri',
-      instantBooking: 'Anında Randevu'
+      instantBooking: 'Anında Rezervasyon',
+      currency: '€'
     },
     ru: {
       brand: 'BarberPro',
-      heroTitle: 'Лучший опыт парикмахера',
-      heroSubtitle: 'Записывайтесь мгновенно к профессиональным парикмахерам рядом',
-      searchService: 'Какую услугу вы ищете?',
+      heroTitle: 'Найдите своего идеального парикмахера',
+      heroSubtitle: 'Записывайтесь к лучшим парикмахерам по всей Европе',
+      searchService: 'Какая услуга вам нужна?',
       searchLocation: 'Где?',
       searchButton: 'Поиск',
       featuredBarbers: 'Рекомендуемые парикмахеры',
-      bookAppointment: 'Записаться',
+      bookAppointment: 'Забронировать',
       verified: 'Проверено',
       new: 'Новый',
-      mostPreferred: 'Самый предпочитаемый',
+      mostPreferred: 'Самый популярный',
       nextAvailable: 'Следующий доступный',
       today: 'Сегодня',
       starting: 'от',
@@ -184,167 +192,188 @@ const Home = () => {
       services: 'Услуги',
       offers: 'Предложения',
       about: 'О нас',
+      company: 'Компания',
+      support: 'Поддержка',
       login: 'Войти',
       signup: 'Регистрация',
       filter: 'Фильтр',
       sort: 'Сортировка',
       nearest: 'Ближайшие',
       popular: 'Популярные',
-      cheapest: 'Доступные',
+      cheapest: 'Лучшая цена',
       home: 'Главная',
-      appointments: 'Мои записи',
+      appointments: 'Мои бронирования',
       favorites: 'Избранное',
       profile: 'Профиль',
-      instantApproval: 'Мгновенное подтверждение',
+      instantApproval: 'Мгновенное бронирование',
       happyCustomers: 'Довольных клиентов',
-      instantBooking: 'Мгновенная запись'
+      instantBooking: 'Мгновенное бронирование',
+      currency: '€'
     }
   };
 
   const t = content[language];
 
+  // European cities and pricing
+  const europeanCities = [
+    'Berlin, Germany', 'Paris, France', 'Madrid, Spain', 'Rome, Italy',
+    'Amsterdam, Netherlands', 'Vienna, Austria', 'Brussels, Belgium'
+  ];
+
   const featuredBarbers = [
     {
       id: 1,
-      name: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      name: 'Marco Rossi',
+      shopName: 'Milano Barber Studio',
       rating: 4.8,
       reviewCount: 245,
       distance: '0.8 km',
+      estimatedTime: '12 min',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
-        language === 'en' ? 'Beard Trim' : language === 'tr' ? 'Sakal Tıraş' : 'Стрижка бороды',
-        language === 'en' ? 'Massage' : language === 'tr' ? 'Masaj' : 'Массаж'
+        language === 'en' ? 'Classic Cut' : language === 'tr' ? 'Klasik Kesim' : 'Классическая стрижка',
+        language === 'en' ? 'Beard Trim' : language === 'tr' ? 'Sakal Düzeltme' : 'Стрижка бороды',
+        language === 'en' ? 'Hot Towel' : language === 'tr' ? 'Sıcak Havlu' : 'Горячее полотенце'
       ],
       nextAvailable: '14:30',
-      price: '₺80',
-      originalPrice: '₺100',
-      discount: 20,
+      price: `${t.currency}35`,
+      originalPrice: `${t.currency}45`,
+      discount: 22,
       isVerified: true,
       instantBooking: true,
       features: ['WiFi', language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
       responseTime: language === 'en' ? 'Within 2 min' : language === 'tr' ? '2 dk içinde' : 'В течение 2 мин',
-      repeatCustomers: 85
+      repeatCustomers: 85,
+      city: 'Milan, Italy'
     },
     {
       id: 2,
-      name: 'Ali Demir',
-      shopName: 'Modern Kuaför',
+      name: 'Jean-Luc Dubois',
+      shopName: 'Salon Parisien',
       rating: 4.9,
       reviewCount: 189,
       distance: '1.2 km',
+      estimatedTime: '18 min',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Современная стрижка',
-        language === 'en' ? 'Coloring' : language === 'tr' ? 'Boya' : 'Окрашивание',
-        language === 'en' ? 'Styling' : language === 'tr' ? 'Şekillendirme' : 'Укладка'
+        language === 'en' ? 'French Cut' : language === 'tr' ? 'Fransız Kesim' : 'Французская стрижка',
+        language === 'en' ? 'Styling' : language === 'tr' ? 'Şekillendirme' : 'Укладка',
+        language === 'en' ? 'Consultation' : language === 'tr' ? 'Danışmanlık' : 'Консультация'
       ],
       nextAvailable: '15:00',
-      price: '₺75',
-      originalPrice: '₺90',
-      discount: 15,
+      price: `${t.currency}42`,
+      originalPrice: `${t.currency}50`,
+      discount: 16,
       isVerified: true,
       instantBooking: false,
       features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
       responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течение 5 мин',
       isNew: true,
-      repeatCustomers: 78
+      repeatCustomers: 78,
+      city: 'Paris, France'
     },
     {
       id: 3,
-      name: 'Osman Yılmaz',
-      shopName: 'Classic Barber',
+      name: 'Hans Mueller',
+      shopName: 'Berlin Barbershop',
       rating: 4.7,
       reviewCount: 312,
       distance: '0.5 km',
+      estimatedTime: '8 min',
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Classic Shave' : language === 'tr' ? 'Klasik Tıraş' : 'Классическое бритье',
-        language === 'en' ? 'Beard Care' : language === 'tr' ? 'Sakal Bakım' : 'Уход за бородой',
-        language === 'en' ? 'Massage' : language === 'tr' ? 'Masaj' : 'Массаж'
+        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная стрижка',
+        language === 'en' ? 'Fade' : language === 'tr' ? 'Solmaya' : 'Фейд',
+        language === 'en' ? 'Grooming' : language === 'tr' ? 'Bakım' : 'Уход'
       ],
       nextAvailable: '16:15',
-      price: '₺90',
+      price: `${t.currency}38`,
       isVerified: true,
       instantBooking: true,
       features: [language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
       responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
       isTopRated: true,
-      repeatCustomers: 92
+      repeatCustomers: 92,
+      city: 'Berlin, Germany'
     },
     {
       id: 4,
-      name: 'Kemal Özkan',
-      shopName: 'Premium Barber',
+      name: 'Antonio García',
+      shopName: 'Madrid Premium',
       rating: 4.9,
       reviewCount: 156,
       distance: '1.5 km',
+      estimatedTime: '20 min',
       image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'VIP Service' : language === 'tr' ? 'VIP Hizmet' : 'VIP обслуживание',
-        language === 'en' ? 'Luxury Shave' : language === 'tr' ? 'Lüks Tıraş' : 'Люкс бритье',
-        language === 'en' ? 'Skin Care' : language === 'tr' ? 'Cilt Bakımı' : 'Уход за кожей'
+        language === 'en' ? 'Premium Service' : language === 'tr' ? 'Premium Hizmet' : 'Премиум услуга',
+        language === 'en' ? 'Traditional Shave' : language === 'tr' ? 'Geleneksel Tıraş' : 'Традиционное бритье',
+        language === 'en' ? 'Facial Care' : language === 'tr' ? 'Yüz Bakımı' : 'Уход за лицом'
       ],
       nextAvailable: '17:00',
-      price: '₺150',
-      originalPrice: '₺180',
-      discount: 17,
+      price: `${t.currency}55`,
+      originalPrice: `${t.currency}65`,
+      discount: 15,
       isVerified: true,
       instantBooking: true,
-      features: [language === 'en' ? 'Luxury Salon' : language === 'tr' ? 'Lüks Salon' : 'Люкс салон', language === 'en' ? 'VIP Room' : language === 'tr' ? 'VIP Oda' : 'VIP комната'],
+      features: [language === 'en' ? 'Luxury Salon' : language === 'tr' ? 'Lüks Salon' : 'Люкс салон', language === 'en' ? 'Premium Room' : language === 'tr' ? 'Premium Oda' : 'Премиум комната'],
       responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
       isPremium: true,
-      repeatCustomers: 95
+      repeatCustomers: 95,
+      city: 'Madrid, Spain'
     },
     {
       id: 5,
-      name: 'Emre Kılıç',
-      shopName: 'Trend Barber',
+      name: 'Viktor Petrov',
+      shopName: 'Amsterdam Style',
       rating: 4.6,
       reviewCount: 201,
       distance: '2.1 km',
+      estimatedTime: '25 min',
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Trendy Cut' : language === 'tr' ? 'Trendy Kesim' : 'Модная стрижка',
-        'Fade',
-        'Undercut'
+        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Современная стрижка',
+        'Undercut',
+        language === 'en' ? 'Color' : language === 'tr' ? 'Renk' : 'Окрашивание'
       ],
       nextAvailable: '18:30',
-      price: '₺85',
+      price: `${t.currency}40`,
       isVerified: true,
       instantBooking: true,
       features: [language === 'en' ? 'Music' : language === 'tr' ? 'Müzik' : 'Музыка', language === 'en' ? 'Coffee' : language === 'tr' ? 'Kahve' : 'Кофе', 'WiFi'],
       responseTime: language === 'en' ? 'Within 3 min' : language === 'tr' ? '3 dk içinde' : 'В течение 3 мин',
-      repeatCustomers: 82
+      repeatCustomers: 82,
+      city: 'Amsterdam, Netherlands'
     },
     {
       id: 6,
-      name: 'Hasan Demir',
-      shopName: 'Traditional Barber',
+      name: 'Giuseppe Romano',
+      shopName: 'Roma Classica',
       rating: 4.8,
       reviewCount: 289,
       distance: '0.9 km',
+      estimatedTime: '15 min',
       image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Traditional Shave' : language === 'tr' ? 'Geleneksel Tıraş' : 'Традиционное бритье',
-        language === 'en' ? 'Master Work' : language === 'tr' ? 'Usta İşi' : 'Мастерская работа',
-        language === 'en' ? 'Henna' : language === 'tr' ? 'Kına' : 'Хна'
+        language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
+        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
+        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
       ],
       nextAvailable: '19:00',
-      price: '₺70',
+      price: `${t.currency}45`,
       isVerified: true,
       instantBooking: true,
       features: [language === 'en' ? 'Traditional' : language === 'tr' ? 'Geleneksel' : 'Традиционный', language === 'en' ? 'Experienced' : language === 'tr' ? 'Deneyimli' : 'Опытный'],
       responseTime: language === 'en' ? 'Within 2 min' : language === 'tr' ? '2 dk içinde' : 'В течение 2 мин',
       isTraditional: true,
-      repeatCustomers: 88
+      repeatCustomers: 88,
+      city: 'Rome, Italy'
     }
   ];
 
@@ -361,7 +390,7 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#f8f9fa', minHeight: '100vh' }}>
+    <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh' }}>
       {/* Responsive Navigation Bar */}
       <AppBar 
         position="sticky" 
@@ -392,7 +421,7 @@ const Home = () => {
               )}
               <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ 
                 fontWeight: 'bold',
-                background: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)',
+                background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
@@ -404,16 +433,25 @@ const Home = () => {
               {/* Desktop Navigation Links */}
               {!isMobile && (
                 <Stack direction="row" spacing={4} sx={{ ml: 4 }}>
-                  <Button color="inherit" sx={{ fontWeight: 500, color: '#6b46c1' }}>
-                    {t.barbers}
-                  </Button>
-                  <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  <Button 
+                    color="inherit" 
+                    sx={{ fontWeight: 500, color: '#00a693' }}
+                    onClick={() => navigate('/services')}
+                  >
                     {t.services}
                   </Button>
-                  <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  <Button 
+                    color="inherit" 
+                    sx={{ fontWeight: 500 }}
+                    onClick={() => navigate('/offers')}
+                  >
                     {t.offers}
                   </Button>
-                  <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  <Button 
+                    color="inherit" 
+                    sx={{ fontWeight: 500 }}
+                    onClick={() => navigate('/about')}
+                  >
                     {t.about}
                   </Button>
                 </Stack>
@@ -432,7 +470,7 @@ const Home = () => {
                     '& .MuiSelect-select': { py: 1, display: 'flex', alignItems: 'center', fontSize: { xs: '0.8rem', md: '1rem' } }
                   }}
                 >
-                  <MenuItem value="en">🇺🇸 {isMobile ? 'EN' : 'English'}</MenuItem>
+                  <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'English'}</MenuItem>
                   <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'Türkçe'}</MenuItem>
                   <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'Русский'}</MenuItem>
                 </Select>
@@ -440,10 +478,10 @@ const Home = () => {
 
               {!isMobile && (
                 <>
-                  <Button variant="outlined" sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}>
+                  <Button variant="outlined" sx={{ color: '#00a693', borderColor: '#00a693' }}>
                     {t.login}
                   </Button>
-                  <Button variant="contained" sx={{ bgcolor: '#6b46c1', color: 'white' }}>
+                  <Button variant="contained" sx={{ bgcolor: '#00a693', color: 'white' }}>
                     {t.signup}
                   </Button>
                 </>
@@ -457,7 +495,7 @@ const Home = () => {
       <Box sx={{ 
         position: 'relative',
         height: { xs: '70vh', md: '600px' },
-        background: 'linear-gradient(135deg, rgba(107, 70, 193, 0.95) 0%, rgba(147, 51, 234, 0.9) 100%)',
+        background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden'
@@ -523,7 +561,7 @@ const Home = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <Search sx={{ color: '#6b46c1' }} />
+                          <Search sx={{ color: '#00a693' }} />
                         </InputAdornment>
                       ),
                     }}
@@ -545,7 +583,7 @@ const Home = () => {
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
-                          <LocationOn sx={{ color: '#6b46c1' }} />
+                          <LocationOn sx={{ color: '#00a693' }} />
                         </InputAdornment>
                       ),
                     }}
@@ -555,13 +593,13 @@ const Home = () => {
                     size="large"
                     fullWidth={isMobile}
                     sx={{ 
-                      bgcolor: '#fbbf24',
-                      color: 'black',
+                      bgcolor: '#ff6b35',
+                      color: 'white',
                       fontWeight: 'bold',
                       px: 4,
                       minWidth: { xs: 'auto', md: 120 },
                       height: '56px',
-                      '&:hover': { bgcolor: '#f59e0b' }
+                      '&:hover': { bgcolor: '#e55a2e' }
                     }}
                   >
                     {t.searchButton}
@@ -576,11 +614,11 @@ const Home = () => {
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle sx={{ fontSize: 20 }} />
-                    <Typography variant="body1">500+ {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berber' : 'Парикмахеров'}</Typography>
+                    <Typography variant="body1">2000+ {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berber' : 'Парикмахеров'}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Star sx={{ fontSize: 20 }} />
-                    <Typography variant="body1">25,000+ {t.happyCustomers}</Typography>
+                    <Typography variant="body1">150,000+ {t.happyCustomers}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CalendarToday sx={{ fontSize: 20 }} />
@@ -621,7 +659,7 @@ const Home = () => {
                 label={t.nearest} 
                 variant="filled" 
                 color="primary" 
-                sx={{ bgcolor: '#6b46c1' }}
+                sx={{ bgcolor: '#00a693' }}
                 size={isMobile ? "small" : "medium"}
               />
               <Chip label={t.popular} variant="outlined" size={isMobile ? "small" : "medium"} />
@@ -629,7 +667,7 @@ const Home = () => {
               <Button
                 variant="outlined"
                 startIcon={<FilterList />}
-                sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                sx={{ color: '#00a693', borderColor: '#00a693' }}
                 size={isMobile ? "small" : "medium"}
               >
                 {t.filter}
@@ -637,7 +675,7 @@ const Home = () => {
               <Button
                 variant="outlined"
                 startIcon={<Sort />}
-                sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                sx={{ color: '#00a693', borderColor: '#00a693' }}
                 size={isMobile ? "small" : "medium"}
               >
                 {t.sort}
@@ -661,7 +699,7 @@ const Home = () => {
                   height: '100%',
                   '&:hover': { 
                     transform: 'translateY(-4px)',
-                    boxShadow: '0 12px 40px rgba(107, 70, 193, 0.15)'
+                    boxShadow: '0 12px 40px rgba(0, 166, 147, 0.15)'
                   }
                 }}>
                   {/* Cover Image */}
@@ -673,21 +711,35 @@ const Home = () => {
                       alt={barber.shopName}
                     />
                     
+                    {/* City Badge */}
+                    <Chip
+                      label={barber.city}
+                      size="small"
+                      sx={{
+                        position: 'absolute',
+                        top: 8,
+                        left: 8,
+                        bgcolor: 'rgba(0, 166, 147, 0.9)',
+                        color: 'white',
+                        fontWeight: 'bold'
+                      }}
+                    />
+                    
                     {/* Badges */}
-                    <Box sx={{ position: 'absolute', top: 8, left: 8, display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                    <Box sx={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 0.5, flexDirection: 'column' }}>
                       {barber.isVerified && (
                         <Chip 
                           icon={<Verified sx={{ fontSize: 16 }} />}
                           label={t.verified}
                           size="small"
-                          sx={{ bgcolor: '#10b981', color: 'white', fontWeight: 'bold' }}
+                          sx={{ bgcolor: '#00a693', color: 'white', fontWeight: 'bold' }}
                         />
                       )}
                       {barber.isNew && (
                         <Chip 
                           label={t.new}
                           size="small"
-                          sx={{ bgcolor: '#3b82f6', color: 'white', fontWeight: 'bold' }}
+                          sx={{ bgcolor: '#ff6b35', color: 'white', fontWeight: 'bold' }}
                         />
                       )}
                       {barber.isTopRated && (
@@ -695,7 +747,7 @@ const Home = () => {
                           icon={<TrendingUp sx={{ fontSize: 16 }} />}
                           label={t.mostPreferred}
                           size="small"
-                          sx={{ bgcolor: '#f59e0b', color: 'white', fontWeight: 'bold' }}
+                          sx={{ bgcolor: '#fbbf24', color: 'white', fontWeight: 'bold' }}
                         />
                       )}
                       {barber.isPremium && (
@@ -717,8 +769,8 @@ const Home = () => {
                     {/* Rating Badge */}
                     <Box sx={{
                       position: 'absolute',
-                      top: 8,
-                      right: 8,
+                      bottom: 8,
+                      left: 8,
                       bgcolor: 'rgba(0,0,0,0.8)',
                       borderRadius: 2,
                       px: 1.5,
@@ -748,7 +800,7 @@ const Home = () => {
                       }}
                     >
                       {bookmarked.has(barber.id) ? 
-                        <Bookmark sx={{ color: '#6b46c1' }} /> : 
+                        <Bookmark sx={{ color: '#00a693' }} /> : 
                         <BookmarkBorder />
                       }
                     </IconButton>
@@ -801,8 +853,8 @@ const Home = () => {
                           label={specialty}
                           size="small"
                           sx={{
-                            bgcolor: '#ede9fe',
-                            color: '#6b46c1',
+                            bgcolor: '#e6f7f5',
+                            color: '#00a693',
                             fontSize: '0.75rem'
                           }}
                         />
@@ -811,8 +863,8 @@ const Home = () => {
 
                     {/* Next Available */}
                     <Box sx={{ 
-                      bgcolor: '#f0fdf4', 
-                      border: '1px solid #bbf7d0', 
+                      bgcolor: '#e6f7f5', 
+                      border: '1px solid #b3ece6', 
                       borderRadius: 2, 
                       p: 1.5, 
                       mb: 2 
@@ -822,8 +874,8 @@ const Home = () => {
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                          <AccessTime sx={{ fontSize: 16, color: '#10b981' }} />
-                          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#10b981' }}>
+                          <AccessTime sx={{ fontSize: 16, color: '#00a693' }} />
+                          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#00a693' }}>
                             {t.today} {barber.nextAvailable}
                           </Typography>
                         </Box>
@@ -831,7 +883,7 @@ const Home = () => {
                           <Chip 
                             label={t.instantApproval}
                             size="small"
-                            sx={{ bgcolor: '#10b981', color: 'white', fontWeight: 'bold' }}
+                            sx={{ bgcolor: '#00a693', color: 'white', fontWeight: 'bold' }}
                           />
                         )}
                       </Box>
@@ -869,9 +921,9 @@ const Home = () => {
                         fullWidth
                         variant="contained"
                         sx={{
-                          bgcolor: '#6b46c1',
+                          bgcolor: '#00a693',
                           fontWeight: 'bold',
-                          '&:hover': { bgcolor: '#553c9a' }
+                          '&:hover': { bgcolor: '#007562' }
                         }}
                         onClick={() => navigate(`/barber/${barber.id}`)}
                       >
@@ -880,9 +932,9 @@ const Home = () => {
                       <IconButton 
                         sx={{ 
                           border: 1, 
-                          borderColor: '#6b46c1',
-                          color: '#6b46c1',
-                          '&:hover': { bgcolor: '#ede9fe' }
+                          borderColor: '#00a693',
+                          color: '#00a693',
+                          '&:hover': { bgcolor: '#e6f7f5' }
                         }}
                         onClick={(e) => e.stopPropagation()}
                       >
@@ -897,21 +949,21 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Footer */}
+      {/* Simplified Footer */}
       <Box sx={{ bgcolor: '#1f2937', color: 'white', py: { xs: 4, md: 6 }, mt: 4 }}>
         <Container maxWidth="xl">
           <Grid container spacing={4}>
             {/* Brand Section */}
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
                 {t.brand}
               </Typography>
               <Typography variant="body2" sx={{ mb: 3, opacity: 0.8, lineHeight: 1.6 }}>
                 {language === 'en' 
-                  ? 'The most trusted platform for professional barber services. Discover the best barbers and book appointments easily.'
+                  ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
-                  ? 'Profesyonel berber hizmetleri için en güvenilir platform. En iyi berberleri keşfedin ve kolayca randevu al��n.'
-                  : 'Самая надежная платформа для профессиональных парикмахерских услуг. Откройте для себя лучших парикмахеров и легко записывайтесь на прием.'
+                  ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
+                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
@@ -930,86 +982,84 @@ const Home = () => {
               </Stack>
             </Grid>
 
-            {/* Quick Links */}
-            <Grid item xs={6} md={2}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'en' ? 'Quick Links' : language === 'tr' ? 'Hızlı Bağlantılar' : 'Быстрые ссылки'}
-              </Typography>
-              <Stack spacing={1}>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {t.barbers}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {t.services}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {t.offers}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Blog' : language === 'tr' ? 'Blog' : 'Блог'}
-                </Link>
-              </Stack>
-            </Grid>
-
             {/* Company */}
-            <Grid item xs={6} md={2}>
+            <Grid item xs={6} md={3}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'en' ? 'Company' : language === 'tr' ? 'Şirket' : 'Компания'}
+                {t.company}
               </Typography>
               <Stack spacing={1}>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/about')}
+                >
                   {t.about}
                 </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/company')}
+                >
                   {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
                 </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Contact' : language === 'tr' ? 'İletişim' : 'Контакты'}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/company')}
+                >
                   {language === 'en' ? 'Press' : language === 'tr' ? 'Basın' : 'Пресса'}
+                </Link>
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/company')}
+                >
+                  {language === 'en' ? 'Partners' : language === 'tr' ? 'Ortaklar' : 'Партнеры'}
                 </Link>
               </Stack>
             </Grid>
 
             {/* Support */}
-            <Grid item xs={6} md={2}>
+            <Grid item xs={6} md={3}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'en' ? 'Support' : language === 'tr' ? 'Destek' : 'Поддержка'}
+                {t.support}
               </Typography>
               <Stack spacing={1}>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/support')}
+                >
                   {language === 'en' ? 'Help Center' : language === 'tr' ? 'Yardım Merkezi' : 'Центр помощи'}
                 </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Contact' : language === 'tr' ? 'İletişim' : 'Контакты'}
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/support')}
+                >
+                  {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с нами'}
                 </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Security' : language === 'tr' ? 'Güvenlik' : 'Безопасность'}
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/support')}
+                >
+                  {language === 'en' ? 'FAQ' : language === 'tr' ? 'SSS' : 'FAQ'}
                 </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Privacy' : language === 'tr' ? 'Gizlilik' : 'Конфиденциальность'}
-                </Link>
-              </Stack>
-            </Grid>
-
-            {/* Legal */}
-            <Grid item xs={6} md={2}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'en' ? 'Legal' : language === 'tr' ? 'Yasal' : 'Правовая информация'}
-              </Typography>
-              <Stack spacing={1}>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullanım Şartları' : 'Условия использования'}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика конфиденциальности'}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'Cookie Policy' : language === 'tr' ? 'Çerez Politikası' : 'Политика файлов cookie'}
-                </Link>
-                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'en' ? 'GDPR' : language === 'tr' ? 'KVKK' : 'GDPR'}
+                <Link 
+                  href="#" 
+                  color="inherit" 
+                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                  onClick={() => navigate('/support')}
+                >
+                  {language === 'en' ? 'Safety' : language === 'tr' ? 'Güvenlik' : 'Безопасность'}
                 </Link>
               </Stack>
             </Grid>
@@ -1033,7 +1083,7 @@ const Home = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6 }}>
-              {language === 'en' ? 'Made in Turkey' : language === 'tr' ? 'Türkiye\'de yapıldı' : 'Сделано в Турции'} 🇹🇷
+              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
             </Typography>
           </Box>
         </Container>
@@ -1050,7 +1100,7 @@ const Home = () => {
       >
         <Box sx={{ p: 2 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#00a693' }}>
               {t.brand}
             </Typography>
             <IconButton onClick={() => setDrawerOpen(false)}>
@@ -1063,6 +1113,18 @@ const Home = () => {
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={t.home} />
             </ListItem>
+            <ListItem button onClick={() => navigate('/services')}>
+              <ListItemIcon><ContentCut /></ListItemIcon>
+              <ListItemText primary={t.services} />
+            </ListItem>
+            <ListItem button onClick={() => navigate('/offers')}>
+              <ListItemIcon><LocalOffer /></ListItemIcon>
+              <ListItemText primary={t.offers} />
+            </ListItem>
+            <ListItem button onClick={() => navigate('/about')}>
+              <ListItemIcon><Person /></ListItemIcon>
+              <ListItemText primary={t.about} />
+            </ListItem>
             <ListItem button onClick={() => navigate('/dashboard')}>
               <ListItemIcon><Schedule /></ListItemIcon>
               <ListItemText primary={t.appointments} />
@@ -1071,18 +1133,14 @@ const Home = () => {
               <ListItemIcon><Favorite /></ListItemIcon>
               <ListItemText primary={t.favorites} />
             </ListItem>
-            <ListItem button>
-              <ListItemIcon><Person /></ListItemIcon>
-              <ListItemText primary={t.profile} />
-            </ListItem>
             <Divider sx={{ my: 2 }} />
             <ListItem>
-              <Button variant="outlined" fullWidth sx={{ color: '#6b46c1', borderColor: '#6b46c1', mr: 1 }}>
+              <Button variant="outlined" fullWidth sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}>
                 {t.login}
               </Button>
             </ListItem>
             <ListItem>
-              <Button variant="contained" fullWidth sx={{ bgcolor: '#6b46c1', color: 'white' }}>
+              <Button variant="contained" fullWidth sx={{ bgcolor: '#00a693', color: 'white' }}>
                 {t.signup}
               </Button>
             </ListItem>
@@ -1138,9 +1196,9 @@ const Home = () => {
             position: 'fixed',
             bottom: 80,
             right: 16,
-            bgcolor: '#fbbf24',
-            color: 'black',
-            '&:hover': { bgcolor: '#f59e0b' }
+            bgcolor: '#ff6b35',
+            color: 'white',
+            '&:hover': { bgcolor: '#e55a2e' }
           }}
           onClick={() => {}}
         >
