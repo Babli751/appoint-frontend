@@ -248,7 +248,7 @@ const Home = () => {
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
         language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
-        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпад��р'
+        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
       ],
       nextAvailable: '19:00',
       price: `${t.currency}45`,
@@ -759,20 +759,24 @@ const Home = () => {
                     </Stack>
 
                     {/* Next Available */}
-                    <Box sx={{ 
-                      bgcolor: '#e6f7f5', 
-                      border: '1px solid #b3ece6', 
-                      borderRadius: 2, 
-                      p: { xs: 1, md: 1.5 },
-                      mb: { xs: 1.5, md: 2 } 
+                    <Box sx={{
+                      bgcolor: '#e6f7f5',
+                      border: '1px solid #b3ece6',
+                      borderRadius: 2,
+                      p: { xs: 1.2, md: 1.5 },
+                      mb: { xs: 1.5, md: 2 },
+                      minHeight: { xs: 'auto', md: '70px' },
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center'
                     }}>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5, fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                         {t.nextAvailable}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                           <AccessTime sx={{ fontSize: 16, color: '#00a693' }} />
-                          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#00a693' }}>
+                          <Typography variant="body1" sx={{ fontWeight: 'bold', color: '#00a693', fontSize: { xs: '0.85rem', md: '1rem' } }}>
                             {t.today} {barber.nextAvailable}
                           </Typography>
                         </Box>
