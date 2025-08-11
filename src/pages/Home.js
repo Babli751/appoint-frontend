@@ -248,7 +248,7 @@ const Home = () => {
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
         language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
-        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
+        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпад��р'
       ],
       nextAvailable: '19:00',
       price: `${t.currency}45`,
@@ -717,13 +717,13 @@ const Home = () => {
                     />
                   </Box>
 
-                  <CardContent sx={{ pt: { xs: 4, sm: 5, md: 5.5, lg: 6 }, pb: { xs: 2, md: 3 }, px: { xs: 1.5, sm: 2, md: 3 } }}>
+                  <CardContent sx={{ pt: { xs: 4.5, sm: 5.5, md: 6, lg: 7 }, pb: { xs: 2.5, md: 3 }, px: { xs: 1.5, sm: 2, md: 3 } }}>
                     {/* Header */}
-                    <Box sx={{ mb: 2 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: { xs: '0.95rem', sm: '1rem', md: '1.15rem', lg: '1.25rem' } }}>
+                    <Box sx={{ mb: { xs: 1.5, md: 2 } }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: { xs: '0.95rem', sm: '1rem', md: '1.15rem', lg: '1.25rem' }, lineHeight: 1.2, wordBreak: 'break-word' }}>
                         {barber.name}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' }, lineHeight: 1.3 }}>
                         {barber.shopName}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
@@ -735,7 +735,7 @@ const Home = () => {
                     </Box>
 
                     {/* Distance and Response Time */}
-                    <Box sx={{ mb: 2 }}>
+                    <Box sx={{ mb: { xs: 1.5, md: 2 } }}>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
                         <LocationOn sx={{ fontSize: 14, mr: 0.5, verticalAlign: 'middle' }} />
                         {barber.distance} • {barber.responseTime}
