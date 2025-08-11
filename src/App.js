@@ -70,28 +70,28 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isAuthenticated, setAuth] = useState(!!localStorage.getItem('token'));
+  const [isAuthenticated, setAuth] = useState(true); // Temporarily set to true to show homepage
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
         <Routes>
-          <Route 
-            path="/" 
-            element={isAuthenticated ? <Home /> : <Navigate to="/login" />} 
+          <Route
+            path="/"
+            element={<Home />}
           />
-          <Route 
-            path="/login" 
-            element={!isAuthenticated ? <Login setAuth={setAuth} /> : <Navigate to="/" />} 
+          <Route
+            path="/login"
+            element={<Login setAuth={setAuth} />}
           />
-          <Route 
-            path="/dashboard" 
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} 
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
           />
-          <Route 
-            path="/barber/:id" 
-            element={isAuthenticated ? <BarberDetail /> : <Navigate to="/login" />} 
+          <Route
+            path="/barber/:id"
+            element={<BarberDetail />}
           />
         </Routes>
       </Router>
