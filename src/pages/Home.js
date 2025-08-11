@@ -119,7 +119,7 @@ const Home = () => {
       specialties: [
         language === 'en' ? 'Classic Cut' : language === 'tr' ? 'Klasik Kesim' : 'Классическая стрижка',
         language === 'en' ? 'Beard Trim' : language === 'tr' ? 'Sakal Düzeltme' : 'Стрижка бороды',
-        language === 'en' ? 'Hot Towel' : language === 'tr' ? 'Sıcak Havlu' : 'Горячее полотенце'
+        language === 'en' ? 'Hot Towel' : language === 'tr' ? 'Sıcak Havlu' : 'Горячее полотенц��'
       ],
       nextAvailable: '14:30',
       price: `${t.currency}35`,
@@ -275,7 +275,7 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh' }}>
+    <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh', pb: { xs: '70px', md: 0 } }}>
       {/* Responsive Navigation Bar */}
       <AppBar 
         position="sticky" 
@@ -357,7 +357,7 @@ const Home = () => {
                   }}
                 >
                   <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : isTablet ? 'EN' : 'English'}</MenuItem>
-                  <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : isTablet ? 'TR' : 'Türkçe'}</MenuItem>
+                  <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : isTablet ? 'TR' : 'Türk��e'}</MenuItem>
                   <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : isTablet ? 'RU' : 'Русский'}</MenuItem>
                 </Select>
               </FormControl>
