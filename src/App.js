@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import { LanguageProvider } from './contexts/LanguageContext';
 import Login from './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -93,9 +94,10 @@ function App() {
   const [isAuthenticated, setAuth] = useState(true); // Temporarily set to true to show homepage
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
+    <LanguageProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
         <Routes>
           <Route 
             path="/" 
@@ -134,8 +136,9 @@ function App() {
             element={<Support />} 
           />
         </Routes>
-      </Router>
-    </ThemeProvider>
+        </Router>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
 
