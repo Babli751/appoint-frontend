@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -37,7 +38,7 @@ const Services = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
-  const [language, setLanguage] = useState('en');
+  const { language, changeLanguage, t: translations } = useLanguage();
 
   // Language content
   const content = {
@@ -82,7 +83,12 @@ const Services = () => {
     }
   };
 
-  const t = content[language];
+  // Use specific translations for this page
+  const t = {
+    ...translations,
+    services: translations.ourServices,
+    subtitle: translations.servicesSubtitle
+  };
 
   const serviceCategories = [
     {
@@ -160,7 +166,7 @@ const Services = () => {
             ? 'Custom beard shaping and styling'
             : language === 'tr' 
             ? 'Özel sakal şekillendirme ve stili'
-            : 'Индивидуальное формирование и стайлинг бороды'
+            : 'Индивидуальное формиров��ние и стайлинг бороды'
         },
         {
           name: language === 'en' ? 'Mustache Trim' : language === 'tr' ? 'Bıyık Düzeltme' : 'Стрижка усов',
@@ -294,7 +300,7 @@ const Services = () => {
           <FormControl size="small" sx={{ minWidth: { xs: 70, md: 100 } }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => changeLanguage(e.target.value)}
               sx={{ 
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
