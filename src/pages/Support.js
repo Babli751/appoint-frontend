@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -45,7 +46,7 @@ const Support = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [language, setLanguage] = useState('en');
+  const { language, changeLanguage, t: translations } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
 
   // Language content
@@ -102,14 +103,28 @@ const Support = () => {
       livechat: 'Живой чат',
       emailSupport: 'Поддержка по email',
       phoneSupport: 'Телефонная поддержка',
-      available247: 'Доступно 24/7',
+      available247: 'Доступ��о 24/7',
       businessHours: 'Только в рабочие часы',
       fastResponse: 'Быстрый ответ',
       expandedHours: 'Расширенные часы'
     }
   };
 
-  const t = content[language];
+  // Use centralized translations with page-specific content
+  const t = {
+    ...translations,
+    subtitle: language === 'en' ? 'Get help and find answers to your questions' : language === 'tr' ? 'Yardım alın ve sorularınızın cevaplarını bulun' : 'Получите помощь и найдите ответы на свои вопросы',
+    searchPlaceholder: language === 'en' ? 'Search for help articles...' : language === 'tr' ? 'Yardım makalelerini arayın...' : 'Поиск статей помощи...',
+    searchHelp: language === 'en' ? 'Search Help' : language === 'tr' ? 'Yardım Ara' : 'Поиск помощи',
+    getSupport: language === 'en' ? 'Get Support' : language === 'tr' ? 'Destek Al' : 'Получить поддержку',
+    livechat: language === 'en' ? 'Live Chat' : language === 'tr' ? 'Canlı Sohbet' : 'Онлайн-чат',
+    emailSupport: language === 'en' ? 'Email Support' : language === 'tr' ? 'E-posta Desteği' : 'Поддержка по электронной почте',
+    phoneSupport: language === 'en' ? 'Phone Support' : language === 'tr' ? 'Telefon Desteği' : 'Телеф��нная поддержка',
+    available247: language === 'en' ? 'Available 24/7' : language === 'tr' ? '7/24 Erişilebilir' : 'Доступно 24/7',
+    businessHours: language === 'en' ? 'Business Hours Only' : language === 'tr' ? 'Sadece Mesai Saatleri' : 'Только в рабочие часы',
+    fastResponse: language === 'en' ? 'Fast Response' : language === 'tr' ? 'Hızlı Yanıt' : 'Быстрый ответ',
+    expandedHours: language === 'en' ? 'Extended Hours' : language === 'tr' ? 'Genişletilmiş Saatler' : 'Расширенные часы'
+  };
 
   const supportOptions = [
     {
@@ -273,7 +288,7 @@ const Support = () => {
           <FormControl size="small" sx={{ minWidth: 100 }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => changeLanguage(e.target.value)}
               sx={{ 
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
