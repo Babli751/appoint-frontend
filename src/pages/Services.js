@@ -395,16 +395,19 @@ const Services = () => {
                               p: { xs: 1.5, md: 2 },
                               bgcolor: '#f8fffe',
                               border: '1px solid #e6f7f5',
+                              height: '100%',
+                              display: 'flex',
+                              flexDirection: 'column',
                               '&:hover': {
                                 borderColor: '#00a693',
                                 boxShadow: '0 4px 12px rgba(0, 166, 147, 0.1)'
                               }
                             }}>
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                                <Typography variant="h6" sx={{ fontWeight: 'bold', flex: 1, fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1, flexWrap: 'wrap', gap: 1 }}>
+                                <Typography variant="h6" sx={{ fontWeight: 'bold', flex: 1, fontSize: { xs: '1rem', md: '1.25rem' }, lineHeight: 1.2, minWidth: 'fit-content' }}>
                                   {service.name}
                                 </Typography>
-                                <Stack direction="row" spacing={0.5}>
+                                <Stack direction="row" spacing={0.5} sx={{ flexWrap: 'wrap', gap: 0.5 }}>
                                   {service.popular && (
                                     <Chip 
                                       label={t.popular}
@@ -429,11 +432,11 @@ const Services = () => {
                                 </Stack>
                               </Box>
                               
-                              <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: { xs: '0.85rem', md: '0.875rem' } }}>
+                              <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: { xs: '0.85rem', md: '0.875rem' }, lineHeight: 1.4, flex: 1 }}>
                                 {service.description}
                               </Typography>
 
-                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: { xs: 'wrap', sm: 'nowrap' }, gap: 1 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                   <AccessTime sx={{ fontSize: 16, color: '#00a693' }} />
                                   <Typography variant="body2" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
