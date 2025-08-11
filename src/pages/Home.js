@@ -1088,7 +1088,7 @@ const Home = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
-              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
+              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} ���🇺
             </Typography>
           </Box>
         </Container>
@@ -1100,12 +1100,12 @@ const Home = () => {
         open={drawerOpen} 
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
-          sx: { width: 280 }
+          sx: { width: { xs: 260, sm: 280 } }
         }}
       >
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: { xs: 1.5, sm: 2 } }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#00a693' }}>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#00a693', fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
               {t.brand}
             </Typography>
             <IconButton onClick={() => setDrawerOpen(false)}>
@@ -1155,21 +1155,22 @@ const Home = () => {
 
       {/* Bottom Navigation for Mobile */}
       {isMobile && (
-        <Box 
-          sx={{ 
-            position: 'fixed', 
-            bottom: 0, 
-            left: 0, 
-            right: 0, 
+        <Box
+          sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
             zIndex: 1000,
             bgcolor: 'white',
-            borderTop: '1px solid #e5e7eb'
+            borderTop: '1px solid #e5e7eb',
+            display: { xs: 'block', md: 'none' }
           }}
         >
           <BottomNavigation
             value={bottomNavValue}
             onChange={(event, newValue) => setBottomNavValue(newValue)}
-            sx={{ height: 60 }}
+            sx={{ height: { xs: 56, sm: 60 } }}
           >
             <BottomNavigationAction 
               label={t.home} 
@@ -1199,8 +1200,8 @@ const Home = () => {
           color="primary"
           sx={{
             position: 'fixed',
-            bottom: 80,
-            right: 16,
+            bottom: { xs: 76, sm: 80 },
+            right: { xs: 12, sm: 16 },
             bgcolor: '#ff6b35',
             color: 'white',
             '&:hover': { bgcolor: '#e55a2e' }
