@@ -611,12 +611,15 @@ const Home = () => {
                         left: 8,
                         bgcolor: 'rgba(0, 166, 147, 0.9)',
                         color: 'white',
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        maxWidth: '50%',
+                        zIndex: 2,
+                        fontSize: { xs: '0.7rem', md: '0.75rem' }
                       }}
                     />
                     
                     {/* Badges */}
-                    <Box sx={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 0.5, flexDirection: 'column' }}>
+                    <Box sx={{ position: 'absolute', top: 8, right: 8, display: 'flex', gap: 0.5, flexDirection: 'column', maxWidth: '60%', zIndex: 2 }}>
                       {barber.isVerified && (
                         <Chip 
                           icon={<Verified sx={{ fontSize: 16 }} />}
@@ -663,14 +666,15 @@ const Home = () => {
                       left: 8,
                       bgcolor: 'rgba(0,0,0,0.8)',
                       borderRadius: 2,
-                      px: 1.5,
+                      px: { xs: 1, md: 1.5 },
                       py: 0.5,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 0.5
+                      gap: 0.5,
+                      zIndex: 2
                     }}>
                       <Star sx={{ color: '#fbbf24', fontSize: 16 }} />
-                      <Typography variant="body2" sx={{ color: 'white', fontWeight: 'bold' }}>
+                      <Typography variant="body2" sx={{ color: 'white', fontWeight: 'bold', fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                         {barber.rating}
                       </Typography>
                     </Box>
@@ -682,7 +686,10 @@ const Home = () => {
                         bottom: 8,
                         right: 8,
                         bgcolor: 'rgba(255,255,255,0.9)',
-                        '&:hover': { bgcolor: 'white' }
+                        '&:hover': { bgcolor: 'white' },
+                        zIndex: 2,
+                        width: { xs: 32, md: 40 },
+                        height: { xs: 32, md: 40 }
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
