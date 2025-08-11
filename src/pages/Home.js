@@ -19,27 +19,11 @@ import {
   Stack,
   Badge,
   MenuItem,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Paper,
-  Fab,
-  Slider,
   FormControl,
   InputLabel,
   Select,
-  Autocomplete,
-  BottomNavigation,
-  BottomNavigationAction,
-  Dialog,
-  DialogTitle,
-  DialogContent,
   Link,
-  useTheme,
-  useMediaQuery
+  Divider
 } from '@mui/material';
 import {
   Search,
@@ -48,16 +32,11 @@ import {
   AccessTime,
   Person,
   Notifications,
-  Menu as MenuIcon,
-  Home as HomeIcon,
   Schedule,
   Favorite,
-  AccountCircle,
   FilterList,
   Sort,
-  List as ListIcon,
   LocalOffer,
-  Bolt,
   TrendingUp,
   Verified,
   Payment,
@@ -65,7 +44,6 @@ import {
   Share,
   BookmarkBorder,
   Bookmark,
-  Close,
   MyLocation,
   Wifi,
   AcUnit,
@@ -75,154 +53,79 @@ import {
   Spa,
   ColorLens,
   Face,
-  MobileFriendly,
   Language,
   Facebook,
   Twitter,
   Instagram,
   LinkedIn,
-  Email,
   Copyright,
-  Business,
-  Support,
-  Security,
-  Help,
-  Info,
-  PlayArrow
+  PlayArrow,
+  CalendarToday,
+  CheckCircle,
+  EuroSymbol
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
   const [searchLocation, setSearchLocation] = useState('Ankara, Çankaya');
   const [searchService, setSearchService] = useState('');
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [filterDialog, setFilterDialog] = useState(false);
-  const [viewMode, setViewMode] = useState('grid');
-  const [priceRange, setPriceRange] = useState([50, 200]);
-  const [selectedDate, setSelectedDate] = useState('today');
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
-  const [currentLocation, setCurrentLocation] = useState('Çankaya, Ankara');
-  const [notificationCount, setNotificationCount] = useState(3);
-  const [bottomNavValue, setBottomNavValue] = useState(0);
   const [language, setLanguage] = useState('tr');
 
   // Language content
   const content = {
     tr: {
       brand: 'BarberPro',
-      heroTitle: 'Profesyonel Berber Deneyimi',
-      heroSubtitle: 'En iyi berberleri keşfedin ve kolayca randevu alın',
-      heroDescription: 'Yakınınızdaki en iyi berberlerden hemen randevu alın. Profesyonel hizmet, uygun fiyatlar.',
+      heroTitle: 'En İyi Berber Deneyimi',
+      heroSubtitle: 'Yakınınızdaki profesyonel berberlerden hemen randevu alın',
       searchService: 'Hangi hizmeti arıyorsunuz?',
       searchLocation: 'Nerede?',
       searchButton: 'Ara',
-      quickBooking: 'Hızlı Randevu',
-      currentLocation: 'Mevcut konum',
-      specialOffers: 'Özel Fırsatlar',
-      serviceCategories: 'Hizmet Kategorileri',
-      nearbyBarbers: 'Yakınınızdaki Berberler',
-      results: 'sonuç',
+      featuredBarbers: 'Öne Çıkan Berberler',
       bookAppointment: 'Randevu Al',
-      instantApproval: 'Anında Onay',
       verified: 'Doğrulanmış',
       new: 'Yeni',
       mostPreferred: 'En Çok Tercih Edilen',
-      nextAvailable: 'Sonraki müsait randevu',
+      nextAvailable: 'Sonraki müsait',
       today: 'Bugün',
-      starting: 'başlangıç',
-      home: 'Ana Sayfa',
-      appointments: 'Randevularım',
-      favorites: 'Favorilerim',
-      profile: 'Profilim'
+      starting: 'başlangıç'
     },
     en: {
       brand: 'BarberPro',
-      heroTitle: 'Professional Barber Experience',
-      heroSubtitle: 'Discover the best barbers and book appointments easily',
-      heroDescription: 'Book appointments instantly with the best barbers nearby. Professional service, affordable prices.',
+      heroTitle: 'Best Barber Experience',
+      heroSubtitle: 'Book appointments instantly with professional barbers nearby',
       searchService: 'What service are you looking for?',
       searchLocation: 'Where?',
       searchButton: 'Search',
-      quickBooking: 'Quick Booking',
-      currentLocation: 'Current location',
-      specialOffers: 'Special Offers',
-      serviceCategories: 'Service Categories',
-      nearbyBarbers: 'Nearby Barbers',
-      results: 'results',
+      featuredBarbers: 'Featured Barbers',
       bookAppointment: 'Book Appointment',
-      instantApproval: 'Instant Approval',
       verified: 'Verified',
       new: 'New',
       mostPreferred: 'Most Preferred',
       nextAvailable: 'Next available',
       today: 'Today',
-      starting: 'starting',
-      home: 'Home',
-      appointments: 'My Appointments',
-      favorites: 'Favorites',
-      profile: 'Profile'
+      starting: 'starting'
     },
     ru: {
       brand: 'BarberPro',
-      heroTitle: 'Профессиональный опыт парикмахера',
-      heroSubtitle: 'Откройте для себя лучших парикмахеров и легко записывайтесь на прием',
-      heroDescription: 'Записывайтесь на прием мгновенно к лучшим парикмахерам поблизости. Профессиональный сервис, доступные цены.',
+      heroTitle: 'Лучший опыт парикмахера',
+      heroSubtitle: 'Записывайтесь мгновенно к профессиональным парикмахерам рядом',
       searchService: 'Какую услугу вы ищете?',
       searchLocation: 'Где?',
       searchButton: 'Поиск',
-      quickBooking: 'Быстрая запись',
-      currentLocation: 'Текущее местоположение',
-      specialOffers: 'Специальные предложения',
-      serviceCategories: 'Категории услуг',
-      nearbyBarbers: 'Ближайшие парикмахеры',
-      results: 'результатов',
+      featuredBarbers: 'Рекомендуемые парикмахеры',
       bookAppointment: 'Записаться',
-      instantApproval: 'Мгновенное подтверждение',
       verified: 'Проверено',
       new: 'Новый',
       mostPreferred: 'Самый предпочитаемый',
       nextAvailable: 'Следующий доступный',
       today: 'Сегодня',
-      starting: 'от',
-      home: 'Главная',
-      appointments: 'Мои записи',
-      favorites: 'Избранное',
-      profile: 'Профиль'
+      starting: 'от'
     }
   };
 
   const t = content[language];
-
-  const serviceCategories = [
-    { 
-      id: 'haircut', 
-      name: language === 'tr' ? 'Saç Kesimi' : language === 'en' ? 'Haircut' : 'Стрижка', 
-      icon: <ContentCut />,
-      count: 156
-    },
-    { 
-      id: 'beard', 
-      name: language === 'tr' ? 'Sakal & Tıraş' : language === 'en' ? 'Beard & Shave' : 'Борода и бритье', 
-      icon: <Face />,
-      count: 89
-    },
-    { 
-      id: 'styling', 
-      name: language === 'tr' ? 'Şekillendirme' : language === 'en' ? 'Styling' : 'Укладка', 
-      icon: <ColorLens />,
-      count: 124
-    },
-    { 
-      id: 'treatment', 
-      name: language === 'tr' ? 'Bakım' : language === 'en' ? 'Treatment' : 'Уход', 
-      icon: <Spa />,
-      count: 67
-    }
-  ];
 
   const featuredBarbers = [
     {
@@ -232,21 +135,17 @@ const Home = () => {
       rating: 4.8,
       reviewCount: 245,
       distance: '0.8 km',
-      estimatedTime: '12 dk',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=400&h=200&fit=crop',
-      specialties: [
-        language === 'tr' ? 'Saç Kesimi' : language === 'en' ? 'Haircut' : 'Стрижка',
-        language === 'tr' ? 'Sakal Tıraş' : language === 'en' ? 'Beard Trim' : 'Стрижка бороды'
-      ],
+      coverImage: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=400&h=250&fit=crop',
+      specialties: ['Saç Kesimi', 'Sakal Tıraş', 'Masaj'],
       nextAvailable: '14:30',
       price: '₺80',
       originalPrice: '₺100',
       discount: 20,
       isVerified: true,
       instantBooking: true,
-      features: ['WiFi', language === 'tr' ? 'Klima' : language === 'en' ? 'AC' : 'Кондиционер', language === 'tr' ? 'Otopark' : language === 'en' ? 'Parking' : 'Парковка'],
-      responseTime: language === 'tr' ? '2 dk içinde' : language === 'en' ? 'Within 2 min' : 'В течение 2 мин',
+      features: ['WiFi', 'Klima', 'Otopark', 'Kart Ödeme'],
+      responseTime: '2 dk içinde',
       repeatCustomers: 85
     },
     {
@@ -256,21 +155,17 @@ const Home = () => {
       rating: 4.9,
       reviewCount: 189,
       distance: '1.2 km',
-      estimatedTime: '18 dk',
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=200&fit=crop',
-      specialties: [
-        language === 'tr' ? 'Modern Kesim' : language === 'en' ? 'Modern Cut' : 'Современная стрижка',
-        language === 'tr' ? 'Boya' : language === 'en' ? 'Coloring' : 'Окрашивание'
-      ],
+      coverImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=250&fit=crop',
+      specialties: ['Modern Kesim', 'Boya', 'Şekillendirme'],
       nextAvailable: '15:00',
       price: '₺75',
       originalPrice: '₺90',
       discount: 15,
       isVerified: true,
       instantBooking: false,
-      features: ['WiFi', language === 'tr' ? 'Kart Ödeme' : language === 'en' ? 'Card Payment' : 'Оплата картой'],
-      responseTime: language === 'tr' ? '5 dk içinde' : language === 'en' ? 'Within 5 min' : 'В течение 5 мин',
+      features: ['WiFi', 'Kart Ödeme', 'Online Ödeme'],
+      responseTime: '5 dk içinde',
       isNew: true,
       repeatCustomers: 78
     },
@@ -281,21 +176,75 @@ const Home = () => {
       rating: 4.7,
       reviewCount: 312,
       distance: '0.5 km',
-      estimatedTime: '8 dk',
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=200&fit=crop',
-      specialties: [
-        language === 'tr' ? 'Klasik Tıraş' : language === 'en' ? 'Classic Shave' : 'Классическое бритье',
-        language === 'tr' ? 'Masaj' : language === 'en' ? 'Massage' : 'Массаж'
-      ],
+      coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=250&fit=crop',
+      specialties: ['Klasik Tıraş', 'Sakal Bakım', 'Masaj'],
       nextAvailable: '16:15',
       price: '₺90',
       isVerified: true,
       instantBooking: true,
-      features: [language === 'tr' ? 'Klima' : language === 'en' ? 'AC' : 'Кондиционер', language === 'tr' ? 'Otopark' : language === 'en' ? 'Parking' : 'Парковка'],
-      responseTime: language === 'tr' ? '1 dk içinde' : language === 'en' ? 'Within 1 min' : 'В течение 1 мин',
+      features: ['Klima', 'Otopark', 'Kart Ödeme', 'Engelli Erişim'],
+      responseTime: '1 dk içinde',
       isTopRated: true,
       repeatCustomers: 92
+    },
+    {
+      id: 4,
+      name: 'Kemal Özkan',
+      shopName: 'Premium Barber',
+      rating: 4.9,
+      reviewCount: 156,
+      distance: '1.5 km',
+      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face',
+      coverImage: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=250&fit=crop',
+      specialties: ['VIP Hizmet', 'Lüks Tıraş', 'Cilt Bakımı'],
+      nextAvailable: '17:00',
+      price: '₺150',
+      originalPrice: '₺180',
+      discount: 17,
+      isVerified: true,
+      instantBooking: true,
+      features: ['Lüks Salon', 'VIP Oda', 'İçecek Servisi'],
+      responseTime: '1 dk içinde',
+      isPremium: true,
+      repeatCustomers: 95
+    },
+    {
+      id: 5,
+      name: 'Emre Kılıç',
+      shopName: 'Trend Barber',
+      rating: 4.6,
+      reviewCount: 201,
+      distance: '2.1 km',
+      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
+      coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=250&fit=crop',
+      specialties: ['Trendy Kesim', 'Fade', 'Undercut'],
+      nextAvailable: '18:30',
+      price: '₺85',
+      isVerified: true,
+      instantBooking: true,
+      features: ['Müzik', 'Kahve', 'WiFi'],
+      responseTime: '3 dk içinde',
+      repeatCustomers: 82
+    },
+    {
+      id: 6,
+      name: 'Hasan Demir',
+      shopName: 'Traditional Barber',
+      rating: 4.8,
+      reviewCount: 289,
+      distance: '0.9 km',
+      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face',
+      coverImage: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=250&fit=crop',
+      specialties: ['Geleneksel Tıraş', 'Usta İşi', 'Kına'],
+      nextAvailable: '19:00',
+      price: '₺70',
+      isVerified: true,
+      instantBooking: true,
+      features: ['Geleneksel', 'Deneyimli', 'Usta'],
+      responseTime: '2 dk içinde',
+      isTraditional: true,
+      repeatCustomers: 88
     }
   ];
 
@@ -312,94 +261,83 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#f8f9fa' }}>
-      {/* Enhanced Navigation Bar */}
+    <Box sx={{ flexGrow: 1, bgcolor: '#f8f9fa', minHeight: '100vh' }}>
+      {/* Top Navigation Bar - Clean Booksy Style */}
       <AppBar 
         position="sticky" 
+        elevation={0}
         sx={{ 
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(20px)',
-          color: '#1f2937',
-          boxShadow: '0 1px 20px rgba(0,0,0,0.1)'
+          bgcolor: 'white',
+          borderBottom: '1px solid #e5e7eb',
+          color: '#1f2937'
         }}
       >
-        <Container>
-          <Toolbar sx={{ justifyContent: 'space-between', py: 1 }}>
+        <Container maxWidth="xl">
+          <Toolbar sx={{ justifyContent: 'space-between', py: 1, minHeight: '72px !important' }}>
+            {/* Left Side - Brand */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton 
-                edge="start" 
-                onClick={() => setDrawerOpen(true)}
-                sx={{ mr: 2, display: { md: 'none' } }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h5" component="div" sx={{ 
+              <Typography variant="h4" component="div" sx={{ 
                 fontWeight: 'bold',
                 background: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
-                color: 'transparent'
+                color: 'transparent',
+                mr: 4
               }}>
                 {t.brand}
               </Typography>
+              
+              {/* Navigation Links */}
+              <Stack direction="row" spacing={4} sx={{ ml: 4 }}>
+                <Button color="inherit" sx={{ fontWeight: 500, color: '#6b46c1' }}>
+                  Berberler
+                </Button>
+                <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  Hizmetler
+                </Button>
+                <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  Fırsatlar
+                </Button>
+                <Button color="inherit" sx={{ fontWeight: 500 }}>
+                  Hakkımızda
+                </Button>
+              </Stack>
             </Box>
 
-            {/* Desktop Navigation */}
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 3 }}>
-              <Button color="inherit" startIcon={<HomeIcon />}>
-                {t.home}
-              </Button>
-              <Button color="inherit" startIcon={<Schedule />}>
-                {t.appointments}
-              </Button>
-              <Button color="inherit" startIcon={<Favorite />}>
-                {t.favorites}
-              </Button>
-              <Button color="inherit" startIcon={<Help />}>
-                {language === 'tr' ? 'Yardım' : language === 'en' ? 'Help' : 'Помощь'}
-              </Button>
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {/* Right Side - Actions */}
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               {/* Language Selector */}
               <FormControl size="small" sx={{ minWidth: 100 }}>
                 <Select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  startAdornment={<Language sx={{ mr: 1, fontSize: 20 }} />}
                   sx={{ 
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    '& .MuiSelect-select': { py: 1 }
+                    '& .MuiSelect-select': { py: 1, display: 'flex', alignItems: 'center' }
                   }}
                 >
-                  <MenuItem value="tr">🇹🇷 TR</MenuItem>
-                  <MenuItem value="en">🇺🇸 EN</MenuItem>
-                  <MenuItem value="ru">🇷🇺 RU</MenuItem>
+                  <MenuItem value="tr">🇹🇷 Türkçe</MenuItem>
+                  <MenuItem value="en">🇺🇸 English</MenuItem>
+                  <MenuItem value="ru">🇷🇺 Русский</MenuItem>
                 </Select>
               </FormControl>
 
-              <IconButton sx={{ color: '#6b46c1' }}>
-                <Badge badgeContent={notificationCount} color="error">
-                  <Notifications />
-                </Badge>
-              </IconButton>
-              
-              <Avatar 
-                sx={{ bgcolor: '#fbbf24', cursor: 'pointer', ml: 1 }}
-                onClick={() => navigate('/dashboard')}
-              >
-                U
-              </Avatar>
+              <Button variant="outlined" sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}>
+                Giriş Yap
+              </Button>
+              <Button variant="contained" sx={{ bgcolor: '#6b46c1', color: 'white' }}>
+                Üye Ol
+              </Button>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
 
-      {/* Hero Section with Beautiful Barber Image */}
+      {/* Hero Section - Full Width Booksy Style */}
       <Box sx={{ 
         position: 'relative',
-        height: { xs: '70vh', md: '80vh' },
-        background: 'linear-gradient(135deg, rgba(107, 70, 193, 0.9) 0%, rgba(147, 51, 234, 0.8) 100%)',
+        height: '600px',
+        background: 'linear-gradient(135deg, rgba(107, 70, 193, 0.95) 0%, rgba(147, 51, 234, 0.9) 100%)',
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden'
@@ -418,110 +356,49 @@ const Home = () => {
             zIndex: -1
           }}
         />
-        
-        {/* Overlay */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'linear-gradient(135deg, rgba(107, 70, 193, 0.8) 0%, rgba(147, 51, 234, 0.7) 100%)',
-            zIndex: 0
-          }}
-        />
 
-        <Container sx={{ position: 'relative', zIndex: 1 }}>
-          <Grid container spacing={4} alignItems="center">
+        <Container maxWidth="xl">
+          <Grid container spacing={6} alignItems="center">
             <Grid item xs={12} md={6}>
-              <Box sx={{ color: 'white', mb: 4 }}>
-                <Typography variant="h2" component="h1" sx={{ 
+              <Box sx={{ color: 'white' }}>
+                <Typography variant="h1" component="h1" sx={{ 
                   fontWeight: 'bold', 
-                  mb: 2,
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
+                  mb: 3,
+                  fontSize: '3.5rem',
                   lineHeight: 1.2
                 }}>
                   {t.heroTitle}
                 </Typography>
                 <Typography variant="h5" sx={{ 
-                  mb: 3, 
+                  mb: 4, 
                   opacity: 0.95,
                   fontWeight: 300,
-                  fontSize: { xs: '1.2rem', md: '1.5rem' }
+                  fontSize: '1.4rem',
+                  lineHeight: 1.5
                 }}>
                   {t.heroSubtitle}
                 </Typography>
-                <Typography variant="body1" sx={{ 
-                  mb: 4, 
-                  opacity: 0.9,
-                  fontSize: '1.1rem',
-                  maxWidth: 500
+
+                {/* Main Search Bar */}
+                <Box sx={{ 
+                  display: 'flex', 
+                  gap: 2, 
+                  maxWidth: 600,
+                  mb: 4
                 }}>
-                  {t.heroDescription}
-                </Typography>
-
-                {/* CTA Buttons */}
-                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-                  <Button 
-                    variant="contained" 
-                    size="large"
-                    startIcon={<PlayArrow />}
-                    sx={{ 
-                      bgcolor: '#fbbf24',
-                      color: 'black',
-                      fontWeight: 'bold',
-                      px: 4,
-                      py: 1.5,
-                      fontSize: '1.1rem',
-                      '&:hover': { bgcolor: '#f59e0b', transform: 'translateY(-2px)' },
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    {t.quickBooking}
-                  </Button>
-                  <Button 
-                    variant="outlined" 
-                    size="large"
-                    sx={{ 
-                      color: 'white',
-                      borderColor: 'white',
-                      fontWeight: 'bold',
-                      px: 4,
-                      py: 1.5,
-                      fontSize: '1.1rem',
-                      '&:hover': { 
-                        bgcolor: 'rgba(255,255,255,0.1)', 
-                        borderColor: 'white',
-                        transform: 'translateY(-2px)'
-                      },
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    {language === 'tr' ? 'Daha Fazla Bilgi' : language === 'en' ? 'Learn More' : 'Узнать больше'}
-                  </Button>
-                </Stack>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              {/* Search Card */}
-              <Paper sx={{ 
-                p: 4, 
-                borderRadius: 4, 
-                boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
-                background: 'rgba(255,255,255,0.95)',
-                backdropFilter: 'blur(20px)'
-              }}>
-                <Typography variant="h6" sx={{ mb: 3, fontWeight: 'bold', color: '#1f2937' }}>
-                  {language === 'tr' ? 'Hemen Randevu Al' : language === 'en' ? 'Book Now' : 'Записаться сейчас'}
-                </Typography>
-                <Stack spacing={3}>
                   <TextField
                     placeholder={t.searchService}
                     value={searchService}
                     onChange={(e) => setSearchService(e.target.value)}
-                    fullWidth
+                    sx={{ 
+                      flex: 1,
+                      bgcolor: 'white',
+                      borderRadius: 2,
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { border: 'none' },
+                        height: '56px'
+                      }
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -529,19 +406,20 @@ const Home = () => {
                         </InputAdornment>
                       ),
                     }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 2,
-                        '&:hover fieldset': { borderColor: '#6b46c1' },
-                        '&.Mui-focused fieldset': { borderColor: '#6b46c1' }
-                      }
-                    }}
                   />
                   <TextField
                     placeholder={t.searchLocation}
                     value={searchLocation}
                     onChange={(e) => setSearchLocation(e.target.value)}
-                    fullWidth
+                    sx={{ 
+                      flex: 1,
+                      bgcolor: 'white',
+                      borderRadius: 2,
+                      '& .MuiOutlinedInput-root': {
+                        '& fieldset': { border: 'none' },
+                        height: '56px'
+                      }
+                    }}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -549,90 +427,86 @@ const Home = () => {
                         </InputAdornment>
                       ),
                     }}
-                    sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: 2,
-                        '&:hover fieldset': { borderColor: '#6b46c1' },
-                        '&.Mui-focused fieldset': { borderColor: '#6b46c1' }
-                      }
-                    }}
                   />
                   <Button 
                     variant="contained" 
                     size="large"
-                    fullWidth
                     sx={{ 
-                      bgcolor: '#6b46c1',
+                      bgcolor: '#fbbf24',
+                      color: 'black',
                       fontWeight: 'bold',
-                      py: 1.5,
-                      borderRadius: 2,
-                      '&:hover': { bgcolor: '#553c9a' }
+                      px: 4,
+                      minWidth: 120,
+                      height: '56px',
+                      '&:hover': { bgcolor: '#f59e0b' }
                     }}
                   >
                     {t.searchButton}
                   </Button>
+                </Box>
+
+                {/* Quick Stats */}
+                <Stack direction="row" spacing={4} sx={{ opacity: 0.9 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CheckCircle sx={{ fontSize: 20 }} />
+                    <Typography variant="body1">500+ Berber</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Star sx={{ fontSize: 20 }} />
+                    <Typography variant="body1">25.000+ Mutlu Müşteri</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <CalendarToday sx={{ fontSize: 20 }} />
+                    <Typography variant="body1">Anında Randevu</Typography>
+                  </Box>
                 </Stack>
-              </Paper>
+              </Box>
             </Grid>
           </Grid>
         </Container>
       </Box>
 
-      {/* Service Categories */}
-      <Container sx={{ py: 6 }}>
-        <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold', color: '#1f2937', textAlign: 'center' }}>
-          {t.serviceCategories}
-        </Typography>
-        <Grid container spacing={3}>
-          {serviceCategories.map((category) => (
-            <Grid item xs={6} md={3} key={category.id}>
-              <Card sx={{ 
-                textAlign: 'center', 
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                height: '100%',
-                '&:hover': { 
-                  transform: 'translateY(-8px)',
-                  boxShadow: '0 12px 40px rgba(107, 70, 193, 0.2)'
-                }
-              }}>
-                <CardContent sx={{ p: 3 }}>
-                  <Box sx={{ 
-                    bgcolor: '#ede9fe', 
-                    borderRadius: '50%', 
-                    width: 80, 
-                    height: 80, 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    mx: 'auto',
-                    mb: 2,
-                    color: '#6b46c1'
-                  }}>
-                    {React.cloneElement(category.icon, { sx: { fontSize: 32 } })}
-                  </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                    {category.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {category.count} {language === 'tr' ? 'berber' : language === 'en' ? 'barbers' : 'парикмахеров'}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
+      {/* Filter and Sort Bar */}
+      <Box sx={{ bgcolor: 'white', borderBottom: '1px solid #e5e7eb', py: 2 }}>
+        <Container maxWidth="xl">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', color: '#1f2937' }}>
+              {t.featuredBarbers} ({featuredBarbers.length} sonuç)
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              <Chip 
+                label="En Yakın" 
+                variant="filled" 
+                color="primary" 
+                sx={{ bgcolor: '#6b46c1' }}
+              />
+              <Chip label="En Popüler" variant="outlined" />
+              <Chip label="En Uygun" variant="outlined" />
+              <Button
+                variant="outlined"
+                startIcon={<FilterList />}
+                sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+              >
+                Filtrele
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<Sort />}
+                sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+              >
+                Sırala
+              </Button>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
 
-      {/* Featured Barbers */}
-      <Box sx={{ bgcolor: 'white', py: 6 }}>
-        <Container>
-          <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold', color: '#1f2937', textAlign: 'center' }}>
-            {t.nearbyBarbers} ({featuredBarbers.length} {t.results})
-          </Typography>
-          <Grid container spacing={4}>
+      {/* Barber Grid - Booksy Style */}
+      <Box sx={{ py: 4 }}>
+        <Container maxWidth="xl">
+          <Grid container spacing={3}>
             {featuredBarbers.map((barber) => (
-              <Grid item xs={12} md={4} key={barber.id}>
+              <Grid item xs={12} sm={6} md={4} lg={4} key={barber.id}>
                 <Card sx={{ 
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -640,15 +514,15 @@ const Home = () => {
                   overflow: 'hidden',
                   height: '100%',
                   '&:hover': { 
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 20px 60px rgba(107, 70, 193, 0.2)'
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 12px 40px rgba(107, 70, 193, 0.15)'
                   }
                 }}>
                   {/* Cover Image */}
-                  <Box sx={{ position: 'relative', height: 180 }}>
+                  <Box sx={{ position: 'relative', height: 200 }}>
                     <CardMedia
                       component="img"
-                      height="180"
+                      height="200"
                       image={barber.coverImage}
                       alt={barber.shopName}
                     />
@@ -676,6 +550,20 @@ const Home = () => {
                           label={t.mostPreferred}
                           size="small"
                           sx={{ bgcolor: '#f59e0b', color: 'white', fontWeight: 'bold' }}
+                        />
+                      )}
+                      {barber.isPremium && (
+                        <Chip 
+                          label="Premium"
+                          size="small"
+                          sx={{ bgcolor: '#8b5cf6', color: 'white', fontWeight: 'bold' }}
+                        />
+                      )}
+                      {barber.isTraditional && (
+                        <Chip 
+                          label="Geleneksel"
+                          size="small"
+                          sx={{ bgcolor: '#92400e', color: 'white', fontWeight: 'bold' }}
                         />
                       )}
                     </Box>
@@ -746,12 +634,12 @@ const Home = () => {
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                         <Rating value={barber.rating} precision={0.1} size="small" readOnly />
                         <Typography variant="body2" color="text.secondary">
-                          ({barber.reviewCount})
+                          ({barber.reviewCount} yorum)
                         </Typography>
                       </Box>
                     </Box>
 
-                    {/* Info */}
+                    {/* Distance and Response Time */}
                     <Box sx={{ mb: 2 }}>
                       <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
                         <LocationOn sx={{ fontSize: 14, mr: 0.5, verticalAlign: 'middle' }} />
@@ -761,7 +649,7 @@ const Home = () => {
 
                     {/* Specialties */}
                     <Stack direction="row" spacing={0.5} sx={{ mb: 2, flexWrap: 'wrap', gap: 0.5 }}>
-                      {barber.specialties.map((specialty) => (
+                      {barber.specialties.slice(0, 3).map((specialty) => (
                         <Chip
                           key={specialty}
                           label={specialty}
@@ -795,7 +683,7 @@ const Home = () => {
                         </Box>
                         {barber.instantBooking && (
                           <Chip 
-                            label={t.instantApproval}
+                            label="Anında Onay"
                             size="small"
                             sx={{ bgcolor: '#10b981', color: 'white', fontWeight: 'bold' }}
                           />
@@ -806,7 +694,7 @@ const Home = () => {
                     {/* Price and Action */}
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                       <Box>
-                        {barber.discount > 0 ? (
+                        {barber.discount ? (
                           <Box>
                             <Typography 
                               variant="body2" 
@@ -844,7 +732,12 @@ const Home = () => {
                         {t.bookAppointment}
                       </Button>
                       <IconButton 
-                        sx={{ border: 1, borderColor: 'divider' }}
+                        sx={{ 
+                          border: 1, 
+                          borderColor: '#6b46c1',
+                          color: '#6b46c1',
+                          '&:hover': { bgcolor: '#ede9fe' }
+                        }}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Phone />
@@ -858,9 +751,9 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Footer */}
-      <Box sx={{ bgcolor: '#1f2937', color: 'white', py: 6 }}>
-        <Container>
+      {/* Footer - Booksy Style */}
+      <Box sx={{ bgcolor: '#1f2937', color: 'white', py: 6, mt: 4 }}>
+        <Container maxWidth="xl">
           <Grid container spacing={4}>
             {/* Brand Section */}
             <Grid item xs={12} md={4}>
@@ -891,23 +784,23 @@ const Home = () => {
               </Stack>
             </Grid>
 
-            {/* Services */}
+            {/* Quick Links */}
             <Grid item xs={6} md={2}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'tr' ? 'Hizmetler' : language === 'en' ? 'Services' : 'Услуги'}
+                Hızlı Bağlantılar
               </Typography>
               <Stack spacing={1}>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Saç Kesimi' : language === 'en' ? 'Haircut' : 'Стрижка'}
+                  Berberler
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Sakal Tıraş' : language === 'en' ? 'Beard Trim' : 'Стрижка бороды'}
+                  Hizmetler
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Şekillendirme' : language === 'en' ? 'Styling' : 'Ук��адка'}
+                  Fırsatlar
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Bakım' : language === 'en' ? 'Treatment' : 'Уход'}
+                  Blog
                 </Link>
               </Stack>
             </Grid>
@@ -915,20 +808,20 @@ const Home = () => {
             {/* Company */}
             <Grid item xs={6} md={2}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'tr' ? 'Şirket' : language === 'en' ? 'Company' : 'Компания'}
+                Şirket
               </Typography>
               <Stack spacing={1}>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Hakkımızda' : language === 'en' ? 'About Us' : 'О нас'}
+                  Hakkımızda
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Kariyer' : language === 'en' ? 'Careers' : 'Карьера'}
+                  Kariyer
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'İletişim' : language === 'en' ? 'Contact' : 'Контакты'}
+                  İletişim
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Blog' : language === 'en' ? 'Blog' : 'Блог'}
+                  Basın
                 </Link>
               </Stack>
             </Grid>
@@ -936,20 +829,20 @@ const Home = () => {
             {/* Support */}
             <Grid item xs={6} md={2}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'tr' ? 'Destek' : language === 'en' ? 'Support' : 'Поддержка'}
+                Destek
               </Typography>
               <Stack spacing={1}>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Yardım Merkezi' : language === 'en' ? 'Help Center' : 'Центр помощи'}
+                  Yardım Merkezi
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Güvenlik' : language === 'en' ? 'Security' : 'Безопасность'}
+                  İletişim
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Gizlilik' : language === 'en' ? 'Privacy' : 'Конфиденциальность'}
+                  Güvenlik
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Kullanım Şartları' : language === 'en' ? 'Terms' : 'Условия'}
+                  Gizlilik
                 </Link>
               </Stack>
             </Grid>
@@ -957,17 +850,20 @@ const Home = () => {
             {/* Legal */}
             <Grid item xs={6} md={2}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-                {language === 'tr' ? 'Yasal' : language === 'en' ? 'Legal' : 'Правовая информация'}
+                Yasal
               </Typography>
               <Stack spacing={1}>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Çerez Politikası' : language === 'en' ? 'Cookie Policy' : 'Политика файлов cookie'}
+                  Kullanım Şartları
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'KVKK' : language === 'en' ? 'GDPR' : 'GDPR'}
+                  Gizlilik Politikası
                 </Link>
                 <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
-                  {language === 'tr' ? 'Lisanslar' : language === 'en' ? 'Licenses' : 'Лицензии'}
+                  Çerez Politikası
+                </Link>
+                <Link href="#" color="inherit" sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>
+                  KVKK
                 </Link>
               </Stack>
             </Grid>
@@ -980,103 +876,15 @@ const Home = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Copyright sx={{ mr: 1, fontSize: 16 }} />
               <Typography variant="body2" sx={{ opacity: 0.8 }}>
-                2024 {t.brand}. {language === 'tr' ? 'Tüm hakları saklıdır.' : language === 'en' ? 'All rights reserved.' : 'Все права защищены.'}
+                2024 {t.brand}. Tüm hakları saklıdır.
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6 }}>
-              {language === 'tr' ? 'Türkiye\'de yapıldı' : language === 'en' ? 'Made in Turkey' : 'Сделано в Турции'} 🇹🇷
+              Türkiye'de yapıldı 🇹🇷
             </Typography>
           </Box>
         </Container>
       </Box>
-
-      {/* Side Drawer */}
-      <Drawer 
-        anchor="left" 
-        open={drawerOpen} 
-        onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: { width: 280 }
-        }}
-      >
-        <Box sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2, color: '#6b46c1' }}>
-            {t.brand}
-          </Typography>
-          <Divider sx={{ mb: 2 }} />
-          <List>
-            <ListItem button onClick={() => navigate('/')}>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
-              <ListItemText primary={t.home} />
-            </ListItem>
-            <ListItem button onClick={() => navigate('/dashboard')}>
-              <ListItemIcon><Schedule /></ListItemIcon>
-              <ListItemText primary={t.appointments} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Favorite /></ListItemIcon>
-              <ListItemText primary={t.favorites} />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon><Person /></ListItemIcon>
-              <ListItemText primary={t.profile} />
-            </ListItem>
-          </List>
-        </Box>
-      </Drawer>
-
-      {/* Bottom Navigation for Mobile */}
-      <Paper 
-        sx={{ 
-          position: 'fixed', 
-          bottom: 0, 
-          left: 0, 
-          right: 0, 
-          zIndex: 1000,
-          display: { xs: 'block', md: 'none' }
-        }} 
-        elevation={8}
-      >
-        <BottomNavigation
-          value={bottomNavValue}
-          onChange={(event, newValue) => setBottomNavValue(newValue)}
-        >
-          <BottomNavigationAction 
-            label={t.home} 
-            icon={<HomeIcon />}
-            onClick={() => navigate('/')}
-          />
-          <BottomNavigationAction 
-            label={t.appointments} 
-            icon={<Schedule />}
-            onClick={() => navigate('/dashboard')}
-          />
-          <BottomNavigationAction 
-            label={t.favorites} 
-            icon={<Favorite />}
-          />
-          <BottomNavigationAction 
-            label={t.profile} 
-            icon={<AccountCircle />}
-          />
-        </BottomNavigation>
-      </Paper>
-
-      {/* Floating Action Button */}
-      <Fab
-        color="primary"
-        sx={{
-          position: 'fixed',
-          bottom: { xs: 80, md: 20 },
-          right: 20,
-          bgcolor: '#fbbf24',
-          color: 'black',
-          '&:hover': { bgcolor: '#f59e0b' }
-        }}
-        onClick={() => {}}
-      >
-        <Search />
-      </Fab>
     </Box>
   );
 };
