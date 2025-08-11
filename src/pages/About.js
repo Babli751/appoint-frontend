@@ -209,7 +209,7 @@ const About = () => {
       <Box sx={{ 
         background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
         color: 'white',
-        py: { xs: 6, md: 10 },
+        py: { xs: 4, sm: 6, md: 10 },
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -229,17 +229,17 @@ const About = () => {
           }}
         />
         <Container sx={{ position: 'relative', zIndex: 1 }}>
-          <Typography variant="h1" component="h1" sx={{ 
-            fontWeight: 'bold', 
-            mb: 3,
-            fontSize: { xs: '2.5rem', md: '4rem' }
+          <Typography variant="h1" component="h1" sx={{
+            fontWeight: 'bold',
+            mb: { xs: 2, md: 3 },
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '4rem' }
           }}>
             {t.about}
           </Typography>
-          <Typography variant="h5" sx={{ 
+          <Typography variant="h5" sx={{
             opacity: 0.95,
-            fontSize: { xs: '1.2rem', md: '1.5rem' },
-            maxWidth: 600,
+            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+            maxWidth: { xs: '90%', sm: 600 },
             mx: 'auto'
           }}>
             {t.subtitle}
@@ -248,10 +248,10 @@ const About = () => {
       </Box>
 
       {/* Stats Section */}
-      <Container sx={{ py: 6 }}>
-        <Grid container spacing={3} sx={{ mb: 8 }}>
+      <Container sx={{ py: { xs: 3, sm: 4, md: 6 }, px: { xs: 1, sm: 2, md: 3 } }}>
+        <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mb: { xs: 4, md: 8 } }}>
           {stats.map((stat, index) => (
-            <Grid item xs={6} md={3} key={index}>
+            <Grid item xs={6} sm={3} md={3} key={index}>
               <Paper sx={{ 
                 p: 3, 
                 textAlign: 'center',
