@@ -189,7 +189,7 @@ const Home = () => {
       starting: 'от',
       results: 'результатов',
       barbers: 'Парикмахеры',
-      services: 'Услуги',
+      services: 'Услуг��',
       offers: 'Предложения',
       about: 'О нас',
       company: 'Компания',
@@ -363,7 +363,7 @@ const Home = () => {
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
         language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
-        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
+        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпа��ур'
       ],
       nextAvailable: '19:00',
       price: `${t.currency}45`,
@@ -471,9 +471,9 @@ const Home = () => {
                     '& .MuiSelect-select': { py: { xs: 0.5, md: 1 }, display: 'flex', alignItems: 'center', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' } }
                   }}
                 >
-                  <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'English'}</MenuItem>
-                  <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'Türkçe'}</MenuItem>
-                  <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'Русский'}</MenuItem>
+                  <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : isTablet ? 'EN' : 'English'}</MenuItem>
+                  <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : isTablet ? 'TR' : 'Türkçe'}</MenuItem>
+                  <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : isTablet ? 'RU' : 'Русский'}</MenuItem>
                 </Select>
               </FormControl>
 
@@ -495,7 +495,7 @@ const Home = () => {
       {/* Responsive Hero Section */}
       <Box sx={{ 
         position: 'relative',
-        height: { xs: '70vh', md: '600px' },
+        height: { xs: '60vh', sm: '65vh', md: '600px' },
         background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -520,30 +520,30 @@ const Home = () => {
           <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center">
             <Grid item xs={12} md={6}>
               <Box sx={{ color: 'white', textAlign: { xs: 'center', md: 'left' } }}>
-                <Typography variant="h1" component="h1" sx={{ 
-                  fontWeight: 'bold', 
-                  mb: 3,
-                  fontSize: { xs: '2.5rem', md: '3.5rem' },
-                  lineHeight: 1.2
+                <Typography variant="h1" component="h1" sx={{
+                  fontWeight: 'bold',
+                  mb: { xs: 2, sm: 2.5, md: 3 },
+                  fontSize: { xs: '1.8rem', sm: '2.2rem', md: '3.5rem' },
+                  lineHeight: { xs: 1.1, md: 1.2 }
                 }}>
                   {t.heroTitle}
                 </Typography>
-                <Typography variant="h5" sx={{ 
-                  mb: 4, 
+                <Typography variant="h5" sx={{
+                  mb: { xs: 3, sm: 3.5, md: 4 },
                   opacity: 0.95,
                   fontWeight: 300,
-                  fontSize: { xs: '1.1rem', md: '1.4rem' },
-                  lineHeight: 1.5
+                  fontSize: { xs: '0.95rem', sm: '1.05rem', md: '1.4rem' },
+                  lineHeight: { xs: 1.4, md: 1.5 }
                 }}>
                   {t.heroSubtitle}
                 </Typography>
 
                 {/* Mobile/Tablet Search Bar */}
-                <Box sx={{ 
+                <Box sx={{
                   display: { xs: 'block', md: 'flex' },
-                  gap: 2, 
-                  maxWidth: 600,
-                  mb: 4
+                  gap: { xs: 1, sm: 1.5, md: 2 },
+                  maxWidth: { xs: '100%', sm: 500, md: 600 },
+                  mb: { xs: 3, sm: 3.5, md: 4 }
                 }}>
                   <TextField
                     placeholder={t.searchService}
@@ -608,9 +608,9 @@ const Home = () => {
                 </Box>
 
                 {/* Quick Stats */}
-                <Stack 
-                  direction={{ xs: 'column', sm: 'row' }} 
-                  spacing={4} 
+                <Stack
+                  direction={{ xs: 'column', sm: 'row' }}
+                  spacing={{ xs: 2, sm: 3, md: 4 }}
                   sx={{ opacity: 0.9, alignItems: { xs: 'center', md: 'flex-start' } }}
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -964,7 +964,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
+                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем город��.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
