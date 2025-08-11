@@ -1,0 +1,492 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Grid,
+  AppBar,
+  Toolbar,
+  IconButton,
+  FormControl,
+  Select,
+  MenuItem,
+  Stack,
+  Chip,
+  useTheme,
+  useMediaQuery,
+  Paper
+} from '@mui/material';
+import {
+  ArrowBack,
+  LocalOffer,
+  AccessTime,
+  Star,
+  Language,
+  FlashOn,
+  CardGiftcard,
+  Percent,
+  Schedule
+} from '@mui/icons-material';
+
+const Offers = () => {
+  const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [language, setLanguage] = useState('en');
+
+  // Language content
+  const content = {
+    en: {
+      brand: 'BarberPro',
+      offers: 'Special Offers',
+      subtitle: 'Save more on your favorite barber services',
+      claimOffer: 'Claim Offer',
+      validUntil: 'Valid until',
+      newCustomers: 'New Customers',
+      limitedTime: 'Limited Time',
+      exclusive: 'Exclusive',
+      popular: 'Popular',
+      currency: '€',
+      termsApply: 'Terms and conditions apply'
+    },
+    tr: {
+      brand: 'BarberPro',
+      offers: 'Özel Teklifler',
+      subtitle: 'Favori berber hizmetlerinizde daha fazla tasarruf edin',
+      claimOffer: 'Teklifi Al',
+      validUntil: 'Geçerlilik',
+      newCustomers: 'Yeni Müşteriler',
+      limitedTime: 'Sınırlı Süre',
+      exclusive: 'Özel',
+      popular: 'Popüler',
+      currency: '€',
+      termsApply: 'Şartlar ve koşullar geçerlidir'
+    },
+    ru: {
+      brand: 'BarberPro',
+      offers: 'Специальные предложения',
+      subtitle: 'Экономьте больше на ваших любимых парикмахерских услугах',
+      claimOffer: 'Получить предложение',
+      validUntil: 'Действительно до',
+      newCustomers: 'Новые клиенты',
+      limitedTime: 'Ограниченное время',
+      exclusive: 'Эксклюзивно',
+      popular: 'Популярное',
+      currency: '€',
+      termsApply: 'Применяются условия и положения'
+    }
+  };
+
+  const t = content[language];
+
+  const offers = [
+    {
+      id: 1,
+      title: language === 'en' ? '30% Off First Visit' : language === 'tr' ? 'İlk Ziyarete %30 İndirim' : '30% скидка на первое посещение',
+      description: language === 'en' 
+        ? 'Get 30% discount on your first appointment with any verified barber'
+        : language === 'tr' 
+        ? 'Doğrulanmış herhangi bir berberle ilk randevunuzda %30 indirim kazanın'
+        : 'Получите 30% скидку на первую запись к любому проверенному парикмахеру',
+      discount: '30%',
+      originalPrice: 50,
+      discountedPrice: 35,
+      validUntil: language === 'en' ? 'March 31, 2024' : language === 'tr' ? '31 Mart 2024' : '31 марта 2024',
+      code: 'WELCOME30',
+      type: 'new_customer',
+      backgroundColor: '#00a693',
+      icon: <FlashOn />
+    },
+    {
+      id: 2,
+      title: language === 'en' ? 'Premium Package Deal' : language === 'tr' ? 'Premium Paket Anlaşması' : 'Премиум пакет',
+      description: language === 'en' 
+        ? 'Complete grooming package: Cut + Shave + Styling + Face Treatment'
+        : language === 'tr' 
+        ? 'Komple bakım paketi: Kesim + Tıraş + Şekillendirme + Yüz Bakımı'
+        : 'Полный пакет ухода: Стрижка + Бритье + Укладка + Уход за лицом',
+      discount: '25%',
+      originalPrice: 80,
+      discountedPrice: 60,
+      validUntil: language === 'en' ? 'April 15, 2024' : language === 'tr' ? '15 Nisan 2024' : '15 апреля 2024',
+      code: 'PREMIUM25',
+      type: 'limited_time',
+      backgroundColor: '#ff6b35',
+      icon: <Star />
+    },
+    {
+      id: 3,
+      title: language === 'en' ? 'Weekend Special' : language === 'tr' ? 'Hafta Sonu Özel' : 'Выходные специально',
+      description: language === 'en' 
+        ? 'Book weekend appointments and save 20% on all services'
+        : language === 'tr' 
+        ? 'Hafta sonu randevuları ayırtın ve tüm hizmetlerde %20 tasarruf edin'
+        : 'Бронируйте встречи на выходные и экономьте 20% на всех услугах',
+      discount: '20%',
+      originalPrice: 40,
+      discountedPrice: 32,
+      validUntil: language === 'en' ? 'Every Weekend' : language === 'tr' ? 'Her Hafta Sonu' : 'Каждые выходные',
+      code: 'WEEKEND20',
+      type: 'exclusive',
+      backgroundColor: '#8b5cf6',
+      icon: <Schedule />
+    },
+    {
+      id: 4,
+      title: language === 'en' ? 'Loyalty Rewards' : language === 'tr' ? 'Sadakat Ödülleri' : 'Программа лояльности',
+      description: language === 'en' 
+        ? 'Book 5 appointments and get the 6th one completely free'
+        : language === 'tr' 
+        ? '5 randevu ayırtın ve 6. randevuyu tamamen ücretsiz alın'
+        : 'Забронируйте 5 встреч и получите 6-ю совершенно бесплатно',
+      discount: language === 'en' ? 'Free 6th' : language === 'tr' ? '6. Ücretsiz' : '6-й бесплатно',
+      originalPrice: 240,
+      discountedPrice: 200,
+      validUntil: language === 'en' ? 'Ongoing' : language === 'tr' ? 'Devam Ediyor' : 'Постоянно',
+      code: 'LOYAL6',
+      type: 'popular',
+      backgroundColor: '#10b981',
+      icon: <CardGiftcard />
+    },
+    {
+      id: 5,
+      title: language === 'en' ? 'Student Discount' : language === 'tr' ? 'Öğrenci İndirimi' : 'Студенческая скидка',
+      description: language === 'en' 
+        ? 'Students get 15% off on all services with valid student ID'
+        : language === 'tr' 
+        ? 'Öğrenciler geçerli öğrenci kartı ile tüm hizmetlerde %15 indirim alır'
+        : 'Студенты получают 15% скидку на все услуги при предъявлении студенческого билета',
+      discount: '15%',
+      originalPrice: 35,
+      discountedPrice: 30,
+      validUntil: language === 'en' ? 'Always Available' : language === 'tr' ? 'Her Zaman Geçerli' : 'Всегда доступно',
+      code: 'STUDENT15',
+      type: 'exclusive',
+      backgroundColor: '#3b82f6',
+      icon: <Percent />
+    },
+    {
+      id: 6,
+      title: language === 'en' ? 'Referral Bonus' : language === 'tr' ? 'Tavsiye Bonusu' : 'Реферальный бонус',
+      description: language === 'en' 
+        ? 'Refer a friend and both get €10 credit for your next appointment'
+        : language === 'tr' 
+        ? 'Bir arkadaşınızı tavsiye edin ve ikiniz de sonraki randevunuz için €10 kredi alın'
+        : 'Пригласите друга и оба получите кредит €10 на следующую запись',
+      discount: '€10',
+      originalPrice: 0,
+      discountedPrice: 10,
+      validUntil: language === 'en' ? 'No Expiry' : language === 'tr' ? 'Son Kullanma Yok' : 'Без срока действия',
+      code: 'REFER10',
+      type: 'popular',
+      backgroundColor: '#f59e0b',
+      icon: <LocalOffer />
+    }
+  ];
+
+  const getTypeLabel = (type) => {
+    switch (type) {
+      case 'new_customer': return t.newCustomers;
+      case 'limited_time': return t.limitedTime;
+      case 'exclusive': return t.exclusive;
+      case 'popular': return t.popular;
+      default: return '';
+    }
+  };
+
+  const getTypeColor = (type) => {
+    switch (type) {
+      case 'new_customer': return '#00a693';
+      case 'limited_time': return '#ff6b35';
+      case 'exclusive': return '#8b5cf6';
+      case 'popular': return '#10b981';
+      default: return '#6b7280';
+    }
+  };
+
+  return (
+    <Box sx={{ bgcolor: '#f8fffe', minHeight: '100vh' }}>
+      {/* Header */}
+      <AppBar position="static" elevation={0} sx={{ bgcolor: 'white', color: '#1f2937' }}>
+        <Toolbar>
+          <IconButton 
+            edge="start" 
+            onClick={() => navigate('/')}
+            sx={{ mr: 2 }}
+          >
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ 
+            flexGrow: 1, 
+            fontWeight: 'bold',
+            background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            color: 'transparent'
+          }}>
+            {t.brand}
+          </Typography>
+          
+          {/* Language Selector */}
+          <FormControl size="small" sx={{ minWidth: 100 }}>
+            <Select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              sx={{ 
+                '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
+              }}
+            >
+              <MenuItem value="en">🇬🇧 EN</MenuItem>
+              <MenuItem value="tr">🇹🇷 TR</MenuItem>
+              <MenuItem value="ru">🇷🇺 RU</MenuItem>
+            </Select>
+          </FormControl>
+        </Toolbar>
+      </AppBar>
+
+      {/* Hero Section */}
+      <Box sx={{ 
+        background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
+        color: 'white',
+        py: { xs: 4, md: 6 },
+        textAlign: 'center'
+      }}>
+        <Container>
+          <LocalOffer sx={{ fontSize: 60, mb: 2, opacity: 0.9 }} />
+          <Typography variant="h2" component="h1" sx={{ 
+            fontWeight: 'bold', 
+            mb: 2,
+            fontSize: { xs: '2rem', md: '3rem' }
+          }}>
+            {t.offers}
+          </Typography>
+          <Typography variant="h6" sx={{ 
+            opacity: 0.9,
+            fontSize: { xs: '1rem', md: '1.25rem' }
+          }}>
+            {t.subtitle}
+          </Typography>
+        </Container>
+      </Box>
+
+      {/* Offers Grid */}
+      <Container sx={{ py: { xs: 3, md: 6 } }}>
+        <Grid container spacing={3}>
+          {offers.map((offer) => (
+            <Grid item xs={12} md={6} lg={4} key={offer.id}>
+              <Card sx={{ 
+                height: '100%',
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 3,
+                transition: 'all 0.3s ease',
+                '&:hover': { 
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 12px 40px rgba(0, 166, 147, 0.2)'
+                }
+              }}>
+                {/* Background Gradient */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '120px',
+                  background: `linear-gradient(135deg, ${offer.backgroundColor} 0%, ${offer.backgroundColor}dd 100%)`,
+                  zIndex: 0
+                }} />
+
+                {/* Offer Type Badge */}
+                <Chip
+                  label={getTypeLabel(offer.type)}
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    bgcolor: 'rgba(255,255,255,0.9)',
+                    color: getTypeColor(offer.type),
+                    fontWeight: 'bold',
+                    zIndex: 2
+                  }}
+                />
+
+                <CardContent sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
+                  {/* Icon and Discount */}
+                  <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    mb: 2,
+                    pt: 2
+                  }}>
+                    <Box sx={{ 
+                      bgcolor: 'rgba(255,255,255,0.2)', 
+                      borderRadius: '50%', 
+                      p: 1.5,
+                      color: 'white'
+                    }}>
+                      {React.cloneElement(offer.icon, { sx: { fontSize: 28 } })}
+                    </Box>
+                    <Typography variant="h3" sx={{ 
+                      fontWeight: 'bold', 
+                      color: 'white',
+                      fontSize: { xs: '2rem', md: '2.5rem' }
+                    }}>
+                      {offer.discount}
+                    </Typography>
+                  </Box>
+
+                  {/* Title */}
+                  <Typography variant="h5" sx={{ 
+                    fontWeight: 'bold', 
+                    mb: 2,
+                    color: 'white',
+                    fontSize: { xs: '1.25rem', md: '1.5rem' }
+                  }}>
+                    {offer.title}
+                  </Typography>
+
+                  {/* Description */}
+                  <Paper sx={{ p: 2, mb: 3, bgcolor: 'rgba(255,255,255,0.95)' }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {offer.description}
+                    </Typography>
+
+                    {/* Pricing */}
+                    {offer.originalPrice > 0 && (
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                        <Typography 
+                          variant="h6" 
+                          sx={{ 
+                            textDecoration: 'line-through', 
+                            color: '#6b7280',
+                            fontSize: '1rem'
+                          }}
+                        >
+                          {t.currency}{offer.originalPrice}
+                        </Typography>
+                        <Typography variant="h5" sx={{ 
+                          fontWeight: 'bold', 
+                          color: offer.backgroundColor,
+                          fontSize: '1.5rem'
+                        }}>
+                          {t.currency}{offer.discountedPrice}
+                        </Typography>
+                      </Box>
+                    )}
+
+                    {/* Validity */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                      <AccessTime sx={{ fontSize: 16, color: '#6b7280' }} />
+                      <Typography variant="body2" color="text.secondary">
+                        {t.validUntil}: {offer.validUntil}
+                      </Typography>
+                    </Box>
+
+                    {/* Promo Code */}
+                    <Paper sx={{ 
+                      p: 1, 
+                      bgcolor: '#f3f4f6',
+                      textAlign: 'center',
+                      mb: 2,
+                      border: '2px dashed #d1d5db'
+                    }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
+                        {language === 'en' ? 'Promo Code' : language === 'tr' ? 'Promosyon Kodu' : 'Промо код'}
+                      </Typography>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1f2937' }}>
+                        {offer.code}
+                      </Typography>
+                    </Paper>
+                  </Paper>
+
+                  {/* Claim Button */}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      bgcolor: 'white',
+                      color: offer.backgroundColor,
+                      fontWeight: 'bold',
+                      py: 1.5,
+                      '&:hover': { 
+                        bgcolor: '#f9fafb',
+                        transform: 'scale(1.02)'
+                      }
+                    }}
+                    onClick={() => navigate('/')}
+                  >
+                    {t.claimOffer}
+                  </Button>
+
+                  {/* Terms */}
+                  <Typography variant="caption" sx={{ 
+                    display: 'block',
+                    textAlign: 'center',
+                    mt: 1,
+                    color: 'rgba(255,255,255,0.8)',
+                    fontSize: '0.7rem'
+                  }}>
+                    * {t.termsApply}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+
+        {/* Newsletter Signup */}
+        <Box sx={{ 
+          textAlign: 'center', 
+          mt: 6,
+          p: 4,
+          bgcolor: 'white',
+          borderRadius: 3,
+          border: '2px solid #e6f7f5'
+        }}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1f2937' }}>
+            {language === 'en' 
+              ? 'Never miss a deal!'
+              : language === 'tr' 
+              ? 'Hiçbir fırsatı kaçırmayın!'
+              : 'Никогда не пропускайте сделки!'
+            }
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 3, color: 'text.secondary' }}>
+            {language === 'en' 
+              ? 'Subscribe to get exclusive offers and early access to new deals'
+              : language === 'tr' 
+              ? 'Özel teklifler ve yeni fırsatlara erken erişim için abone olun'
+              : 'Подпишитесь, чтобы получать эксклюзивные предложения и ранний доступ к новым сделкам'
+            }
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            sx={{
+              bgcolor: '#00a693',
+              fontWeight: 'bold',
+              px: 4,
+              py: 1.5,
+              '&:hover': { bgcolor: '#007562' }
+            }}
+          >
+            {language === 'en' 
+              ? 'Subscribe Now'
+              : language === 'tr' 
+              ? 'Şimdi Abone Ol'
+              : 'Подписаться сейчас'
+            }
+          </Button>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+export default Offers;
