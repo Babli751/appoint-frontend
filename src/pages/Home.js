@@ -180,7 +180,7 @@ const Home = () => {
       searchLocation: 'Где?',
       searchButton: 'Поиск',
       featuredBarbers: 'Рекомендуемые парикмахеры',
-      bookAppointment: 'Забронирова��ь',
+      bookAppointment: 'Забронировать',
       verified: 'Проверено',
       new: 'Новый',
       mostPreferred: 'Самый популярный',
@@ -814,29 +814,29 @@ const Home = () => {
                     <Avatar
                       src={barber.image}
                       sx={{
-                        width: { xs: 60, md: 80 },
-                        height: { xs: 60, md: 80 },
+                        width: { xs: 50, sm: 60, md: 70, lg: 80 },
+                        height: { xs: 50, sm: 60, md: 70, lg: 80 },
                         position: 'absolute',
-                        bottom: { xs: -30, md: -40 },
-                        left: { xs: 16, md: 20 },
+                        bottom: { xs: -25, sm: -30, md: -35, lg: -40 },
+                        left: { xs: 12, sm: 16, md: 18, lg: 20 },
                         border: '4px solid white',
                         boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                       }}
                     />
                   </Box>
 
-                  <CardContent sx={{ pt: { xs: 5, md: 6 }, pb: 3, px: { xs: 2, md: 3 } }}>
+                  <CardContent sx={{ pt: { xs: 4, sm: 5, md: 5.5, lg: 6 }, pb: { xs: 2, md: 3 }, px: { xs: 1.5, sm: 2, md: 3 } }}>
                     {/* Header */}
                     <Box sx={{ mb: 2 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 0.5, fontSize: { xs: '0.95rem', sm: '1rem', md: '1.15rem', lg: '1.25rem' } }}>
                         {barber.name}
                       </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
                         {barber.shopName}
                       </Typography>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                         <Rating value={barber.rating} precision={0.1} size="small" readOnly />
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
                           ({barber.reviewCount} {language === 'en' ? 'reviews' : language === 'tr' ? 'yorum' : 'отзывов'})
                         </Typography>
                       </Box>
