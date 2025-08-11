@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -37,7 +38,7 @@ const About = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
-  const [language, setLanguage] = useState('en');
+  const { language, changeLanguage, t: translations } = useLanguage();
 
   // Language content
   const content = {
@@ -76,7 +77,12 @@ const About = () => {
     }
   };
 
-  const t = content[language];
+  // Use specific translations for this page
+  const t = {
+    ...translations,
+    about: translations.aboutUs,
+    subtitle: translations.aboutSubtitle
+  };
 
   const stats = [
     {
@@ -108,7 +114,7 @@ const About = () => {
         ? 'We partner only with verified, professional barbers who maintain the highest standards'
         : language === 'tr' 
         ? 'Sadece en yüksek standartları koruyan doğrulanmış, profesyonel berberlerle ortaklık kuruyoruz'
-        : 'Мы сотрудничаем только с проверенными профессиональными парикмахерами, поддерживающими высочайшие стандарты',
+        : 'Мы сотрудничаем только �� проверенными профессиональными парикмахерами, поддерживающими высочайшие стандарты',
       icon: <CheckCircle />
     },
     {
@@ -192,7 +198,7 @@ const About = () => {
           <FormControl size="small" sx={{ minWidth: { xs: 70, md: 100 } }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => changeLanguage(e.target.value)}
               sx={{ 
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
