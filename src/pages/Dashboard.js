@@ -21,7 +21,13 @@ import {
   Stack,
   Paper,
   Tab,
-  Tabs
+  Tabs,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import {
   ArrowBack,
@@ -33,37 +39,120 @@ import {
   Phone,
   History,
   Favorite,
-  Settings
+  Settings,
+  Language
 } from '@mui/icons-material';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   const [tabValue, setTabValue] = useState(0);
+  const [language, setLanguage] = useState('en'); // Default to English
+
+  // Language content
+  const content = {
+    en: {
+      brand: 'BarberPro',
+      dashboard: 'Dashboard',
+      upcomingAppointments: 'Upcoming Appointments',
+      pastAppointments: 'Past Appointments',
+      favoriteBarbers: 'Favorite Barbers',
+      upcomingAppointment: 'Upcoming Appointment',
+      pastAppointment: 'Past Appointment',
+      favoriteBarber: 'Favorite Barbers',
+      confirmed: 'Confirmed',
+      pending: 'Pending',
+      completed: 'Completed',
+      cancelled: 'Cancelled',
+      cancel: 'Cancel',
+      details: 'Details',
+      reviews: 'reviews',
+      visits: 'visits',
+      bookAppointment: 'Book Appointment',
+      givenRating: 'Given rating',
+      writeReview: 'Write Review',
+      noUpcomingAppointments: 'No upcoming appointments',
+      noUpcomingDescription: 'You have no upcoming appointments',
+      bookNow: 'Book Now'
+    },
+    tr: {
+      brand: 'BarberPro',
+      dashboard: 'Panelim',
+      upcomingAppointments: 'Yaklaşan Randevular',
+      pastAppointments: 'Geçmiş Randevular',
+      favoriteBarbers: 'Favori Berberler',
+      upcomingAppointment: 'Yaklaşan Randevu',
+      pastAppointment: 'Geçmiş Randevu',
+      favoriteBarber: 'Favori Berber',
+      confirmed: 'Onaylandı',
+      pending: 'Beklemede',
+      completed: 'Tamamlandı',
+      cancelled: 'İptal Edildi',
+      cancel: 'İptal Et',
+      details: 'Detaylar',
+      reviews: 'yorum',
+      visits: 'randevu',
+      bookAppointment: 'Randevu Al',
+      givenRating: 'Verilen puan',
+      writeReview: 'Yorum Yap',
+      noUpcomingAppointments: 'Yaklaşan randevunuz bulunmuyor',
+      noUpcomingDescription: 'Yaklaşan randevunuz bulunmuyor',
+      bookNow: 'Randevu Al'
+    },
+    ru: {
+      brand: 'BarberPro',
+      dashboard: 'Панель управления',
+      upcomingAppointments: 'Предстоящие записи',
+      pastAppointments: 'Прошедшие записи',
+      favoriteBarbers: 'Избранные парикмахеры',
+      upcomingAppointment: 'Предстоящая запись',
+      pastAppointment: 'Прошедшая запись',
+      favoriteBarber: 'Избранный парикмахер',
+      confirmed: 'Подтверждено',
+      pending: 'Ожидание',
+      completed: 'Завершено',
+      cancelled: 'Отменено',
+      cancel: 'Отменить',
+      details: 'Детали',
+      reviews: 'отзывов',
+      visits: 'визитов',
+      bookAppointment: 'Записаться',
+      givenRating: 'Данный рейтинг',
+      writeReview: 'Написать отзыв',
+      noUpcomingAppointments: 'Нет предстоящих записей',
+      noUpcomingDescription: 'У вас нет предстоящих записей',
+      bookNow: 'Записаться сейчас'
+    }
+  };
+
+  const t = content[language];
 
   const upcomingAppointments = [
     {
       id: 1,
       barberName: 'Mehmet Kaya',
       shopName: 'Elite Barber Shop',
-      service: 'Saç Kesimi + Sakal',
-      date: '15 Ocak 2024',
+      service: language === 'en' ? 'Haircut + Beard' : language === 'tr' ? 'Saç Kesimi + Sakal' : 'Стрижка + Борода',
+      date: language === 'en' ? 'January 15, 2024' : language === 'tr' ? '15 Ocak 2024' : '15 января 2024',
       time: '14:30',
       price: '₺120',
       status: 'confirmed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      address: 'Çankaya Mahallesi, Atatürk Caddesi'
+      address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюрк'
     },
     {
       id: 2,
       barberName: 'Ali Demir',
       shopName: 'Modern Kuaför',
-      service: 'Saç Kesimi',
-      date: '18 Ocak 2024',
+      service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
+      date: language === 'en' ? 'January 18, 2024' : language === 'tr' ? '18 Ocak 2024' : '18 января 2024',
       time: '16:00',
       price: '₺75',
       status: 'pending',
       barberImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face',
-      address: 'Kızılay Mahallesi, Atatürk Bulvarı'
+      address: language === 'en' ? 'Kızılay District, Atatürk Boulevard' : language === 'tr' ? 'Kızılay Mahallesi, Atatürk Bulvarı' : 'Район Кызылай, бульвар Ататюрк'
     }
   ];
 
@@ -72,8 +161,8 @@ const Dashboard = () => {
       id: 3,
       barberName: 'Osman Yılmaz',
       shopName: 'Classic Barber',
-      service: 'Sakal Tıraşı + Masaj',
-      date: '10 Ocak 2024',
+      service: language === 'en' ? 'Beard Trim + Massage' : language === 'tr' ? 'Sakal Tıraşı + Masaj' : 'Стрижка бороды + Массаж',
+      date: language === 'en' ? 'January 10, 2024' : language === 'tr' ? '10 Ocak 2024' : '10 января 2024',
       time: '15:30',
       price: '₺90',
       status: 'completed',
@@ -85,8 +174,8 @@ const Dashboard = () => {
       id: 4,
       barberName: 'Mehmet Kaya',
       shopName: 'Elite Barber Shop',
-      service: 'Saç Kesimi',
-      date: '5 Ocak 2024',
+      service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
+      date: language === 'en' ? 'January 5, 2024' : language === 'tr' ? '5 Ocak 2024' : '5 января 2024',
       time: '11:00',
       price: '₺80',
       status: 'completed',
@@ -127,10 +216,10 @@ const Dashboard = () => {
 
   const getStatusText = (status) => {
     switch (status) {
-      case 'confirmed': return 'Onaylandı';
-      case 'pending': return 'Beklemede';
-      case 'completed': return 'Tamamlandı';
-      case 'cancelled': return 'İptal Edildi';
+      case 'confirmed': return t.confirmed;
+      case 'pending': return t.pending;
+      case 'completed': return t.completed;
+      case 'cancelled': return t.cancelled;
       default: return status;
     }
   };
@@ -145,7 +234,6 @@ const Dashboard = () => {
     <Box sx={{ bgcolor: '#f8f9fa', minHeight: '100vh' }}>
       {/* Header */}
       <AppBar position="static" sx={{ 
-        bgcolor: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)',
         background: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)'
       }}>
         <Toolbar>
@@ -158,47 +246,65 @@ const Dashboard = () => {
             <ArrowBack />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-            Panelim
+            {t.dashboard}
           </Typography>
+          
+          {/* Language Selector */}
+          <FormControl size="small" sx={{ minWidth: 100, mr: 2 }}>
+            <Select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              sx={{ 
+                color: 'white',
+                '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                '& .MuiSvgIcon-root': { color: 'white' }
+              }}
+            >
+              <MenuItem value="en">🇺🇸 EN</MenuItem>
+              <MenuItem value="tr">����🇷 TR</MenuItem>
+              <MenuItem value="ru">🇷🇺 RU</MenuItem>
+            </Select>
+          </FormControl>
+          
           <IconButton color="inherit">
             <Settings />
           </IconButton>
         </Toolbar>
       </AppBar>
 
-      <Container sx={{ py: 3 }}>
+      <Container sx={{ py: { xs: 2, md: 3 } }}>
         {/* User Stats */}
-        <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }} sx={{ mb: 4 }}>
           <Grid item xs={12} md={4}>
             <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#6b46c1', color: 'white' }}>
-              <Schedule sx={{ fontSize: 40, mb: 1 }} />
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <Schedule sx={{ fontSize: { xs: 30, md: 40 }, mb: 1 }} />
+              <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
                 {upcomingAppointments.length}
               </Typography>
-              <Typography variant="body1">
-                Yaklaşan Randevu
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                {t.upcomingAppointment}
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
             <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#fbbf24', color: 'white' }}>
-              <History sx={{ fontSize: 40, mb: 1 }} />
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <History sx={{ fontSize: { xs: 30, md: 40 }, mb: 1 }} />
+              <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
                 {pastAppointments.length}
               </Typography>
-              <Typography variant="body1">
-                Geçmiş Randevu
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                {t.pastAppointment}
               </Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} md={4}>
             <Paper sx={{ p: 3, textAlign: 'center', bgcolor: '#10b981', color: 'white' }}>
-              <Favorite sx={{ fontSize: 40, mb: 1 }} />
-              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+              <Favorite sx={{ fontSize: { xs: 30, md: 40 }, mb: 1 }} />
+              <Typography variant="h4" sx={{ fontWeight: 'bold', fontSize: { xs: '1.5rem', md: '2.125rem' } }}>
                 {favoriteBarbers.length}
               </Typography>
-              <Typography variant="body1">
-                Favori Berber
+              <Typography variant="body1" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
+                {t.favoriteBarber}
               </Typography>
             </Paper>
           </Grid>
@@ -207,10 +313,15 @@ const Dashboard = () => {
         {/* Tabs */}
         <Card>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tabValue} onChange={(e, newValue) => setTabValue(newValue)}>
-              <Tab label="Yaklaşan Randevular" />
-              <Tab label="Geçmiş Randevular" />
-              <Tab label="Favori Berberler" />
+            <Tabs 
+              value={tabValue} 
+              onChange={(e, newValue) => setTabValue(newValue)}
+              variant={isMobile ? "scrollable" : "standard"}
+              scrollButtons={isMobile ? "auto" : false}
+            >
+              <Tab label={t.upcomingAppointments} />
+              <Tab label={t.pastAppointments} />
+              <Tab label={t.favoriteBarbers} />
             </Tabs>
           </Box>
 
@@ -220,14 +331,15 @@ const Dashboard = () => {
               <List>
                 {upcomingAppointments.map((appointment, index) => (
                   <React.Fragment key={appointment.id}>
-                    <ListItem sx={{ px: 3, py: 2 }}>
+                    <ListItem sx={{ px: { xs: 2, md: 3 }, py: 2 }}>
                       <ListItemAvatar>
-                        <Avatar src={appointment.barberImage} sx={{ width: 60, height: 60 }} />
+                        <Avatar src={appointment.barberImage} sx={{ width: { xs: 50, md: 60 }, height: { xs: 50, md: 60 } }} />
                       </ListItemAvatar>
                       <ListItemText
+                        sx={{ ml: { xs: 1, md: 2 } }}
                         primary={
-                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
+                            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                               {appointment.barberName}
                             </Typography>
                             <Chip 
@@ -235,7 +347,8 @@ const Dashboard = () => {
                               sx={{ 
                                 bgcolor: getStatusColor(appointment.status),
                                 color: 'white',
-                                fontWeight: 'bold'
+                                fontWeight: 'bold',
+                                mt: { xs: 1, sm: 0 }
                               }}
                             />
                           </Box>
@@ -248,7 +361,7 @@ const Dashboard = () => {
                             <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
                               {appointment.service}
                             </Typography>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <AccessTime sx={{ fontSize: 16, mr: 0.5, color: '#6b46c1' }} />
                                 <Typography variant="body2">
@@ -262,25 +375,27 @@ const Dashboard = () => {
                                 </Typography>
                               </Box>
                             </Box>
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
-                              <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
+                              <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mb: { xs: 1, sm: 0 } }}>
                                 {appointment.price}
                               </Typography>
-                              <Stack direction="row" spacing={1}>
+                              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ width: { xs: '100%', sm: 'auto' } }}>
                                 <Button 
                                   variant="outlined" 
                                   size="small"
                                   sx={{ color: '#ef4444', borderColor: '#ef4444' }}
+                                  fullWidth={isMobile}
                                 >
-                                  İptal Et
+                                  {t.cancel}
                                 </Button>
                                 <Button 
                                   variant="contained" 
                                   size="small"
                                   sx={{ bgcolor: '#6b46c1' }}
                                   onClick={() => navigate(`/barber/${appointment.barberId}`)}
+                                  fullWidth={isMobile}
                                 >
-                                  Detaylar
+                                  {t.details}
                                 </Button>
                               </Stack>
                             </Box>
@@ -296,14 +411,14 @@ const Dashboard = () => {
               <Box sx={{ textAlign: 'center', py: 6 }}>
                 <Schedule sx={{ fontSize: 60, color: '#d1d5db', mb: 2 }} />
                 <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-                  Yaklaşan randevunuz bulunmuyor
+                  {t.noUpcomingAppointments}
                 </Typography>
                 <Button 
                   variant="contained" 
                   onClick={() => navigate('/')}
                   sx={{ bgcolor: '#6b46c1' }}
                 >
-                  Randevu Al
+                  {t.bookNow}
                 </Button>
               </Box>
             )}
@@ -314,17 +429,18 @@ const Dashboard = () => {
             <List>
               {pastAppointments.map((appointment, index) => (
                 <React.Fragment key={appointment.id}>
-                  <ListItem sx={{ px: 3, py: 2 }}>
+                  <ListItem sx={{ px: { xs: 2, md: 3 }, py: 2 }}>
                     <ListItemAvatar>
-                      <Avatar src={appointment.barberImage} sx={{ width: 60, height: 60 }} />
+                      <Avatar src={appointment.barberImage} sx={{ width: { xs: 50, md: 60 }, height: { xs: 50, md: 60 } }} />
                     </ListItemAvatar>
                     <ListItemText
+                      sx={{ ml: { xs: 1, md: 2 } }}
                       primary={
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
+                          <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                             {appointment.barberName}
                           </Typography>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1' }}>
+                          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mt: { xs: 1, sm: 0 } }}>
                             {appointment.price}
                           </Typography>
                         </Box>
@@ -341,13 +457,13 @@ const Dashboard = () => {
                             {appointment.date} - {appointment.time}
                           </Typography>
                           {appointment.rating && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
-                              <Typography variant="body2">Verilen puan:</Typography>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
+                              <Typography variant="body2">{t.givenRating}:</Typography>
                               <Star sx={{ color: '#fbbf24', fontSize: 16 }} />
                               <Typography variant="body2">{appointment.rating}/5</Typography>
                               {!appointment.reviewed && (
                                 <Button size="small" sx={{ ml: 'auto', color: '#6b46c1' }}>
-                                  Yorum Yap
+                                  {t.writeReview}
                                 </Button>
                               )}
                             </Box>
@@ -367,13 +483,14 @@ const Dashboard = () => {
             <List>
               {favoriteBarbers.map((barber, index) => (
                 <React.Fragment key={barber.id}>
-                  <ListItem sx={{ px: 3, py: 2 }}>
+                  <ListItem sx={{ px: { xs: 2, md: 3 }, py: 2 }}>
                     <ListItemAvatar>
-                      <Avatar src={barber.image} sx={{ width: 60, height: 60 }} />
+                      <Avatar src={barber.image} sx={{ width: { xs: 50, md: 60 }, height: { xs: 50, md: 60 } }} />
                     </ListItemAvatar>
                     <ListItemText
+                      sx={{ ml: { xs: 1, md: 2 } }}
                       primary={
-                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                           {barber.name}
                         </Typography>
                       }
@@ -382,13 +499,13 @@ const Dashboard = () => {
                           <Typography variant="body2" color="text.secondary">
                             {barber.shopName}
                           </Typography>
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                               <Star sx={{ color: '#fbbf24', fontSize: 16, mr: 0.5 }} />
                               <Typography variant="body2">{barber.rating}</Typography>
                             </Box>
                             <Typography variant="body2">
-                              {barber.visits} randevu
+                              {barber.visits} {t.visits}
                             </Typography>
                           </Box>
                           <Button 
@@ -397,11 +514,12 @@ const Dashboard = () => {
                             sx={{ 
                               bgcolor: '#6b46c1',
                               mt: 1,
-                              alignSelf: 'flex-start'
+                              alignSelf: { xs: 'stretch', sm: 'flex-start' }
                             }}
                             onClick={() => navigate(`/barber/${barber.id}`)}
+                            fullWidth={isMobile}
                           >
-                            Randevu Al
+                            {t.bookAppointment}
                           </Button>
                         </Stack>
                       }
