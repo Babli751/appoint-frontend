@@ -6,22 +6,34 @@ import Login from './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import BarberDetail from './pages/BarberDetail';
+import Services from './pages/Services';
+import Offers from './pages/Offers';
+import About from './pages/About';
+import Company from './pages/Company';
+import Support from './pages/Support';
 
+// Booksy-inspired color scheme
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6b46c1',
-      light: '#9333ea',
-      dark: '#553c9a',
+      main: '#00a693', // Booksy's signature teal
+      light: '#4fd5c7',
+      dark: '#007562',
     },
     secondary: {
-      main: '#fbbf24',
-      light: '#fcd34d',
-      dark: '#f59e0b',
+      main: '#ff6b35', // Complementary orange
+      light: '#ff9d70',
+      dark: '#c63f00',
     },
     background: {
-      default: '#f8f9fa',
+      default: '#f8fffe',
       paper: '#ffffff',
+    },
+    success: {
+      main: '#00a693',
+    },
+    warning: {
+      main: '#ff6b35',
     },
   },
   typography: {
@@ -62,7 +74,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+          boxShadow: '0 4px 20px rgba(0, 166, 147, 0.08)',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff',
+          color: '#1f2937',
         },
       },
     },
@@ -77,21 +97,41 @@ function App() {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
+          <Route 
+            path="/" 
+            element={<Home />} 
           />
-          <Route
-            path="/login"
-            element={<Login setAuth={setAuth} />}
+          <Route 
+            path="/login" 
+            element={<Login setAuth={setAuth} />} 
           />
-          <Route
-            path="/dashboard"
-            element={<Dashboard />}
+          <Route 
+            path="/dashboard" 
+            element={<Dashboard />} 
           />
-          <Route
-            path="/barber/:id"
-            element={<BarberDetail />}
+          <Route 
+            path="/barber/:id" 
+            element={<BarberDetail />} 
+          />
+          <Route 
+            path="/services" 
+            element={<Services />} 
+          />
+          <Route 
+            path="/offers" 
+            element={<Offers />} 
+          />
+          <Route 
+            path="/about" 
+            element={<About />} 
+          />
+          <Route 
+            path="/company" 
+            element={<Company />} 
+          />
+          <Route 
+            path="/support" 
+            element={<Support />} 
           />
         </Routes>
       </Router>
