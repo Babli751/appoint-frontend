@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -40,7 +41,7 @@ const Company = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [language, setLanguage] = useState('en');
+  const { language, changeLanguage, t: translations } = useLanguage();
 
   // Language content
   const content = {
@@ -100,7 +101,20 @@ const Company = () => {
     }
   };
 
-  const t = content[language];
+  // Use centralized translations with page-specific content
+  const t = {
+    ...translations,
+    subtitle: language === 'en' ? 'Building the future of grooming services' : language === 'tr' ? 'Bakım hizmetlerinin geleceğini inşa ediyoruz' : 'Строим будущее услуг по уходу',
+    careersDesc: language === 'en' ? 'Join our team and help revolutionize the barbering industry' : language === 'tr' ? 'Ekibimize katılın ve berberlik sektöründe devrime yardım edin' : 'Присоединяйтесь к нашей команде и помогите революционизировать парикмахерскую индустрию',
+    pressDesc: language === 'en' ? 'Latest news, press releases, and media resources' : language === 'tr' ? 'Son haberler, basın bültenleri ve medya kaynakları' : 'Последние новости, пресс-релизы и медиа-ресурсы',
+    partnersDesc: language === 'en' ? 'Collaborate with us to grow your business' : language === 'tr' ? 'İşinizi büyütmek için bizimle işbirliği yapın' : 'Сотрудничайте с нами для развития вашего бизнеса',
+    contactDesc: language === 'en' ? 'Get in touch with our team' : language === 'tr' ? 'Ekibimizle iletişime geçin' : 'Свяжитесь с нашей командой',
+    joinTeam: language === 'en' ? 'Join Our Team' : language === 'tr' ? 'Ekibimize Katılın' : 'Присоединиться к команде',
+    viewPositions: language === 'en' ? 'View Open Positions' : language === 'tr' ? 'Açık Pozisyonları Görüntüle' : 'Посмотреть открытые позиции',
+    mediaKit: language === 'en' ? 'Download Media Kit' : language === 'tr' ? 'Medya Kitini İndir' : 'Скачать медиа-кит',
+    becomePartner: language === 'en' ? 'Become a Partner' : language === 'tr' ? 'Ortak Olun' : 'Стать партнером',
+    getInTouch: language === 'en' ? 'Get in Touch' : language === 'tr' ? 'İletişime Geçin' : 'Связаться'
+  };
 
   const sections = [
     {
@@ -127,7 +141,7 @@ const Company = () => {
       details: [
         language === 'en' ? 'Brand guidelines' : language === 'tr' ? 'Marka kılavuzları' : 'Руководство по бренду',
         language === 'en' ? 'High-resolution logos' : language === 'tr' ? 'Yüksek çözünürlüklü logolar' : 'Логотипы высокого разрешения',
-        language === 'en' ? 'Press releases' : language === 'tr' ? 'Basın bültenleri' : 'Пресс-релизы',
+        language === 'en' ? 'Press releases' : language === 'tr' ? 'Basın bültenleri' : 'П��есс-релизы',
         language === 'en' ? 'Executive bios' : language === 'tr' ? 'Yönetici biyografileri' : 'Биографии руководителей'
       ]
     },
@@ -232,7 +246,7 @@ const Company = () => {
           <FormControl size="small" sx={{ minWidth: 100 }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => changeLanguage(e.target.value)}
               sx={{ 
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
