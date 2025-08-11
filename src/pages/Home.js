@@ -222,7 +222,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Современная стрижка',
+        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Со��ременная стрижка',
         'Undercut',
         language === 'en' ? 'Color' : language === 'tr' ? 'Renk' : 'Окрашивание'
       ],
@@ -644,8 +644,8 @@ const Home = () => {
                         />
                       )}
                       {barber.isPremium && (
-                        <Chip 
-                          label="Premium"
+                        <Chip
+                          label={t.premiumLabel}
                           size="small"
                           sx={{ bgcolor: '#8b5cf6', color: 'white', fontWeight: 'bold' }}
                         />
@@ -944,7 +944,7 @@ const Home = () => {
                   sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
-                  {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с н��ми'}
+                  {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с нами'}
                 </Link>
                 <Link 
                   href="#" 
