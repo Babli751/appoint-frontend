@@ -36,6 +36,7 @@ const Services = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
   const [language, setLanguage] = useState('en');
 
   // Language content
@@ -269,7 +270,7 @@ const Services = () => {
     <Box sx={{ bgcolor: '#f8fffe', minHeight: '100vh' }}>
       {/* Header */}
       <AppBar position="static" elevation={0} sx={{ bgcolor: 'white', color: '#1f2937' }}>
-        <Toolbar>
+        <Toolbar sx={{ px: { xs: 1, md: 2 } }}>
           <IconButton 
             edge="start" 
             onClick={() => navigate('/')}
@@ -277,19 +278,20 @@ const Services = () => {
           >
             <ArrowBack />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ 
-            flexGrow: 1, 
+          <Typography variant="h6" component="div" sx={{
+            flexGrow: 1,
             fontWeight: 'bold',
             background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
-            color: 'transparent'
+            color: 'transparent',
+            fontSize: { xs: '1.1rem', md: '1.25rem' }
           }}>
             {t.brand}
           </Typography>
           
           {/* Language Selector */}
-          <FormControl size="small" sx={{ minWidth: 100 }}>
+          <FormControl size="small" sx={{ minWidth: { xs: 70, md: 100 } }}>
             <Select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
@@ -297,9 +299,9 @@ const Services = () => {
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
             >
-              <MenuItem value="en">🇬🇧 EN</MenuItem>
-              <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="ru">🇷🇺 RU</MenuItem>
+              <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'EN'}</MenuItem>
+              <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'TR'}</MenuItem>
+              <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'RU'}</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
@@ -309,20 +311,20 @@ const Services = () => {
       <Box sx={{ 
         background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
         color: 'white',
-        py: { xs: 4, md: 6 },
+        py: { xs: 3, sm: 4, md: 6 },
         textAlign: 'center'
       }}>
         <Container>
-          <Typography variant="h2" component="h1" sx={{ 
-            fontWeight: 'bold', 
-            mb: 2,
-            fontSize: { xs: '2rem', md: '3rem' }
+          <Typography variant="h2" component="h1" sx={{
+            fontWeight: 'bold',
+            mb: { xs: 1.5, md: 2 },
+            fontSize: { xs: '1.75rem', sm: '2rem', md: '3rem' }
           }}>
             {t.services}
           </Typography>
-          <Typography variant="h6" sx={{ 
+          <Typography variant="h6" sx={{
             opacity: 0.9,
-            fontSize: { xs: '1rem', md: '1.25rem' }
+            fontSize: { xs: '0.95rem', sm: '1rem', md: '1.25rem' }
           }}>
             {t.subtitle}
           </Typography>
@@ -330,8 +332,8 @@ const Services = () => {
       </Box>
 
       {/* Services Grid */}
-      <Container sx={{ py: { xs: 3, md: 6 } }}>
-        <Grid container spacing={4}>
+      <Container sx={{ py: { xs: 2, sm: 3, md: 6 }, px: { xs: 1, sm: 2, md: 3 } }}>
+        <Grid container spacing={{ xs: 2, md: 4 }}>
           {serviceCategories.map((category) => (
             <Grid item xs={12} key={category.id}>
               <Card sx={{ 
@@ -344,14 +346,14 @@ const Services = () => {
                   <Grid item xs={12} md={4}>
                     <CardMedia
                       component="img"
-                      height={isMobile ? "200" : "300"}
+                      height={isMobile ? "180" : isTablet ? "220" : "300"}
                       image={category.image}
                       alt={category.name}
                       sx={{ objectFit: 'cover' }}
                     />
                   </Grid>
                   <Grid item xs={12} md={8}>
-                    <CardContent sx={{ p: { xs: 2, md: 4 }, height: '100%' }}>
+                    <CardContent sx={{ p: { xs: 1.5, sm: 2, md: 4 }, height: '100%' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                         <Box sx={{ 
                           bgcolor: '#e6f7f5', 
@@ -363,33 +365,33 @@ const Services = () => {
                           {React.cloneElement(category.icon, { sx: { fontSize: 28 } })}
                         </Box>
                         <Box>
-                          <Typography variant="h4" sx={{ 
-                            fontWeight: 'bold', 
+                          <Typography variant="h4" sx={{
+                            fontWeight: 'bold',
                             color: '#1f2937',
-                            fontSize: { xs: '1.5rem', md: '2rem' }
+                            fontSize: { xs: '1.3rem', sm: '1.5rem', md: '2rem' }
                           }}>
                             {category.name}
                           </Typography>
-                          <Typography variant="body1" color="text.secondary">
+                          <Typography variant="body1" color="text.secondary" sx={{ fontSize: { xs: '0.9rem', md: '1rem' } }}>
                             {category.description}
                           </Typography>
                         </Box>
                       </Box>
 
-                      <Grid container spacing={2}>
+                      <Grid container spacing={{ xs: 1.5, md: 2 }}>
                         {category.services.map((service, index) => (
-                          <Grid item xs={12} md={6} key={index}>
-                            <Card sx={{ 
-                              p: 2, 
+                          <Grid item xs={12} sm={6} md={6} key={index}>
+                            <Card sx={{
+                              p: { xs: 1.5, md: 2 },
                               bgcolor: '#f8fffe',
                               border: '1px solid #e6f7f5',
-                              '&:hover': { 
+                              '&:hover': {
                                 borderColor: '#00a693',
                                 boxShadow: '0 4px 12px rgba(0, 166, 147, 0.1)'
                               }
                             }}>
                               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                                <Typography variant="h6" sx={{ fontWeight: 'bold', flex: 1 }}>
+                                <Typography variant="h6" sx={{ fontWeight: 'bold', flex: 1, fontSize: { xs: '1rem', md: '1.25rem' } }}>
                                   {service.name}
                                 </Typography>
                                 <Stack direction="row" spacing={0.5}>
@@ -417,20 +419,20 @@ const Services = () => {
                                 </Stack>
                               </Box>
                               
-                              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                              <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: { xs: '0.85rem', md: '0.875rem' } }}>
                                 {service.description}
                               </Typography>
 
                               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                   <AccessTime sx={{ fontSize: 16, color: '#00a693' }} />
-                                  <Typography variant="body2">
+                                  <Typography variant="body2" sx={{ fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
                                     {service.duration} {t.minutes}
                                   </Typography>
                                 </Box>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                   <EuroSymbol sx={{ fontSize: 16, color: '#00a693' }} />
-                                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#00a693' }}>
+                                  <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#00a693', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                                     {service.price}
                                   </Typography>
                                 </Box>
