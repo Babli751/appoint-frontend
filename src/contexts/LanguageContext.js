@@ -150,7 +150,13 @@ const getTranslations = (lang) => {
       error: 'Error',
       success: 'Success',
       warning: 'Warning',
-      info: 'Information'
+      info: 'Information',
+
+      // Barber specific translations
+      reviews: 'reviews',
+      barbers: 'Barbers',
+      barber: 'barber',
+      traditionalLabel: 'Traditional'
     },
     tr: {
       // Common
@@ -260,7 +266,13 @@ const getTranslations = (lang) => {
       error: 'Hata',
       success: 'Başarılı',
       warning: 'Uyarı',
-      info: 'Bilgi'
+      info: 'Bilgi',
+
+      // Barber specific translations
+      reviews: 'yorum',
+      barbers: 'Berber',
+      barber: 'berber',
+      traditionalLabel: 'Geleneksel'
     },
     ru: {
       // Common
@@ -277,7 +289,7 @@ const getTranslations = (lang) => {
       
       // Home page
       heroTitle: 'Найдите своего идеального парикмахера',
-      heroSubtitle: 'Записывайтес�� к лучшим парикмахерам по всей Европе',
+      heroSubtitle: 'Записывайтесь к лучшим парикмахерам по всей Европе',
       searchService: 'Какая услуга вам нужна?',
       searchLocation: 'Где?',
       searchButton: 'Поиск',
@@ -304,11 +316,11 @@ const getTranslations = (lang) => {
       
       // Services page
       ourServices: 'Наши услуги',
-      servicesSubtitle: 'Профессиональные парикмахерские услуги по всей Ев��опе',
+      servicesSubtitle: 'Профессиональные парикмахерские услуги по всей Европе',
       bookNow: 'Забронировать',
       duration: 'Продолжительность',
       price: 'Начиная от',
-      traditional: 'Традиционная',
+      traditional: 'Традиц��онная',
       premium: 'Премиум',
       minutes: 'мин',
       
@@ -339,7 +351,7 @@ const getTranslations = (lang) => {
       
       // Support page
       helpCenter: 'Центр помощи',
-      contactUs: 'Связаться с нами',
+      contactUs: 'Связаться с ��ами',
       faq: 'FAQ',
       safety: 'Безопасность',
 
@@ -368,9 +380,15 @@ const getTranslations = (lang) => {
       submit: 'Отправить',
       loading: 'Загрузка...',
       error: 'Ошибка',
-      success: 'У��пех',
+      success: 'Успех',
       warning: 'Предупреждение',
-      info: 'Информация'
+      info: 'Информация',
+
+      // Barber specific translations
+      reviews: 'отзывов',
+      barbers: 'Парикмахеров',
+      barber: 'парикмахеров',
+      traditionalLabel: 'Традиционный'
     }
   };
 
