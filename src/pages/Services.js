@@ -463,14 +463,14 @@ const Services = () => {
         </Grid>
 
         {/* Call to Action */}
-        <Box sx={{ 
-          textAlign: 'center', 
-          mt: 6,
-          p: 4,
+        <Box sx={{
+          textAlign: 'center',
+          mt: { xs: 3, md: 6 },
+          p: { xs: 2.5, sm: 3, md: 4 },
           bgcolor: '#e6f7f5',
           borderRadius: 3
         }}>
-          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 2, color: '#1f2937' }}>
+          <Typography variant="h4" sx={{ fontWeight: 'bold', mb: { xs: 1.5, md: 2 }, color: '#1f2937', fontSize: { xs: '1.4rem', sm: '1.7rem', md: '2rem' } }}>
             {language === 'en' 
               ? 'Ready to book your appointment?'
               : language === 'tr' 
@@ -478,7 +478,7 @@ const Services = () => {
               : 'Готовы записаться на прием?'
             }
           </Typography>
-          <Typography variant="body1" sx={{ mb: 3, color: 'text.secondary' }}>
+          <Typography variant="body1" sx={{ mb: { xs: 2, md: 3 }, color: 'text.secondary', fontSize: { xs: '0.9rem', md: '1rem' } }}>
             {language === 'en' 
               ? 'Find the perfect barber near you and book instantly'
               : language === 'tr' 
@@ -492,8 +492,9 @@ const Services = () => {
             sx={{
               bgcolor: '#00a693',
               fontWeight: 'bold',
-              px: 4,
-              py: 1.5,
+              px: { xs: 3, md: 4 },
+              py: { xs: 1.2, md: 1.5 },
+              fontSize: { xs: '0.9rem', md: '1rem' },
               '&:hover': { bgcolor: '#007562' }
             }}
             onClick={() => navigate('/')}
