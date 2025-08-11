@@ -414,7 +414,7 @@ const Home = () => {
                 overflow: 'hidden'
               }}>
                 <CardContent>
-                  <Flash sx={{ position: 'absolute', top: 10, right: 10, fontSize: 30, opacity: 0.3 }} />
+                  <Bolt sx={{ position: 'absolute', top: 10, right: 10, fontSize: 30, opacity: 0.3 }} />
                   <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
                     {promo.title}
                   </Typography>
