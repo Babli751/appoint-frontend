@@ -85,7 +85,8 @@ const Home = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   
   const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
@@ -495,7 +496,7 @@ const Home = () => {
       {/* Responsive Hero Section */}
       <Box sx={{ 
         position: 'relative',
-        height: { xs: '60vh', sm: '65vh', md: '600px' },
+        height: { xs: '60vh', sm: '65vh', md: '500px', lg: '600px' },
         background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
         display: 'flex',
         alignItems: 'center',
@@ -695,7 +696,7 @@ const Home = () => {
         <Container maxWidth="xl">
           <Grid container spacing={{ xs: 1.5, sm: 2, md: 3 }}>
             {featuredBarbers.map((barber) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={barber.id}>
+              <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={barber.id}>
                 <Card sx={{ 
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -711,7 +712,7 @@ const Home = () => {
                   <Box sx={{ position: 'relative', height: { xs: 140, sm: 160, md: 180, lg: 200 } }}>
                     <CardMedia
                       component="img"
-                      height={isMobile ? "140" : isTablet ? "160" : "200"}
+                      height={isMobile ? "140" : isTablet ? "170" : "200"}
                       image={barber.coverImage}
                       alt={barber.shopName}
                     />
@@ -852,7 +853,7 @@ const Home = () => {
 
                     {/* Specialties */}
                     <Stack direction="row" spacing={0.5} sx={{ mb: { xs: 1.5, md: 2 }, flexWrap: 'wrap', gap: 0.5 }}>
-                      {barber.specialties.slice(0, isMobile ? 2 : isTablet ? 2 : 3).map((specialty) => (
+                      {barber.specialties.slice(0, isMobile ? 2 : isTablet ? 3 : 3).map((specialty) => (
                         <Chip
                           key={specialty}
                           label={specialty}
@@ -1088,7 +1089,7 @@ const Home = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
-              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} ���🇺
+              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
             </Typography>
           </Box>
         </Container>
