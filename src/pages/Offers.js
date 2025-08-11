@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -36,52 +37,13 @@ const Offers = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [language, setLanguage] = useState('en');
+  const { language, changeLanguage, t: translations } = useLanguage();
 
-  // Language content
-  const content = {
-    en: {
-      brand: 'BarberPro',
-      offers: 'Special Offers',
-      subtitle: 'Save more on your favorite barber services',
-      claimOffer: 'Claim Offer',
-      validUntil: 'Valid until',
-      newCustomers: 'New Customers',
-      limitedTime: 'Limited Time',
-      exclusive: 'Exclusive',
-      popular: 'Popular',
-      currency: '€',
-      termsApply: 'Terms and conditions apply'
-    },
-    tr: {
-      brand: 'BarberPro',
-      offers: 'Özel Teklifler',
-      subtitle: 'Favori berber hizmetlerinizde daha fazla tasarruf edin',
-      claimOffer: 'Teklifi Al',
-      validUntil: 'Geçerlilik',
-      newCustomers: 'Yeni Müşteriler',
-      limitedTime: 'Sınırlı Süre',
-      exclusive: 'Özel',
-      popular: 'Popüler',
-      currency: '€',
-      termsApply: 'Şartlar ve koşullar geçerlidir'
-    },
-    ru: {
-      brand: 'BarberPro',
-      offers: 'Специальные предложения',
-      subtitle: 'Экономьте больше на ваших любимых парикмахерских услугах',
-      claimOffer: 'Получить предложение',
-      validUntil: 'Действительно до',
-      newCustomers: 'Новые клиенты',
-      limitedTime: 'Ограниченное время',
-      exclusive: 'Эксклюзивно',
-      popular: 'Популярное',
-      currency: '€',
-      termsApply: 'Применяются условия и положения'
-    }
+  // Use centralized translations
+  const t = {
+    ...translations,
+    offers: translations.specialOffers
   };
-
-  const t = content[language];
 
   const offers = [
     {
@@ -235,7 +197,7 @@ const Offers = () => {
           <FormControl size="small" sx={{ minWidth: 100 }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
+              onChange={(e) => changeLanguage(e.target.value)}
               sx={{ 
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' }
               }}
