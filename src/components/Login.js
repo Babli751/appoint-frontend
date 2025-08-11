@@ -12,7 +12,13 @@ import {
   InputAdornment,
   Divider,
   Link,
-  Stack
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  useTheme,
+  useMediaQuery
 } from '@mui/material';
 import { 
   Visibility, 
@@ -20,15 +26,92 @@ import {
   Person, 
   ContentCut,
   Star,
-  Schedule
+  Schedule,
+  Language
 } from '@mui/icons-material';
 
 export default function Login({ setAuth }) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
-  const [name, setName] = useState('');
+  const [language, setLanguage] = useState('en'); // Default to English
+
+  // Language content
+  const content = {
+    en: {
+      brand: 'BarberPro',
+      welcomeTitle: 'Welcome Back',
+      createAccountTitle: 'Create Account',
+      welcomeSubtitle: 'Sign in to your account',
+      createAccountSubtitle: 'Create a new account and discover barbers',
+      fullName: 'Full Name',
+      email: 'Email',
+      password: 'Password',
+      signIn: 'Sign In',
+      createAccount: 'Create Account',
+      or: 'or',
+      alreadyHaveAccount: 'Already have an account?',
+      dontHaveAccount: "Don't have an account?",
+      signInLink: 'Sign In',
+      signUpLink: 'Sign Up',
+      features: {
+        professional: 'Professional Barbers',
+        easy: 'Easy Booking System',
+        reviews: 'Reviews & Ratings'
+      }
+    },
+    tr: {
+      brand: 'BarberPro',
+      welcomeTitle: 'Hoş Geldiniz',
+      createAccountTitle: 'Hesap Oluştur',
+      welcomeSubtitle: 'Hesabınıza giriş yapın',
+      createAccountSubtitle: 'Yeni hesap oluşturun ve berberleri keşfedin',
+      fullName: 'Ad Soyad',
+      email: 'E-posta',
+      password: 'Şifre',
+      signIn: 'Giriş Yap',
+      createAccount: 'Hesap Oluştur',
+      or: 'veya',
+      alreadyHaveAccount: 'Zaten hesabınız var mı?',
+      dontHaveAccount: 'Hesabınız yok mu?',
+      signInLink: 'Giriş Yap',
+      signUpLink: 'Kayıt Ol',
+      features: {
+        professional: 'Profesyonel Berberler',
+        easy: 'Kolay Randevu Sistemi',
+        reviews: 'Değerlendirme & Yorum'
+      }
+    },
+    ru: {
+      brand: 'BarberPro',
+      welcomeTitle: 'Добро пожаловать',
+      createAccountTitle: 'Создать аккаунт',
+      welcomeSubtitle: 'Войдите в свой аккаунт',
+      createAccountSubtitle: 'Создайте новый аккаунт и открывайте парикмахеров',
+      fullName: 'Полное имя',
+      email: 'Электронная почта',
+      password: 'Пароль',
+      signIn: 'Войти',
+      createAccount: 'Создать аккаунт',
+      or: 'или',
+      alreadyHaveAccount: 'Уже есть аккаунт?',
+      dontHaveAccount: 'Нет аккаунта?',
+      signInLink: 'Войти',
+      signUpLink: 'Регистрация',
+      features: {
+        professional: 'Профессиональные парикмахеры',
+        easy: 'Простая система бронирования',
+        reviews: 'Отзывы и рейтинги'
+      }
+    }
+  };
+
+  const t = content[language];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,14 +123,17 @@ export default function Login({ setAuth }) {
       localStorage.setItem('token', response.data.token);
       setAuth(true);
     } catch (err) {
-      alert(isRegister ? 'Kayıt başarısız: ' + err.response?.data?.error : 'Giriş başarısız: ' + err.response?.data?.error);
+      const errorMessage = isRegister 
+        ? (language === 'en' ? 'Registration failed: ' : language === 'tr' ? 'Kayıt başarısız: ' : 'Регистрация не удалась: ')
+        : (language === 'en' ? 'Login failed: ' : language === 'tr' ? 'Giriş başarısız: ' : 'Вход не удался: ');
+      alert(errorMessage + (err.response?.data?.error || 'Unknown error'));
     }
   };
 
   const features = [
-    { icon: <ContentCut />, text: 'Profesyonel Berberler' },
-    { icon: <Schedule />, text: 'Kolay Randevu Sistemi' },
-    { icon: <Star />, text: 'Değerlendirme & Yorum' }
+    { icon: <ContentCut />, text: t.features.professional },
+    { icon: <Schedule />, text: t.features.easy },
+    { icon: <Star />, text: t.features.reviews }
   ];
 
   return (
@@ -55,63 +141,120 @@ export default function Login({ setAuth }) {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)',
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      position: 'relative'
     }}>
+      {/* Language Selector - Top Right */}
+      <Box sx={{ 
+        position: 'absolute', 
+        top: 20, 
+        right: 20, 
+        zIndex: 10 
+      }}>
+        <FormControl size="small" sx={{ minWidth: 120 }}>
+          <Select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            startAdornment={<Language sx={{ mr: 1, fontSize: 20, color: 'white' }} />}
+            sx={{ 
+              color: 'white',
+              '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.3)' },
+              '& .MuiSvgIcon-root': { color: 'white' },
+              '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.5)' },
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white' }
+            }}
+          >
+            <MenuItem value="en">🇺🇸 English</MenuItem>
+            <MenuItem value="tr">🇹🇷 Türkçe</MenuItem>
+            <MenuItem value="ru">🇷🇺 Русский</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
       <Container maxWidth="lg">
         <Box sx={{ 
           display: 'flex', 
           alignItems: 'center',
           minHeight: '80vh',
-          gap: 8
+          gap: { xs: 0, md: 8 },
+          flexDirection: { xs: 'column', md: 'row' }
         }}>
-          {/* Left Side - Brand & Features */}
-          <Box sx={{ 
-            flex: 1, 
-            color: 'white',
-            display: { xs: 'none', md: 'block' }
-          }}>
-            <Typography variant="h2" sx={{ 
-              fontWeight: 'bold', 
-              mb: 2,
-              fontSize: { md: '3rem', lg: '4rem' }
+          {/* Left Side - Brand & Features (Hidden on mobile) */}
+          {!isMobile && (
+            <Box sx={{ 
+              flex: 1, 
+              color: 'white',
+              pr: 4
             }}>
-              BarberPro
-            </Typography>
-            <Typography variant="h5" sx={{ 
-              mb: 4, 
-              opacity: 0.9,
-              fontWeight: 300
-            }}>
-              En iyi berberleri keşfedin ve kolayca randevu alın
-            </Typography>
-            
-            <Stack spacing={3}>
-              {features.map((feature, index) => (
-                <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Box sx={{ 
-                    bgcolor: 'rgba(255,255,255,0.2)', 
-                    borderRadius: '50%', 
-                    p: 1.5, 
-                    mr: 2 
-                  }}>
-                    {React.cloneElement(feature.icon, { sx: { fontSize: 24 } })}
+              <Typography variant="h2" sx={{ 
+                fontWeight: 'bold', 
+                mb: 2,
+                fontSize: { md: '3rem', lg: '4rem' }
+              }}>
+                {t.brand}
+              </Typography>
+              <Typography variant="h5" sx={{ 
+                mb: 4, 
+                opacity: 0.9,
+                fontWeight: 300
+              }}>
+                {language === 'en' 
+                  ? 'Discover the best barbers and book appointments easily'
+                  : language === 'tr'
+                  ? 'En iyi berberleri keşfedin ve kolayca randevu alın'
+                  : 'Откройте для себя лучших парикмахеров и легко записывайтесь на прием'
+                }
+              </Typography>
+              
+              <Stack spacing={3}>
+                {features.map((feature, index) => (
+                  <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box sx={{ 
+                      bgcolor: 'rgba(255,255,255,0.2)', 
+                      borderRadius: '50%', 
+                      p: 1.5, 
+                      mr: 2 
+                    }}>
+                      {React.cloneElement(feature.icon, { sx: { fontSize: 24 } })}
+                    </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 500 }}>
+                      {feature.text}
+                    </Typography>
                   </Box>
-                  <Typography variant="h6" sx={{ fontWeight: 500 }}>
-                    {feature.text}
-                  </Typography>
-                </Box>
-              ))}
-            </Stack>
-          </Box>
+                ))}
+              </Stack>
+            </Box>
+          )}
 
           {/* Right Side - Login Form */}
-          <Box sx={{ flex: { xs: 1, md: 0.6 } }}>
+          <Box sx={{ 
+            flex: { xs: 1, md: 0.6 },
+            width: '100%',
+            maxWidth: { xs: 400, md: 'none' }
+          }}>
             <Card sx={{ 
               borderRadius: 3,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.1)',
-              overflow: 'hidden'
+              boxShadow: '0 20px 60px rgba(0,0,0,0.2)',
+              overflow: 'hidden',
+              mx: { xs: 2, md: 0 }
             }}>
-              <CardContent sx={{ p: 4 }}>
+              <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+                {/* Mobile Brand (shown only on mobile) */}
+                {isMobile && (
+                  <Box sx={{ textAlign: 'center', mb: 3 }}>
+                    <Typography variant="h4" sx={{ 
+                      fontWeight: 'bold',
+                      background: 'linear-gradient(135deg, #6b46c1 0%, #9333ea 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      color: 'transparent',
+                      mb: 1
+                    }}>
+                      {t.brand}
+                    </Typography>
+                  </Box>
+                )}
+
                 <Box sx={{ textAlign: 'center', mb: 4 }}>
                   <Box sx={{ 
                     bgcolor: '#6b46c1', 
@@ -127,20 +270,17 @@ export default function Login({ setAuth }) {
                     <Person sx={{ color: 'white', fontSize: 32 }} />
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
-                    {isRegister ? 'Hesap Oluştur' : 'Hoş Geldiniz'}
+                    {isRegister ? t.createAccountTitle : t.welcomeTitle}
                   </Typography>
                   <Typography color="text.secondary">
-                    {isRegister 
-                      ? 'Yeni hesap oluşturun ve berberleri keşfedin'
-                      : 'Hesabınıza giriş yapın'
-                    }
+                    {isRegister ? t.createAccountSubtitle : t.welcomeSubtitle}
                   </Typography>
                 </Box>
 
                 <Box component="form" onSubmit={handleSubmit}>
                   {isRegister && (
                     <TextField
-                      label="Ad Soyad"
+                      label={t.fullName}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       fullWidth
@@ -151,7 +291,7 @@ export default function Login({ setAuth }) {
                   )}
                   
                   <TextField
-                    label="E-posta"
+                    label={t.email}
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -162,7 +302,7 @@ export default function Login({ setAuth }) {
                   />
                   
                   <TextField
-                    label="Şifre"
+                    label={t.password}
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -197,18 +337,18 @@ export default function Login({ setAuth }) {
                       '&:hover': { bgcolor: '#553c9a' }
                     }}
                   >
-                    {isRegister ? 'Hesap Oluştur' : 'Giriş Yap'}
+                    {isRegister ? t.createAccount : t.signIn}
                   </Button>
 
                   <Divider sx={{ mb: 3 }}>
                     <Typography color="text.secondary" variant="body2">
-                      veya
+                      {t.or}
                     </Typography>
                   </Divider>
 
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="body2" color="text.secondary">
-                      {isRegister ? 'Zaten hesabınız var mı?' : 'Hesabınız yok mu?'}
+                      {isRegister ? t.alreadyHaveAccount : t.dontHaveAccount}
                     </Typography>
                     <Link
                       component="button"
@@ -222,10 +362,35 @@ export default function Login({ setAuth }) {
                         '&:hover': { textDecoration: 'underline' }
                       }}
                     >
-                      {isRegister ? 'Giriş Yap' : 'Kayıt Ol'}
+                      {isRegister ? t.signInLink : t.signUpLink}
                     </Link>
                   </Box>
                 </Box>
+
+                {/* Mobile Features (shown only on mobile) */}
+                {isMobile && (
+                  <Box sx={{ mt: 4 }}>
+                    <Divider sx={{ mb: 3 }} />
+                    <Stack spacing={2}>
+                      {features.map((feature, index) => (
+                        <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+                          <Box sx={{ 
+                            bgcolor: '#ede9fe', 
+                            borderRadius: '50%', 
+                            p: 1, 
+                            mr: 2,
+                            color: '#6b46c1'
+                          }}>
+                            {React.cloneElement(feature.icon, { sx: { fontSize: 20 } })}
+                          </Box>
+                          <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                            {feature.text}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Stack>
+                  </Box>
+                )}
               </CardContent>
             </Card>
           </Box>
