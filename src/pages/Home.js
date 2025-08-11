@@ -402,11 +402,11 @@ const Home = () => {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar sx={{ 
-            justifyContent: 'space-between', 
-            py: 1, 
-            minHeight: { xs: '64px', md: '72px' },
-            px: { xs: 1, md: 2 }
+          <Toolbar sx={{
+            justifyContent: 'space-between',
+            py: { xs: 0.5, md: 1 },
+            minHeight: { xs: '56px', sm: '64px', md: '72px' },
+            px: { xs: 0.5, sm: 1, md: 2 }
           }}>
             {/* Left Side - Brand + Mobile Menu */}
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -419,20 +419,21 @@ const Home = () => {
                   <MenuIcon />
                 </IconButton>
               )}
-              <Typography variant={isMobile ? "h5" : "h4"} component="div" sx={{ 
+              <Typography variant={isMobile ? "h6" : "h4"} component="div" sx={{
                 fontWeight: 'bold',
                 background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
-                mr: { xs: 1, md: 4 }
+                mr: { xs: 0.5, sm: 1, md: 4 },
+                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '2rem' }
               }}>
                 {t.brand}
               </Typography>
               
-              {/* Desktop Navigation Links */}
+              {/* Desktop/Tablet Navigation Links */}
               {!isMobile && (
-                <Stack direction="row" spacing={4} sx={{ ml: 4 }}>
+                <Stack direction="row" spacing={{ md: 3, lg: 4 }} sx={{ ml: { md: 2, lg: 4 } }}>
                   <Button 
                     color="inherit" 
                     sx={{ fontWeight: 500, color: '#00a693' }}
@@ -461,13 +462,13 @@ const Home = () => {
             {/* Right Side - Actions */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
               {/* Language Selector */}
-              <FormControl size="small" sx={{ minWidth: { xs: 80, md: 100 } }}>
+              <FormControl size="small" sx={{ minWidth: { xs: 60, sm: 80, md: 100 } }}>
                 <Select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                   sx={{ 
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                    '& .MuiSelect-select': { py: 1, display: 'flex', alignItems: 'center', fontSize: { xs: '0.8rem', md: '1rem' } }
+                    '& .MuiSelect-select': { py: { xs: 0.5, md: 1 }, display: 'flex', alignItems: 'center', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' } }
                   }}
                 >
                   <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'English'}</MenuItem>
