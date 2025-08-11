@@ -170,7 +170,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная стрижка',
+        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная ст��ижка',
         language === 'en' ? 'Fade' : language === 'tr' ? 'Solmaya' : 'Фейд',
         language === 'en' ? 'Grooming' : language === 'tr' ? 'Bakım' : 'Уход'
       ],
@@ -969,7 +969,7 @@ const Home = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
               <Copyright sx={{ mr: 1, fontSize: { xs: 14, md: 16 } }} />
               <Typography variant="body2" sx={{ opacity: 0.8, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
-                2024 {t.brand}. {language === 'en' ? 'All rights reserved.' : language === 'tr' ? 'Tüm hakları saklıdır.' : 'Все права защищены.'}
+                2024 {t.brand}. {language === 'en' ? 'All rights reserved.' : language === 'tr' ? 'Tüm hakları saklıdır.' : 'Все прав�� защищены.'}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
@@ -999,23 +999,31 @@ const Home = () => {
           </Box>
           <Divider sx={{ mb: 2 }} />
           <List>
-            <ListItem button onClick={() => navigate('/')}>
+            <ListItem button onClick={() => { navigate('/'); setDrawerOpen(false); }}>
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={t.home} />
             </ListItem>
-            <ListItem button onClick={() => navigate('/services')}>
+            <ListItem button onClick={() => { navigate('/services'); setDrawerOpen(false); }}>
               <ListItemIcon><ContentCut /></ListItemIcon>
               <ListItemText primary={t.services} />
             </ListItem>
-            <ListItem button onClick={() => navigate('/offers')}>
+            <ListItem button onClick={() => { navigate('/offers'); setDrawerOpen(false); }}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
               <ListItemText primary={t.offers} />
             </ListItem>
-            <ListItem button onClick={() => navigate('/about')}>
+            <ListItem button onClick={() => { navigate('/about'); setDrawerOpen(false); }}>
               <ListItemIcon><Person /></ListItemIcon>
               <ListItemText primary={t.about} />
             </ListItem>
-            <ListItem button onClick={() => navigate('/dashboard')}>
+            <ListItem button onClick={() => { navigate('/company'); setDrawerOpen(false); }}>
+              <ListItemIcon><Business /></ListItemIcon>
+              <ListItemText primary={t.company} />
+            </ListItem>
+            <ListItem button onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
+              <ListItemIcon><SupportIcon /></ListItemIcon>
+              <ListItemText primary={t.support} />
+            </ListItem>
+            <ListItem button onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
               <ListItemIcon><Schedule /></ListItemIcon>
               <ListItemText primary={t.appointments} />
             </ListItem>
@@ -1057,23 +1065,25 @@ const Home = () => {
             onChange={(event, newValue) => setBottomNavValue(newValue)}
             sx={{ height: { xs: 56, sm: 60 } }}
           >
-            <BottomNavigationAction 
-              label={t.home} 
+            <BottomNavigationAction
+              label={t.home}
               icon={<HomeIcon />}
-              onClick={() => navigate('/')}
+              onClick={() => { navigate('/'); setBottomNavValue(0); }}
             />
-            <BottomNavigationAction 
-              label={t.appointments} 
+            <BottomNavigationAction
+              label={t.services}
+              icon={<ContentCut />}
+              onClick={() => { navigate('/services'); setBottomNavValue(1); }}
+            />
+            <BottomNavigationAction
+              label={t.appointments}
               icon={<Schedule />}
-              onClick={() => navigate('/dashboard')}
+              onClick={() => { navigate('/dashboard'); setBottomNavValue(2); }}
             />
-            <BottomNavigationAction 
-              label={t.favorites} 
-              icon={<Favorite />}
-            />
-            <BottomNavigationAction 
-              label={t.profile} 
+            <BottomNavigationAction
+              label={t.profile}
               icon={<AccountCircle />}
+              onClick={() => setBottomNavValue(3)}
             />
           </BottomNavigation>
         </Box>
@@ -1089,9 +1099,16 @@ const Home = () => {
             right: { xs: 12, sm: 16 },
             bgcolor: '#ff6b35',
             color: 'white',
-            '&:hover': { bgcolor: '#e55a2e' }
+            '&:hover': { bgcolor: '#e55a2e' },
+            zIndex: 1000
           }}
-          onClick={() => {}}
+          onClick={() => {
+            // Scroll to search section
+            const searchSection = document.querySelector('[data-search="hero"]');
+            if (searchSection) {
+              searchSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
         >
           <Search />
         </Fab>
