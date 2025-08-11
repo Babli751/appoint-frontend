@@ -1,0 +1,293 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+const LanguageContext = createContext();
+
+export const useLanguage = () => {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+};
+
+export const LanguageProvider = ({ children }) => {
+  const [language, setLanguage] = useState(() => {
+    // Load from localStorage or default to 'en'
+    return localStorage.getItem('barberPro_language') || 'en';
+  });
+
+  const changeLanguage = (newLanguage) => {
+    setLanguage(newLanguage);
+    localStorage.setItem('barberPro_language', newLanguage);
+  };
+
+  useEffect(() => {
+    // Save to localStorage whenever language changes
+    localStorage.setItem('barberPro_language', language);
+  }, [language]);
+
+  const value = {
+    language,
+    changeLanguage,
+    t: getTranslations(language)
+  };
+
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+// Centralized translations
+const getTranslations = (lang) => {
+  const translations = {
+    en: {
+      // Common
+      brand: 'BarberPro',
+      currency: '€',
+      home: 'Home',
+      services: 'Services',
+      offers: 'Offers',
+      about: 'About',
+      company: 'Company',
+      support: 'Support',
+      login: 'Sign In',
+      signup: 'Sign Up',
+      
+      // Home page
+      heroTitle: 'Find Your Perfect Barber',
+      heroSubtitle: 'Book appointments with top-rated barbers across Europe',
+      searchService: 'What service do you need?',
+      searchLocation: 'Where?',
+      searchButton: 'Search',
+      featuredBarbers: 'Featured Barbers',
+      bookAppointment: 'Book Now',
+      verified: 'Verified',
+      new: 'New',
+      mostPreferred: 'Most Popular',
+      nextAvailable: 'Next available',
+      today: 'Today',
+      starting: 'from',
+      results: 'results',
+      filter: 'Filter',
+      sort: 'Sort',
+      nearest: 'Nearest',
+      popular: 'Most Popular',
+      cheapest: 'Best Price',
+      appointments: 'My Bookings',
+      favorites: 'Favorites',
+      profile: 'Profile',
+      instantApproval: 'Instant Booking',
+      happyCustomers: 'Happy Customers',
+      instantBooking: 'Instant Booking',
+      
+      // Services page
+      ourServices: 'Our Services',
+      servicesSubtitle: 'Professional barber services across Europe',
+      bookNow: 'Book Now',
+      duration: 'Duration',
+      price: 'Starting from',
+      traditional: 'Traditional',
+      premium: 'Premium',
+      minutes: 'min',
+      
+      // About page
+      aboutUs: 'About Us',
+      aboutSubtitle: 'Connecting you with Europe\'s finest barbers',
+      ourMission: 'Our Mission',
+      ourVision: 'Our Vision',
+      ourValues: 'Our Values',
+      stats: 'Our Impact',
+      team: 'Leadership Team',
+      joinUs: 'Join Us Today',
+      
+      // Offers page
+      specialOffers: 'Special Offers',
+      offersSubtitle: 'Save more on your favorite barber services',
+      claimOffer: 'Claim Offer',
+      validUntil: 'Valid until',
+      newCustomers: 'New Customers',
+      limitedTime: 'Limited Time',
+      
+      // Company page
+      companyInfo: 'Company Information',
+      careers: 'Careers',
+      press: 'Press',
+      partners: 'Partners',
+      contact: 'Contact',
+      
+      // Support page
+      helpCenter: 'Help Center',
+      contactUs: 'Contact Us',
+      faq: 'FAQ',
+      safety: 'Safety'
+    },
+    tr: {
+      // Common
+      brand: 'BarberPro',
+      currency: '€',
+      home: 'Ana Sayfa',
+      services: 'Hizmetler',
+      offers: 'Teklifler',
+      about: 'Hakkımızda',
+      company: 'Şirket',
+      support: 'Destek',
+      login: 'Giriş',
+      signup: 'Kayıt Ol',
+      
+      // Home page
+      heroTitle: 'Mükemmel Berberinizi Bulun',
+      heroSubtitle: 'Avrupa\'nın en iyi berberlerinden randevu alın',
+      searchService: 'Hangi hizmete ihtiyacınız var?',
+      searchLocation: 'Nerede?',
+      searchButton: 'Ara',
+      featuredBarbers: 'Öne Çıkan Berberler',
+      bookAppointment: 'Hemen Rezervasyon',
+      verified: 'Doğrulanmış',
+      new: 'Yeni',
+      mostPreferred: 'En Popüler',
+      nextAvailable: 'Sonraki müsait',
+      today: 'Bugün',
+      starting: 'başlangıç',
+      results: 'sonuç',
+      filter: 'Filtrele',
+      sort: 'Sırala',
+      nearest: 'En Yakın',
+      popular: 'En Popüler',
+      cheapest: 'En Uygun',
+      appointments: 'Rezervasyonlarım',
+      favorites: 'Favorilerim',
+      profile: 'Profilim',
+      instantApproval: 'Anında Onay',
+      happyCustomers: 'Mutlu Müşteri',
+      instantBooking: 'Anında Rezervasyon',
+      
+      // Services page
+      ourServices: 'Hizmetlerimiz',
+      servicesSubtitle: 'Avrupa genelinde profesyonel berber hizmetleri',
+      bookNow: 'Rezervasyon Yap',
+      duration: 'Süre',
+      price: 'Başlangıç',
+      traditional: 'Geleneksel',
+      premium: 'Premium',
+      minutes: 'dk',
+      
+      // About page
+      aboutUs: 'Hakkımızda',
+      aboutSubtitle: 'Sizi Avrupa\'nın en iyi berberleriyle buluşturuyoruz',
+      ourMission: 'Misyonumuz',
+      ourVision: 'Vizyonumuz',
+      ourValues: 'Değerlerimiz',
+      stats: 'Etkimiz',
+      team: 'Yönetim Ekibi',
+      joinUs: 'Bugün Katılın',
+      
+      // Offers page
+      specialOffers: 'Özel Teklifler',
+      offersSubtitle: 'Favori berber hizmetlerinizde daha fazla tasarruf edin',
+      claimOffer: 'Teklifi Al',
+      validUntil: 'Geçerlilik tarihi',
+      newCustomers: 'Yeni Müşteriler',
+      limitedTime: 'Sınırlı Süre',
+      
+      // Company page
+      companyInfo: 'Şirket Bilgileri',
+      careers: 'Kariyer',
+      press: 'Basın',
+      partners: 'Ortaklar',
+      contact: 'İletişim',
+      
+      // Support page
+      helpCenter: 'Yardım Merkezi',
+      contactUs: 'İletişim',
+      faq: 'SSS',
+      safety: 'Güvenlik'
+    },
+    ru: {
+      // Common
+      brand: 'BarberPro',
+      currency: '€',
+      home: 'Главная',
+      services: 'Услуги',
+      offers: 'Предложения',
+      about: 'О нас',
+      company: 'Компания',
+      support: 'Поддержка',
+      login: 'Войти',
+      signup: 'Регистрация',
+      
+      // Home page
+      heroTitle: 'Найдите своего идеального парикмахера',
+      heroSubtitle: 'Записывайтесь к лучшим парикмахерам по всей Европе',
+      searchService: 'Какая услуга вам нужна?',
+      searchLocation: 'Где?',
+      searchButton: 'Поиск',
+      featuredBarbers: 'Рекомендуемые парикмахеры',
+      bookAppointment: 'Забронировать',
+      verified: 'Проверено',
+      new: 'Новый',
+      mostPreferred: 'Самый популярный',
+      nextAvailable: 'Следующий доступный',
+      today: 'Сегодня',
+      starting: 'от',
+      results: 'результатов',
+      filter: 'Фильтр',
+      sort: 'Сортировка',
+      nearest: 'Ближайшие',
+      popular: 'Популярные',
+      cheapest: 'Лучшая цена',
+      appointments: 'Мои бронирования',
+      favorites: 'Избранное',
+      profile: 'Профиль',
+      instantApproval: 'Мгновенное бронирование',
+      happyCustomers: 'Довольных клиентов',
+      instantBooking: 'Мгновенное бронирование',
+      
+      // Services page
+      ourServices: 'Наши услуги',
+      servicesSubtitle: 'Профессиональные парикмахерские услуги по всей Европе',
+      bookNow: 'Забронировать',
+      duration: 'Продолжительность',
+      price: 'Начиная от',
+      traditional: 'Традиционная',
+      premium: 'Премиум',
+      minutes: 'мин',
+      
+      // About page
+      aboutUs: 'О нас',
+      aboutSubtitle: 'Соединяем вас с лучшими парикмахерами Европы',
+      ourMission: 'Наша миссия',
+      ourVision: 'Наше видение',
+      ourValues: 'Наши ценности',
+      stats: 'Наше влияние',
+      team: 'Команда руководства',
+      joinUs: 'Присоед��няйтесь сегодня',
+      
+      // Offers page
+      specialOffers: 'Специальные предложения',
+      offersSubtitle: 'Экономьте больше на ваших любимых парикмахерских услугах',
+      claimOffer: 'Получить предложение',
+      validUntil: 'Действительно до',
+      newCustomers: 'Новые клиенты',
+      limitedTime: 'Ограниченное время',
+      
+      // Company page
+      companyInfo: 'Информация о компании',
+      careers: 'Карьера',
+      press: 'Пресса',
+      partners: 'Партнеры',
+      contact: 'Контакты',
+      
+      // Support page
+      helpCenter: 'Центр помощи',
+      contactUs: 'Связаться с нами',
+      faq: 'FAQ',
+      safety: 'Безопасность'
+    }
+  };
+
+  return translations[lang] || translations.en;
+};
+
+export default LanguageContext;
