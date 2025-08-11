@@ -189,7 +189,7 @@ const Home = () => {
       starting: 'от',
       results: 'результатов',
       barbers: 'Парикмахеры',
-      services: 'Услуг��',
+      services: 'Услуги',
       offers: 'Предложения',
       about: 'О нас',
       company: 'Компания',
@@ -201,7 +201,7 @@ const Home = () => {
       nearest: 'Ближайшие',
       popular: 'Популярные',
       cheapest: 'Лучшая цена',
-      home: 'Главная',
+      home: 'Глав��ая',
       appointments: 'Мои бронирования',
       favorites: 'Избранное',
       profile: 'Профиль',
@@ -363,7 +363,7 @@ const Home = () => {
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
         language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
-        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпа��ур'
+        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
       ],
       nextAvailable: '19:00',
       price: `${t.currency}45`,
@@ -549,14 +549,15 @@ const Home = () => {
                     placeholder={t.searchService}
                     value={searchService}
                     onChange={(e) => setSearchService(e.target.value)}
-                    sx={{ 
+                    sx={{
                       flex: 1,
                       bgcolor: 'white',
                       borderRadius: 2,
-                      mb: { xs: 2, md: 0 },
+                      mb: { xs: 1.5, md: 0 },
                       '& .MuiOutlinedInput-root': {
                         '& fieldset': { border: 'none' },
-                        height: '56px'
+                        height: { xs: '48px', sm: '52px', md: '56px' },
+                        fontSize: { xs: '0.9rem', md: '1rem' }
                       }
                     }}
                     InputProps={{
@@ -571,14 +572,15 @@ const Home = () => {
                     placeholder={t.searchLocation}
                     value={searchLocation}
                     onChange={(e) => setSearchLocation(e.target.value)}
-                    sx={{ 
+                    sx={{
                       flex: 1,
                       bgcolor: 'white',
                       borderRadius: 2,
-                      mb: { xs: 2, md: 0 },
+                      mb: { xs: 1.5, md: 0 },
                       '& .MuiOutlinedInput-root': {
                         '& fieldset': { border: 'none' },
-                        height: '56px'
+                        height: { xs: '48px', sm: '52px', md: '56px' },
+                        fontSize: { xs: '0.9rem', md: '1rem' }
                       }
                     }}
                     InputProps={{
@@ -599,7 +601,8 @@ const Home = () => {
                       fontWeight: 'bold',
                       px: 4,
                       minWidth: { xs: 'auto', md: 120 },
-                      height: '56px',
+                      height: { xs: '48px', sm: '52px', md: '56px' },
+                      fontSize: { xs: '0.9rem', md: '1rem' },
                       '&:hover': { bgcolor: '#e55a2e' }
                     }}
                   >
@@ -615,15 +618,15 @@ const Home = () => {
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle sx={{ fontSize: 20 }} />
-                    <Typography variant="body1">2000+ {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berber' : 'Парикмахеров'}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '1rem' } }}>2000+ {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berber' : 'Парикмахеров'}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Star sx={{ fontSize: 20 }} />
-                    <Typography variant="body1">150,000+ {t.happyCustomers}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '1rem' } }}>150,000+ {t.happyCustomers}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CalendarToday sx={{ fontSize: 20 }} />
-                    <Typography variant="body1">{t.instantBooking}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '1rem' } }}>{t.instantBooking}</Typography>
                   </Box>
                 </Stack>
               </Box>
@@ -964,7 +967,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем город��.'
+                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших пари��махеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
