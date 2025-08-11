@@ -503,7 +503,7 @@ const Home = () => {
                 >
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <CheckCircle sx={{ fontSize: 20 }} />
-                    <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '1rem' } }}>2000+ {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berber' : 'Парикмахеров'}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: { xs: '0.85rem', md: '1rem' } }}>2000+ {t.barbers}</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <Star sx={{ fontSize: 20 }} />
@@ -651,8 +651,8 @@ const Home = () => {
                         />
                       )}
                       {barber.isTraditional && (
-                        <Chip 
-                          label={language === 'en' ? 'Traditional' : language === 'tr' ? 'Geleneksel' : 'Традиционный'}
+                        <Chip
+                          label={t.traditionalLabel}
                           size="small"
                           sx={{ bgcolor: '#92400e', color: 'white', fontWeight: 'bold' }}
                         />
@@ -729,7 +729,7 @@ const Home = () => {
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
                         <Rating value={barber.rating} precision={0.1} size="small" readOnly />
                         <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}>
-                          ({barber.reviewCount} {language === 'en' ? 'reviews' : language === 'tr' ? 'yorum' : 'отзывов'})
+                          ({barber.reviewCount} {t.reviews})
                         </Typography>
                       </Box>
                     </Box>
@@ -944,7 +944,7 @@ const Home = () => {
                   sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
-                  {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с нами'}
+                  {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişim' : 'Связаться с н��ми'}
                 </Link>
                 <Link 
                   href="#" 
