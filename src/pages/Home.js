@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLanguage } from '../contexts/LanguageContext';
 import { 
   Box, 
   Typography, 
@@ -91,129 +92,12 @@ const Home = () => {
   const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
-  const [language, setLanguage] = useState('en'); // Default to English
+  const { language, changeLanguage, t: translations } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
 
-  // Language content adapted for European market
-  const content = {
-    en: {
-      brand: 'BarberPro',
-      heroTitle: 'Find Your Perfect Barber',
-      heroSubtitle: 'Book appointments with top-rated barbers across Europe',
-      searchService: 'What service do you need?',
-      searchLocation: 'Where?',
-      searchButton: 'Search',
-      featuredBarbers: 'Featured Barbers',
-      bookAppointment: 'Book Now',
-      verified: 'Verified',
-      new: 'New',
-      mostPreferred: 'Most Popular',
-      nextAvailable: 'Next available',
-      today: 'Today',
-      starting: 'from',
-      results: 'results',
-      barbers: 'Barbers',
-      services: 'Services',
-      offers: 'Offers',
-      about: 'About',
-      company: 'Company',
-      support: 'Support',
-      login: 'Sign In',
-      signup: 'Sign Up',
-      filter: 'Filter',
-      sort: 'Sort',
-      nearest: 'Nearest',
-      popular: 'Most Popular',
-      cheapest: 'Best Price',
-      home: 'Home',
-      appointments: 'My Bookings',
-      favorites: 'Favorites',
-      profile: 'Profile',
-      instantApproval: 'Instant Booking',
-      happyCustomers: 'Happy Customers',
-      instantBooking: 'Instant Booking',
-      currency: '€'
-    },
-    tr: {
-      brand: 'BarberPro',
-      heroTitle: 'Mükemmel Berberinizi Bulun',
-      heroSubtitle: 'Avrupa\'nın en iyi berberlerinden randevu alın',
-      searchService: 'Hangi hizmete ihtiyacınız var?',
-      searchLocation: 'Nerede?',
-      searchButton: 'Ara',
-      featuredBarbers: 'Öne Çıkan Berberler',
-      bookAppointment: 'Hemen Rezervasyon',
-      verified: 'Doğrulanmış',
-      new: 'Yeni',
-      mostPreferred: 'En Popüler',
-      nextAvailable: 'Sonraki müsait',
-      today: 'Bugün',
-      starting: 'başlangıç',
-      results: 'sonuç',
-      barbers: 'Berberler',
-      services: 'Hizmetler',
-      offers: 'Teklifler',
-      about: 'Hakkımızda',
-      company: 'Şirket',
-      support: 'Destek',
-      login: 'Giriş',
-      signup: 'Kayıt Ol',
-      filter: 'Filtrele',
-      sort: 'Sırala',
-      nearest: 'En Yakın',
-      popular: 'En Popüler',
-      cheapest: 'En Uygun',
-      home: 'Ana Sayfa',
-      appointments: 'Rezervasyonlarım',
-      favorites: 'Favorilerim',
-      profile: 'Profilim',
-      instantApproval: 'Anında Onay',
-      happyCustomers: 'Mutlu Müşteri',
-      instantBooking: 'Anında Rezervasyon',
-      currency: '€'
-    },
-    ru: {
-      brand: 'BarberPro',
-      heroTitle: 'Найдите своего идеального парикмахера',
-      heroSubtitle: 'Записывайтесь к лучшим парикмахерам по всей Европе',
-      searchService: 'Какая услуга вам нужна?',
-      searchLocation: 'Где?',
-      searchButton: 'Поиск',
-      featuredBarbers: 'Рекомендуемые парикмахеры',
-      bookAppointment: 'Забронировать',
-      verified: 'Проверено',
-      new: 'Новый',
-      mostPreferred: 'Самый популярный',
-      nextAvailable: 'Следующий доступный',
-      today: 'Сегодня',
-      starting: 'от',
-      results: 'результатов',
-      barbers: 'Парикмахеры',
-      services: 'Услуги',
-      offers: 'Предложения',
-      about: 'О нас',
-      company: 'Компания',
-      support: 'Поддержка',
-      login: 'Войти',
-      signup: 'Регистрация',
-      filter: 'Фильтр',
-      sort: 'Сортировка',
-      nearest: 'Ближайшие',
-      popular: 'Популярные',
-      cheapest: 'Лучшая цена',
-      home: 'Главная',
-      appointments: 'Мои бронирования',
-      favorites: 'Избранное',
-      profile: 'Профиль',
-      instantApproval: 'Мгновенное бронирование',
-      happyCustomers: 'Довольных клиентов',
-      instantBooking: 'Мгновенное бронирование',
-      currency: '€'
-    }
-  };
-
-  const t = content[language];
+  // Use centralized translations
+  const t = translations;
 
   // European cities and pricing
   const europeanCities = [
@@ -466,7 +350,7 @@ const Home = () => {
               <FormControl size="small" sx={{ minWidth: { xs: 60, sm: 80, md: 100 } }}>
                 <Select
                   value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
+                  onChange={(e) => changeLanguage(e.target.value)}
                   sx={{ 
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     '& .MuiSelect-select': { py: { xs: 0.5, md: 1 }, display: 'flex', alignItems: 'center', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' } }
