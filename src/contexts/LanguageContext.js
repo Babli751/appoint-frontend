@@ -156,7 +156,8 @@ const getTranslations = (lang) => {
       reviews: 'reviews',
       barbers: 'Barbers',
       barber: 'barber',
-      traditionalLabel: 'Traditional'
+      traditionalLabel: 'Traditional',
+      premiumLabel: 'Premium'
     },
     tr: {
       // Common
@@ -272,7 +273,8 @@ const getTranslations = (lang) => {
       reviews: 'yorum',
       barbers: 'Berber',
       barber: 'berber',
-      traditionalLabel: 'Geleneksel'
+      traditionalLabel: 'Geleneksel',
+      premiumLabel: 'Premium'
     },
     ru: {
       // Common
@@ -320,7 +322,7 @@ const getTranslations = (lang) => {
       bookNow: 'Забронировать',
       duration: 'Продолжительность',
       price: 'Начиная от',
-      traditional: 'Традиц��онная',
+      traditional: 'Традиционная',
       premium: 'Премиум',
       minutes: 'мин',
       
@@ -351,7 +353,7 @@ const getTranslations = (lang) => {
       
       // Support page
       helpCenter: 'Центр помощи',
-      contactUs: 'Связаться с ��ами',
+      contactUs: 'Связаться с нами',
       faq: 'FAQ',
       safety: 'Безопасность',
 
@@ -360,7 +362,7 @@ const getTranslations = (lang) => {
       validUntil: 'Действительно до',
       newCustomers: 'Новые клиенты',
       limitedTime: 'Ограниченное время',
-      exclusive: 'Эксклюзивно',
+      exclusive: '��ксклюзивно',
       termsApply: 'Применяются условия и положения',
       getStarted: 'Начать',
       learnMore: 'Узнать больше',
@@ -388,7 +390,8 @@ const getTranslations = (lang) => {
       reviews: 'отзывов',
       barbers: 'Парикмахеров',
       barber: 'парикмахеров',
-      traditionalLabel: 'Традиционный'
+      traditionalLabel: 'Традиционный',
+      premiumLabel: 'Премиум'
     }
   };
 
