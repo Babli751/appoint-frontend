@@ -61,6 +61,7 @@ import {
   Map,
   List as ListIcon,
   LocalOffer,
+  Bolt,
   TrendingUp,
   Verified,
   DirectionsCar,
