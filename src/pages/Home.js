@@ -180,7 +180,7 @@ const Home = () => {
       searchLocation: 'Где?',
       searchButton: 'Поиск',
       featuredBarbers: 'Рекомендуемые парикмахеры',
-      bookAppointment: 'Забронировать',
+      bookAppointment: 'Забронирова��ь',
       verified: 'Проверено',
       new: 'Новый',
       mostPreferred: 'Самый популярный',
@@ -201,7 +201,7 @@ const Home = () => {
       nearest: 'Ближайшие',
       popular: 'Популярные',
       cheapest: 'Лучшая цена',
-      home: 'Глав��ая',
+      home: 'Главная',
       appointments: 'Мои бронирования',
       favorites: 'Избранное',
       profile: 'Профиль',
@@ -636,25 +636,26 @@ const Home = () => {
       </Box>
 
       {/* Responsive Filter and Sort Bar */}
-      <Box sx={{ bgcolor: 'white', borderBottom: '1px solid #e5e7eb', py: 2 }}>
+      <Box sx={{ bgcolor: 'white', borderBottom: '1px solid #e5e7eb', py: { xs: 1.5, md: 2 } }}>
         <Container maxWidth="xl">
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
             alignItems: 'center',
             flexDirection: { xs: 'column', md: 'row' },
-            gap: { xs: 2, md: 0 }
+            gap: { xs: 1.5, md: 0 }
           }}>
-            <Typography variant="h5" sx={{ 
-              fontWeight: 'bold', 
+            <Typography variant="h5" sx={{
+              fontWeight: 'bold',
               color: '#1f2937',
-              fontSize: { xs: '1.2rem', md: '1.5rem' }
+              fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.5rem' },
+              textAlign: { xs: 'center', md: 'left' }
             }}>
               {t.featuredBarbers} ({featuredBarbers.length} {t.results})
             </Typography>
-            <Box sx={{ 
-              display: 'flex', 
-              gap: { xs: 1, md: 2 }, 
+            <Box sx={{
+              display: 'flex',
+              gap: { xs: 0.5, sm: 1, md: 2 },
               alignItems: 'center',
               flexWrap: 'wrap',
               justifyContent: 'center'
@@ -692,9 +693,9 @@ const Home = () => {
       {/* Responsive Barber Grid */}
       <Box sx={{ py: { xs: 2, md: 4 } }}>
         <Container maxWidth="xl">
-          <Grid container spacing={{ xs: 2, md: 3 }}>
+          <Grid container spacing={{ xs: 1.5, sm: 2, md: 3 }}>
             {featuredBarbers.map((barber) => (
-              <Grid item xs={12} sm={6} md={4} lg={4} key={barber.id}>
+              <Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={barber.id}>
                 <Card sx={{ 
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -707,10 +708,10 @@ const Home = () => {
                   }
                 }}>
                   {/* Cover Image */}
-                  <Box sx={{ position: 'relative', height: { xs: 160, md: 200 } }}>
+                  <Box sx={{ position: 'relative', height: { xs: 140, sm: 160, md: 180, lg: 200 } }}>
                     <CardMedia
                       component="img"
-                      height={isMobile ? "160" : "200"}
+                      height={isMobile ? "140" : isTablet ? "160" : "200"}
                       image={barber.coverImage}
                       alt={barber.shopName}
                     />
@@ -967,7 +968,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших пари��махеров в своем городе.'
+                  : 'Ведущая платформа для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
