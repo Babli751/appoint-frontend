@@ -18,7 +18,6 @@ import {
   Avatar,
   Stack,
   Badge,
-  Menu,
   MenuItem,
   Drawer,
   List,
@@ -32,17 +31,12 @@ import {
   FormControl,
   InputLabel,
   Select,
-  Tabs,
-  Tab,
   Autocomplete,
   BottomNavigation,
   BottomNavigationAction,
   Dialog,
   DialogTitle,
-  DialogContent,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
+  DialogContent
 } from '@mui/material';
 import {
   Search,
