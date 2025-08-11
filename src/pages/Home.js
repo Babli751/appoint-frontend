@@ -737,7 +737,7 @@ const Home = () => {
                           {feature === 'Klima' && <AcUnit sx={{ fontSize: 16, color: '#6b46c1' }} />}
                           {feature === 'Otopark' && <LocalParking sx={{ fontSize: 16, color: '#6b46c1' }} />}
                           {feature === 'Kart Ödeme' && <Payment sx={{ fontSize: 16, color: '#6b46c1' }} />}
-                          {feature === 'Engelli Erişim' && <Wheelchair sx={{ fontSize: 16, color: '#6b46c1' }} />}
+                          {feature === 'Engelli Erişim' && <Accessible sx={{ fontSize: 16, color: '#6b46c1' }} />}
                         </Box>
                       ))}
                     </Stack>
