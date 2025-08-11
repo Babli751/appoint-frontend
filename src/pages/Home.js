@@ -170,7 +170,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная ст��ижка',
+        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная стрижка',
         language === 'en' ? 'Fade' : language === 'tr' ? 'Solmaya' : 'Фейд',
         language === 'en' ? 'Grooming' : language === 'tr' ? 'Bakım' : 'Уход'
       ],
@@ -378,7 +378,7 @@ const Home = () => {
       </AppBar>
 
       {/* Responsive Hero Section */}
-      <Box sx={{ 
+      <Box data-search="hero" sx={{
         position: 'relative',
         height: { xs: '60vh', sm: '65vh', md: '500px', lg: '600px' },
         background: 'linear-gradient(135deg, rgba(0, 166, 147, 0.95) 0%, rgba(79, 213, 199, 0.9) 100%)',
@@ -969,7 +969,7 @@ const Home = () => {
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' } }}>
               <Copyright sx={{ mr: 1, fontSize: { xs: 14, md: 16 } }} />
               <Typography variant="body2" sx={{ opacity: 0.8, fontSize: { xs: '0.8rem', md: '0.875rem' } }}>
-                2024 {t.brand}. {language === 'en' ? 'All rights reserved.' : language === 'tr' ? 'Tüm hakları saklıdır.' : 'Все прав�� защищены.'}
+                2024 {t.brand}. {language === 'en' ? 'All rights reserved.' : language === 'tr' ? 'Tüm hakları saklıdır.' : 'Все права защищены.'}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
