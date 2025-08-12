@@ -319,7 +319,10 @@ const Offers = () => {
                       fontWeight: 'bold',
                       color: 'white',
                       fontSize: { xs: '1.8rem', md: '2.5rem' },
-                      lineHeight: 1
+                      lineHeight: 1,
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                      zIndex: 2,
+                      position: 'relative'
                     }}>
                       {offer.discount}
                     </Typography>
