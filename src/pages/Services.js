@@ -220,7 +220,7 @@ const Services = () => {
             ? 'Nourishing hair mask and treatment'
             : language === 'tr' 
             ? 'Besleyici saç maskesi ve bakım'
-            : 'Питательная маска и уход за волосами'
+            : 'Питательна�� маска и уход за волосами'
         }
       ]
     },
@@ -307,7 +307,7 @@ const Services = () => {
             >
               <MenuItem value="en">🇬🇧 {isMobile ? 'EN' : 'EN'}</MenuItem>
               <MenuItem value="tr">🇹🇷 {isMobile ? 'TR' : 'TR'}</MenuItem>
-              <MenuItem value="ru">🇷���� {isMobile ? 'RU' : 'RU'}</MenuItem>
+              <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : 'RU'}</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
