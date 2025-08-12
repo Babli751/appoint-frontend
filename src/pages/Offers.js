@@ -121,7 +121,7 @@ const Offers = () => {
         ? 'Students get 15% off on all services with valid student ID'
         : language === 'tr' 
         ? 'Öğrenciler geçerli öğrenci kartı ile tüm hizmetlerde %15 indirim alır'
-        : 'Студенты получают 15% скидку на все услуги при предъявлении студенческого билета',
+        : 'Студ��нты получают 15% скидку на все услуги при предъявлении студенческого билета',
       discount: '15%',
       originalPrice: 35,
       discountedPrice: 30,
@@ -321,7 +321,10 @@ const Offers = () => {
                     color: 'white',
                     fontSize: { xs: '1.1rem', md: '1.5rem' },
                     lineHeight: 1.2,
-                    wordWrap: 'break-word'
+                    wordWrap: 'break-word',
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+                    zIndex: 2,
+                    position: 'relative'
                   }}>
                     {offer.title}
                   </Typography>
