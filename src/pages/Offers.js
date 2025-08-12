@@ -121,7 +121,7 @@ const Offers = () => {
         ? 'Students get 15% off on all services with valid student ID'
         : language === 'tr' 
         ? 'Öğrenciler geçerli öğrenci kartı ile tüm hizmetlerde %15 indirim alır'
-        : 'Студ��нты получают 15% скидку на все услуги при предъявлении студенческого билета',
+        : 'Студенты получают 15% скидку на все услуги при предъявлении студенческого билета',
       discount: '15%',
       originalPrice: 35,
       discountedPrice: 30,
@@ -260,9 +260,20 @@ const Offers = () => {
                   top: 0,
                   left: 0,
                   right: 0,
-                  height: { xs: '140px', md: '120px' },
+                  height: { xs: '160px', md: '140px' },
                   background: `linear-gradient(135deg, ${offer.backgroundColor} 0%, ${offer.backgroundColor}dd 100%)`,
                   zIndex: 0
+                }} />
+
+                {/* Text Shadow Overlay */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: { xs: '160px', md: '140px' },
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%)',
+                  zIndex: 1
                 }} />
 
                 {/* Offer Type Badge */}
