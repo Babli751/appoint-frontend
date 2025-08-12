@@ -626,7 +626,7 @@ const Home = () => {
               {t.featuredBarbers} ({displayedBarbers.length} {t.results})
               {getActiveFilterCount() > 0 && (
                 <Chip
-                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'фильтров'}`}
+                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь��ров'}`}
                   size="small"
                   sx={{ ml: 1, bgcolor: '#00a693', color: 'white' }}
                   onDelete={() => {
@@ -1149,38 +1149,38 @@ const Home = () => {
           </Box>
           <Divider sx={{ mb: 2 }} />
           <List>
-            <ListItem button onClick={() => { navigate('/'); setDrawerOpen(false); }}>
+            <ListItemButton onClick={() => { navigate('/'); setDrawerOpen(false); }}>
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={t.home} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/services'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/services'); setDrawerOpen(false); }}>
               <ListItemIcon><ContentCut /></ListItemIcon>
               <ListItemText primary={t.services} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/offers'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/offers'); setDrawerOpen(false); }}>
               <ListItemIcon><LocalOffer /></ListItemIcon>
               <ListItemText primary={t.offers} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/about'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/about'); setDrawerOpen(false); }}>
               <ListItemIcon><Person /></ListItemIcon>
               <ListItemText primary={t.about} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/company'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/company'); setDrawerOpen(false); }}>
               <ListItemIcon><Business /></ListItemIcon>
               <ListItemText primary={t.company} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
               <ListItemIcon><SupportIcon /></ListItemIcon>
               <ListItemText primary={t.support} />
-            </ListItem>
-            <ListItem button onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
               <ListItemIcon><Schedule /></ListItemIcon>
               <ListItemText primary={t.appointments} />
-            </ListItem>
-            <ListItem button>
+            </ListItemButton>
+            <ListItemButton>
               <ListItemIcon><Favorite /></ListItemIcon>
               <ListItemText primary={t.favorites} />
-            </ListItem>
+            </ListItemButton>
             <Divider sx={{ my: 2 }} />
             <ListItem>
               <Button
