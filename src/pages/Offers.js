@@ -240,13 +240,16 @@ const Offers = () => {
         <Grid container spacing={3}>
           {offers.map((offer) => (
             <Grid item xs={12} md={6} lg={4} key={offer.id}>
-              <Card sx={{ 
+              <Card sx={{
                 height: '100%',
                 position: 'relative',
-                overflow: 'hidden',
+                overflow: 'visible',
                 borderRadius: 3,
                 transition: 'all 0.3s ease',
-                '&:hover': { 
+                minHeight: { xs: '450px', md: '500px' },
+                display: 'flex',
+                flexDirection: 'column',
+                '&:hover': {
                   transform: 'translateY(-8px)',
                   boxShadow: '0 12px 40px rgba(0, 166, 147, 0.2)'
                 }
@@ -257,7 +260,7 @@ const Offers = () => {
                   top: 0,
                   left: 0,
                   right: 0,
-                  height: '120px',
+                  height: { xs: '140px', md: '120px' },
                   background: `linear-gradient(135deg, ${offer.backgroundColor} 0%, ${offer.backgroundColor}dd 100%)`,
                   zIndex: 0
                 }} />
@@ -276,14 +279,22 @@ const Offers = () => {
                   }}
                 />
 
-                <CardContent sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
+                <CardContent sx={{
+                  position: 'relative',
+                  zIndex: 1,
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  p: { xs: 2, md: 3 }
+                }}>
                   {/* Icon and Discount */}
-                  <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
                     justifyContent: 'space-between',
-                    mb: 2,
-                    pt: 2
+                    mb: { xs: 1.5, md: 2 },
+                    pt: { xs: 1, md: 2 },
+                    minHeight: '60px'
                   }}>
                     <Box sx={{ 
                       bgcolor: 'rgba(255,255,255,0.2)', 
@@ -293,48 +304,70 @@ const Offers = () => {
                     }}>
                       {React.cloneElement(offer.icon, { sx: { fontSize: 28 } })}
                     </Box>
-                    <Typography variant="h3" sx={{ 
-                      fontWeight: 'bold', 
+                    <Typography variant="h3" sx={{
+                      fontWeight: 'bold',
                       color: 'white',
-                      fontSize: { xs: '2rem', md: '2.5rem' }
+                      fontSize: { xs: '1.8rem', md: '2.5rem' },
+                      lineHeight: 1
                     }}>
                       {offer.discount}
                     </Typography>
                   </Box>
 
                   {/* Title */}
-                  <Typography variant="h5" sx={{ 
-                    fontWeight: 'bold', 
-                    mb: 2,
+                  <Typography variant="h5" sx={{
+                    fontWeight: 'bold',
+                    mb: { xs: 1.5, md: 2 },
                     color: 'white',
-                    fontSize: { xs: '1.25rem', md: '1.5rem' }
+                    fontSize: { xs: '1.1rem', md: '1.5rem' },
+                    lineHeight: 1.2,
+                    wordWrap: 'break-word'
                   }}>
                     {offer.title}
                   </Typography>
 
                   {/* Description */}
-                  <Paper sx={{ p: 2, mb: 3, bgcolor: 'rgba(255,255,255,0.95)' }}>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  <Paper sx={{
+                    p: { xs: 1.5, md: 2 },
+                    mb: { xs: 2, md: 3 },
+                    bgcolor: 'rgba(255,255,255,0.95)',
+                    borderRadius: 2,
+                    flex: 1,
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}>
+                    <Typography variant="body2" color="text.secondary" sx={{
+                      mb: 2,
+                      fontSize: { xs: '0.85rem', md: '0.875rem' },
+                      lineHeight: 1.4,
+                      wordWrap: 'break-word'
+                    }}>
                       {offer.description}
                     </Typography>
 
                     {/* Pricing */}
                     {offer.originalPrice > 0 && (
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                        <Typography 
-                          variant="h6" 
-                          sx={{ 
-                            textDecoration: 'line-through', 
+                      <Box sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: { xs: 1, md: 2 },
+                        mb: 2,
+                        flexWrap: 'wrap'
+                      }}>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            textDecoration: 'line-through',
                             color: '#6b7280',
-                            fontSize: '1rem'
+                            fontSize: { xs: '0.9rem', md: '1rem' }
                           }}
                         >
                           {t.currency}{offer.originalPrice}
                         </Typography>
-                        <Typography variant="h5" sx={{ 
-                          fontWeight: 'bold', 
+                        <Typography variant="h5" sx={{
+                          fontWeight: 'bold',
                           color: offer.backgroundColor,
-                          fontSize: '1.5rem'
+                          fontSize: { xs: '1.3rem', md: '1.5rem' }
                         }}>
                           {t.currency}{offer.discountedPrice}
                         </Typography>
@@ -342,25 +375,41 @@ const Offers = () => {
                     )}
 
                     {/* Validity */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                    <Box sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      mb: 2,
+                      flexWrap: 'wrap'
+                    }}>
                       <AccessTime sx={{ fontSize: 16, color: '#6b7280' }} />
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography variant="body2" color="text.secondary" sx={{
+                        fontSize: { xs: '0.8rem', md: '0.875rem' }
+                      }}>
                         {t.validUntil}: {offer.validUntil}
                       </Typography>
                     </Box>
 
                     {/* Promo Code */}
-                    <Paper sx={{ 
-                      p: 1, 
+                    <Paper sx={{
+                      p: { xs: 0.8, md: 1 },
                       bgcolor: '#f3f4f6',
                       textAlign: 'center',
                       mb: 2,
-                      border: '2px dashed #d1d5db'
+                      border: '2px dashed #d1d5db',
+                      borderRadius: 1
                     }}>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
+                      <Typography variant="body2" color="text.secondary" sx={{
+                        fontSize: { xs: '0.7rem', md: '0.8rem' }
+                      }}>
                         {language === 'en' ? 'Promo Code' : language === 'tr' ? 'Promosyon Kodu' : 'Промо код'}
                       </Typography>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#1f2937' }}>
+                      <Typography variant="h6" sx={{
+                        fontWeight: 'bold',
+                        color: '#1f2937',
+                        fontSize: { xs: '1rem', md: '1.25rem' },
+                        letterSpacing: '0.5px'
+                      }}>
                         {offer.code}
                       </Typography>
                     </Paper>
