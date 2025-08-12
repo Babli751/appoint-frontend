@@ -118,9 +118,13 @@ function App() {
             path="/signup"
             element={<SignUp />}
           />
-          <Route 
-            path="/dashboard" 
-            element={<Dashboard />} 
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
+          />
+          <Route
+            path="/profile"
+            element={isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
           />
           <Route 
             path="/barber/:id" 
