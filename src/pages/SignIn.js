@@ -94,7 +94,7 @@ const SignIn = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    navigate('/');
+    navigate('/dashboard');
   };
 
   return (
