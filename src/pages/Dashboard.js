@@ -266,6 +266,9 @@ const Dashboard = () => {
             </Select>
           </FormControl>
           
+          <IconButton color="inherit" onClick={() => navigate('/profile')}>
+            <Person />
+          </IconButton>
           <IconButton color="inherit">
             <Settings />
           </IconButton>
