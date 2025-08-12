@@ -81,6 +81,7 @@ import {
   Support as SupportIcon
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import BarberFilter from '../components/BarberFilter';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -95,6 +96,9 @@ const Home = () => {
   const { language, changeLanguage, t: translations } = useLanguage();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({});
+  const [filteredBarbers, setFilteredBarbers] = useState([]);
 
   // Use centralized translations
   const t = translations;
@@ -272,6 +276,80 @@ const Home = () => {
       }
       return newSet;
     });
+  };
+
+  const applyFilters = (newFilters) => {
+    setFilters(newFilters);
+    let filtered = [...featuredBarbers];
+
+    // Apply location filter
+    if (newFilters.location) {
+      filtered = filtered.filter(barber =>
+        barber.city.toLowerCase().includes(newFilters.location.toLowerCase())
+      );
+    }
+
+    // Apply price filter
+    if (newFilters.priceRange) {
+      filtered = filtered.filter(barber => {
+        const price = parseInt(barber.price.replace('€', ''));
+        return price >= newFilters.priceRange[0] && price <= newFilters.priceRange[1];
+      });
+    }
+
+    // Apply rating filter
+    if (newFilters.rating > 0) {
+      filtered = filtered.filter(barber => barber.rating >= newFilters.rating);
+    }
+
+    // Apply verified filter
+    if (newFilters.verifiedOnly) {
+      filtered = filtered.filter(barber => barber.isVerified);
+    }
+
+    // Apply instant booking filter
+    if (newFilters.instantBooking) {
+      filtered = filtered.filter(barber => barber.instantBooking);
+    }
+
+    // Apply sorting
+    switch (newFilters.sortBy) {
+      case 'topRated':
+        filtered.sort((a, b) => b.rating - a.rating);
+        break;
+      case 'lowToHigh':
+        filtered.sort((a, b) => {
+          const priceA = parseInt(a.price.replace('€', ''));
+          const priceB = parseInt(b.price.replace('€', ''));
+          return priceA - priceB;
+        });
+        break;
+      case 'highToLow':
+        filtered.sort((a, b) => {
+          const priceA = parseInt(a.price.replace('€', ''));
+          const priceB = parseInt(b.price.replace('€', ''));
+          return priceB - priceA;
+        });
+        break;
+      case 'mostBooked':
+        filtered.sort((a, b) => b.repeatCustomers - a.repeatCustomers);
+        break;
+      default: // nearest
+        filtered.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+    }
+
+    setFilteredBarbers(filtered);
+  };
+
+  const displayedBarbers = filteredBarbers.length > 0 ? filteredBarbers : featuredBarbers;
+  const getActiveFilterCount = () => {
+    let count = 0;
+    if (filters.location) count++;
+    if (filters.priceRange && (filters.priceRange[0] > 0 || filters.priceRange[1] < 100)) count++;
+    if (filters.rating > 0) count++;
+    if (filters.verifiedOnly) count++;
+    if (filters.instantBooking) count++;
+    return count;
   };
 
   return (
@@ -544,7 +622,18 @@ const Home = () => {
               fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.5rem' },
               textAlign: { xs: 'center', md: 'left' }
             }}>
-              {t.featuredBarbers} ({featuredBarbers.length} {t.results})
+              {t.featuredBarbers} ({displayedBarbers.length} {t.results})
+              {getActiveFilterCount() > 0 && (
+                <Chip
+                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'фильтров'}`}
+                  size="small"
+                  sx={{ ml: 1, bgcolor: '#00a693', color: 'white' }}
+                  onDelete={() => {
+                    setFilters({});
+                    setFilteredBarbers([]);
+                  }}
+                />
+              )}
             </Typography>
             <Box sx={{
               display: 'flex',
@@ -565,10 +654,31 @@ const Home = () => {
               <Button
                 variant="outlined"
                 startIcon={<FilterList />}
-                sx={{ color: '#00a693', borderColor: '#00a693' }}
+                sx={{
+                  color: '#00a693',
+                  borderColor: '#00a693',
+                  position: 'relative'
+                }}
                 size={isMobile ? "small" : "medium"}
+                onClick={() => setFilterOpen(true)}
               >
                 {t.filter}
+                {getActiveFilterCount() > 0 && (
+                  <Chip
+                    label={getActiveFilterCount()}
+                    size="small"
+                    sx={{
+                      position: 'absolute',
+                      top: -8,
+                      right: -8,
+                      bgcolor: '#ff6b35',
+                      color: 'white',
+                      minWidth: 20,
+                      height: 20,
+                      fontSize: '0.7rem'
+                    }}
+                  />
+                )}
               </Button>
               <Button
                 variant="outlined"
@@ -587,7 +697,7 @@ const Home = () => {
       <Box sx={{ py: { xs: 2, md: 4 } }}>
         <Container maxWidth="xl">
           <Grid container spacing={{ xs: 1.5, sm: 2, md: 3 }}>
-            {featuredBarbers.map((barber) => (
+            {displayedBarbers.map((barber) => (
               <Grid item xs={12} sm={6} md={6} lg={4} xl={3} key={barber.id}>
                 <Card sx={{ 
                   cursor: 'pointer',
@@ -911,7 +1021,7 @@ const Home = () => {
                   sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/company')}
                 >
-                  {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьер��'}
+                  {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
                 </Link>
                 <Link 
                   href="#" 
@@ -1142,6 +1252,13 @@ const Home = () => {
           <Search />
         </Fab>
       )}
+      {/* Filter Component */}
+      <BarberFilter
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        onApply={applyFilters}
+        currentFilters={filters}
+      />
     </Box>
   );
 };
