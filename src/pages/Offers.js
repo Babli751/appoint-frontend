@@ -305,7 +305,9 @@ const Offers = () => {
                     justifyContent: 'space-between',
                     mb: { xs: 1.5, md: 2 },
                     pt: { xs: 1, md: 2 },
-                    minHeight: '60px'
+                    minHeight: '60px',
+                    position: 'relative',
+                    zIndex: 2
                   }}>
                     <Box sx={{ 
                       bgcolor: 'rgba(255,255,255,0.2)', 
