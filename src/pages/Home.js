@@ -397,9 +397,9 @@ const Home = () => {
               {/* Desktop/Tablet Navigation Links */}
               {!isMobile && (
                 <Stack direction="row" spacing={{ md: 3, lg: 4 }} sx={{ ml: { md: 2, lg: 4 } }}>
-                  <Button 
-                    color="inherit" 
-                    sx={{ fontWeight: 500, color: '#00a693' }}
+                  <Button
+                    color="inherit"
+                    sx={{ fontWeight: 500 }}
                     onClick={() => navigate('/services')}
                   >
                     {t.services}
