@@ -112,7 +112,7 @@ const Dashboard = () => {
       favoriteBarber: 'Избранный парикмахер',
       confirmed: 'Подтверждено',
       pending: 'Ожидание',
-      completed: 'Завершено',
+      completed: 'Заверш��но',
       cancelled: 'Отменено',
       cancel: 'Отменить',
       details: 'Детали',
@@ -140,7 +140,7 @@ const Dashboard = () => {
       price: '₺120',
       status: 'confirmed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюрк'
+      address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюр��'
     },
     {
       id: 2,
@@ -496,29 +496,31 @@ const Dashboard = () => {
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ ml: { xs: 1, md: 2 } }}
+                      primaryTypographyProps={{ component: 'div' }}
+                      secondaryTypographyProps={{ component: 'div' }}
                       primary={
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                        <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                           {barber.name}
                         </Typography>
                       }
                       secondary={
                         <Stack spacing={1}>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" component="span" color="text.secondary">
                             {barber.shopName}
                           </Typography>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                               <Star sx={{ color: '#fbbf24', fontSize: 16, mr: 0.5 }} />
-                              <Typography variant="body2">{barber.rating}</Typography>
+                              <Typography variant="body2" component="span">{barber.rating}</Typography>
                             </Box>
-                            <Typography variant="body2">
+                            <Typography variant="body2" component="span">
                               {barber.visits} {t.visits}
                             </Typography>
                           </Box>
-                          <Button 
-                            variant="contained" 
+                          <Button
+                            variant="contained"
                             size="small"
-                            sx={{ 
+                            sx={{
                               bgcolor: '#6b46c1',
                               mt: 1,
                               alignSelf: { xs: 'stretch', sm: 'flex-start' }
