@@ -94,7 +94,9 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isAuthenticated, setAuth] = useState(false); // Check authentication from localStorage or token
+  const [isAuthenticated, setAuth] = useState(
+    localStorage.getItem('isAuthenticated') === 'true'
+  ); // Check authentication from localStorage
 
   return (
     <LanguageProvider>
