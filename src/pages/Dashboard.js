@@ -440,32 +440,34 @@ const Dashboard = () => {
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ ml: { xs: 1, md: 2 } }}
+                      primaryTypographyProps={{ component: 'div' }}
+                      secondaryTypographyProps={{ component: 'div' }}
                       primary={
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                             {appointment.barberName}
                           </Typography>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mt: { xs: 1, sm: 0 } }}>
+                          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', color: '#6b46c1', mt: { xs: 1, sm: 0 } }}>
                             {appointment.price}
                           </Typography>
                         </Box>
                       }
                       secondary={
                         <Stack spacing={1}>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" component="span" color="text.secondary">
                             {appointment.shopName}
                           </Typography>
-                          <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                          <Typography variant="body1" component="span" sx={{ fontWeight: 'medium' }}>
                             {appointment.service}
                           </Typography>
-                          <Typography variant="body2">
+                          <Typography variant="body2" component="span">
                             {appointment.date} - {appointment.time}
                           </Typography>
                           {appointment.rating && (
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                              <Typography variant="body2">{t.givenRating}:</Typography>
+                              <Typography variant="body2" component="span">{t.givenRating}:</Typography>
                               <Star sx={{ color: '#fbbf24', fontSize: 16 }} />
-                              <Typography variant="body2">{appointment.rating}/5</Typography>
+                              <Typography variant="body2" component="span">{appointment.rating}/5</Typography>
                               {!appointment.reviewed && (
                                 <Button size="small" sx={{ ml: 'auto', color: '#6b46c1' }}>
                                   {t.writeReview}
