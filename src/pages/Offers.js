@@ -69,7 +69,7 @@ const Offers = () => {
       description: language === 'en' 
         ? 'Complete grooming package: Cut + Shave + Styling + Face Treatment'
         : language === 'tr' 
-        ? 'Komple bakım paketi: Kesim + Tıraş + Şekillendirme + Yüz Bakımı'
+        ? 'Komple bakım paketi: Kesim + Tıraş + Şekillendirme + Y��z Bakımı'
         : 'Полный пакет ухода: Стрижка + Бритье + Укладка + Уход за лицом',
       discount: '25%',
       originalPrice: 80,
@@ -283,10 +283,11 @@ const Offers = () => {
                     position: 'absolute',
                     top: 16,
                     right: 16,
-                    bgcolor: 'rgba(255,255,255,0.9)',
+                    bgcolor: 'rgba(255,255,255,0.95)',
                     color: getTypeColor(offer.type),
                     fontWeight: 'bold',
-                    zIndex: 2
+                    zIndex: 3,
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
                   }}
                 />
 
