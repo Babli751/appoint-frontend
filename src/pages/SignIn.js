@@ -31,7 +31,7 @@ import {
   Language as LanguageIcon
 } from '@mui/icons-material';
 
-const SignIn = () => {
+const SignIn = ({ setAuth }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
