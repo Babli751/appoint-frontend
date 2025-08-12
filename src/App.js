@@ -14,6 +14,7 @@ import Company from './pages/Company';
 import Support from './pages/Support';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
