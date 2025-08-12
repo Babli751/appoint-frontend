@@ -81,9 +81,9 @@ const SignIn = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, redirect to home
-      navigate('/');
+
+      // Successful login, redirect to dashboard
+      navigate('/dashboard');
     } catch (err) {
       setError(t.invalidCredentials);
     } finally {
