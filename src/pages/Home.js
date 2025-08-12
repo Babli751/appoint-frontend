@@ -642,15 +642,35 @@ const Home = () => {
               flexWrap: 'wrap',
               justifyContent: 'center'
             }}>
-              <Chip 
-                label={t.nearest} 
-                variant="filled" 
-                color="primary" 
-                sx={{ bgcolor: '#00a693' }}
+              <Chip
+                label={t.nearest}
+                variant={filters.sortBy === 'nearest' || !filters.sortBy ? "filled" : "outlined"}
+                color="primary"
+                sx={{ bgcolor: (filters.sortBy === 'nearest' || !filters.sortBy) ? '#00a693' : 'transparent', color: (filters.sortBy === 'nearest' || !filters.sortBy) ? 'white' : '#00a693', borderColor: '#00a693' }}
                 size={isMobile ? "small" : "medium"}
+                onClick={() => applyFilters({ ...filters, sortBy: 'nearest' })}
               />
-              <Chip label={t.popular} variant="outlined" size={isMobile ? "small" : "medium"} />
-              <Chip label={t.cheapest} variant="outlined" size={isMobile ? "small" : "medium"} />
+              <Chip
+                label={t.popular}
+                variant={filters.sortBy === 'topRated' ? "filled" : "outlined"}
+                sx={{ bgcolor: filters.sortBy === 'topRated' ? '#00a693' : 'transparent', color: filters.sortBy === 'topRated' ? 'white' : '#00a693', borderColor: '#00a693' }}
+                size={isMobile ? "small" : "medium"}
+                onClick={() => applyFilters({ ...filters, sortBy: 'topRated' })}
+              />
+              <Chip
+                label={t.cheapest}
+                variant={filters.sortBy === 'lowToHigh' ? "filled" : "outlined"}
+                sx={{ bgcolor: filters.sortBy === 'lowToHigh' ? '#00a693' : 'transparent', color: filters.sortBy === 'lowToHigh' ? 'white' : '#00a693', borderColor: '#00a693' }}
+                size={isMobile ? "small" : "medium"}
+                onClick={() => applyFilters({ ...filters, sortBy: 'lowToHigh' })}
+              />
+              <Chip
+                label={t.verified}
+                variant={filters.verifiedOnly ? "filled" : "outlined"}
+                sx={{ bgcolor: filters.verifiedOnly ? '#00a693' : 'transparent', color: filters.verifiedOnly ? 'white' : '#00a693', borderColor: '#00a693' }}
+                size={isMobile ? "small" : "medium"}
+                onClick={() => applyFilters({ ...filters, verifiedOnly: !filters.verifiedOnly })}
+              />
               <Button
                 variant="outlined"
                 startIcon={<FilterList />}
@@ -1102,7 +1122,7 @@ const Home = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
-              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
+              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪����
             </Typography>
           </Box>
         </Container>
