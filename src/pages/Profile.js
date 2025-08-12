@@ -26,6 +26,7 @@ import {
   FormControlLabel,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   useTheme,
@@ -190,7 +191,7 @@ const Profile = ({ setAuth }) => {
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
       privacyPolicy: 'Политика Конфиденциальности',
-      termsOfService: 'Условия Использования'
+      termsOfService: 'Условия Использов��ния'
     }
   };
 
@@ -549,36 +550,35 @@ const Profile = ({ setAuth }) => {
               </Typography>
 
               <List>
-                <ListItem button onClick={() => console.log('Change Password')}>
+                <ListItemButton onClick={() => console.log('Change Password')}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.changePassword} />
-                </ListItem>
+                </ListItemButton>
                 <Divider />
-                <ListItem button onClick={() => console.log('Help')}>
+                <ListItemButton onClick={() => console.log('Help')}>
                   <ListItemIcon>
                     <Help sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.help} />
-                </ListItem>
+                </ListItemButton>
                 <Divider />
-                <ListItem button onClick={() => console.log('Privacy Policy')}>
+                <ListItemButton onClick={() => console.log('Privacy Policy')}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.privacyPolicy} />
-                </ListItem>
+                </ListItemButton>
                 <Divider />
-                <ListItem button onClick={() => console.log('Terms of Service')}>
+                <ListItemButton onClick={() => console.log('Terms of Service')}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.termsOfService} />
-                </ListItem>
+                </ListItemButton>
                 <Divider />
-                <ListItem
-                  button
+                <ListItemButton
                   onClick={() => {
                     if (setAuth) setAuth(false);
                     localStorage.removeItem('isAuthenticated');
@@ -590,7 +590,7 @@ const Profile = ({ setAuth }) => {
                     <ExitToApp sx={{ color: '#ef4444' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.logout} />
-                </ListItem>
+                </ListItemButton>
               </List>
             </Box>
           </TabPanel>
