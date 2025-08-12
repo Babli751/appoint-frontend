@@ -424,8 +424,11 @@ const Offers = () => {
                       bgcolor: 'white',
                       color: offer.backgroundColor,
                       fontWeight: 'bold',
-                      py: 1.5,
-                      '&:hover': { 
+                      py: { xs: 1.2, md: 1.5 },
+                      fontSize: { xs: '0.9rem', md: '1rem' },
+                      borderRadius: 2,
+                      mt: 'auto',
+                      '&:hover': {
                         bgcolor: '#f9fafb',
                         transform: 'scale(1.02)'
                       }
@@ -436,12 +439,13 @@ const Offers = () => {
                   </Button>
 
                   {/* Terms */}
-                  <Typography variant="caption" sx={{ 
+                  <Typography variant="caption" sx={{
                     display: 'block',
                     textAlign: 'center',
-                    mt: 1,
+                    mt: { xs: 0.8, md: 1 },
                     color: 'rgba(255,255,255,0.8)',
-                    fontSize: '0.7rem'
+                    fontSize: { xs: '0.65rem', md: '0.7rem' },
+                    lineHeight: 1.2
                   }}>
                     * {t.termsApply}
                   </Typography>
