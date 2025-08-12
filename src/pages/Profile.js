@@ -51,7 +51,7 @@ import {
   History
 } from '@mui/icons-material';
 
-const Profile = () => {
+const Profile = ({ setAuth }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
