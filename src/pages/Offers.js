@@ -236,10 +236,10 @@ const Offers = () => {
       </Box>
 
       {/* Offers Grid */}
-      <Container sx={{ py: { xs: 3, md: 6 } }}>
-        <Grid container spacing={3}>
+      <Container sx={{ py: { xs: 3, md: 6 }, px: { xs: 2, md: 3 } }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {offers.map((offer) => (
-            <Grid item xs={12} md={6} lg={4} key={offer.id}>
+            <Grid item xs={12} sm={6} md={6} lg={4} key={offer.id}>
               <Card sx={{
                 height: '100%',
                 position: 'relative',
