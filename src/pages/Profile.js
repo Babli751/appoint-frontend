@@ -577,7 +577,15 @@ const Profile = ({ setAuth }) => {
                   <ListItemText primary={t.termsOfService} />
                 </ListItem>
                 <Divider />
-                <ListItem button onClick={() => navigate('/signin')} sx={{ color: '#ef4444' }}>
+                <ListItem
+                  button
+                  onClick={() => {
+                    if (setAuth) setAuth(false);
+                    localStorage.removeItem('isAuthenticated');
+                    navigate('/signin');
+                  }}
+                  sx={{ color: '#ef4444' }}
+                >
                   <ListItemIcon>
                     <ExitToApp sx={{ color: '#ef4444' }} />
                   </ListItemIcon>
