@@ -12,6 +12,8 @@ import Offers from './pages/Offers';
 import About from './pages/About';
 import Company from './pages/Company';
 import Support from './pages/Support';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
@@ -103,9 +105,17 @@ function App() {
             path="/" 
             element={<Home />} 
           />
-          <Route 
-            path="/login" 
-            element={<Login setAuth={setAuth} />} 
+          <Route
+            path="/login"
+            element={<Login setAuth={setAuth} />}
+          />
+          <Route
+            path="/signin"
+            element={<SignIn />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp />}
           />
           <Route 
             path="/dashboard" 
