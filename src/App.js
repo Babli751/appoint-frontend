@@ -94,7 +94,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isAuthenticated, setAuth] = useState(true); // Temporarily set to true to show homepage
+  const [isAuthenticated, setAuth] = useState(false); // Check authentication from localStorage or token
 
   return (
     <LanguageProvider>
