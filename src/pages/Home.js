@@ -222,7 +222,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Со��ременная стрижка',
+        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Современная стрижка',
         'Undercut',
         language === 'en' ? 'Color' : language === 'tr' ? 'Renk' : 'Окрашивание'
       ],
@@ -364,10 +364,18 @@ const Home = () => {
 
               {!isMobile && (
                 <>
-                  <Button variant="outlined" sx={{ color: '#00a693', borderColor: '#00a693' }}>
+                  <Button
+                    variant="outlined"
+                    sx={{ color: '#00a693', borderColor: '#00a693' }}
+                    onClick={() => navigate('/signin')}
+                  >
                     {t.login}
                   </Button>
-                  <Button variant="contained" sx={{ bgcolor: '#00a693', color: 'white' }}>
+                  <Button
+                    variant="contained"
+                    sx={{ bgcolor: '#00a693', color: 'white' }}
+                    onClick={() => navigate('/signup')}
+                  >
                     {t.signup}
                   </Button>
                 </>
@@ -903,7 +911,7 @@ const Home = () => {
                   sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/company')}
                 >
-                  {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
+                  {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьер��'}
                 </Link>
                 <Link 
                   href="#" 
@@ -1044,12 +1052,22 @@ const Home = () => {
             </ListItem>
             <Divider sx={{ my: 2 }} />
             <ListItem>
-              <Button variant="outlined" fullWidth sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}>
+              <Button
+                variant="outlined"
+                fullWidth
+                sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}
+                onClick={() => { navigate('/signin'); setDrawerOpen(false); }}
+              >
                 {t.login}
               </Button>
             </ListItem>
             <ListItem>
-              <Button variant="contained" fullWidth sx={{ bgcolor: '#00a693', color: 'white' }}>
+              <Button
+                variant="contained"
+                fullWidth
+                sx={{ bgcolor: '#00a693', color: 'white' }}
+                onClick={() => { navigate('/signup'); setDrawerOpen(false); }}
+              >
                 {t.signup}
               </Button>
             </ListItem>
