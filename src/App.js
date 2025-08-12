@@ -112,7 +112,7 @@ function App() {
           />
           <Route
             path="/signin"
-            element={<SignIn />}
+            element={<SignIn setAuth={setAuth} />}
           />
           <Route
             path="/signup"
