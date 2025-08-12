@@ -340,14 +340,16 @@ const Dashboard = () => {
                       </ListItemAvatar>
                       <ListItemText
                         sx={{ ml: { xs: 1, md: 2 } }}
+                        primaryTypographyProps={{ component: 'div' }}
+                        secondaryTypographyProps={{ component: 'div' }}
                         primary={
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                            <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                               {appointment.barberName}
                             </Typography>
-                            <Chip 
+                            <Chip
                               label={getStatusText(appointment.status)}
-                              sx={{ 
+                              sx={{
                                 bgcolor: getStatusColor(appointment.status),
                                 color: 'white',
                                 fontWeight: 'bold',
@@ -358,41 +360,41 @@ const Dashboard = () => {
                         }
                         secondary={
                           <Stack spacing={1}>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" component="span" color="text.secondary">
                               {appointment.shopName}
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                            <Typography variant="body1" component="span" sx={{ fontWeight: 'medium' }}>
                               {appointment.service}
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <AccessTime sx={{ fontSize: 16, mr: 0.5, color: '#6b46c1' }} />
-                                <Typography variant="body2">
+                                <Typography variant="body2" component="span">
                                   {appointment.date} - {appointment.time}
                                 </Typography>
                               </Box>
                               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <LocationOn sx={{ fontSize: 16, mr: 0.5, color: '#6b46c1' }} />
-                                <Typography variant="body2">
+                                <Typography variant="body2" component="span">
                                   {appointment.address}
                                 </Typography>
                               </Box>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-                              <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mb: { xs: 1, sm: 0 } }}>
+                              <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', color: '#6b46c1', mb: { xs: 1, sm: 0 } }}>
                                 {appointment.price}
                               </Typography>
                               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ width: { xs: '100%', sm: 'auto' } }}>
-                                <Button 
-                                  variant="outlined" 
+                                <Button
+                                  variant="outlined"
                                   size="small"
                                   sx={{ color: '#ef4444', borderColor: '#ef4444' }}
                                   fullWidth={isMobile}
                                 >
                                   {t.cancel}
                                 </Button>
-                                <Button 
-                                  variant="contained" 
+                                <Button
+                                  variant="contained"
                                   size="small"
                                   sx={{ bgcolor: '#6b46c1' }}
                                   onClick={() => navigate(`/barber/${appointment.barberId}`)}
