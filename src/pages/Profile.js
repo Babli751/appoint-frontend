@@ -268,17 +268,11 @@ const Profile = ({ setAuth }) => {
   };
 
   const handlePrivacyPolicy = () => {
-    // For now, open a simple alert. In real app, would navigate to privacy page
-    alert(language === 'en' ? 'Privacy Policy will be displayed here' :
-          language === 'tr' ? 'Gizlilik Politikası burada gösterilecektir' :
-          'Политика конфиденциальности будет отображена здесь');
+    setPrivacyPolicyOpen(true);
   };
 
   const handleTermsOfService = () => {
-    // For now, open a simple alert. In real app, would navigate to terms page
-    alert(language === 'en' ? 'Terms of Service will be displayed here' :
-          language === 'tr' ? 'Kullanım Şartları burada gösterilecektir' :
-          'Условия использования будут отображены здесь');
+    setTermsOfServiceOpen(true);
   };
 
   const TabPanel = ({ children, value, index }) => (
