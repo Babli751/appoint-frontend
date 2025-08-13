@@ -546,7 +546,7 @@ const Profile = ({ setAuth }) => {
                     onChange={(e) => setLanguage(e.target.value)}
                     label={t.language}
                   >
-                    <MenuItem value="tr">🇹🇷 {t.turkish}</MenuItem>
+                    <MenuItem value="tr">🇹�� {t.turkish}</MenuItem>
                     <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
                     <MenuItem value="ru">🇷🇺 {t.russian}</MenuItem>
                   </Select>
@@ -715,6 +715,138 @@ const Profile = ({ setAuth }) => {
             sx={{ bgcolor: '#00a693' }}
           >
             {t.save}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Privacy Policy Dialog */}
+      <Dialog
+        open={privacyPolicyOpen}
+        onClose={() => setPrivacyPolicyOpen(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          {t.privacyPolicy}
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '1. Information Collection' :
+             language === 'tr' ? '1. Bilgi Toplama' :
+             '1. Сбор информации'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
+             language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
+             'Мы собираем информацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '2. Information Use' :
+             language === 'tr' ? '2. Bilgi Kullanımı' :
+             '2. Использование информации'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
+             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
+             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '3. Information Sharing' :
+             language === 'tr' ? '3. Bilgi Paylaşımı' :
+             '3. Обмен информацией'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
+             language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
+             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '4. Contact Us' :
+             language === 'tr' ? '4. Bize Ulaşın' :
+             '4. Свяжитесь с нами'}
+          </Typography>
+          <Typography variant="body2">
+            {language === 'en' ? 'If you have questions about this Privacy Policy, please contact us at support@barberpro.com' :
+             language === 'tr' ? 'Bu Gizlilik Politikası hakkında sorularınız varsa, lütfen support@barberpro.com adresinden bizimle iletişime geçin' :
+             'Если у вас есть вопросы об этой Политике конфиденциальности, свяжитесь с нами по адресу support@barberpro.com'}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setPrivacyPolicyOpen(false)}
+            variant="contained"
+            sx={{ bgcolor: '#00a693' }}
+          >
+            {language === 'en' ? 'Close' : language === 'tr' ? 'Kapat' : 'Закрыть'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Terms of Service Dialog */}
+      <Dialog
+        open={termsOfServiceOpen}
+        onClose={() => setTermsOfServiceOpen(false)}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>
+          {t.termsOfService}
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '1. Acceptance of Terms' :
+             language === 'tr' ? '1. Şartların Kabulü' :
+             '1. Принятие условий'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'By accessing and using BarberPro, you accept and agree to be bound by the terms and provision of this agreement.' :
+             language === 'tr' ? 'BarberPro\'ya erişerek ve kullanarak, bu sözleşmenin hüküm ve koşullarıyla bağlı olmayı kabul etmiş olursunuz.' :
+             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого соглашения.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '2. Service Description' :
+             language === 'tr' ? '2. Hizmet Açıklaması' :
+             '2. Описание услуги'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
+             language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
+             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '3. User Responsibilities' :
+             language === 'tr' ? '3. Kullanıcı Sorumlulukları' :
+             '3. Обязанности пользователя'}
+          </Typography>
+          <Typography variant="body2" sx={{ mb: 2 }}>
+            {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
+             language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
+          </Typography>
+
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            {language === 'en' ? '4. Cancellation Policy' :
+             language === 'tr' ? '4. İptal Politikası' :
+             '4. Политика отмены'}
+          </Typography>
+          <Typography variant="body2">
+            {language === 'en' ? 'Appointments must be cancelled at least 24 hours in advance. Late cancellations may result in charges.' :
+             language === 'tr' ? 'Randevular en az 24 saat önceden iptal edilmelidir. Geç iptaller ücretlendirme ile sonuçlanabilir.' :
+             'Встречи должны быть отменены не менее чем за 24 часа. Поздние отмены могут привести к дополнительным расходам.'}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setTermsOfServiceOpen(false)}
+            variant="contained"
+            sx={{ bgcolor: '#00a693' }}
+          >
+            {language === 'en' ? 'Close' : language === 'tr' ? 'Kapat' : 'Закрыть'}
           </Button>
         </DialogActions>
       </Dialog>
