@@ -615,28 +615,28 @@ const Profile = ({ setAuth }) => {
               </Typography>
 
               <List>
-                <ListItemButton onClick={() => console.log('Change Password')}>
+                <ListItemButton onClick={handleChangePassword}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.changePassword} />
                 </ListItemButton>
                 <Divider />
-                <ListItemButton onClick={() => console.log('Help')}>
+                <ListItemButton onClick={handleHelp}>
                   <ListItemIcon>
                     <Help sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.help} />
                 </ListItemButton>
                 <Divider />
-                <ListItemButton onClick={() => console.log('Privacy Policy')}>
+                <ListItemButton onClick={handlePrivacyPolicy}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
                   <ListItemText primary={t.privacyPolicy} />
                 </ListItemButton>
                 <Divider />
-                <ListItemButton onClick={() => console.log('Terms of Service')}>
+                <ListItemButton onClick={handleTermsOfService}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
