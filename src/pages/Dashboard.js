@@ -188,16 +188,16 @@ const Dashboard = () => {
   const favoriteBarbers = [
     {
       id: 1,
-      name: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      name: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
       rating: 4.8,
       visits: 5,
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'
     },
     {
       id: 3,
-      name: 'Osman Yılmaz',
-      shopName: 'Classic Barber',
+      name: language === 'en' ? 'Giovanni Costa' : language === 'tr' ? 'Giovanni Costa' : 'Джованни Коста',
+      shopName: language === 'en' ? 'Classic Barber' : language === 'tr' ? 'Klasik Berber' : 'Классическая Парикмахерская',
       rating: 4.7,
       visits: 3,
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face'
