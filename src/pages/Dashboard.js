@@ -133,11 +133,11 @@ const Dashboard = () => {
     {
       id: 1,
       barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
-      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахер��кая',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
       service: language === 'en' ? 'Haircut + Beard' : language === 'tr' ? 'Saç Kesimi + Sakal' : 'Стрижка + Борода',
       date: language === 'en' ? 'January 15, 2024' : language === 'tr' ? '15 Ocak 2024' : '15 января 2024',
       time: '14:30',
-      price: '₺120',
+      price: '€35',
       status: 'confirmed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
       address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюр��'
