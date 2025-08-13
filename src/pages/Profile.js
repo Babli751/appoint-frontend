@@ -66,6 +66,8 @@ const Profile = ({ setAuth }) => {
   const [language, setLanguage] = useState('tr');
   const [editing, setEditing] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+  const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
+  const [termsOfServiceOpen, setTermsOfServiceOpen] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
