@@ -132,8 +132,8 @@ const Dashboard = () => {
   const upcomingAppointments = [
     {
       id: 1,
-      barberName: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахер��кая',
       service: language === 'en' ? 'Haircut + Beard' : language === 'tr' ? 'Saç Kesimi + Sakal' : 'Стрижка + Борода',
       date: language === 'en' ? 'January 15, 2024' : language === 'tr' ? '15 Ocak 2024' : '15 января 2024',
       time: '14:30',
