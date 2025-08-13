@@ -226,6 +226,59 @@ const Profile = ({ setAuth }) => {
     setEditing(false);
   };
 
+  const handleChangePassword = () => {
+    setChangePasswordOpen(true);
+    setPasswordError('');
+  };
+
+  const handlePasswordChange = (field) => (event) => {
+    setPasswordData(prev => ({
+      ...prev,
+      [field]: event.target.value
+    }));
+    setPasswordError('');
+  };
+
+  const handlePasswordSubmit = () => {
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+      setPasswordError(language === 'en' ? 'All fields are required' : language === 'tr' ? 'Tüm alanlar zorunludur' : 'Все поля обязательны');
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      setPasswordError(language === 'en' ? 'Passwords do not match' : language === 'tr' ? 'Şifreler eşleşmiyor' : 'Пароли не совпадают');
+      return;
+    }
+
+    if (passwordData.newPassword.length < 6) {
+      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержать минимум 6 символов');
+      return;
+    }
+
+    // Simulate password change
+    console.log('Password changed successfully');
+    setChangePasswordOpen(false);
+    setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  };
+
+  const handleHelp = () => {
+    navigate('/support');
+  };
+
+  const handlePrivacyPolicy = () => {
+    // For now, open a simple alert. In real app, would navigate to privacy page
+    alert(language === 'en' ? 'Privacy Policy will be displayed here' :
+          language === 'tr' ? 'Gizlilik Politikası burada gösterilecektir' :
+          'Политика конфиденциальности будет отображена здесь');
+  };
+
+  const handleTermsOfService = () => {
+    // For now, open a simple alert. In real app, would navigate to terms page
+    alert(language === 'en' ? 'Terms of Service will be displayed here' :
+          language === 'tr' ? 'Kullanım Şartları burada gösterilecektir' :
+          'Условия использования будут отображены здесь');
+  };
+
   const TabPanel = ({ children, value, index }) => (
     <div hidden={value !== index}>
       {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
