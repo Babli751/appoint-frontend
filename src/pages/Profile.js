@@ -65,6 +65,13 @@ const Profile = ({ setAuth }) => {
   const [tabValue, setTabValue] = useState(0);
   const [language, setLanguage] = useState('tr');
   const [editing, setEditing] = useState(false);
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  });
+  const [passwordError, setPasswordError] = useState('');
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
@@ -195,7 +202,7 @@ const Profile = ({ setAuth }) => {
       preferences: 'Предпочтения',
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
-      privacyPolicy: 'Политика Конфиденциальн��сти',
+      privacyPolicy: 'Политика Конфиденциальности',
       termsOfService: 'Условия Использов��ния'
     }
   };
