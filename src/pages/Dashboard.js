@@ -261,7 +261,7 @@ const Dashboard = () => {
               }}
             >
               <MenuItem value="en">🇺🇸 EN</MenuItem>
-              <MenuItem value="tr">����🇷 TR</MenuItem>
+              <MenuItem value="tr">🇹🇷 TR</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
@@ -269,7 +269,7 @@ const Dashboard = () => {
           <IconButton color="inherit" onClick={() => navigate('/profile')}>
             <Person />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={() => navigate('/profile')}>
             <Settings />
           </IconButton>
         </Toolbar>
