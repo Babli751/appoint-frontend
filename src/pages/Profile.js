@@ -30,7 +30,12 @@ import {
   ListItemIcon,
   ListItemText,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Alert
 } from '@mui/material';
 import {
   ArrowBack,
@@ -190,7 +195,7 @@ const Profile = ({ setAuth }) => {
       preferences: 'Предпочтения',
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
-      privacyPolicy: 'Политика Конфиденциальности',
+      privacyPolicy: 'Политика Конфиденциальн��сти',
       termsOfService: 'Условия Использов��ния'
     }
   };
