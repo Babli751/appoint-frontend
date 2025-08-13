@@ -140,7 +140,7 @@ const Dashboard = () => {
       price: '€35',
       status: 'confirmed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюр��'
+      address: language === 'en' ? 'Mitte District, Friedrichstraße 123, Berlin' : language === 'tr' ? 'Mitte Bölgesi, Friedrichstraße 123, Berlin' : 'Район Митте, Фридрихштрассе 123, Берлин'
     },
     {
       id: 2,
