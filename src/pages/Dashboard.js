@@ -112,10 +112,10 @@ const Dashboard = () => {
       favoriteBarber: 'Избранный парикмахер',
       confirmed: 'Подтверждено',
       pending: 'Ожидание',
-      completed: 'Завершено',
+      completed: 'Заверш��но',
       cancelled: 'Отменено',
       cancel: 'Отменить',
-      details: 'Детали',
+      details: '��етали',
       reviews: 'отзывов',
       visits: 'визитов',
       bookAppointment: 'Записаться',
@@ -132,39 +132,39 @@ const Dashboard = () => {
   const upcomingAppointments = [
     {
       id: 1,
-      barberName: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
       service: language === 'en' ? 'Haircut + Beard' : language === 'tr' ? 'Saç Kesimi + Sakal' : 'Стрижка + Борода',
       date: language === 'en' ? 'January 15, 2024' : language === 'tr' ? '15 Ocak 2024' : '15 января 2024',
       time: '14:30',
-      price: '₺120',
+      price: '€35',
       status: 'confirmed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Çankaya District, Atatürk Street' : language === 'tr' ? 'Çankaya Mahallesi, Atatürk Caddesi' : 'Район Чанкая, улица Ататюрк'
+      address: language === 'en' ? 'Mitte District, Friedrichstraße 123, Berlin' : language === 'tr' ? 'Mitte Bölgesi, Friedrichstraße 123, Berlin' : 'Район Митте, Фридрихштрассе 123, Берлин'
     },
     {
       id: 2,
-      barberName: 'Ali Demir',
-      shopName: 'Modern Kuaför',
+      barberName: language === 'en' ? 'Marco Rossi' : language === 'tr' ? 'Marco Rossi' : 'Марко Росси',
+      shopName: language === 'en' ? 'Modern Style Studio' : language === 'tr' ? 'Modern Stil Stüdyosu' : 'Современная Студия Стиля',
       service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
       date: language === 'en' ? 'January 18, 2024' : language === 'tr' ? '18 Ocak 2024' : '18 января 2024',
       time: '16:00',
-      price: '₺75',
+      price: '€25',
       status: 'pending',
       barberImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Kızılay District, Atatürk Boulevard' : language === 'tr' ? 'Kızılay Mahallesi, Atatürk Bulvarı' : 'Район Кызылай, бульвар Ататюрк'
+      address: language === 'en' ? 'Kızılay District, Atatürk Boulevard' : language === 'tr' ? 'Kızılay Mahallesi, Atatürk Bulvarı' : 'Райо�� Кызылай, бульвар Ататюрк'
     }
   ];
 
   const pastAppointments = [
     {
       id: 3,
-      barberName: 'Osman Yılmaz',
-      shopName: 'Classic Barber',
+      barberName: language === 'en' ? 'Giovanni Costa' : language === 'tr' ? 'Giovanni Costa' : 'Джованни Коста',
+      shopName: language === 'en' ? 'Classic Barber' : language === 'tr' ? 'Klasik Berber' : 'Классическая Пари��махерская',
       service: language === 'en' ? 'Beard Trim + Massage' : language === 'tr' ? 'Sakal Tıraşı + Masaj' : 'Стрижка бороды + Массаж',
       date: language === 'en' ? 'January 10, 2024' : language === 'tr' ? '10 Ocak 2024' : '10 января 2024',
       time: '15:30',
-      price: '₺90',
+      price: '€30',
       status: 'completed',
       barberImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face',
       rating: 5,
@@ -172,12 +172,12 @@ const Dashboard = () => {
     },
     {
       id: 4,
-      barberName: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
       service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
       date: language === 'en' ? 'January 5, 2024' : language === 'tr' ? '5 Ocak 2024' : '5 января 2024',
       time: '11:00',
-      price: '₺80',
+      price: '€22',
       status: 'completed',
       barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
       rating: 4,
@@ -188,16 +188,16 @@ const Dashboard = () => {
   const favoriteBarbers = [
     {
       id: 1,
-      name: 'Mehmet Kaya',
-      shopName: 'Elite Barber Shop',
+      name: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
+      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
       rating: 4.8,
       visits: 5,
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'
     },
     {
       id: 3,
-      name: 'Osman Yılmaz',
-      shopName: 'Classic Barber',
+      name: language === 'en' ? 'Giovanni Costa' : language === 'tr' ? 'Giovanni Costa' : 'Джованни Коста',
+      shopName: language === 'en' ? 'Classic Barber' : language === 'tr' ? 'Klasik Berber' : 'Классическая Парикмахерская',
       rating: 4.7,
       visits: 3,
       image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face'
@@ -261,12 +261,15 @@ const Dashboard = () => {
               }}
             >
               <MenuItem value="en">🇺🇸 EN</MenuItem>
-              <MenuItem value="tr">����🇷 TR</MenuItem>
+              <MenuItem value="tr">🇹🇷 TR</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
           
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={() => navigate('/profile')}>
+            <Person />
+          </IconButton>
+          <IconButton color="inherit" onClick={() => navigate('/profile')}>
             <Settings />
           </IconButton>
         </Toolbar>
@@ -337,14 +340,16 @@ const Dashboard = () => {
                       </ListItemAvatar>
                       <ListItemText
                         sx={{ ml: { xs: 1, md: 2 } }}
+                        primaryTypographyProps={{ component: 'div' }}
+                        secondaryTypographyProps={{ component: 'div' }}
                         primary={
                           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                            <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                               {appointment.barberName}
                             </Typography>
-                            <Chip 
+                            <Chip
                               label={getStatusText(appointment.status)}
-                              sx={{ 
+                              sx={{
                                 bgcolor: getStatusColor(appointment.status),
                                 color: 'white',
                                 fontWeight: 'bold',
@@ -355,41 +360,41 @@ const Dashboard = () => {
                         }
                         secondary={
                           <Stack spacing={1}>
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" component="span" color="text.secondary">
                               {appointment.shopName}
                             </Typography>
-                            <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                            <Typography variant="body1" component="span" sx={{ fontWeight: 'medium' }}>
                               {appointment.service}
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <AccessTime sx={{ fontSize: 16, mr: 0.5, color: '#6b46c1' }} />
-                                <Typography variant="body2">
+                                <Typography variant="body2" component="span">
                                   {appointment.date} - {appointment.time}
                                 </Typography>
                               </Box>
                               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                 <LocationOn sx={{ fontSize: 16, mr: 0.5, color: '#6b46c1' }} />
-                                <Typography variant="body2">
+                                <Typography variant="body2" component="span">
                                   {appointment.address}
                                 </Typography>
                               </Box>
                             </Box>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
-                              <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mb: { xs: 1, sm: 0 } }}>
+                              <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', color: '#6b46c1', mb: { xs: 1, sm: 0 } }}>
                                 {appointment.price}
                               </Typography>
                               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ width: { xs: '100%', sm: 'auto' } }}>
-                                <Button 
-                                  variant="outlined" 
+                                <Button
+                                  variant="outlined"
                                   size="small"
                                   sx={{ color: '#ef4444', borderColor: '#ef4444' }}
                                   fullWidth={isMobile}
                                 >
                                   {t.cancel}
                                 </Button>
-                                <Button 
-                                  variant="contained" 
+                                <Button
+                                  variant="contained"
                                   size="small"
                                   sx={{ bgcolor: '#6b46c1' }}
                                   onClick={() => navigate(`/barber/${appointment.barberId}`)}
@@ -435,32 +440,34 @@ const Dashboard = () => {
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ ml: { xs: 1, md: 2 } }}
+                      primaryTypographyProps={{ component: 'div' }}
+                      secondaryTypographyProps={{ component: 'div' }}
                       primary={
                         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                             {appointment.barberName}
                           </Typography>
-                          <Typography variant="h6" sx={{ fontWeight: 'bold', color: '#6b46c1', mt: { xs: 1, sm: 0 } }}>
+                          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', color: '#6b46c1', mt: { xs: 1, sm: 0 } }}>
                             {appointment.price}
                           </Typography>
                         </Box>
                       }
                       secondary={
                         <Stack spacing={1}>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" component="span" color="text.secondary">
                             {appointment.shopName}
                           </Typography>
-                          <Typography variant="body1" sx={{ fontWeight: 'medium' }}>
+                          <Typography variant="body1" component="span" sx={{ fontWeight: 'medium' }}>
                             {appointment.service}
                           </Typography>
-                          <Typography variant="body2">
+                          <Typography variant="body2" component="span">
                             {appointment.date} - {appointment.time}
                           </Typography>
                           {appointment.rating && (
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1, flexDirection: { xs: 'column', sm: 'row' } }}>
-                              <Typography variant="body2">{t.givenRating}:</Typography>
+                              <Typography variant="body2" component="span">{t.givenRating}:</Typography>
                               <Star sx={{ color: '#fbbf24', fontSize: 16 }} />
-                              <Typography variant="body2">{appointment.rating}/5</Typography>
+                              <Typography variant="body2" component="span">{appointment.rating}/5</Typography>
                               {!appointment.reviewed && (
                                 <Button size="small" sx={{ ml: 'auto', color: '#6b46c1' }}>
                                   {t.writeReview}
@@ -489,29 +496,31 @@ const Dashboard = () => {
                     </ListItemAvatar>
                     <ListItemText
                       sx={{ ml: { xs: 1, md: 2 } }}
+                      primaryTypographyProps={{ component: 'div' }}
+                      secondaryTypographyProps={{ component: 'div' }}
                       primary={
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
+                        <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', fontSize: { xs: '1rem', md: '1.25rem' } }}>
                           {barber.name}
                         </Typography>
                       }
                       secondary={
                         <Stack spacing={1}>
-                          <Typography variant="body2" color="text.secondary">
+                          <Typography variant="body2" component="span" color="text.secondary">
                             {barber.shopName}
                           </Typography>
                           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexDirection: { xs: 'column', sm: 'row' } }}>
                             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                               <Star sx={{ color: '#fbbf24', fontSize: 16, mr: 0.5 }} />
-                              <Typography variant="body2">{barber.rating}</Typography>
+                              <Typography variant="body2" component="span">{barber.rating}</Typography>
                             </Box>
-                            <Typography variant="body2">
+                            <Typography variant="body2" component="span">
                               {barber.visits} {t.visits}
                             </Typography>
                           </Box>
-                          <Button 
-                            variant="contained" 
+                          <Button
+                            variant="contained"
                             size="small"
-                            sx={{ 
+                            sx={{
                               bgcolor: '#6b46c1',
                               mt: 1,
                               alignSelf: { xs: 'stretch', sm: 'flex-start' }

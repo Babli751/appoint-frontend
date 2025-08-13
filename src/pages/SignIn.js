@@ -31,7 +31,7 @@ import {
   Language as LanguageIcon
 } from '@mui/icons-material';
 
-const SignIn = () => {
+const SignIn = ({ setAuth }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -50,7 +50,7 @@ const SignIn = () => {
   const t = {
     ...translations,
     signInTitle: language === 'en' ? 'Sign In to BarberPro' : language === 'tr' ? 'BarberPro\'ya Giriş Yapın' : 'Войти в BarberPro',
-    signInSubtitle: language === 'en' ? 'Welcome back! Please sign in to your account' : language === 'tr' ? 'Tekrar hoş geldiniz! Lütfen hesabınıza giriş yapın' : 'Добро пожаловать! Пожалуйста, войдите в свой аккаунт',
+    signInSubtitle: language === 'en' ? 'Welcome back! Please sign in to your account' : language === 'tr' ? 'Tekrar hoş geldiniz! Lütfen hesabınıza giriş yapın' : 'Добро пожаловать! Пожалуйста, войдите в сво�� аккаунт',
     email: language === 'en' ? 'Email Address' : language === 'tr' ? 'E-posta Adresi' : 'Адрес электронной почты',
     password: language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль',
     rememberMe: language === 'en' ? 'Remember me' : language === 'tr' ? 'Beni hatırla' : 'Запомнить меня',
@@ -81,9 +81,11 @@ const SignIn = () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, redirect to home
-      navigate('/');
+
+      // Set authentication state and redirect to dashboard
+      if (setAuth) setAuth(true);
+      localStorage.setItem('isAuthenticated', 'true');
+      navigate('/dashboard');
     } catch (err) {
       setError(t.invalidCredentials);
     } finally {
@@ -94,7 +96,9 @@ const SignIn = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    navigate('/');
+    if (setAuth) setAuth(true);
+    localStorage.setItem('isAuthenticated', 'true');
+    navigate('/dashboard');
   };
 
   return (

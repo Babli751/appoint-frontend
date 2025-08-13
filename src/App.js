@@ -14,6 +14,7 @@ import Company from './pages/Company';
 import Support from './pages/Support';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
@@ -93,7 +94,9 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isAuthenticated, setAuth] = useState(true); // Temporarily set to true to show homepage
+  const [isAuthenticated, setAuth] = useState(
+    localStorage.getItem('isAuthenticated') === 'true'
+  ); // Check authentication from localStorage
 
   return (
     <LanguageProvider>
@@ -111,15 +114,19 @@ function App() {
           />
           <Route
             path="/signin"
-            element={<SignIn />}
+            element={<SignIn setAuth={setAuth} />}
           />
           <Route
             path="/signup"
             element={<SignUp />}
           />
-          <Route 
-            path="/dashboard" 
-            element={<Dashboard />} 
+          <Route
+            path="/dashboard"
+            element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
+          />
+          <Route
+            path="/profile"
+            element={isAuthenticated ? <Profile setAuth={setAuth} /> : <Navigate to="/signin" />}
           />
           <Route 
             path="/barber/:id" 
