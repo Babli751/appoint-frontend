@@ -661,6 +661,67 @@ const Profile = ({ setAuth }) => {
           </TabPanel>
         </Card>
       </Container>
+
+      {/* Change Password Dialog */}
+      <Dialog
+        open={changePasswordOpen}
+        onClose={() => setChangePasswordOpen(false)}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>
+          {t.changePassword}
+        </DialogTitle>
+        <DialogContent>
+          {passwordError && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {passwordError}
+            </Alert>
+          )}
+
+          <TextField
+            fullWidth
+            label={language === 'en' ? 'Current Password' : language === 'tr' ? 'Mevcut Şifre' : 'Текущий пароль'}
+            type="password"
+            value={passwordData.currentPassword}
+            onChange={handlePasswordChange('currentPassword')}
+            margin="normal"
+          />
+
+          <TextField
+            fullWidth
+            label={language === 'en' ? 'New Password' : language === 'tr' ? 'Yeni Şifre' : 'Новый пароль'}
+            type="password"
+            value={passwordData.newPassword}
+            onChange={handlePasswordChange('newPassword')}
+            margin="normal"
+          />
+
+          <TextField
+            fullWidth
+            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый пароль'}
+            type="password"
+            value={passwordData.confirmPassword}
+            onChange={handlePasswordChange('confirmPassword')}
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setChangePasswordOpen(false)}
+            color="inherit"
+          >
+            {t.cancel}
+          </Button>
+          <Button
+            onClick={handlePasswordSubmit}
+            variant="contained"
+            sx={{ bgcolor: '#00a693' }}
+          >
+            {t.save}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
