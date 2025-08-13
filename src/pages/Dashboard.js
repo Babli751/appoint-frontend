@@ -149,7 +149,7 @@ const Dashboard = () => {
       service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
       date: language === 'en' ? 'January 18, 2024' : language === 'tr' ? '18 Ocak 2024' : '18 января 2024',
       time: '16:00',
-      price: '₺75',
+      price: '€25',
       status: 'pending',
       barberImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face',
       address: language === 'en' ? 'Kızılay District, Atatürk Boulevard' : language === 'tr' ? 'Kızılay Mahallesi, Atatürk Bulvarı' : 'Райо�� Кызылай, бульвар Ататюрк'
