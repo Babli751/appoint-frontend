@@ -244,9 +244,33 @@ const Profile = () => {
     }));
   };
 
-  const handleSave = () => {
-    setUserInfo(editedInfo);
-    setEditing(false);
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const updatedProfile = {
+        first_name: editedInfo.firstName,
+        last_name: editedInfo.lastName,
+        email: editedInfo.email,
+        phone: editedInfo.phone,
+        birth_date: editedInfo.birthDate,
+        address: editedInfo.address
+      };
+
+      await updateUser(updatedProfile);
+      setUserInfo(editedInfo);
+      setEditing(false);
+      setUpdateSuccess(true);
+
+      // Hide success message after 3 seconds
+      setTimeout(() => setUpdateSuccess(false), 3000);
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+      alert(language === 'en' ? 'Failed to update profile' :
+            language === 'tr' ? 'Profil güncellenemedi' :
+            'Не удалось обновить профиль');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -774,8 +798,8 @@ const Profile = () => {
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
-             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürd��rmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставлен��я, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
+             'Мы используем собранную информацию для предост��вления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -841,7 +865,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
              language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+             'BarberPro - это платформа, к��торая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -852,7 +876,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действи��, происходящие под их учетной записью.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
