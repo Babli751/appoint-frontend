@@ -36,7 +36,8 @@ import {
   ListItemText,
   BottomNavigation,
   BottomNavigationAction,
-  Fab
+  Fab,
+  Menu
 } from '@mui/material';
 import {
   Search,
@@ -164,7 +165,7 @@ const Home = () => {
       discount: 16,
       isVerified: true,
       instantBooking: false,
-      features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
+      features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплат�� картой'],
       responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течение 5 мин',
       isNew: true,
       repeatCustomers: 78,
@@ -190,7 +191,7 @@ const Home = () => {
       isVerified: true,
       instantBooking: true,
       features: [language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
-      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
+      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : '�� течение 1 мин',
       isTopRated: true,
       repeatCustomers: 92,
       city: 'Berlin, Germany'
