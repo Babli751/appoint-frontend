@@ -225,7 +225,7 @@ const Profile = () => {
       help: 'Помощь',
       turkish: 'Türkçe',
       english: 'English',
-      russian: 'Русский',
+      russian: 'Ру��ский',
       accountInfo: 'Информация Аккаунта',
       preferences: 'Предпочтения',
       support: 'Поддержка',
@@ -303,7 +303,7 @@ const Profile = () => {
     }
 
     if (passwordData.newPassword.length < 6) {
-      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержать минимум 6 символов');
+      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержат�� минимум 6 символов');
       return;
     }
 
@@ -386,6 +386,15 @@ const Profile = () => {
       </AppBar>
 
       <Container sx={{ py: { xs: 2, md: 3 } }}>
+        {/* Success Alert */}
+        {updateSuccess && (
+          <Alert severity="success" sx={{ mb: 3 }}>
+            {language === 'en' ? 'Profile updated successfully!' :
+             language === 'tr' ? 'Profil başarıyla güncellendi!' :
+             'Профиль успешно обновлен!'}
+          </Alert>
+        )}
+
         {/* Profile Header */}
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: { xs: 3, md: 4 } }}>
