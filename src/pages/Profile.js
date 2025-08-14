@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
-import { userAPI } from '../services/api';
 import {
   Box,
   Container,
@@ -261,7 +260,7 @@ const Profile = () => {
     preferences: language === 'en' ? 'Preferences' : language === 'tr' ? 'Tercihler' : 'Предпочтения',
     language: language === 'en' ? 'Language' : language === 'tr' ? 'Dil' : 'Язык',
     help: language === 'en' ? 'Help' : language === 'tr' ? 'Yardım' : 'Помощь',
-    privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальности',
+    privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальнос��и',
     termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullanım Şartları' : 'Условия Использования'
   };
 
@@ -295,7 +294,7 @@ const Profile = () => {
       console.error('Failed to update profile:', error);
       alert(language === 'en' ? 'Failed to update profile' :
             language === 'tr' ? 'Profil güncellenemedi' :
-            'Не удалось обнов��ть профиль');
+            'Не удалось обновить профиль');
     } finally {
       setLoading(false);
     }
@@ -418,7 +417,7 @@ const Profile = () => {
         {updateSuccess && (
           <Alert severity="success" sx={{ mb: 3 }}>
             {language === 'en' ? 'Profile updated successfully!' :
-             language === 'tr' ? 'Profil ba��arıyla güncellendi!' :
+             language === 'tr' ? 'Profil başarıyla güncellendi!' :
              'Профиль успешно обновлен!'}
           </Alert>
         )}
