@@ -97,8 +97,7 @@ const SignIn = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    if (setAuth) setAuth(true);
-    localStorage.setItem('isAuthenticated', 'true');
+    login();
     navigate('/dashboard');
   };
 
