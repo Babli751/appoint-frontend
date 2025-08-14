@@ -165,7 +165,7 @@ const Home = () => {
       discount: 16,
       isVerified: true,
       instantBooking: false,
-      features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплат�� картой'],
+      features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
       responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течение 5 мин',
       isNew: true,
       repeatCustomers: 78,
@@ -191,7 +191,7 @@ const Home = () => {
       isVerified: true,
       instantBooking: true,
       features: [language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
-      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : '�� течение 1 мин',
+      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
       isTopRated: true,
       repeatCustomers: 92,
       city: 'Berlin, Germany'
@@ -464,20 +464,52 @@ const Home = () => {
 
               {!isMobile && (
                 <>
-                  <Button
-                    variant="outlined"
-                    sx={{ color: '#00a693', borderColor: '#00a693' }}
-                    onClick={() => navigate('/signin')}
-                  >
-                    {t.login}
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{ bgcolor: '#00a693', color: 'white' }}
-                    onClick={() => navigate('/signup')}
-                  >
-                    {t.signup}
-                  </Button>
+                  {isAuthenticated ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <IconButton sx={{ color: '#00a693' }}>
+                        <Notifications />
+                      </IconButton>
+                      <Button
+                        onClick={handleProfileMenuOpen}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          color: '#1f2937',
+                          textTransform: 'none',
+                          '&:hover': { bgcolor: 'rgba(0, 166, 147, 0.04)' }
+                        }}
+                      >
+                        <Avatar
+                          src={user?.avatar}
+                          sx={{ width: 32, height: 32 }}
+                        />
+                        <Box sx={{ textAlign: 'left', display: { xs: 'none', lg: 'block' } }}>
+                          <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
+                            {user?.name || 'User'}
+                          </Typography>
+                        </Box>
+                        <ExpandMore sx={{ fontSize: 16 }} />
+                      </Button>
+                    </Box>
+                  ) : (
+                    <>
+                      <Button
+                        variant="outlined"
+                        sx={{ color: '#00a693', borderColor: '#00a693' }}
+                        onClick={() => navigate('/signin')}
+                      >
+                        {t.login}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        sx={{ bgcolor: '#00a693', color: 'white' }}
+                        onClick={() => navigate('/signup')}
+                      >
+                        {t.signup}
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </Box>
