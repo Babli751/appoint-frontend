@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import {
   Box,
   Container,
@@ -57,17 +59,20 @@ import {
   History
 } from '@mui/icons-material';
 
-const Profile = ({ setAuth }) => {
+const Profile = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
+  const { user, updateUser, changePassword, logout } = useAuth();
+  const { language, changeLanguage } = useLanguage();
+
   const [tabValue, setTabValue] = useState(0);
-  const [language, setLanguage] = useState('tr');
   const [editing, setEditing] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
   const [termsOfServiceOpen, setTermsOfServiceOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -80,21 +85,41 @@ const Profile = ({ setAuth }) => {
     sms: false
   });
 
+  // Use user data from AuthContext
   const [userInfo, setUserInfo] = useState({
-    firstName: 'Ahmet',
-    lastName: 'Yılmaz',
-    email: 'ahmet.yilmaz@email.com',
-    phone: '+90 555 123 45 67',
-    birthDate: '1990-05-15',
-    address: 'Çankaya Mahallesi, Atatürk Caddesi No: 123, Ankara',
-    memberSince: '2023-01-15',
-    totalAppointments: 24,
-    favoriteBarbers: 3
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    birthDate: user?.birthDate || '',
+    address: user?.address || '',
+    memberSince: user?.memberSince || '',
+    totalAppointments: user?.totalAppointments || 0,
+    favoriteBarbers: user?.favoriteBarbers || 0
   });
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
 
-  // Language content
+  // Update local state when user data changes
+  useEffect(() => {
+    if (user) {
+      const updatedUserInfo = {
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        birthDate: user.birthDate || '',
+        address: user.address || '',
+        memberSince: user.memberSince || '',
+        totalAppointments: user.totalAppointments || 0,
+        favoriteBarbers: user.favoriteBarbers || 0
+      };
+      setUserInfo(updatedUserInfo);
+      setEditedInfo(updatedUserInfo);
+    }
+  }, [user]);
+
+  // Language content (keep as fallback if needed)
   const content = {
     tr: {
       brand: 'BarberPro',
@@ -173,7 +198,7 @@ const Profile = ({ setAuth }) => {
     ru: {
       brand: 'BarberPro',
       profile: 'Мой Профиль',
-      personalInfo: 'Личная Информация',
+      personalInfo: 'Л��чная Информация',
       settings: 'Настройки',
       security: 'Безопасность',
       firstName: 'Имя',
@@ -211,6 +236,34 @@ const Profile = ({ setAuth }) => {
 
   const t = content[language];
 
+  // Use fallback translations for profile-specific content
+  const profileTranslations = {
+    profile: language === 'en' ? 'My Profile' : language === 'tr' ? 'Profilim' : 'Мой Профиль',
+    personalInfo: language === 'en' ? 'Personal Information' : language === 'tr' ? 'Kişisel Bilgiler' : 'Личная Информация',
+    settings: language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки',
+    security: language === 'en' ? 'Security' : language === 'tr' ? 'Güvenlik' : 'Безопасность',
+    firstName: language === 'en' ? 'First Name' : language === 'tr' ? 'Ad' : 'Имя',
+    lastName: language === 'en' ? 'Last Name' : language === 'tr' ? 'Soyad' : 'Фамилия',
+    email: language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email',
+    phone: language === 'en' ? 'Phone' : language === 'tr' ? 'Telefon' : 'Телефон',
+    birthDate: language === 'en' ? 'Birth Date' : language === 'tr' ? 'Doğum Tarihi' : 'Дата Рождения',
+    address: language === 'en' ? 'Address' : language === 'tr' ? 'Adres' : 'Адрес',
+    totalAppointments: language === 'en' ? 'Total Appointments' : language === 'tr' ? 'Toplam Randevu' : 'Всего Записей',
+    favoriteBarbers: language === 'en' ? 'Favorite Barbers' : language === 'tr' ? 'Favori Berber' : 'Любимые Парикмахеры',
+    memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
+    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
+    save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
+    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
+    changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
+    logout: language === 'en' ? 'Logout' : language === 'tr' ? 'Çıkış Yap' : 'Выйти',
+    notifications: language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления',
+    preferences: language === 'en' ? 'Preferences' : language === 'tr' ? 'Tercihler' : 'Предпочтения',
+    language: language === 'en' ? 'Language' : language === 'tr' ? 'Dil' : 'Язык',
+    help: language === 'en' ? 'Help' : language === 'tr' ? 'Yardım' : 'Помощь',
+    privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальности',
+    termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullanım Şartları' : 'Условия Использования'
+  };
+
   const handleInputChange = (field) => (event) => {
     setEditedInfo(prev => ({
       ...prev,
@@ -218,9 +271,33 @@ const Profile = ({ setAuth }) => {
     }));
   };
 
-  const handleSave = () => {
-    setUserInfo(editedInfo);
-    setEditing(false);
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const updatedProfile = {
+        first_name: editedInfo.firstName,
+        last_name: editedInfo.lastName,
+        email: editedInfo.email,
+        phone: editedInfo.phone,
+        birth_date: editedInfo.birthDate,
+        address: editedInfo.address
+      };
+
+      await updateUser(updatedProfile);
+      setUserInfo(editedInfo);
+      setEditing(false);
+      setUpdateSuccess(true);
+
+      // Hide success message after 3 seconds
+      setTimeout(() => setUpdateSuccess(false), 3000);
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+      alert(language === 'en' ? 'Failed to update profile' :
+            language === 'tr' ? 'Profil güncellenemedi' :
+            'Не удалось обновить профиль');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -241,7 +318,7 @@ const Profile = ({ setAuth }) => {
     setPasswordError('');
   };
 
-  const handlePasswordSubmit = () => {
+  const handlePasswordSubmit = async () => {
     if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
       setPasswordError(language === 'en' ? 'All fields are required' : language === 'tr' ? 'Tüm alanlar zorunludur' : 'Все поля обязательны');
       return;
@@ -257,10 +334,26 @@ const Profile = ({ setAuth }) => {
       return;
     }
 
-    // Simulate password change
-    console.log('Password changed successfully');
-    setChangePasswordOpen(false);
-    setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    setLoading(true);
+    try {
+      await changePassword(passwordData.currentPassword, passwordData.newPassword);
+      setChangePasswordOpen(false);
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+      alert(language === 'en' ? 'Password changed successfully' :
+            language === 'tr' ? 'Şifre başarıyla değiştirildi' :
+            'Пароль успешно изменен');
+    } catch (error) {
+      console.error('Password change failed:', error);
+      setPasswordError(
+        error.response?.data?.detail ||
+        (language === 'en' ? 'Failed to change password' :
+         language === 'tr' ? 'Şifre değiştirilemedi' :
+         'Не удалось изменить пароль')
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleHelp = () => {
@@ -297,22 +390,22 @@ const Profile = ({ setAuth }) => {
             <ArrowBack />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-            {t.profile}
+            {profileTranslations.profile}
           </Typography>
           
           {/* Language Selector */}
           <FormControl size="small" sx={{ minWidth: 100, mr: 2 }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              sx={{ 
+              onChange={(e) => changeLanguage(e.target.value)}
+              sx={{
                 color: 'white',
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                 '& .MuiSvgIcon-root': { color: 'white' }
               }}
             >
               <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="en">🇺🇸 EN</MenuItem>
+              <MenuItem value="en">����🇸 EN</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
@@ -320,6 +413,15 @@ const Profile = ({ setAuth }) => {
       </AppBar>
 
       <Container sx={{ py: { xs: 2, md: 3 } }}>
+        {/* Success Alert */}
+        {updateSuccess && (
+          <Alert severity="success" sx={{ mb: 3 }}>
+            {language === 'en' ? 'Profile updated successfully!' :
+             language === 'tr' ? 'Profil başarıyla güncellendi!' :
+             'Профиль успешно обновлен!'}
+          </Alert>
+        )}
+
         {/* Profile Header */}
         <Card sx={{ mb: 3 }}>
           <CardContent sx={{ p: { xs: 3, md: 4 } }}>
@@ -376,7 +478,7 @@ const Profile = ({ setAuth }) => {
                         {userInfo.totalAppointments}
                       </Typography>
                       <Typography variant="body2">
-                        {t.totalAppointments}
+                        {profileTranslations.totalAppointments}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -386,7 +488,7 @@ const Profile = ({ setAuth }) => {
                         {userInfo.favoriteBarbers}
                       </Typography>
                       <Typography variant="body2">
-                        {t.favoriteBarbers}
+                        {profileTranslations.favoriteBarbers}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -396,7 +498,7 @@ const Profile = ({ setAuth }) => {
                         2023
                       </Typography>
                       <Typography variant="body2">
-                        {t.memberSince}
+                        {profileTranslations.memberSince}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -415,9 +517,9 @@ const Profile = ({ setAuth }) => {
               variant={isMobile ? "scrollable" : "standard"}
               scrollButtons={isMobile ? "auto" : false}
             >
-              <Tab label={t.personalInfo} />
-              <Tab label={t.settings} />
-              <Tab label={t.security} />
+              <Tab label={profileTranslations.personalInfo} />
+              <Tab label={profileTranslations.settings} />
+              <Tab label={profileTranslations.security} />
             </Tabs>
           </Box>
 
@@ -426,7 +528,7 @@ const Profile = ({ setAuth }) => {
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {t.personalInfo}
+                  {profileTranslations.personalInfo}
                 </Typography>
                 {!editing ? (
                   <Button 
@@ -434,7 +536,7 @@ const Profile = ({ setAuth }) => {
                     onClick={() => setEditing(true)}
                     sx={{ color: '#00a693' }}
                   >
-                    {t.edit}
+                    {profileTranslations.edit}
                   </Button>
                 ) : (
                   <Stack direction="row" spacing={1}>
@@ -444,14 +546,14 @@ const Profile = ({ setAuth }) => {
                       onClick={handleSave}
                       sx={{ bgcolor: '#00a693' }}
                     >
-                      {t.save}
+                      {profileTranslations.save}
                     </Button>
                     <Button 
                       startIcon={<Cancel />}
                       variant="outlined"
                       onClick={handleCancel}
                     >
-                      {t.cancel}
+                      {profileTranslations.cancel}
                     </Button>
                   </Stack>
                 )}
@@ -461,7 +563,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.firstName}
+                    label={profileTranslations.firstName}
                     value={editing ? editedInfo.firstName : userInfo.firstName}
                     onChange={handleInputChange('firstName')}
                     disabled={!editing}
@@ -471,7 +573,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.lastName}
+                    label={profileTranslations.lastName}
                     value={editing ? editedInfo.lastName : userInfo.lastName}
                     onChange={handleInputChange('lastName')}
                     disabled={!editing}
@@ -481,7 +583,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.email}
+                    label={profileTranslations.email}
                     type="email"
                     value={editing ? editedInfo.email : userInfo.email}
                     onChange={handleInputChange('email')}
@@ -492,7 +594,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.phone}
+                    label={profileTranslations.phone}
                     value={editing ? editedInfo.phone : userInfo.phone}
                     onChange={handleInputChange('phone')}
                     disabled={!editing}
@@ -502,7 +604,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.birthDate}
+                    label={profileTranslations.birthDate}
                     type="date"
                     value={editing ? editedInfo.birthDate : userInfo.birthDate}
                     onChange={handleInputChange('birthDate')}
@@ -514,7 +616,7 @@ const Profile = ({ setAuth }) => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label={t.address}
+                    label={profileTranslations.address}
                     multiline
                     rows={3}
                     value={editing ? editedInfo.address : userInfo.address}
@@ -531,20 +633,20 @@ const Profile = ({ setAuth }) => {
           <TabPanel value={tabValue} index={1}>
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {t.preferences}
+                {profileTranslations.preferences}
               </Typography>
 
               {/* Language Settings */}
               <Box sx={{ mb: 4 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {t.language}
+                  {profileTranslations.language}
                 </Typography>
                 <FormControl fullWidth sx={{ maxWidth: 300 }}>
                   <InputLabel>{t.language}</InputLabel>
                   <Select
                     value={language}
-                    onChange={(e) => setLanguage(e.target.value)}
-                    label={t.language}
+                    onChange={(e) => changeLanguage(e.target.value)}
+                    label={profileTranslations.language}
                   >
                     <MenuItem value="tr">🇹�� {t.turkish}</MenuItem>
                     <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
@@ -556,7 +658,7 @@ const Profile = ({ setAuth }) => {
               {/* Notification Settings */}
               <Box sx={{ mb: 4 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {t.notifications}
+                  {profileTranslations.notifications}
                 </Typography>
                 <Stack spacing={2}>
                   <FormControlLabel
@@ -607,7 +709,7 @@ const Profile = ({ setAuth }) => {
           <TabPanel value={tabValue} index={2}>
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {t.security}
+                {profileTranslations.security}
               </Typography>
 
               <List>
@@ -615,42 +717,41 @@ const Profile = ({ setAuth }) => {
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.changePassword} />
+                  <ListItemText primary={profileTranslations.changePassword} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handleHelp}>
                   <ListItemIcon>
                     <Help sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.help} />
+                  <ListItemText primary={profileTranslations.help} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handlePrivacyPolicy}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.privacyPolicy} />
+                  <ListItemText primary={profileTranslations.privacyPolicy} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handleTermsOfService}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.termsOfService} />
+                  <ListItemText primary={profileTranslations.termsOfService} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton
                   onClick={() => {
-                    if (setAuth) setAuth(false);
-                    localStorage.removeItem('isAuthenticated');
-                    navigate('/signin');
+                    logout();
+                    navigate('/');
                   }}
                   sx={{ color: '#ef4444' }}
                 >
                   <ListItemIcon>
                     <ExitToApp sx={{ color: '#ef4444' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.logout} />
+                  <ListItemText primary={profileTranslations.logout} />
                 </ListItemButton>
               </List>
             </Box>
@@ -666,7 +767,7 @@ const Profile = ({ setAuth }) => {
         fullWidth
       >
         <DialogTitle>
-          {t.changePassword}
+          {profileTranslations.changePassword}
         </DialogTitle>
         <DialogContent>
           {passwordError && (
@@ -695,7 +796,7 @@ const Profile = ({ setAuth }) => {
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый пароль'}
+            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите ��овый пароль'}
             type="password"
             value={passwordData.confirmPassword}
             onChange={handlePasswordChange('confirmPassword')}
@@ -707,14 +808,14 @@ const Profile = ({ setAuth }) => {
             onClick={() => setChangePasswordOpen(false)}
             color="inherit"
           >
-            {t.cancel}
+            {profileTranslations.cancel}
           </Button>
           <Button
             onClick={handlePasswordSubmit}
             variant="contained"
             sx={{ bgcolor: '#00a693' }}
           >
-            {t.save}
+            {profileTranslations.save}
           </Button>
         </DialogActions>
       </Dialog>
@@ -727,7 +828,7 @@ const Profile = ({ setAuth }) => {
         fullWidth
       >
         <DialogTitle>
-          {t.privacyPolicy}
+          {profileTranslations.privacyPolicy}
         </DialogTitle>
         <DialogContent>
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -793,7 +894,7 @@ const Profile = ({ setAuth }) => {
         fullWidth
       >
         <DialogTitle>
-          {t.termsOfService}
+          {profileTranslations.termsOfService}
         </DialogTitle>
         <DialogContent>
           <Typography variant="h6" sx={{ mb: 2 }}>

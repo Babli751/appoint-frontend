@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   Box, 
   Typography, 
@@ -35,7 +36,8 @@ import {
   ListItemText,
   BottomNavigation,
   BottomNavigationAction,
-  Fab
+  Fab,
+  Menu
 } from '@mui/material';
 import {
   Search,
@@ -79,7 +81,10 @@ import {
   AccountCircle,
   Close,
   Business,
-  Support as SupportIcon
+  Support as SupportIcon,
+  Logout,
+  Settings,
+  ExpandMore
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import BarberFilter from '../components/BarberFilter';
@@ -90,16 +95,18 @@ const Home = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  
+
   const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const { language, changeLanguage, t: translations } = useLanguage();
+  const { isAuthenticated, user, logout } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
   const [filters, setFilters] = useState({});
   const [filteredBarbers, setFilteredBarbers] = useState([]);
+  const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
 
   // Use centralized translations
   const t = translations;
@@ -342,6 +349,20 @@ const Home = () => {
     setFilteredBarbers(filtered);
   };
 
+  const handleProfileMenuOpen = (event) => {
+    setProfileMenuAnchor(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setProfileMenuAnchor(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleProfileMenuClose();
+    navigate('/');
+  };
+
   const displayedBarbers = filteredBarbers.length > 0 ? filteredBarbers : featuredBarbers;
   const getActiveFilterCount = () => {
     let count = 0;
@@ -443,26 +464,100 @@ const Home = () => {
 
               {!isMobile && (
                 <>
-                  <Button
-                    variant="outlined"
-                    sx={{ color: '#00a693', borderColor: '#00a693' }}
-                    onClick={() => navigate('/signin')}
-                  >
-                    {t.login}
-                  </Button>
-                  <Button
-                    variant="contained"
-                    sx={{ bgcolor: '#00a693', color: 'white' }}
-                    onClick={() => navigate('/signup')}
-                  >
-                    {t.signup}
-                  </Button>
+                  {isAuthenticated ? (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <IconButton sx={{ color: '#00a693' }}>
+                        <Notifications />
+                      </IconButton>
+                      <Button
+                        onClick={handleProfileMenuOpen}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          color: '#1f2937',
+                          textTransform: 'none',
+                          '&:hover': { bgcolor: 'rgba(0, 166, 147, 0.04)' }
+                        }}
+                      >
+                        <Avatar
+                          src={user?.avatar}
+                          sx={{ width: 32, height: 32 }}
+                        />
+                        <Box sx={{ textAlign: 'left', display: { xs: 'none', lg: 'block' } }}>
+                          <Typography variant="body2" sx={{ fontWeight: 600, lineHeight: 1.2 }}>
+                            {user?.name || 'User'}
+                          </Typography>
+                        </Box>
+                        <ExpandMore sx={{ fontSize: 16 }} />
+                      </Button>
+                    </Box>
+                  ) : (
+                    <>
+                      <Button
+                        variant="outlined"
+                        sx={{ color: '#00a693', borderColor: '#00a693' }}
+                        onClick={() => navigate('/signin')}
+                      >
+                        {t.login}
+                      </Button>
+                      <Button
+                        variant="contained"
+                        sx={{ bgcolor: '#00a693', color: 'white' }}
+                        onClick={() => navigate('/signup')}
+                      >
+                        {t.signup}
+                      </Button>
+                    </>
+                  )}
                 </>
               )}
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
+
+      {/* Profile Menu */}
+      <Menu
+        anchorEl={profileMenuAnchor}
+        open={Boolean(profileMenuAnchor)}
+        onClose={handleProfileMenuClose}
+        sx={{ mt: 1 }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
+          <ListItemIcon>
+            <Person fontSize="small" />
+          </ListItemIcon>
+          {t.profile}
+        </MenuItem>
+        <MenuItem onClick={() => { navigate('/dashboard'); handleProfileMenuClose(); }}>
+          <ListItemIcon>
+            <Schedule fontSize="small" />
+          </ListItemIcon>
+          {t.appointments}
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuClose}>
+          <ListItemIcon>
+            <Favorite fontSize="small" />
+          </ListItemIcon>
+          {t.favorites}
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuClose}>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'}
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'}
+        </MenuItem>
+      </Menu>
 
       {/* Responsive Hero Section */}
       <Box data-search="hero" sx={{
@@ -1147,6 +1242,27 @@ const Home = () => {
               <Close />
             </IconButton>
           </Box>
+
+          {/* User Profile Section in Drawer */}
+          {isAuthenticated && (
+            <Box sx={{ mb: 2, p: 2, bgcolor: '#f0fffe', borderRadius: 2 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Avatar
+                  src={user?.avatar}
+                  sx={{ width: 40, height: 40 }}
+                />
+                <Box>
+                  <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                    {user?.name || 'User'}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {user?.email || ''}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          )}
+
           <Divider sx={{ mb: 2 }} />
           <List>
             <ListItemButton onClick={() => { navigate('/'); setDrawerOpen(false); }}>
@@ -1182,26 +1298,49 @@ const Home = () => {
               <ListItemText primary={t.favorites} />
             </ListItemButton>
             <Divider sx={{ my: 2 }} />
-            <ListItem>
-              <Button
-                variant="outlined"
-                fullWidth
-                sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}
-                onClick={() => { navigate('/signin'); setDrawerOpen(false); }}
-              >
-                {t.login}
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{ bgcolor: '#00a693', color: 'white' }}
-                onClick={() => { navigate('/signup'); setDrawerOpen(false); }}
-              >
-                {t.signup}
-              </Button>
-            </ListItem>
+            {isAuthenticated ? (
+              <>
+                <ListItemButton onClick={() => { navigate('/profile'); setDrawerOpen(false); }}>
+                  <ListItemIcon><Person /></ListItemIcon>
+                  <ListItemText primary={t.profile} />
+                </ListItemButton>
+                <ListItemButton onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
+                  <ListItemIcon><Schedule /></ListItemIcon>
+                  <ListItemText primary={t.appointments} />
+                </ListItemButton>
+                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                  <ListItemIcon><Settings /></ListItemIcon>
+                  <ListItemText primary={language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'} />
+                </ListItemButton>
+                <ListItemButton onClick={() => { handleLogout(); setDrawerOpen(false); }}>
+                  <ListItemIcon><Logout /></ListItemIcon>
+                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'} />
+                </ListItemButton>
+              </>
+            ) : (
+              <>
+                <ListItem>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}
+                    onClick={() => { navigate('/signin'); setDrawerOpen(false); }}
+                  >
+                    {t.login}
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx={{ bgcolor: '#00a693', color: 'white' }}
+                    onClick={() => { navigate('/signup'); setDrawerOpen(false); }}
+                  >
+                    {t.signup}
+                  </Button>
+                </ListItem>
+              </>
+            )}
           </List>
         </Box>
       </Drawer>

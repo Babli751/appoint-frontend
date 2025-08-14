@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -94,68 +95,75 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isAuthenticated, setAuth] = useState(
-    localStorage.getItem('isAuthenticated') === 'true'
-  ); // Check authentication from localStorage
-
   return (
     <LanguageProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-        <Routes>
-          <Route 
-            path="/" 
-            element={<Home />} 
-          />
-          <Route
-            path="/login"
-            element={<Login setAuth={setAuth} />}
-          />
-          <Route
-            path="/signin"
-            element={<SignIn setAuth={setAuth} />}
-          />
-          <Route
-            path="/signup"
-            element={<SignUp />}
-          />
-          <Route
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
-          />
-          <Route
-            path="/profile"
-            element={isAuthenticated ? <Profile setAuth={setAuth} /> : <Navigate to="/signin" />}
-          />
-          <Route 
-            path="/barber/:id" 
-            element={<BarberDetail />} 
-          />
-          <Route 
-            path="/services" 
-            element={<Services />} 
-          />
-          <Route 
-            path="/offers" 
-            element={<Offers />} 
-          />
-          <Route 
-            path="/about" 
-            element={<About />} 
-          />
-          <Route 
-            path="/company" 
-            element={<Company />} 
-          />
-          <Route 
-            path="/support" 
-            element={<Support />} 
-          />
-        </Routes>
-        </Router>
-      </ThemeProvider>
+      <AuthProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <AuthAwareRoutes />
+          </Router>
+        </ThemeProvider>
+      </AuthProvider>
     </LanguageProvider>
+  );
+}
+
+// Separate component to access authentication context
+function AuthAwareRoutes() {
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<Home />}
+      />
+      <Route
+        path="/login"
+        element={<Login />}
+      />
+      <Route
+        path="/signin"
+        element={<SignIn />}
+      />
+      <Route
+        path="/signup"
+        element={<SignUp />}
+      />
+      <Route
+        path="/dashboard"
+        element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
+      />
+      <Route
+        path="/profile"
+        element={isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
+      />
+      <Route
+        path="/barber/:id"
+        element={<BarberDetail />}
+      />
+      <Route
+        path="/services"
+        element={<Services />}
+      />
+      <Route
+        path="/offers"
+        element={<Offers />}
+      />
+      <Route
+        path="/about"
+        element={<About />}
+      />
+      <Route
+        path="/company"
+        element={<Company />}
+      />
+      <Route
+        path="/support"
+        element={<Support />}
+      />
+    </Routes>
   );
 }
 

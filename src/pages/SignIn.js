@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Box,
   Container,
@@ -31,11 +32,12 @@ import {
   Language as LanguageIcon
 } from '@mui/icons-material';
 
-const SignIn = ({ setAuth }) => {
+const SignIn = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t: translations } = useLanguage();
+  const { login } = useAuth();
   
   const [formData, setFormData] = useState({
     email: '',
@@ -79,15 +81,13 @@ const SignIn = ({ setAuth }) => {
     setError('');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Set authentication state and redirect to dashboard
-      if (setAuth) setAuth(true);
-      localStorage.setItem('isAuthenticated', 'true');
+      // Call real login API
+      await login(formData.email, formData.password);
       navigate('/dashboard');
     } catch (err) {
-      setError(t.invalidCredentials);
+      console.error('Login error:', err);
+      const errorMessage = err.response?.data?.detail || t.invalidCredentials;
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -96,8 +96,7 @@ const SignIn = ({ setAuth }) => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    if (setAuth) setAuth(true);
-    localStorage.setItem('isAuthenticated', 'true');
+    login();
     navigate('/dashboard');
   };
 
