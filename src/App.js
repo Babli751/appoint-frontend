@@ -111,7 +111,7 @@ function App() {
 
 // Separate component to access authentication context
 function AuthAwareRoutes() {
-  const { isAuthenticated } = require('./contexts/AuthContext').useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Routes>
