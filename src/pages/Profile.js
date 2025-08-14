@@ -707,9 +707,8 @@ const Profile = () => {
                 <Divider />
                 <ListItemButton
                   onClick={() => {
-                    if (setAuth) setAuth(false);
-                    localStorage.removeItem('isAuthenticated');
-                    navigate('/signin');
+                    logout();
+                    navigate('/');
                   }}
                   sx={{ color: '#ef4444' }}
                 >
@@ -804,7 +803,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
              language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
-             'Мы собираем ��нформацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч ил�� обращении в службу поддержки.'}
+             'Мы собираем информацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
