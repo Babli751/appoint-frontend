@@ -91,11 +91,12 @@ const Home = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isTablet = useMediaQuery(theme.breakpoints.between('md', 'lg'));
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  
+
   const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const { language, changeLanguage, t: translations } = useLanguage();
+  const { isAuthenticated, user, logout } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
