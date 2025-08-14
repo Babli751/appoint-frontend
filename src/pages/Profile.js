@@ -564,7 +564,7 @@ const Profile = () => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.firstName}
+                    label={profileTranslations.firstName}
                     value={editing ? editedInfo.firstName : userInfo.firstName}
                     onChange={handleInputChange('firstName')}
                     disabled={!editing}
@@ -574,7 +574,7 @@ const Profile = () => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.lastName}
+                    label={profileTranslations.lastName}
                     value={editing ? editedInfo.lastName : userInfo.lastName}
                     onChange={handleInputChange('lastName')}
                     disabled={!editing}
@@ -584,7 +584,7 @@ const Profile = () => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.email}
+                    label={profileTranslations.email}
                     type="email"
                     value={editing ? editedInfo.email : userInfo.email}
                     onChange={handleInputChange('email')}
@@ -595,7 +595,7 @@ const Profile = () => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.phone}
+                    label={profileTranslations.phone}
                     value={editing ? editedInfo.phone : userInfo.phone}
                     onChange={handleInputChange('phone')}
                     disabled={!editing}
@@ -605,7 +605,7 @@ const Profile = () => {
                 <Grid item xs={12} md={6}>
                   <TextField
                     fullWidth
-                    label={t.birthDate}
+                    label={profileTranslations.birthDate}
                     type="date"
                     value={editing ? editedInfo.birthDate : userInfo.birthDate}
                     onChange={handleInputChange('birthDate')}
@@ -617,7 +617,7 @@ const Profile = () => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    label={t.address}
+                    label={profileTranslations.address}
                     multiline
                     rows={3}
                     value={editing ? editedInfo.address : userInfo.address}
@@ -851,7 +851,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             'Мы используем собранную информацию для предоставления, подд��ржания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -928,7 +928,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происход��щие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
