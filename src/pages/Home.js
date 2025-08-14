@@ -517,6 +517,48 @@ const Home = () => {
         </Container>
       </AppBar>
 
+      {/* Profile Menu */}
+      <Menu
+        anchorEl={profileMenuAnchor}
+        open={Boolean(profileMenuAnchor)}
+        onClose={handleProfileMenuClose}
+        sx={{ mt: 1 }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
+          <ListItemIcon>
+            <Person fontSize="small" />
+          </ListItemIcon>
+          {t.profile}
+        </MenuItem>
+        <MenuItem onClick={() => { navigate('/dashboard'); handleProfileMenuClose(); }}>
+          <ListItemIcon>
+            <Schedule fontSize="small" />
+          </ListItemIcon>
+          {t.appointments}
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuClose}>
+          <ListItemIcon>
+            <Favorite fontSize="small" />
+          </ListItemIcon>
+          {t.favorites}
+        </MenuItem>
+        <MenuItem onClick={handleProfileMenuClose}>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'}
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleLogout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'}
+        </MenuItem>
+      </Menu>
+
       {/* Responsive Hero Section */}
       <Box data-search="hero" sx={{
         position: 'relative',
@@ -1176,7 +1218,7 @@ const Home = () => {
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ opacity: 0.6, fontSize: { xs: '0.8rem', md: '0.875rem' }, textAlign: { xs: 'center', md: 'right' } }}>
-              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сделано для Европы'} 🇪🇺
+              {language === 'en' ? 'Made for Europe' : language === 'tr' ? 'Avrupa için yapıldı' : 'Сдел��но для Европы'} 🇪🇺
             </Typography>
           </Box>
         </Container>
