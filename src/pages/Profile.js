@@ -120,7 +120,7 @@ const Profile = () => {
     }
   }, [user]);
 
-  // Language content
+  // Language content (keep as fallback if needed)
   const content = {
     tr: {
       brand: 'BarberPro',
@@ -225,7 +225,7 @@ const Profile = () => {
       help: 'Помощь',
       turkish: 'Türkçe',
       english: 'English',
-      russian: 'Ру��ский',
+      russian: 'Русский',
       accountInfo: 'Информация Аккаунта',
       preferences: 'Предпочтения',
       support: 'Поддержка',
@@ -303,7 +303,7 @@ const Profile = () => {
     }
 
     if (passwordData.newPassword.length < 6) {
-      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержат�� минимум 6 символов');
+      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержать минимум 6 символов');
       return;
     }
 
@@ -769,7 +769,7 @@ const Profile = () => {
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый пароль'}
+            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый п��роль'}
             type="password"
             value={passwordData.confirmPassword}
             onChange={handlePasswordChange('confirmPassword')}
@@ -823,7 +823,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             'Мы используем собранну�� информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -889,7 +889,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
              language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+             'BarberPro - это платформа, которая ��вязывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
