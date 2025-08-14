@@ -1298,26 +1298,49 @@ const Home = () => {
               <ListItemText primary={t.favorites} />
             </ListItemButton>
             <Divider sx={{ my: 2 }} />
-            <ListItem>
-              <Button
-                variant="outlined"
-                fullWidth
-                sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}
-                onClick={() => { navigate('/signin'); setDrawerOpen(false); }}
-              >
-                {t.login}
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button
-                variant="contained"
-                fullWidth
-                sx={{ bgcolor: '#00a693', color: 'white' }}
-                onClick={() => { navigate('/signup'); setDrawerOpen(false); }}
-              >
-                {t.signup}
-              </Button>
-            </ListItem>
+            {isAuthenticated ? (
+              <>
+                <ListItemButton onClick={() => { navigate('/profile'); setDrawerOpen(false); }}>
+                  <ListItemIcon><Person /></ListItemIcon>
+                  <ListItemText primary={t.profile} />
+                </ListItemButton>
+                <ListItemButton onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
+                  <ListItemIcon><Schedule /></ListItemIcon>
+                  <ListItemText primary={t.appointments} />
+                </ListItemButton>
+                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                  <ListItemIcon><Settings /></ListItemIcon>
+                  <ListItemText primary={language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'} />
+                </ListItemButton>
+                <ListItemButton onClick={() => { handleLogout(); setDrawerOpen(false); }}>
+                  <ListItemIcon><Logout /></ListItemIcon>
+                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'} />
+                </ListItemButton>
+              </>
+            ) : (
+              <>
+                <ListItem>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    sx={{ color: '#00a693', borderColor: '#00a693', mr: 1 }}
+                    onClick={() => { navigate('/signin'); setDrawerOpen(false); }}
+                  >
+                    {t.login}
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx={{ bgcolor: '#00a693', color: 'white' }}
+                    onClick={() => { navigate('/signup'); setDrawerOpen(false); }}
+                  >
+                    {t.signup}
+                  </Button>
+                </ListItem>
+              </>
+            )}
           </List>
         </Box>
       </Drawer>
