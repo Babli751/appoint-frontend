@@ -121,7 +121,10 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated,
     user,
     login,
+    register,
     logout,
+    updateUser,
+    changePassword,
     setAuth: setIsAuthenticated
   };
 
