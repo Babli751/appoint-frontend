@@ -81,14 +81,13 @@ const SignIn = () => {
     setError('');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Set authentication state and redirect to dashboard
-      login();
+      // Call real login API
+      await login(formData.email, formData.password);
       navigate('/dashboard');
     } catch (err) {
-      setError(t.invalidCredentials);
+      console.error('Login error:', err);
+      const errorMessage = err.response?.data?.detail || t.invalidCredentials;
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
