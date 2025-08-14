@@ -59,12 +59,54 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (email, password, firstName = '', lastName = '') => {
+    try {
+      const response = await authAPI.register(email, password, firstName, lastName);
+
+      // After successful registration, automatically log in
+      return await login(email, password);
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
+  };
+
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
+  };
+
+  const updateUser = async (userData) => {
+    try {
+      const updatedProfile = await authAPI.updateProfile(userData);
+
+      const newUserData = {
+        ...user,
+        ...updatedProfile,
+        name: `${updatedProfile.first_name || ''} ${updatedProfile.last_name || ''}`.trim() || updatedProfile.email
+      };
+
+      setUser(newUserData);
+      localStorage.setItem('user', JSON.stringify(newUserData));
+
+      return newUserData;
+    } catch (error) {
+      console.error('Update profile error:', error);
+      throw error;
+    }
+  };
+
+  const changePassword = async (currentPassword, newPassword) => {
+    try {
+      await authAPI.changePassword(currentPassword, newPassword);
+      return true;
+    } catch (error) {
+      console.error('Change password error:', error);
+      throw error;
+    }
   };
 
   useEffect(() => {
