@@ -262,7 +262,7 @@ const Profile = () => {
     language: language === 'en' ? 'Language' : language === 'tr' ? 'Dil' : 'Язык',
     help: language === 'en' ? 'Help' : language === 'tr' ? 'Yardım' : 'Помощь',
     privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальности',
-    termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullan��m Şartları' : 'Условия Использования'
+    termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullanım Şartları' : 'Условия Использования'
   };
 
   const handleInputChange = (field) => (event) => {
@@ -391,7 +391,7 @@ const Profile = () => {
             <ArrowBack />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-            {t.profile}
+            {profileTranslations.profile}
           </Typography>
           
           {/* Language Selector */}
@@ -835,7 +835,7 @@ const Profile = () => {
           <Typography variant="h6" sx={{ mb: 2 }}>
             {language === 'en' ? '1. Information Collection' :
              language === 'tr' ? '1. Bilgi Toplama' :
-             '1. Сбор информации'}
+             '1. Сбор информа��ии'}
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
@@ -862,7 +862,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
              language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
-             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
+             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, опис��нных в этой политике.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
