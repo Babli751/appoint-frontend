@@ -479,7 +479,7 @@ const Profile = () => {
                         {userInfo.totalAppointments}
                       </Typography>
                       <Typography variant="body2">
-                        {t.totalAppointments}
+                        {profileTranslations.totalAppointments}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -489,7 +489,7 @@ const Profile = () => {
                         {userInfo.favoriteBarbers}
                       </Typography>
                       <Typography variant="body2">
-                        {t.favoriteBarbers}
+                        {profileTranslations.favoriteBarbers}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -499,7 +499,7 @@ const Profile = () => {
                         2023
                       </Typography>
                       <Typography variant="body2">
-                        {t.memberSince}
+                        {profileTranslations.memberSince}
                       </Typography>
                     </Paper>
                   </Grid>
@@ -518,9 +518,9 @@ const Profile = () => {
               variant={isMobile ? "scrollable" : "standard"}
               scrollButtons={isMobile ? "auto" : false}
             >
-              <Tab label={t.personalInfo} />
-              <Tab label={t.settings} />
-              <Tab label={t.security} />
+              <Tab label={profileTranslations.personalInfo} />
+              <Tab label={profileTranslations.settings} />
+              <Tab label={profileTranslations.security} />
             </Tabs>
           </Box>
 
@@ -529,7 +529,7 @@ const Profile = () => {
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                 <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {t.personalInfo}
+                  {profileTranslations.personalInfo}
                 </Typography>
                 {!editing ? (
                   <Button 
@@ -537,7 +537,7 @@ const Profile = () => {
                     onClick={() => setEditing(true)}
                     sx={{ color: '#00a693' }}
                   >
-                    {t.edit}
+                    {profileTranslations.edit}
                   </Button>
                 ) : (
                   <Stack direction="row" spacing={1}>
@@ -547,14 +547,14 @@ const Profile = () => {
                       onClick={handleSave}
                       sx={{ bgcolor: '#00a693' }}
                     >
-                      {t.save}
+                      {profileTranslations.save}
                     </Button>
                     <Button 
                       startIcon={<Cancel />}
                       variant="outlined"
                       onClick={handleCancel}
                     >
-                      {t.cancel}
+                      {profileTranslations.cancel}
                     </Button>
                   </Stack>
                 )}
@@ -835,7 +835,7 @@ const Profile = () => {
           <Typography variant="h6" sx={{ mb: 2 }}>
             {language === 'en' ? '1. Information Collection' :
              language === 'tr' ? '1. Bilgi Toplama' :
-             '1. Сбор информа��ии'}
+             '1. Сбор информации'}
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
@@ -862,7 +862,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
              language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
-             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, опис��нных в этой политике.'}
+             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
