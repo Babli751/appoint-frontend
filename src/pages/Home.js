@@ -348,6 +348,20 @@ const Home = () => {
     setFilteredBarbers(filtered);
   };
 
+  const handleProfileMenuOpen = (event) => {
+    setProfileMenuAnchor(event.currentTarget);
+  };
+
+  const handleProfileMenuClose = () => {
+    setProfileMenuAnchor(null);
+  };
+
+  const handleLogout = () => {
+    logout();
+    handleProfileMenuClose();
+    navigate('/');
+  };
+
   const displayedBarbers = filteredBarbers.length > 0 ? filteredBarbers : featuredBarbers;
   const getActiveFilterCount = () => {
     let count = 0;
