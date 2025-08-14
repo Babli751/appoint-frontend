@@ -254,7 +254,7 @@ const Profile = () => {
     memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
     edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
     save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
-    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
+    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отм��на',
     changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
     logout: language === 'en' ? 'Logout' : language === 'tr' ? 'Çıkış Yap' : 'Выйти',
     notifications: language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления',
@@ -350,7 +350,7 @@ const Profile = () => {
         error.response?.data?.detail ||
         (language === 'en' ? 'Failed to change password' :
          language === 'tr' ? 'Şifre değiştirilemedi' :
-         'Не удалось изменить пароль')
+         'Не ��далось изменить пароль')
       );
     } finally {
       setLoading(false);
@@ -634,20 +634,20 @@ const Profile = () => {
           <TabPanel value={tabValue} index={1}>
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {t.preferences}
+                {profileTranslations.preferences}
               </Typography>
 
               {/* Language Settings */}
               <Box sx={{ mb: 4 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {t.language}
+                  {profileTranslations.language}
                 </Typography>
                 <FormControl fullWidth sx={{ maxWidth: 300 }}>
                   <InputLabel>{t.language}</InputLabel>
                   <Select
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
-                    label={t.language}
+                    label={profileTranslations.language}
                   >
                     <MenuItem value="tr">🇹�� {t.turkish}</MenuItem>
                     <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
@@ -659,7 +659,7 @@ const Profile = () => {
               {/* Notification Settings */}
               <Box sx={{ mb: 4 }}>
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {t.notifications}
+                  {profileTranslations.notifications}
                 </Typography>
                 <Stack spacing={2}>
                   <FormControlLabel
@@ -710,7 +710,7 @@ const Profile = () => {
           <TabPanel value={tabValue} index={2}>
             <Box sx={{ p: { xs: 2, md: 3 } }}>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {t.security}
+                {profileTranslations.security}
               </Typography>
 
               <List>
@@ -718,28 +718,28 @@ const Profile = () => {
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.changePassword} />
+                  <ListItemText primary={profileTranslations.changePassword} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handleHelp}>
                   <ListItemIcon>
                     <Help sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.help} />
+                  <ListItemText primary={profileTranslations.help} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handlePrivacyPolicy}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.privacyPolicy} />
+                  <ListItemText primary={profileTranslations.privacyPolicy} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton onClick={handleTermsOfService}>
                   <ListItemIcon>
                     <Security sx={{ color: '#00a693' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.termsOfService} />
+                  <ListItemText primary={profileTranslations.termsOfService} />
                 </ListItemButton>
                 <Divider />
                 <ListItemButton
@@ -752,7 +752,7 @@ const Profile = () => {
                   <ListItemIcon>
                     <ExitToApp sx={{ color: '#ef4444' }} />
                   </ListItemIcon>
-                  <ListItemText primary={t.logout} />
+                  <ListItemText primary={profileTranslations.logout} />
                 </ListItemButton>
               </List>
             </Box>
@@ -851,7 +851,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, подд��ржания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших ��слуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -928,7 +928,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происход��щие под их учетной записью.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной запись��.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
