@@ -254,7 +254,7 @@ const Profile = () => {
     memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
     edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
     save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
-    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отм��на',
+    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
     changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
     logout: language === 'en' ? 'Logout' : language === 'tr' ? 'Çıkış Yap' : 'Выйти',
     notifications: language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления',
@@ -350,7 +350,7 @@ const Profile = () => {
         error.response?.data?.detail ||
         (language === 'en' ? 'Failed to change password' :
          language === 'tr' ? 'Şifre değiştirilemedi' :
-         'Не ��далось изменить пароль')
+         'Не удалось изменить пароль')
       );
     } finally {
       setLoading(false);
@@ -406,7 +406,7 @@ const Profile = () => {
               }}
             >
               <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="en">🇺🇸 EN</MenuItem>
+              <MenuItem value="en">����🇸 EN</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
@@ -768,7 +768,7 @@ const Profile = () => {
         fullWidth
       >
         <DialogTitle>
-          {t.changePassword}
+          {profileTranslations.changePassword}
         </DialogTitle>
         <DialogContent>
           {passwordError && (
@@ -797,7 +797,7 @@ const Profile = () => {
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый пароль'}
+            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите ��овый пароль'}
             type="password"
             value={passwordData.confirmPassword}
             onChange={handlePasswordChange('confirmPassword')}
@@ -809,14 +809,14 @@ const Profile = () => {
             onClick={() => setChangePasswordOpen(false)}
             color="inherit"
           >
-            {t.cancel}
+            {profileTranslations.cancel}
           </Button>
           <Button
             onClick={handlePasswordSubmit}
             variant="contained"
             sx={{ bgcolor: '#00a693' }}
           >
-            {t.save}
+            {profileTranslations.save}
           </Button>
         </DialogActions>
       </Dialog>
@@ -829,7 +829,7 @@ const Profile = () => {
         fullWidth
       >
         <DialogTitle>
-          {t.privacyPolicy}
+          {profileTranslations.privacyPolicy}
         </DialogTitle>
         <DialogContent>
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -851,7 +851,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших ��слуг, обработки встреч и общения с вами.'}
+             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -895,7 +895,7 @@ const Profile = () => {
         fullWidth
       >
         <DialogTitle>
-          {t.termsOfService}
+          {profileTranslations.termsOfService}
         </DialogTitle>
         <DialogContent>
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -928,7 +928,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной запись��.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
