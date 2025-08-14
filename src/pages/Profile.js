@@ -60,17 +60,20 @@ import {
   History
 } from '@mui/icons-material';
 
-const Profile = ({ setAuth }) => {
+const Profile = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
+  const { user, updateUser, changePassword, logout } = useAuth();
+  const { language, changeLanguage } = useLanguage();
+
   const [tabValue, setTabValue] = useState(0);
-  const [language, setLanguage] = useState('tr');
   const [editing, setEditing] = useState(false);
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
   const [termsOfServiceOpen, setTermsOfServiceOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
@@ -83,19 +86,39 @@ const Profile = ({ setAuth }) => {
     sms: false
   });
 
+  // Use user data from AuthContext
   const [userInfo, setUserInfo] = useState({
-    firstName: 'Ahmet',
-    lastName: 'Yılmaz',
-    email: 'ahmet.yilmaz@email.com',
-    phone: '+90 555 123 45 67',
-    birthDate: '1990-05-15',
-    address: 'Çankaya Mahallesi, Atatürk Caddesi No: 123, Ankara',
-    memberSince: '2023-01-15',
-    totalAppointments: 24,
-    favoriteBarbers: 3
+    firstName: user?.firstName || '',
+    lastName: user?.lastName || '',
+    email: user?.email || '',
+    phone: user?.phone || '',
+    birthDate: user?.birthDate || '',
+    address: user?.address || '',
+    memberSince: user?.memberSince || '',
+    totalAppointments: user?.totalAppointments || 0,
+    favoriteBarbers: user?.favoriteBarbers || 0
   });
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
+
+  // Update local state when user data changes
+  useEffect(() => {
+    if (user) {
+      const updatedUserInfo = {
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        email: user.email || '',
+        phone: user.phone || '',
+        birthDate: user.birthDate || '',
+        address: user.address || '',
+        memberSince: user.memberSince || '',
+        totalAppointments: user.totalAppointments || 0,
+        favoriteBarbers: user.favoriteBarbers || 0
+      };
+      setUserInfo(updatedUserInfo);
+      setEditedInfo(updatedUserInfo);
+    }
+  }, [user]);
 
   // Language content
   const content = {
@@ -751,8 +774,8 @@ const Profile = ({ setAuth }) => {
           </Typography>
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
-             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürd��rmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
+             'Мы используем собранную информацию для предоставлен��я, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -829,7 +852,7 @@ const Profile = ({ setAuth }) => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действи��, происходящие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
