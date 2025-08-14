@@ -398,8 +398,8 @@ const Profile = () => {
           <FormControl size="small" sx={{ minWidth: 100, mr: 2 }}>
             <Select
               value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              sx={{ 
+              onChange={(e) => changeLanguage(e.target.value)}
+              sx={{
                 color: 'white',
                 '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                 '& .MuiSvgIcon-root': { color: 'white' }
@@ -917,7 +917,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
              language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+             'BarberPro - это платформа, которая связывает клиентов с пар��кмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
