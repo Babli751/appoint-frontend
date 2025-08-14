@@ -21,20 +21,42 @@ export const AuthProvider = ({ children }) => {
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const login = (userData = null) => {
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', 'true');
-    
-    const defaultUser = {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-      memberSince: '2023'
-    };
-    
-    const userToSet = userData || defaultUser;
-    setUser(userToSet);
-    localStorage.setItem('user', JSON.stringify(userToSet));
+  const login = async (email, password) => {
+    try {
+      const response = await authAPI.login(email, password);
+
+      // Store the access token
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('isAuthenticated', 'true');
+
+      // Get user profile data
+      const userProfile = await authAPI.getProfile();
+
+      const userData = {
+        id: userProfile.id,
+        email: userProfile.email,
+        name: `${userProfile.first_name || ''} ${userProfile.last_name || ''}`.trim() || userProfile.email,
+        firstName: userProfile.first_name || '',
+        lastName: userProfile.last_name || '',
+        avatar: userProfile.avatar || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+        isActive: userProfile.is_active,
+        memberSince: userProfile.created_at ? new Date(userProfile.created_at).getFullYear().toString() : '2024',
+        totalAppointments: userProfile.total_appointments || 0,
+        favoriteBarbers: userProfile.favorite_barbers_count || 0,
+        phone: userProfile.phone || '',
+        birthDate: userProfile.birth_date || '',
+        address: userProfile.address || ''
+      };
+
+      setUser(userData);
+      setIsAuthenticated(true);
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      return userData;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
