@@ -291,7 +291,7 @@ const Profile = () => {
     setPasswordError('');
   };
 
-  const handlePasswordSubmit = () => {
+  const handlePasswordSubmit = async () => {
     if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
       setPasswordError(language === 'en' ? 'All fields are required' : language === 'tr' ? 'Tüm alanlar zorunludur' : 'Все поля обязательны');
       return;
@@ -307,10 +307,26 @@ const Profile = () => {
       return;
     }
 
-    // Simulate password change
-    console.log('Password changed successfully');
-    setChangePasswordOpen(false);
-    setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    setLoading(true);
+    try {
+      await changePassword(passwordData.currentPassword, passwordData.newPassword);
+      setChangePasswordOpen(false);
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+
+      alert(language === 'en' ? 'Password changed successfully' :
+            language === 'tr' ? 'Şifre başarıyla değiştirildi' :
+            'Пароль успешно изменен');
+    } catch (error) {
+      console.error('Password change failed:', error);
+      setPasswordError(
+        error.response?.data?.detail ||
+        (language === 'en' ? 'Failed to change password' :
+         language === 'tr' ? 'Şifre değiştirilemedi' :
+         'Не удалось изменить пароль')
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleHelp = () => {
@@ -788,7 +804,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
              language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
-             'Мы собираем информацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
+             'Мы собираем ��нформацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч ил�� обращении в службу поддержки.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -799,7 +815,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предост��вления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -865,7 +881,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
              language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, к��торая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
