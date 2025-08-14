@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, firstName = '', lastName = '') => {
     try {
-      const response = await authAPI.register(email, password, firstName, lastName);
+      await authAPI.register(email, password, firstName, lastName);
 
       // After successful registration, automatically log in
       return await login(email, password);
