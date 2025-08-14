@@ -71,6 +71,7 @@ const Profile = () => {
   const [changePasswordOpen, setChangePasswordOpen] = useState(false);
   const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
   const [termsOfServiceOpen, setTermsOfServiceOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
@@ -197,7 +198,7 @@ const Profile = () => {
     ru: {
       brand: 'BarberPro',
       profile: 'Мой Профиль',
-      personalInfo: 'Личная Информация',
+      personalInfo: 'Л��чная Информация',
       settings: 'Настройки',
       security: 'Безопасность',
       firstName: 'Имя',
@@ -904,7 +905,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'By accessing and using BarberPro, you accept and agree to be bound by the terms and provision of this agreement.' :
              language === 'tr' ? 'BarberPro\'ya erişerek ve kullanarak, bu sözleşmenin hüküm ve koşullarıyla bağlı olmayı kabul etmiş olursunuz.' :
-             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого согл��шения.'}
+             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого соглашения.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -937,7 +938,7 @@ const Profile = () => {
           <Typography variant="body2">
             {language === 'en' ? 'Appointments must be cancelled at least 24 hours in advance. Late cancellations may result in charges.' :
              language === 'tr' ? 'Randevular en az 24 saat önceden iptal edilmelidir. Geç iptaller ücretlendirme ile sonuçlanabilir.' :
-             'Встречи должны быть отменены не менее чем за 24 часа. Позд��ие отмены могут привести к дополнительным расходам.'}
+             'Встречи должны быть отменены не менее чем за 24 часа. Поздние отмены могут привести к дополнительным расходам.'}
           </Typography>
         </DialogContent>
         <DialogActions>
