@@ -237,6 +237,34 @@ const Profile = () => {
 
   const t = content[language];
 
+  // Use fallback translations for profile-specific content
+  const profileTranslations = {
+    profile: language === 'en' ? 'My Profile' : language === 'tr' ? 'Profilim' : 'Мой Профиль',
+    personalInfo: language === 'en' ? 'Personal Information' : language === 'tr' ? 'Kişisel Bilgiler' : 'Личная Информация',
+    settings: language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки',
+    security: language === 'en' ? 'Security' : language === 'tr' ? 'Güvenlik' : 'Безопасность',
+    firstName: language === 'en' ? 'First Name' : language === 'tr' ? 'Ad' : 'Имя',
+    lastName: language === 'en' ? 'Last Name' : language === 'tr' ? 'Soyad' : 'Фамилия',
+    email: language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email',
+    phone: language === 'en' ? 'Phone' : language === 'tr' ? 'Telefon' : 'Телефон',
+    birthDate: language === 'en' ? 'Birth Date' : language === 'tr' ? 'Doğum Tarihi' : 'Дата Рождения',
+    address: language === 'en' ? 'Address' : language === 'tr' ? 'Adres' : 'Адрес',
+    totalAppointments: language === 'en' ? 'Total Appointments' : language === 'tr' ? 'Toplam Randevu' : 'Всего Записей',
+    favoriteBarbers: language === 'en' ? 'Favorite Barbers' : language === 'tr' ? 'Favori Berber' : 'Любимые Парикмахеры',
+    memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
+    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
+    save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
+    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
+    changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
+    logout: language === 'en' ? 'Logout' : language === 'tr' ? 'Çıkış Yap' : 'Выйти',
+    notifications: language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления',
+    preferences: language === 'en' ? 'Preferences' : language === 'tr' ? 'Tercihler' : 'Предпочтения',
+    language: language === 'en' ? 'Language' : language === 'tr' ? 'Dil' : 'Язык',
+    help: language === 'en' ? 'Help' : language === 'tr' ? 'Yardım' : 'Помощь',
+    privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальности',
+    termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullan��m Şartları' : 'Условия Использования'
+  };
+
   const handleInputChange = (field) => (event) => {
     setEditedInfo(prev => ({
       ...prev,
@@ -769,7 +797,7 @@ const Profile = () => {
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый п��роль'}
+            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите новый пароль'}
             type="password"
             value={passwordData.confirmPassword}
             onChange={handlePasswordChange('confirmPassword')}
@@ -823,7 +851,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
              language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранну�� информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
+             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -889,7 +917,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
              language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, которая ��вязывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
+             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
