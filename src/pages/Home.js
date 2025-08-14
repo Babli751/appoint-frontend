@@ -105,6 +105,7 @@ const Home = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [filters, setFilters] = useState({});
   const [filteredBarbers, setFilteredBarbers] = useState([]);
+  const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
 
   // Use centralized translations
   const t = translations;
@@ -153,7 +154,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
       coverImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=250&fit=crop',
       specialties: [
-        language === 'en' ? 'French Cut' : language === 'tr' ? 'Fransız Kesim' : 'Французская с��рижка',
+        language === 'en' ? 'French Cut' : language === 'tr' ? 'Fransız Kesim' : 'Французская стрижка',
         language === 'en' ? 'Styling' : language === 'tr' ? 'Şekillendirme' : 'Укладка',
         language === 'en' ? 'Consultation' : language === 'tr' ? 'Danışmanlık' : 'Консультация'
       ],
@@ -1008,7 +1009,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских услуг по всей Евро��е. Найдите и забронируйте лучших парикмахеров в своем городе.'
+                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
