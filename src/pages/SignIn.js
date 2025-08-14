@@ -61,7 +61,7 @@ const SignIn = () => {
     orContinueWith: language === 'en' ? 'Or continue with' : language === 'tr' ? 'Veya şununla devam edin' : 'Или продолжить с',
     dontHaveAccount: language === 'en' ? 'Don\'t have an account?' : language === 'tr' ? 'Hesabınız yok mu?' : 'Нет аккаунта?',
     signUpLink: language === 'en' ? 'Sign up here' : language === 'tr' ? 'Buradan kayıt olun' : 'Зарегистрируйтесь здесь',
-    continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продол��ить с Google',
+    continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продолжить с Google',
     continueWithFacebook: language === 'en' ? 'Continue with Facebook' : language === 'tr' ? 'Facebook ile devam et' : 'Продолжить с Facebook',
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
     invalidCredentials: language === 'en' ? 'Invalid email or password' : language === 'tr' ? 'Geçersiz e-posta veya şifre' : 'Неверный email или пароль'
@@ -85,8 +85,7 @@ const SignIn = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Set authentication state and redirect to dashboard
-      if (setAuth) setAuth(true);
-      localStorage.setItem('isAuthenticated', 'true');
+      login();
       navigate('/dashboard');
     } catch (err) {
       setError(t.invalidCredentials);
