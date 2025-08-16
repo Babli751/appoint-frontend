@@ -187,15 +187,15 @@ const SignIn = () => {
             {/* Demo Credentials Notice */}
             <Alert severity="info" sx={{ mb: 3 }}>
               <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
-                {language === 'en' ? 'Demo Credentials:' : language === 'tr' ? 'Demo Bilgileri:' : 'Демо данные:'}
+                {language === 'en' ? 'Demo Mode - Login Options:' : language === 'tr' ? 'Demo Modu - Giriş Seçenekleri:' : 'Демо-режим - Варианты входа:'}
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
-                <strong>Option 1:</strong><br/>
-                <strong>{t.email}:</strong> demo@barberpro.com<br/>
-                <strong>{t.password}:</strong> password123<br/><br/>
-                <strong>Option 2:</strong><br/>
-                <strong>{t.email}:</strong> test@test.com<br/>
-                <strong>{t.password}:</strong> 123456
+                <strong>1. Pre-configured accounts:</strong><br/>
+                • demo@barberpro.com / password123<br/>
+                • test@test.com / 123456<br/><br/>
+                <strong>2. Any email/password:</strong><br/>
+                • {language === 'en' ? 'Try any email (like bb10901@gmail.com) with any password!' : language === 'tr' ? 'Herhangi bir e-posta (bb10901@gmail.com gibi) ve herhangi bir şifre deneyin!' : 'Попробуйте любой email (например, bb10901@gmail.com) с любым паролем!'}<br/>
+                • {language === 'en' ? 'Account will be auto-created for demo' : language === 'tr' ? 'Hesap demo için otomatik oluşturulur' : 'Аккаунт автоматически создастся для демо'}
               </Typography>
               <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                 <Button
