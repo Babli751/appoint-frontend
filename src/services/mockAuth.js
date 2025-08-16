@@ -65,10 +65,10 @@ export const mockAuthAPI = {
     // Add new user to mock database
     const newUser = {
       id: MOCK_USERS.length + 1,
-      email,
-      password,
-      first_name: firstName,
-      last_name: lastName,
+      email: trimmedEmail,
+      password: trimmedPassword,
+      first_name: firstName.trim(),
+      last_name: lastName.trim(),
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
       is_active: true,
       created_at: new Date().toISOString(),
