@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authAPI } from '../services/api';
+import { debug } from '../utils/debug';
 
 const AuthContext = createContext();
 
@@ -23,9 +24,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log('AuthContext login attempt:', { email, password });
+      debug.log('AuthContext login attempt:', { email, password });
       const response = await authAPI.login(email, password);
-      console.log('AuthContext login response:', response);
+      debug.log('AuthContext login response:', response);
 
       // Store the access token
       localStorage.setItem('access_token', response.access_token);
@@ -54,10 +55,10 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(userData));
 
-      console.log('AuthContext login success, userData:', userData);
+      debug.log('AuthContext login success, userData:', userData);
       return userData;
     } catch (error) {
-      console.error('AuthContext login error:', error);
+      debug.error('AuthContext login error:', error);
       throw error;
     }
   };
