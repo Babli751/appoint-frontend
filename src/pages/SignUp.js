@@ -64,7 +64,7 @@ const SignUp = () => {
     email: language === 'en' ? 'Email Address' : language === 'tr' ? 'E-posta Adresi' : 'Адрес электронной почты',
     password: language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль',
     confirmPassword: language === 'en' ? 'Confirm Password' : language === 'tr' ? 'Şifreyi Onayla' : 'Подтвердите пароль',
-    agreeToTerms: language === 'en' ? 'I agree to the Terms of Service and Privacy Policy' : language === 'tr' ? 'Hizmet Şartları ve Gizlilik Politikası\'nı kabul ediyorum' : 'Я согласен с Условиями обслуживания и Политикой конфиденциальности',
+    agreeToTerms: language === 'en' ? 'I agree to the Terms of Service and Privacy Policy' : language === 'tr' ? 'Hizmet Şartları ve Gizlilik Politikası\'nı kabul ediyorum' : 'Я согласен с Условиями обс��уживания и Политикой конфиденциальности',
     termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Hizmet Şartları' : 'Условия обслуживания',
     privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика конфиденциальности',
     signUpButton: language === 'en' ? 'Create Account' : language === 'tr' ? 'Hesap Oluştur' : 'Создать аккаунт',
@@ -237,16 +237,6 @@ const SignUp = () => {
               </Alert>
             )}
 
-            {/* Demo Notice */}
-            <Alert severity="info" sx={{ mb: 3 }}>
-              <Typography variant="body2">
-                {language === 'en'
-                  ? 'This is a demo app. You can create any account or use the demo credentials on the sign-in page.'
-                  : language === 'tr'
-                  ? 'Bu bir demo uygulamadır. Herhangi bir hesap oluşturabilir veya giriş sayfasındaki demo bilgilerini kullanabilirsiniz.'
-                  : 'Это демо-приложение. Вы можете создать любой аккаунт или использовать демо-данные на странице входа.'}
-              </Typography>
-            </Alert>
 
             <form onSubmit={handleSubmit}>
               {/* Name Fields */}
