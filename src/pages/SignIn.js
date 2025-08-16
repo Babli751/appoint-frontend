@@ -189,27 +189,51 @@ const SignIn = () => {
                 {language === 'en' ? 'Demo Credentials:' : language === 'tr' ? 'Demo Bilgileri:' : 'Демо данные:'}
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
+                <strong>Option 1:</strong><br/>
                 <strong>{t.email}:</strong> demo@barberpro.com<br/>
-                <strong>{t.password}:</strong> password123
+                <strong>{t.password}:</strong> password123<br/><br/>
+                <strong>Option 2:</strong><br/>
+                <strong>{t.email}:</strong> test@test.com<br/>
+                <strong>{t.password}:</strong> 123456
               </Typography>
-              <Button
-                variant="outlined"
-                size="small"
-                onClick={() => {
-                  setFormData(prev => ({
-                    ...prev,
-                    email: 'demo@barberpro.com',
-                    password: 'password123'
-                  }));
-                }}
-                sx={{
-                  color: '#00a693',
-                  borderColor: '#00a693',
-                  fontSize: '0.75rem'
-                }}
-              >
-                {language === 'en' ? 'Fill Demo Credentials' : language === 'tr' ? 'Demo Bilgilerini Doldur' : 'Заполнить демо данные'}
-              </Button>
+              <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    setFormData(prev => ({
+                      ...prev,
+                      email: 'demo@barberpro.com',
+                      password: 'password123'
+                    }));
+                  }}
+                  sx={{
+                    color: '#00a693',
+                    borderColor: '#00a693',
+                    fontSize: '0.75rem'
+                  }}
+                >
+                  {language === 'en' ? 'Use Demo User' : language === 'tr' ? 'Demo Kullanıcı' : 'Демо пользователь'}
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    setFormData(prev => ({
+                      ...prev,
+                      email: 'test@test.com',
+                      password: '123456'
+                    }));
+                  }}
+                  sx={{
+                    color: '#00a693',
+                    borderColor: '#00a693',
+                    fontSize: '0.75rem'
+                  }}
+                >
+                  {language === 'en' ? 'Use Test User' : language === 'tr' ? 'Test Kullanıcı' : 'Тест пользователь'}
+                </Button>
+              </Box>
             </Alert>
 
             <form onSubmit={handleSubmit}>
