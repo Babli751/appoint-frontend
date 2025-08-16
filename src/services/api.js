@@ -1,56 +1,58 @@
 import axios from 'axios';
 
+// 1. BASE URL CONFIGURATION
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8001/api/v1';
+
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api', // FastAPI backend URL
+  baseURL: API_BASE_URL,
 });
 
-// Request interceptor to add authorization token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+// 2. REQUEST INTERCEPTOR
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
-  return config;
-});
+);
 
-// Response interceptor to handle token expiration
+// 3. RESPONSE INTERCEPTOR
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
       localStorage.removeItem('access_token');
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('user');
       window.location.href = '/signin';
     }
     return Promise.reject(error);
   }
 );
 
-// Authentication endpoints
+// 4. AUTH API ENDPOINTS
 export const authAPI = {
   login: async (email, password) => {
-    const formData = new FormData();
-    formData.append('username', email); // FastAPI OAuth2PasswordRequestForm expects 'username'
-    formData.append('password', password);
+    const params = new URLSearchParams();
+    params.append('username', email);
+    params.append('password', password);
     
-    const response = await api.post('/auth/login', formData, {
+    return api.post('/auth/login', params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-    return response.data;
   },
 
-  register: async (email, password, firstName = '', lastName = '') => {
-    const response = await api.post('/auth/register', {
-      email,
-      password,
-      first_name: firstName,
-      last_name: lastName
+  register: async (userData) => {
+    return api.post('/auth/register', userData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-    return response.data;
   },
 
   getProfile: async () => {
@@ -66,13 +68,13 @@ export const authAPI = {
   changePassword: async (currentPassword, newPassword) => {
     const response = await api.post('/auth/change-password', {
       current_password: currentPassword,
-      new_password: newPassword
+      new_password: newPassword,
     });
     return response.data;
-  }
+  },
 };
 
-// User endpoints
+// 5. USER API ENDPOINTS
 export const userAPI = {
   getAppointments: async () => {
     const response = await api.get('/appointments/my');
@@ -87,10 +89,10 @@ export const userAPI = {
   updateNotificationSettings: async (settings) => {
     const response = await api.put('/user/notifications', settings);
     return response.data;
-  }
+  },
 };
 
-// Barber endpoints
+// 6. BARBER API ENDPOINTS
 export const barberAPI = {
   getBarbers: async (filters = {}) => {
     const response = await api.get('/barbers', { params: filters });
@@ -105,7 +107,7 @@ export const barberAPI = {
   bookAppointment: async (barberId, appointmentData) => {
     const response = await api.post(`/barbers/${barberId}/appointments`, appointmentData);
     return response.data;
-  }
+  },
 };
 
 export default api;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { authAPI } from '../services/api';
 import {
   Box,
   Container,
@@ -122,13 +123,17 @@ const SignUp = () => {
     }
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // For demo purposes, redirect to home
-      navigate('/');
+      // Gerçek backend çağrısı
+      await authAPI.register({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        password: formData.password
+      });
+      navigate('/'); // Başarılı olursa ana sayfaya yönlendir
     } catch (err) {
-      setError(t.emailExists);
+      const errorMessage = err.response?.data?.detail || t.emailExists;
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
