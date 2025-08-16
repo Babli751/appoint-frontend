@@ -177,6 +177,18 @@ export const mockUserAPI = {
   }
 };
 
+// Utility function to reset mock users (useful for testing)
+export const resetMockUsers = () => {
+  // Remove all dynamically added users, keep only the original demo users
+  MOCK_USERS.splice(2); // Keep only the first 2 users
+  debug.log('Mock users reset to original state');
+};
+
+// Function to get current mock users (for debugging)
+export const getMockUsers = () => {
+  return MOCK_USERS.map(u => ({ id: u.id, email: u.email, name: `${u.first_name} ${u.last_name}` }));
+};
+
 export const mockBarberAPI = {
   getBarbers: async (filters = {}) => {
     await delay(400);
