@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { authAPI } from '../services/api';
 import api from '../services/api';
 import { 
   TextField, 
@@ -107,7 +108,7 @@ export default function Login() {
       signUpLink: 'Регистрация',
       features: {
         professional: 'Профессиональные парикмахеры',
-        easy: 'Простая система бронир��вания',
+        easy: 'Простая система бронирования',
         reviews: 'Отзывы и рейтинги'
       }
     }
@@ -122,8 +123,8 @@ export default function Login() {
     e.preventDefault();
     try {
       if (isRegister) {
-        // Register and then redirect to signin
-        await register(email, password, name.split(' ')[0] || '', name.split(' ')[1] || '');
+        // Register without auto-login and then redirect to signin
+        await authAPI.register(email, password, name.split(' ')[0] || '', name.split(' ')[1] || '');
         navigate('/signin');
       } else {
         // Login and redirect to home
