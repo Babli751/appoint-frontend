@@ -254,6 +254,27 @@ const SignIn = () => {
                 >
                   {language === 'en' ? 'Test Login' : language === 'tr' ? 'Giriş Testi' : 'Тест входа'}
                 </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={async () => {
+                    setTestResult('');
+                    try {
+                      // Test with the exact credentials from the error
+                      await login('bb10901@gmail.com', 'b210198k');
+                      setTestResult('✅ Custom credentials now work!');
+                      setTimeout(() => navigate('/'), 1000);
+                    } catch (err) {
+                      setTestResult('❌ Custom test failed: ' + err.message);
+                    }
+                  }}
+                  sx={{
+                    bgcolor: '#ff6b35',
+                    fontSize: '0.75rem'
+                  }}
+                >
+                  {language === 'en' ? 'Test bb10901@gmail.com' : language === 'tr' ? 'bb10901@gmail.com Testi' : 'Тест bb10901@gmail.com'}
+                </Button>
               </Box>
               {testResult && (
                 <Typography variant="body2" sx={{ mt: 1, fontWeight: 'bold' }}>
