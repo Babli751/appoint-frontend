@@ -183,6 +183,17 @@ const SignIn = () => {
               </Alert>
             )}
 
+            {/* Demo Credentials Notice */}
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                {language === 'en' ? 'Demo Credentials:' : language === 'tr' ? 'Demo Bilgileri:' : 'Демо данные:'}
+              </Typography>
+              <Typography variant="body2">
+                <strong>{t.email}:</strong> demo@barberpro.com<br/>
+                <strong>{t.password}:</strong> password123
+              </Typography>
+            </Alert>
+
             <form onSubmit={handleSubmit}>
               {/* Email Field */}
               <TextField
