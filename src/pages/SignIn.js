@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -51,7 +51,7 @@ const SignIn = () => {
   const [userCount, setUserCount] = useState(0);
 
   // Update user count on component mount
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       const users = getMockUsers();
       setUserCount(users.length);
