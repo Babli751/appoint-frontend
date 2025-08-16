@@ -2,11 +2,11 @@ import axios from 'axios';
 import { mockAuthAPI, mockUserAPI, mockBarberAPI } from './mockAuth';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api', // FastAPI backend URL
+  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8000/api',
 });
 
-// Check if we should use mock API (when backend is not available)
-const USE_MOCK_API = process.env.NODE_ENV === 'development' || !process.env.REACT_APP_API_URL;
+// Check if we should use mock API (when backend URL is not configured)
+const USE_MOCK_API = !process.env.REACT_APP_API_URL;
 
 // Request interceptor to add authorization token
 api.interceptors.request.use((config) => {
