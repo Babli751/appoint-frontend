@@ -51,6 +51,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Page-specific translations
@@ -75,7 +76,7 @@ const SignUp = () => {
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
     emailExists: language === 'en' ? 'Email already exists' : language === 'tr' ? 'E-posta zaten mevcut' : 'Email уже существует',
     passwordMismatch: language === 'en' ? 'Passwords do not match' : language === 'tr' ? 'Şifreler eşleşmiyor' : 'Пароли не совпадают',
-    passwordWeak: language === 'en' ? 'Password must be at least 8 characters' : language === 'tr' ? '��ifre en az 8 karakter olmalı' : 'Пароль должен содержать не менее 8 символов',
+    passwordWeak: language === 'en' ? 'Password must be at least 8 characters' : language === 'tr' ? 'Şifre en az 8 karakter olmalı' : 'Пароль должен содержать не менее 8 символов',
     passwordStrength: language === 'en' ? 'Password Strength:' : language === 'tr' ? 'Şifre Gücü:' : 'Сила пароля:',
     weak: language === 'en' ? 'Weak' : language === 'tr' ? 'Zayıf' : 'Слабый',
     medium: language === 'en' ? 'Medium' : language === 'tr' ? 'Orta' : 'Средний',
@@ -126,8 +127,11 @@ const SignUp = () => {
       // Call register API without auto-login
       await authAPI.register(formData.email, formData.password, formData.firstName, formData.lastName);
 
+      // Show success message
+      setSuccess(language === 'en' ? 'Account created successfully! Please sign in.' : language === 'tr' ? 'Hesap başarıyla oluşturuldu! Lütfen giriş yapın.' : 'Аккаунт успешно создан! Пожалуйста, войдите.');
+
       // Redirect to signin page after successful registration
-      navigate('/signin');
+      setTimeout(() => navigate('/signin'), 2000);
     } catch (err) {
       setError(t.emailExists);
     } finally {
