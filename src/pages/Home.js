@@ -384,16 +384,18 @@ const Home = () => {
         <Box sx={{
           bgcolor: '#fbbf24',
           color: 'black',
-          py: 0.5,
+          py: 1,
           textAlign: 'center',
           fontSize: '0.85rem',
           fontWeight: 500
         }}>
-          {language === 'en'
-            ? '💻 Demo Mode: This is a frontend-only demo. Use demo@barberpro.com / password123 to login.'
-            : language === 'tr'
-            ? '💻 Demo Modu: Bu sadece ön yüz demosu. Giriş için demo@barberpro.com / password123 kullanın.'
-            : '💻 Демо-режим: Это демо только фронтенда. Используйте demo@barberpro.com / password123 для входа.'}
+          <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 2 }}>
+            {language === 'en'
+              ? '💻 Demo Mode: Frontend-only demo. Login: demo@barberpro.com / password123 or test@test.com / 123456 or create new account.'
+              : language === 'tr'
+              ? '💻 Demo Modu: Sadece ön yüz demosu. Giriş: demo@barberpro.com / password123 veya test@test.com / 123456 veya yeni hesap oluşturun.'
+              : '💻 Демо-режим: Только фронтенд. Вход: demo@barberpro.com / password123 или test@test.com / 123456 или создайте новый аккаунт.'}
+          </Box>
         </Box>
       )}
 
