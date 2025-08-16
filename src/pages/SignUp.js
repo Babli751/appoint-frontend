@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Box,
   Container,
@@ -38,6 +39,7 @@ const SignUp = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t: translations } = useLanguage();
+  const { register } = useAuth();
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -122,11 +124,11 @@ const SignUp = () => {
     }
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // For demo purposes, redirect to home
-      navigate('/');
+      // Call real register API
+      await register(formData.email, formData.password, formData.firstName, formData.lastName);
+
+      // Redirect to signin page after successful registration
+      navigate('/signin');
     } catch (err) {
       setError(t.emailExists);
     } finally {
