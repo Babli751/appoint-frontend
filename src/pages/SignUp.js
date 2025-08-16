@@ -57,7 +57,7 @@ const SignUp = () => {
   // Page-specific translations
   const t = {
     ...translations,
-    signUpTitle: language === 'en' ? 'Create Your BarberPro Account' : language === 'tr' ? 'BarberPro Hesabınızı Oluşturun' : 'Создайте свой аккаунт BarberPro',
+    signUpTitle: language === 'en' ? 'Create Your BarberPro Account' : language === 'tr' ? 'BarberPro Hesabınızı Oluşturun' : 'Созда��те свой аккаунт BarberPro',
     signUpSubtitle: language === 'en' ? 'Join thousands of happy customers' : language === 'tr' ? 'Binlerce mutlu müşteriye katılın' : 'Присоединяйтесь к тысячам довольных клиентов',
     firstName: language === 'en' ? 'First Name' : language === 'tr' ? 'Ad' : 'Имя',
     lastName: language === 'en' ? 'Last Name' : language === 'tr' ? 'Soyad' : 'Фамилия',
@@ -227,6 +227,12 @@ const SignUp = () => {
             {error && (
               <Alert severity="error" sx={{ mb: 3 }}>
                 {error}
+              </Alert>
+            )}
+
+            {success && (
+              <Alert severity="success" sx={{ mb: 3 }}>
+                {success}
               </Alert>
             )}
 
