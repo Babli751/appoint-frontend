@@ -122,7 +122,10 @@ export const mockAuthAPI = {
     };
     
     MOCK_USERS.push(newUser);
-    
+    debug.log('User registered successfully:', newUser.email);
+    debug.log('Total users in database:', MOCK_USERS.length);
+    debug.log('All users:', MOCK_USERS.map(u => ({ id: u.id, email: u.email })));
+
     return {
       id: newUser.id,
       email: newUser.email,
