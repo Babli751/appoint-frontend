@@ -101,9 +101,6 @@ const Home = () => {
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const { language, changeLanguage, t: translations } = useLanguage();
   const { isAuthenticated, user, logout } = useAuth();
-
-  // Check if we're in demo mode
-  const isDemoMode = !process.env.REACT_APP_API_URL;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -379,26 +376,6 @@ const Home = () => {
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh', pb: { xs: '70px', md: 0 } }}>
-      {/* Demo Mode Banner */}
-      {isDemoMode && (
-        <Box sx={{
-          bgcolor: '#fbbf24',
-          color: 'black',
-          py: 1,
-          textAlign: 'center',
-          fontSize: '0.85rem',
-          fontWeight: 500
-        }}>
-          <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 2 }}>
-            {language === 'en'
-              ? '💻 Demo Mode: Use ANY email/password combination or demo accounts (demo@barberpro.com/password123). Accounts auto-created!'
-              : language === 'tr'
-              ? '💻 Demo Modu: Herhangi bir e-posta/şifre kombinasyonu veya demo hesapları (demo@barberpro.com/password123) kullanın. Hesaplar otomatik oluşturulur!'
-              : '💻 Демо-режим: Используйте ЛЮБОЙ email/пароль или демо-аккаунты (demo@barberpro.com/password123). Аккаунты создаются автоматически!'}
-          </Box>
-        </Box>
-      )}
-
       {/* Responsive Navigation Bar */}
       <AppBar 
         position="sticky" 
@@ -578,7 +555,7 @@ const Home = () => {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'}
+          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'В��йти'}
         </MenuItem>
       </Menu>
 
