@@ -39,7 +39,6 @@ const SignUp = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t: translations } = useLanguage();
-  // Remove auth context usage for manual registration
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -76,7 +75,7 @@ const SignUp = () => {
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
     emailExists: language === 'en' ? 'Email already exists' : language === 'tr' ? 'E-posta zaten mevcut' : 'Email уже существует',
     passwordMismatch: language === 'en' ? 'Passwords do not match' : language === 'tr' ? 'Şifreler eşleşmiyor' : 'Пароли не совпадают',
-    passwordWeak: language === 'en' ? 'Password must be at least 8 characters' : language === 'tr' ? 'Şifre en az 8 karakter olmalı' : 'Пароль должен содержать не менее 8 символов',
+    passwordWeak: language === 'en' ? 'Password must be at least 8 characters' : language === 'tr' ? '��ifre en az 8 karakter olmalı' : 'Пароль должен содержать не менее 8 символов',
     passwordStrength: language === 'en' ? 'Password Strength:' : language === 'tr' ? 'Şifre Gücü:' : 'Сила пароля:',
     weak: language === 'en' ? 'Weak' : language === 'tr' ? 'Zayıf' : 'Слабый',
     medium: language === 'en' ? 'Medium' : language === 'tr' ? 'Orta' : 'Средний',
