@@ -101,6 +101,9 @@ const Home = () => {
   const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const { language, changeLanguage, t: translations } = useLanguage();
   const { isAuthenticated, user, logout } = useAuth();
+
+  // Check if we're in demo mode
+  const isDemoMode = !process.env.REACT_APP_API_URL;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -376,6 +379,24 @@ const Home = () => {
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh', pb: { xs: '70px', md: 0 } }}>
+      {/* Demo Mode Banner */}
+      {isDemoMode && (
+        <Box sx={{
+          bgcolor: '#fbbf24',
+          color: 'black',
+          py: 0.5,
+          textAlign: 'center',
+          fontSize: '0.85rem',
+          fontWeight: 500
+        }}>
+          {language === 'en'
+            ? '💻 Demo Mode: This is a frontend-only demo. Use demo@barberpro.com / password123 to login.'
+            : language === 'tr'
+            ? '💻 Demo Modu: Bu sadece ön yüz demosu. Giriş için demo@barberpro.com / password123 kullanın.'
+            : '💻 Демо-режим: Это демо только фронтенда. Используйте demo@barberpro.com / password123 для входа.'}
+        </Box>
+      )}
+
       {/* Responsive Navigation Bar */}
       <AppBar 
         position="sticky" 
