@@ -1,3 +1,5 @@
+import { debug } from '../utils/debug';
+
 // Mock authentication service for frontend-only demo
 const MOCK_USERS = [
   {
@@ -43,19 +45,19 @@ export const mockAuthAPI = {
     const trimmedEmail = email.trim().toLowerCase();
     const trimmedPassword = password.trim();
 
-    console.log('Mock login attempt:', { email: trimmedEmail, password: trimmedPassword });
-    console.log('Available users:', MOCK_USERS.map(u => ({ email: u.email, password: u.password })));
+    debug.log('Mock login attempt:', { email: trimmedEmail, password: trimmedPassword });
+    debug.log('Available users:', MOCK_USERS.map(u => ({ email: u.email, password: u.password })));
 
     const user = MOCK_USERS.find(u =>
       u.email.toLowerCase() === trimmedEmail && u.password === trimmedPassword
     );
 
     if (!user) {
-      console.error('Login failed - user not found');
+      debug.error('Login failed - user not found');
       throw new Error('Invalid email or password');
     }
 
-    console.log('Login successful for user:', user.email);
+    debug.log('Login successful for user:', user.email);
     return {
       access_token: `mock_token_${Date.now()}`,
       token_type: 'bearer'
@@ -69,7 +71,7 @@ export const mockAuthAPI = {
     const trimmedEmail = email.trim().toLowerCase();
     const trimmedPassword = password.trim();
 
-    console.log('Mock register attempt:', { email: trimmedEmail, firstName, lastName });
+    debug.log('Mock register attempt:', { email: trimmedEmail, firstName, lastName });
 
     // Check if user already exists
     const existingUser = MOCK_USERS.find(u => u.email.toLowerCase() === trimmedEmail);
