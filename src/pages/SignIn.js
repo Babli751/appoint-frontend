@@ -29,7 +29,6 @@ import {
   Google,
   Facebook,
   Apple,
-  Language as LanguageIcon
 } from '@mui/icons-material';
 
 const SignIn = () => {
