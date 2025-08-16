@@ -36,7 +36,9 @@ api.interceptors.response.use(
 // Authentication endpoints
 export const authAPI = {
   login: async (email, password) => {
+    console.log('authAPI.login called with:', { email, password, USE_MOCK_API });
     if (USE_MOCK_API) {
+      console.log('Using mock API for login');
       return await mockAuthAPI.login(email, password);
     }
 
