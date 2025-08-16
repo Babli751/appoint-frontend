@@ -208,7 +208,7 @@ const Profile = () => {
       birthDate: 'Дата Рождения',
       address: 'Адрес',
       memberSince: 'Участник с',
-      totalAppointments: 'Всего Записе��',
+      totalAppointments: 'Всего Записей',
       favoriteBarbers: 'Любимые Парикмахеры',
       edit: 'Редактировать',
       save: 'Сохранить',
@@ -229,7 +229,7 @@ const Profile = () => {
       preferences: 'Предпочтения',
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
-      privacyPolicy: 'Политика Конфиденциальности',
+      privacyPolicy: 'По��итика Конфиденциальности',
       termsOfService: 'Условия Использов��ния'
     }
   };
@@ -251,7 +251,7 @@ const Profile = () => {
     totalAppointments: language === 'en' ? 'Total Appointments' : language === 'tr' ? 'Toplam Randevu' : 'Всего Записей',
     favoriteBarbers: language === 'en' ? 'Favorite Barbers' : language === 'tr' ? 'Favori Berber' : 'Любимые Парикмахеры',
     memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
-    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактиров��ть',
+    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
     save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
     cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
     changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
@@ -349,7 +349,7 @@ const Profile = () => {
         error.response?.data?.detail ||
         (language === 'en' ? 'Failed to change password' :
          language === 'tr' ? 'Şifre değiştirilemedi' :
-         'Не удалось измен��ть пароль')
+         'Не удалось изменить пароль')
       );
     } finally {
       setLoading(false);
@@ -438,21 +438,25 @@ const Profile = () => {
                     width: { xs: 100, md: 120 },
                     height: { xs: 100, md: 120 }
                   }}
-                />
-                <IconButton 
-                  sx={{ 
-                    position: 'absolute',
-                    bottom: 0,
-                    right: 0,
-                    bgcolor: '#00a693',
-                    color: 'white',
-                    width: 35,
-                    height: 35,
-                    '&:hover': { bgcolor: '#007562' }
-                  }}
                 >
-                  <Camera fontSize="small" />
-                </IconButton>
+                  {!user?.avatar && userInfo.firstName ? userInfo.firstName.charAt(0).toUpperCase() : ''}
+                </Avatar>
+                {user?.avatar && (
+                  <IconButton
+                    sx={{
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 0,
+                      bgcolor: '#00a693',
+                      color: 'white',
+                      width: 35,
+                      height: 35,
+                      '&:hover': { bgcolor: '#007562' }
+                    }}
+                  >
+                    <Camera fontSize="small" />
+                  </IconButton>
+                )}
               </Box>
               
               <Box sx={{ 
@@ -460,12 +464,17 @@ const Profile = () => {
                 textAlign: { xs: 'center', md: 'left' },
                 width: { xs: '100%', md: 'auto' }
               }}>
-                <Typography variant="h4" sx={{ 
-                  fontWeight: 'bold', 
+                <Typography variant="h4" sx={{
+                  fontWeight: 'bold',
                   mb: 1,
                   fontSize: { xs: '1.5rem', md: '2rem' }
                 }}>
-                  {userInfo.firstName} {userInfo.lastName}
+                  {userInfo.firstName && userInfo.lastName
+                    ? `${userInfo.firstName} ${userInfo.lastName}`
+                    : userInfo.firstName
+                    ? userInfo.firstName
+                    : userInfo.email?.split('@')[0] || 'User'
+                  }
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
                   {userInfo.email}
@@ -839,7 +848,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
              language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
-             'Мы собираем информацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
+             'Мы собираем информацию, котор��ю вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -927,7 +936,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут от��етственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
+             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
