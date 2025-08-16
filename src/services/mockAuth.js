@@ -54,7 +54,13 @@ export const mockAuthAPI = {
 
     if (!user) {
       debug.error('Login failed - user not found');
-      throw new Error('Invalid email or password');
+      debug.error('Attempted email:', trimmedEmail);
+      debug.error('Attempted password:', trimmedPassword);
+      debug.error('Available users:', MOCK_USERS.map(u => ({ email: u.email.toLowerCase(), password: u.password })));
+
+      // Provide a more helpful error message
+      const availableEmails = MOCK_USERS.map(u => u.email).join(', ');
+      throw new Error(`Invalid email or password. Available demo accounts: ${availableEmails}`);
     }
 
     debug.log('Login successful for user:', user.email);
