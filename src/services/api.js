@@ -21,7 +21,8 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    // Only handle 401 errors if not using mock API
+    if (!USE_MOCK_API && error.response?.status === 401) {
       // Token expired or invalid
       localStorage.removeItem('access_token');
       localStorage.removeItem('isAuthenticated');
