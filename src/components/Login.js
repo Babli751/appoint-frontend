@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { authAPI } from '../services/api';
-import api from '../services/api';
 import { 
   TextField, 
   Button, 
@@ -17,7 +16,6 @@ import {
   Link,
   Stack,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   useTheme,
@@ -117,7 +115,7 @@ export default function Login() {
   const t = content[language];
 
   const navigate = useNavigate();
-  const { login, register } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
