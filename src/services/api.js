@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mockAuthAPI, mockUserAPI, mockBarberAPI } from './mockAuth';
+import { debug } from '../utils/debug';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8000/api',
@@ -36,9 +37,9 @@ api.interceptors.response.use(
 // Authentication endpoints
 export const authAPI = {
   login: async (email, password) => {
-    console.log('authAPI.login called with:', { email, password, USE_MOCK_API });
+    debug.log('authAPI.login called with:', { email, password, USE_MOCK_API });
     if (USE_MOCK_API) {
-      console.log('Using mock API for login');
+      debug.log('Using mock API for login');
       return await mockAuthAPI.login(email, password);
     }
 
