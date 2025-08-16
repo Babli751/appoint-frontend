@@ -262,7 +262,7 @@ const Home = () => {
       coverImage: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=250&fit=crop',
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
-        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
+        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'М��стерская стрижка',
         language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
       ],
       nextAvailable: '19:00',
@@ -391,10 +391,10 @@ const Home = () => {
         }}>
           <Box sx={{ maxWidth: 'lg', mx: 'auto', px: 2 }}>
             {language === 'en'
-              ? '💻 Demo Mode: Frontend-only demo. Login: demo@barberpro.com / password123 or test@test.com / 123456 or create new account.'
+              ? '💻 Demo Mode: Use ANY email/password combination or demo accounts (demo@barberpro.com/password123). Accounts auto-created!'
               : language === 'tr'
-              ? '💻 Demo Modu: Sadece ön yüz demosu. Giriş: demo@barberpro.com / password123 veya test@test.com / 123456 veya yeni hesap oluşturun.'
-              : '💻 Демо-режим: Только фронтенд. Вход: demo@barberpro.com / password123 или test@test.com / 123456 или создайте новый аккаунт.'}
+              ? '💻 Demo Modu: Herhangi bir e-posta/şifre kombinasyonu veya demo hesapları (demo@barberpro.com/password123) kullanın. Hesaplar otomatik oluşturulur!'
+              : '💻 Демо-режим: Используйте ЛЮБОЙ email/пароль или демо-аккаунты (demo@barberpro.com/password123). Аккаунты создаются автоматически!'}
           </Box>
         </Box>
       )}
