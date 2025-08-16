@@ -60,7 +60,7 @@ const SignIn = () => {
     signInButton: language === 'en' ? 'Sign In' : language === 'tr' ? 'Giriş Yap' : 'Войти',
     orContinueWith: language === 'en' ? 'Or continue with' : language === 'tr' ? 'Veya şununla devam edin' : 'Или продолжить с',
     dontHaveAccount: language === 'en' ? 'Don\'t have an account?' : language === 'tr' ? 'Hesabınız yok mu?' : 'Нет аккаунта?',
-    signUpLink: language === 'en' ? 'Sign up here' : language === 'tr' ? 'Buradan kayıt olun' : 'Зарегистрируйтесь здесь',
+    signUpLink: language === 'en' ? 'Sign up here' : language === 'tr' ? 'Buradan kayıt olun' : 'Зарегистрируйтесь з��есь',
     continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продолжить с Google',
     continueWithFacebook: language === 'en' ? 'Continue with Facebook' : language === 'tr' ? 'Facebook ile devam et' : 'Продолжить с Facebook',
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
@@ -83,7 +83,7 @@ const SignIn = () => {
     try {
       // Call real login API
       await login(formData.email, formData.password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       console.error('Login error:', err);
       const errorMessage = err.response?.data?.detail || t.invalidCredentials;
