@@ -14,6 +14,21 @@ const MOCK_USERS = [
     phone: '+1234567890',
     birth_date: '1990-01-01',
     address: 'Demo Address, Demo City'
+  },
+  {
+    id: 2,
+    email: 'test@test.com',
+    password: '123456',
+    first_name: 'Test',
+    last_name: 'User',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    is_active: true,
+    created_at: '2024-01-01T00:00:00Z',
+    total_appointments: 3,
+    favorite_barbers_count: 2,
+    phone: '+1234567891',
+    birth_date: '1985-05-15',
+    address: 'Test Address, Test City'
   }
 ];
 
