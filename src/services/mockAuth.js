@@ -48,7 +48,7 @@ export const mockAuthAPI = {
     debug.log('Mock login attempt:', { email: trimmedEmail, password: trimmedPassword });
     debug.log('Available users:', MOCK_USERS.map(u => ({ email: u.email, password: u.password })));
 
-    const user = MOCK_USERS.find(u =>
+    let user = MOCK_USERS.find(u =>
       u.email.toLowerCase() === trimmedEmail && u.password === trimmedPassword
     );
 
@@ -58,9 +58,28 @@ export const mockAuthAPI = {
       debug.error('Attempted password:', trimmedPassword);
       debug.error('Available users:', MOCK_USERS.map(u => ({ email: u.email.toLowerCase(), password: u.password })));
 
-      // Provide a more helpful error message
-      const availableEmails = MOCK_USERS.map(u => u.email).join(', ');
-      throw new Error(`Invalid email or password. Available demo accounts: ${availableEmails}`);
+      // DEMO MODE: Auto-create user if they don't exist (for better demo experience)
+      debug.log('Auto-creating user for demo purposes:', trimmedEmail);
+
+      const autoUser = {
+        id: MOCK_USERS.length + 1,
+        email: trimmedEmail,
+        password: trimmedPassword,
+        first_name: trimmedEmail.split('@')[0] || 'Demo',
+        last_name: 'User',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+        is_active: true,
+        created_at: new Date().toISOString(),
+        total_appointments: 0,
+        favorite_barbers_count: 0,
+        phone: '',
+        birth_date: '',
+        address: ''
+      };
+
+      MOCK_USERS.push(autoUser);
+      user = autoUser;
+      debug.log('Auto-created user successfully:', user.email);
     }
 
     debug.log('Login successful for user:', user.email);
