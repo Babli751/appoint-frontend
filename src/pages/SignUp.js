@@ -57,7 +57,7 @@ const SignUp = () => {
   // Page-specific translations
   const t = {
     ...translations,
-    signUpTitle: language === 'en' ? 'Create Your BarberPro Account' : language === 'tr' ? 'BarberPro Hesabınızı Oluşturun' : 'Созда��те свой аккаунт BarberPro',
+    signUpTitle: language === 'en' ? 'Create Your BarberPro Account' : language === 'tr' ? 'BarberPro Hesabınızı Oluşturun' : 'Создайте свой аккаунт BarberPro',
     signUpSubtitle: language === 'en' ? 'Join thousands of happy customers' : language === 'tr' ? 'Binlerce mutlu müşteriye katılın' : 'Присоединяйтесь к тысячам довольных клиентов',
     firstName: language === 'en' ? 'First Name' : language === 'tr' ? 'Ad' : 'Имя',
     lastName: language === 'en' ? 'Last Name' : language === 'tr' ? 'Soyad' : 'Фамилия',
@@ -70,7 +70,7 @@ const SignUp = () => {
     signUpButton: language === 'en' ? 'Create Account' : language === 'tr' ? 'Hesap Oluştur' : 'Создать аккаунт',
     orContinueWith: language === 'en' ? 'Or continue with' : language === 'tr' ? 'Veya şununla devam edin' : 'Или продолжить с',
     alreadyHaveAccount: language === 'en' ? 'Already have an account?' : language === 'tr' ? 'Zaten hesabınız var mı?' : 'Уже есть аккаунт?',
-    signInLink: language === 'en' ? 'Sign in here' : language === 'tr' ? 'Buradan giriş yapın' : 'Войдите здесь',
+    signInLink: language === 'en' ? 'Sign in here' : language === 'tr' ? 'Buradan giriş yapın' : 'Войдит�� здесь',
     continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продо��жить с Google',
     continueWithFacebook: language === 'en' ? 'Continue with Facebook' : language === 'tr' ? 'Facebook ile devam et' : 'Продолжить с Facebook',
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
@@ -235,6 +235,17 @@ const SignUp = () => {
                 {success}
               </Alert>
             )}
+
+            {/* Demo Notice */}
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2">
+                {language === 'en'
+                  ? 'This is a demo app. You can create any account or use the demo credentials on the sign-in page.'
+                  : language === 'tr'
+                  ? 'Bu bir demo uygulamadır. Herhangi bir hesap oluşturabilir veya giriş sayfasındaki demo bilgilerini kullanabilirsiniz.'
+                  : 'Это демо-приложение. Вы можете создать любой аккаунт или использовать демо-данные на странице входа.'}
+              </Typography>
+            </Alert>
 
             <form onSubmit={handleSubmit}>
               {/* Name Fields */}
