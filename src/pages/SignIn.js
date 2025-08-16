@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
-import { getMockUsers } from '../services/mockAuth';
 import {
   Box,
   Container,
@@ -47,18 +46,6 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [testResult, setTestResult] = useState('');
-  const [userCount, setUserCount] = useState(0);
-
-  // Update user count on component mount
-  useEffect(() => {
-    try {
-      const users = getMockUsers();
-      setUserCount(users.length);
-    } catch (err) {
-      console.log('Could not get user count:', err);
-    }
-  }, []);
 
   // Page-specific translations
   const t = {
