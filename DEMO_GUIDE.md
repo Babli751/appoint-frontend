@@ -4,6 +4,15 @@
 
 This is a **frontend-only demo** that doesn't require a real backend server.
 
+### 🎆 NEW: Auto-Account Creation!
+
+**You can now use ANY email and password combination!** The system will automatically create an account for you.
+
+Examples:
+- `bb10901@gmail.com` / `b210198k` ✅
+- `john@example.com` / `mypassword` ✅
+- `test123@demo.com` / `123` ✅
+
 ### Pre-configured Demo Accounts:
 
 1. **Demo User**
@@ -24,17 +33,19 @@ This is a **frontend-only demo** that doesn't require a real backend server.
 
 ### If Login Fails:
 
-1. **Check Credentials**: Make sure you're using exactly:
-   - `demo@barberpro.com` / `password123` OR
+1. **Try ANY credentials**: The system now auto-creates accounts, so any email/password should work!
+
+2. **Use Pre-configured accounts**:
+   - `demo@barberpro.com` / `password123`
    - `test@test.com` / `123456`
 
-2. **Use Auto-Fill**: Click the "Use Demo User" or "Use Test User" buttons on the sign-in page
+3. **Use Auto-Fill**: Click the "Use Demo User" or "Use Test User" buttons on the sign-in page
 
-3. **Test Login**: Click the "Test Login" button to verify the system is working
+4. **Test Specific Account**: Click "Test bb10901@gmail.com" to test the exact credentials from your error
 
-4. **Create New Account**: You can register with any email/password and it will work
+5. **Test System**: Click the "Test Login" button to verify the system is working
 
-5. **Clear Browser Data**: If still having issues, clear localStorage:
+6. **Clear Browser Data**: If still having issues, clear localStorage:
    ```javascript
    // Open browser console and run:
    localStorage.clear();
