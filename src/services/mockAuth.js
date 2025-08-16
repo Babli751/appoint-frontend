@@ -211,6 +211,17 @@ export const getMockUsers = () => {
   return MOCK_USERS.map(u => ({ id: u.id, email: u.email, name: `${u.first_name} ${u.last_name}` }));
 };
 
+// Function to check if user exists
+export const userExists = (email) => {
+  const trimmedEmail = email.trim().toLowerCase();
+  return MOCK_USERS.some(u => u.email.toLowerCase() === trimmedEmail);
+};
+
+// Function to add demo mode message
+export const isDemoMode = () => {
+  return !process.env.REACT_APP_API_URL;
+};
+
 export const mockBarberAPI = {
   getBarbers: async (filters = {}) => {
     await delay(400);
