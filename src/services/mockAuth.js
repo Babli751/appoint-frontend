@@ -49,9 +49,15 @@ export const mockAuthAPI = {
 
   register: async (email, password, firstName = '', lastName = '') => {
     await delay(500);
-    
+
+    // Trim whitespace and normalize email
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
+
+    console.log('Mock register attempt:', { email: trimmedEmail, firstName, lastName });
+
     // Check if user already exists
-    const existingUser = MOCK_USERS.find(u => u.email === email);
+    const existingUser = MOCK_USERS.find(u => u.email.toLowerCase() === trimmedEmail);
     if (existingUser) {
       throw new Error('Email already exists');
     }
