@@ -46,6 +46,7 @@ const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [testResult, setTestResult] = useState('');
 
   // Page-specific translations
   const t = {
@@ -233,7 +234,32 @@ const SignIn = () => {
                 >
                   {language === 'en' ? 'Use Test User' : language === 'tr' ? 'Test Kullanıcı' : 'Тест пользователь'}
                 </Button>
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={async () => {
+                    setTestResult('');
+                    try {
+                      await login('demo@barberpro.com', 'password123');
+                      setTestResult('✅ Demo credentials work!');
+                      setTimeout(() => navigate('/'), 1000);
+                    } catch (err) {
+                      setTestResult('❌ Test failed: ' + err.message);
+                    }
+                  }}
+                  sx={{
+                    bgcolor: '#00a693',
+                    fontSize: '0.75rem'
+                  }}
+                >
+                  {language === 'en' ? 'Test Login' : language === 'tr' ? 'Giriş Testi' : 'Тест входа'}
+                </Button>
               </Box>
+              {testResult && (
+                <Typography variant="body2" sx={{ mt: 1, fontWeight: 'bold' }}>
+                  {testResult}
+                </Typography>
+              )}
             </Alert>
 
             <form onSubmit={handleSubmit}>
