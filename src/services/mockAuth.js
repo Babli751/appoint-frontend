@@ -23,12 +23,24 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const mockAuthAPI = {
   login: async (email, password) => {
     await delay(500); // Simulate network delay
-    
-    const user = MOCK_USERS.find(u => u.email === email && u.password === password);
+
+    // Trim whitespace and convert to lowercase for email comparison
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPassword = password.trim();
+
+    console.log('Mock login attempt:', { email: trimmedEmail, password: trimmedPassword });
+    console.log('Available users:', MOCK_USERS.map(u => ({ email: u.email, password: u.password })));
+
+    const user = MOCK_USERS.find(u =>
+      u.email.toLowerCase() === trimmedEmail && u.password === trimmedPassword
+    );
+
     if (!user) {
+      console.error('Login failed - user not found');
       throw new Error('Invalid email or password');
     }
-    
+
+    console.log('Login successful for user:', user.email);
     return {
       access_token: `mock_token_${Date.now()}`,
       token_type: 'bearer'
