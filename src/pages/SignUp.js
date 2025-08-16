@@ -139,7 +139,8 @@ const SignUp = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Signing up with ${provider}`);
     // Implement social login logic here
-    navigate('/');
+    // After social signup, redirect to signin page
+    navigate('/signin');
   };
 
   return (
