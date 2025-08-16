@@ -60,7 +60,7 @@ const SignIn = () => {
     signInButton: language === 'en' ? 'Sign In' : language === 'tr' ? 'Giriş Yap' : 'Войти',
     orContinueWith: language === 'en' ? 'Or continue with' : language === 'tr' ? 'Veya şununla devam edin' : 'Или продолжить с',
     dontHaveAccount: language === 'en' ? 'Don\'t have an account?' : language === 'tr' ? 'Hesabınız yok mu?' : 'Нет аккаунта?',
-    signUpLink: language === 'en' ? 'Sign up here' : language === 'tr' ? 'Buradan kayıt olun' : 'Зарегистрируйтесь з��есь',
+    signUpLink: language === 'en' ? 'Sign up here' : language === 'tr' ? 'Buradan kayıt olun' : 'Зарегистрируйтесь здесь',
     continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продолжить с Google',
     continueWithFacebook: language === 'en' ? 'Continue with Facebook' : language === 'tr' ? 'Facebook ile devam et' : 'Продолжить с Facebook',
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
@@ -96,8 +96,8 @@ const SignIn = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    login();
-    navigate('/dashboard');
+    // For now, just redirect to home page
+    navigate('/');
   };
 
   return (
