@@ -188,10 +188,28 @@ const SignIn = () => {
               <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
                 {language === 'en' ? 'Demo Credentials:' : language === 'tr' ? 'Demo Bilgileri:' : 'Демо данные:'}
               </Typography>
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ mb: 2 }}>
                 <strong>{t.email}:</strong> demo@barberpro.com<br/>
                 <strong>{t.password}:</strong> password123
               </Typography>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={() => {
+                  setFormData(prev => ({
+                    ...prev,
+                    email: 'demo@barberpro.com',
+                    password: 'password123'
+                  }));
+                }}
+                sx={{
+                  color: '#00a693',
+                  borderColor: '#00a693',
+                  fontSize: '0.75rem'
+                }}
+              >
+                {language === 'en' ? 'Fill Demo Credentials' : language === 'tr' ? 'Demo Bilgilerini Doldur' : 'Заполнить демо данные'}
+              </Button>
             </Alert>
 
             <form onSubmit={handleSubmit}>
