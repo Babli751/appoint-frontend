@@ -405,7 +405,7 @@ const Profile = () => {
               }}
             >
               <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="en">����🇸 EN</MenuItem>
+              <MenuItem value="en">🇺🇸 EN</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
@@ -432,12 +432,12 @@ const Profile = () => {
               gap: 3 
             }}>
               <Box sx={{ position: 'relative' }}>
-                <Avatar 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  sx={{ 
-                    width: { xs: 100, md: 120 }, 
-                    height: { xs: 100, md: 120 } 
-                  }} 
+                <Avatar
+                  src={user?.avatar || ''}
+                  sx={{
+                    width: { xs: 100, md: 120 },
+                    height: { xs: 100, md: 120 }
+                  }}
                 />
                 <IconButton 
                   sx={{ 
@@ -495,7 +495,7 @@ const Profile = () => {
                   <Grid item xs={12} sm={4}>
                     <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#10b981', color: 'white' }}>
                       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        2023
+                        {userInfo.memberSince || new Date().getFullYear()}
                       </Typography>
                       <Typography variant="body2">
                         {profileTranslations.memberSince}
@@ -648,7 +648,7 @@ const Profile = () => {
                     onChange={(e) => changeLanguage(e.target.value)}
                     label={profileTranslations.language}
                   >
-                    <MenuItem value="tr">🇹�� {t.turkish}</MenuItem>
+                    <MenuItem value="tr">🇹🇷 {t.turkish}</MenuItem>
                     <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
                     <MenuItem value="ru">🇷🇺 {t.russian}</MenuItem>
                   </Select>
@@ -861,7 +861,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
              language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
-             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
+             'Мы не продаем, не обмениваем и не передаем вашу личную информацию ��ретьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
