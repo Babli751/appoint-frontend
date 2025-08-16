@@ -87,15 +87,15 @@ const Profile = () => {
 
   // Use user data from AuthContext
   const [userInfo, setUserInfo] = useState({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.firstName || user?.first_name || '',
+    lastName: user?.lastName || user?.last_name || '',
     email: user?.email || '',
     phone: user?.phone || '',
-    birthDate: user?.birthDate || '',
+    birthDate: user?.birthDate || user?.birth_date || '',
     address: user?.address || '',
-    memberSince: user?.memberSince || '',
-    totalAppointments: user?.totalAppointments || 0,
-    favoriteBarbers: user?.favoriteBarbers || 0
+    memberSince: user?.memberSince || new Date().getFullYear(),
+    totalAppointments: user?.totalAppointments || user?.total_appointments || 0,
+    favoriteBarbers: user?.favoriteBarbers || user?.favorite_barbers_count || 0
   });
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
@@ -104,15 +104,15 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       const updatedUserInfo = {
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
+        firstName: user.firstName || user.first_name || '',
+        lastName: user.lastName || user.last_name || '',
         email: user.email || '',
         phone: user.phone || '',
-        birthDate: user.birthDate || '',
+        birthDate: user.birthDate || user.birth_date || '',
         address: user.address || '',
-        memberSince: user.memberSince || '',
-        totalAppointments: user.totalAppointments || 0,
-        favoriteBarbers: user.favoriteBarbers || 0
+        memberSince: user.memberSince || new Date().getFullYear(),
+        totalAppointments: user.totalAppointments || user.total_appointments || 0,
+        favoriteBarbers: user.favoriteBarbers || user.favorite_barbers_count || 0
       };
       setUserInfo(updatedUserInfo);
       setEditedInfo(updatedUserInfo);
@@ -208,7 +208,7 @@ const Profile = () => {
       birthDate: 'Дата Рождения',
       address: 'Адрес',
       memberSince: 'Участник с',
-      totalAppointments: 'Всего Записей',
+      totalAppointments: 'Всего Записе��',
       favoriteBarbers: 'Любимые Парикмахеры',
       edit: 'Редактировать',
       save: 'Сохранить',
@@ -251,7 +251,7 @@ const Profile = () => {
     totalAppointments: language === 'en' ? 'Total Appointments' : language === 'tr' ? 'Toplam Randevu' : 'Всего Записей',
     favoriteBarbers: language === 'en' ? 'Favorite Barbers' : language === 'tr' ? 'Favori Berber' : 'Любимые Парикмахеры',
     memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
-    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
+    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактиров��ть',
     save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
     cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
     changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
@@ -349,7 +349,7 @@ const Profile = () => {
         error.response?.data?.detail ||
         (language === 'en' ? 'Failed to change password' :
          language === 'tr' ? 'Şifre değiştirilemedi' :
-         'Не удалось изменить пароль')
+         'Не удалось измен��ть пароль')
       );
     } finally {
       setLoading(false);
@@ -861,7 +861,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
              language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
-             'Мы не продаем, не обмениваем и не передаем вашу личную информацию ��ретьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
+             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
@@ -927,7 +927,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
              language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
+             'Пользователи несут от��етственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
