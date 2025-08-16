@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
+import { getMockUsers } from '../services/mockAuth';
 import {
   Box,
   Container,
@@ -47,6 +48,17 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [testResult, setTestResult] = useState('');
+  const [userCount, setUserCount] = useState(0);
+
+  // Update user count on component mount
+  React.useEffect(() => {
+    try {
+      const users = getMockUsers();
+      setUserCount(users.length);
+    } catch (err) {
+      console.log('Could not get user count:', err);
+    }
+  }, []);
 
   // Page-specific translations
   const t = {
@@ -281,6 +293,9 @@ const SignIn = () => {
                   {testResult}
                 </Typography>
               )}
+              <Typography variant="caption" sx={{ mt: 1, opacity: 0.7, display: 'block' }}>
+                {language === 'en' ? `Current users in demo database: ${userCount}` : language === 'tr' ? `Demo veritabanındaki mevcut kullanıcılar: ${userCount}` : `Текущие пользователи в демо базе: ${userCount}`}
+              </Typography>
             </Alert>
 
             <form onSubmit={handleSubmit}>
