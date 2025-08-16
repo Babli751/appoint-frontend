@@ -70,7 +70,7 @@ const SignUp = () => {
     signUpButton: language === 'en' ? 'Create Account' : language === 'tr' ? 'Hesap Oluştur' : 'Создать аккаунт',
     orContinueWith: language === 'en' ? 'Or continue with' : language === 'tr' ? 'Veya şununla devam edin' : 'Или продолжить с',
     alreadyHaveAccount: language === 'en' ? 'Already have an account?' : language === 'tr' ? 'Zaten hesabınız var mı?' : 'Уже есть аккаунт?',
-    signInLink: language === 'en' ? 'Sign in here' : language === 'tr' ? 'Buradan giriş yapın' : 'Войдит�� здесь',
+    signInLink: language === 'en' ? 'Sign in here' : language === 'tr' ? 'Buradan giriş yapın' : 'Войдите здесь',
     continueWithGoogle: language === 'en' ? 'Continue with Google' : language === 'tr' ? 'Google ile devam et' : 'Продо��жить с Google',
     continueWithFacebook: language === 'en' ? 'Continue with Facebook' : language === 'tr' ? 'Facebook ile devam et' : 'Продолжить с Facebook',
     continueWithApple: language === 'en' ? 'Continue with Apple' : language === 'tr' ? 'Apple ile devam et' : 'Продолжить с Apple',
@@ -89,6 +89,7 @@ const SignUp = () => {
       [field]: event.target.value
     }));
     setError('');
+    setSuccess('');
   };
 
   const getPasswordStrength = (password) => {
