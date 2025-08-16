@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useAuth } from '../contexts/AuthContext';
+import { authAPI } from '../services/api';
 import {
   Box,
   Container,
@@ -39,7 +39,7 @@ const SignUp = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t: translations } = useLanguage();
-  const { register } = useAuth();
+  // Remove auth context usage for manual registration
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -124,8 +124,8 @@ const SignUp = () => {
     }
 
     try {
-      // Call real register API
-      await register(formData.email, formData.password, formData.firstName, formData.lastName);
+      // Call register API without auto-login
+      await authAPI.register(formData.email, formData.password, formData.firstName, formData.lastName);
 
       // Redirect to signin page after successful registration
       navigate('/signin');
