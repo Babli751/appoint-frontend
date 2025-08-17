@@ -166,7 +166,7 @@ const Home = () => {
       isVerified: true,
       instantBooking: false,
       features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
-      responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течение 5 мин',
+      responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течен��е 5 мин',
       isNew: true,
       repeatCustomers: 78,
       city: 'Paris, France'
@@ -544,7 +544,7 @@ const Home = () => {
           </ListItemIcon>
           {t.favorites}
         </MenuItem>
-        <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
+        <MenuItem onClick={() => { navigate('/settings'); handleProfileMenuClose(); }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
