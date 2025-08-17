@@ -125,16 +125,19 @@ const SignUp = () => {
     }
 
     try {
-      // Call register API without auto-login
-      await authAPI.register(formData.email, formData.password, formData.firstName, formData.lastName);
 
-      // Show success message
-      setSuccess(language === 'en' ? 'Account created successfully! Please sign in.' : language === 'tr' ? 'Hesap başarıyla oluşturuldu! Lütfen giriş yapın.' : 'Аккаунт успешно создан! Пожалуйста, войдите.');
-
-      // Redirect to signin page after successful registration
-      setTimeout(() => navigate('/signin'), 2000);
+      // Gerçek backend çağrısı
+      await authAPI.register({
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        password: formData.password
+      });
+      navigate('/'); // Başarılı olursa ana sayfaya yönlendir
+ main
     } catch (err) {
-      setError(t.emailExists);
+      const errorMessage = err.response?.data?.detail || t.emailExists;
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

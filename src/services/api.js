@@ -2,71 +2,67 @@ import axios from 'axios';
 import { mockAuthAPI, mockUserAPI, mockBarberAPI } from './mockAuth';
 import { debug } from '../utils/debug';
 
+// 1. BASE URL CONFIGURATION
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8001/api/v1';
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'http://localhost:8000/api',
+
+  baseURL: API_BASE_URL,
 });
 
-// Check if we should use mock API (when backend URL is not configured)
-const USE_MOCK_API = !process.env.REACT_APP_API_URL;
-
-// Request interceptor to add authorization token
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+// 2. REQUEST INTERCEPTOR
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+main
   }
-  return config;
-});
+);
 
-// Response interceptor to handle token expiration
+// 3. RESPONSE INTERCEPTOR
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Only handle 401 errors if not using mock API
-    if (!USE_MOCK_API && error.response?.status === 401) {
-      // Token expired or invalid
+
+    if (error.response?.status === 401) {
+main
       localStorage.removeItem('access_token');
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('user');
       window.location.href = '/signin';
     }
     return Promise.reject(error);
   }
 );
 
-// Authentication endpoints
+// 4. AUTH API ENDPOINTS
 export const authAPI = {
   login: async (email, password) => {
-    debug.log('authAPI.login called with:', { email, password, USE_MOCK_API });
-    if (USE_MOCK_API) {
-      debug.log('Using mock API for login');
-      return await mockAuthAPI.login(email, password);
-    }
 
-    const formData = new FormData();
-    formData.append('username', email); // FastAPI OAuth2PasswordRequestForm expects 'username'
-    formData.append('password', password);
-
-    const response = await api.post('/auth/login', formData, {
+    const params = new URLSearchParams();
+    params.append('username', email);
+    params.append('password', password);
+    
+    return api.post('/auth/login', params, {
+ main
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
-    return response.data;
   },
 
-  register: async (email, password, firstName = '', lastName = '') => {
-    if (USE_MOCK_API) {
-      return await mockAuthAPI.register(email, password, firstName, lastName);
-    }
 
-    const response = await api.post('/auth/register', {
-      email,
-      password,
-      first_name: firstName,
-      last_name: lastName
+  register: async (userData) => {
+    return api.post('/auth/register', userData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+ main
     });
-    return response.data;
   },
 
   getProfile: async () => {
@@ -94,13 +90,13 @@ export const authAPI = {
 
     const response = await api.post('/auth/change-password', {
       current_password: currentPassword,
-      new_password: newPassword
+      new_password: newPassword,
     });
     return response.data;
-  }
+  },
 };
 
-// User endpoints
+// 5. USER API ENDPOINTS
 export const userAPI = {
   getAppointments: async () => {
     if (USE_MOCK_API) {
@@ -127,10 +123,10 @@ export const userAPI = {
 
     const response = await api.put('/user/notifications', settings);
     return response.data;
-  }
+  },
 };
 
-// Barber endpoints
+// 6. BARBER API ENDPOINTS
 export const barberAPI = {
   getBarbers: async (filters = {}) => {
     if (USE_MOCK_API) {
@@ -157,7 +153,7 @@ export const barberAPI = {
 
     const response = await api.post(`/barbers/${barberId}/appointments`, appointmentData);
     return response.data;
-  }
+  },
 };
 
 export default api;
