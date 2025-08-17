@@ -35,7 +35,7 @@ const Favorites = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { language } = useLanguage();
 
   // Mock favorite barbers data - in real app this would come from API
