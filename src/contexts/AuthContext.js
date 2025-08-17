@@ -65,10 +65,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, firstName = '', lastName = '') => {
     try {
-      await authAPI.register(email, password, firstName, lastName);
-
-      // After successful registration, automatically log in
-      return await login(email, password);
+      const response = await authAPI.register(email, password, firstName, lastName);
+      debug.log('AuthContext register success:', response);
+      return response;
     } catch (error) {
       console.error('Registration error:', error);
       throw error;
