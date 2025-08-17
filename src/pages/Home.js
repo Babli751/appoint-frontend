@@ -1293,7 +1293,7 @@ const Home = () => {
               <ListItemIcon><Schedule /></ListItemIcon>
               <ListItemText primary={t.appointments} />
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => { navigate('/favorites'); setDrawerOpen(false); }}>
               <ListItemIcon><Favorite /></ListItemIcon>
               <ListItemText primary={t.favorites} />
             </ListItemButton>
@@ -1308,7 +1308,7 @@ const Home = () => {
                   <ListItemIcon><Schedule /></ListItemIcon>
                   <ListItemText primary={t.appointments} />
                 </ListItemButton>
-                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                <ListItemButton onClick={() => { navigate('/profile'); setDrawerOpen(false); }}>
                   <ListItemIcon><Settings /></ListItemIcon>
                   <ListItemText primary={language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'} />
                 </ListItemButton>
