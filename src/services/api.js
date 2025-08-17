@@ -4,6 +4,7 @@ import { debug } from '../utils/debug';
 
 // 1. BASE URL CONFIGURATION
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8001/api/v1';
+const USE_MOCK_API = process.env.REACT_APP_USE_MOCK_API === 'true';
 
 const api = axios.create({
 
@@ -21,7 +22,6 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-main
   }
 );
 
@@ -31,7 +31,6 @@ api.interceptors.response.use(
   (error) => {
 
     if (error.response?.status === 401) {
-main
       localStorage.removeItem('access_token');
       window.location.href = '/signin';
     }
@@ -48,7 +47,6 @@ export const authAPI = {
     params.append('password', password);
     
     return api.post('/auth/login', params, {
- main
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -61,7 +59,6 @@ export const authAPI = {
       headers: {
         'Content-Type': 'application/json',
       },
- main
     });
   },
 

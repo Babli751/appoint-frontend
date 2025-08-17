@@ -134,7 +134,6 @@ const SignUp = () => {
         password: formData.password
       });
       navigate('/'); // Başarılı olursa ana sayfaya yönlendir
- main
     } catch (err) {
       const errorMessage = err.response?.data?.detail || t.emailExists;
       setError(errorMessage);
