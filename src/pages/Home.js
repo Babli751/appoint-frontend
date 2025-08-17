@@ -538,13 +538,13 @@ const Home = () => {
           </ListItemIcon>
           {t.appointments}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>
+        <MenuItem onClick={() => { navigate('/favorites'); handleProfileMenuClose(); }}>
           <ListItemIcon>
             <Favorite fontSize="small" />
           </ListItemIcon>
           {t.favorites}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>
+        <MenuItem onClick={() => { navigate('/profile'); handleProfileMenuClose(); }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
