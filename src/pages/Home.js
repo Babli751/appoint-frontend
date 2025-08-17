@@ -1308,7 +1308,7 @@ const Home = () => {
                   <ListItemIcon><Schedule /></ListItemIcon>
                   <ListItemText primary={t.appointments} />
                 </ListItemButton>
-                <ListItemButton onClick={() => { navigate('/profile'); setDrawerOpen(false); }}>
+                <ListItemButton onClick={() => { navigate('/settings'); setDrawerOpen(false); }}>
                   <ListItemIcon><Settings /></ListItemIcon>
                   <ListItemText primary={language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'} />
                 </ListItemButton>
