@@ -16,6 +16,7 @@ import Support from './pages/Support';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
+import Favorites from './pages/Favorites';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
@@ -138,6 +139,10 @@ function AuthAwareRoutes() {
       <Route
         path="/profile"
         element={isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
+      />
+      <Route
+        path="/favorites"
+        element={isAuthenticated ? <Favorites /> : <Navigate to="/signin" />}
       />
       <Route
         path="/barber/:id"
