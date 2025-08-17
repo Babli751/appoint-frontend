@@ -51,6 +51,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Page-specific translations
@@ -63,7 +64,7 @@ const SignUp = () => {
     email: language === 'en' ? 'Email Address' : language === 'tr' ? 'E-posta Adresi' : 'Адрес электронной почты',
     password: language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль',
     confirmPassword: language === 'en' ? 'Confirm Password' : language === 'tr' ? 'Şifreyi Onayla' : 'Подтвердите пароль',
-    agreeToTerms: language === 'en' ? 'I agree to the Terms of Service and Privacy Policy' : language === 'tr' ? 'Hizmet Şartları ve Gizlilik Politikası\'nı kabul ediyorum' : 'Я согласен с Условиями обслуживания и Политикой конфиденциальности',
+    agreeToTerms: language === 'en' ? 'I agree to the Terms of Service and Privacy Policy' : language === 'tr' ? 'Hizmet Şartları ve Gizlilik Politikası\'nı kabul ediyorum' : 'Я согласен с Условиями обс��уживания и Политикой конфиденциальности',
     termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Hizmet Şartları' : 'Условия обслуживания',
     privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика конфиденциальности',
     signUpButton: language === 'en' ? 'Create Account' : language === 'tr' ? 'Hesap Oluştur' : 'Создать аккаунт',
@@ -88,6 +89,7 @@ const SignUp = () => {
       [field]: event.target.value
     }));
     setError('');
+    setSuccess('');
   };
 
   const getPasswordStrength = (password) => {
@@ -123,6 +125,7 @@ const SignUp = () => {
     }
 
     try {
+
       // Gerçek backend çağrısı
       await authAPI.register({
         first_name: formData.firstName,
@@ -131,6 +134,7 @@ const SignUp = () => {
         password: formData.password
       });
       navigate('/'); // Başarılı olursa ana sayfaya yönlendir
+ main
     } catch (err) {
       const errorMessage = err.response?.data?.detail || t.emailExists;
       setError(errorMessage);
@@ -142,7 +146,8 @@ const SignUp = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Signing up with ${provider}`);
     // Implement social login logic here
-    navigate('/');
+    // After social signup, redirect to signin page
+    navigate('/signin');
   };
 
   return (
@@ -228,6 +233,13 @@ const SignUp = () => {
                 {error}
               </Alert>
             )}
+
+            {success && (
+              <Alert severity="success" sx={{ mb: 3 }}>
+                {success}
+              </Alert>
+            )}
+
 
             <form onSubmit={handleSubmit}>
               {/* Name Fields */}

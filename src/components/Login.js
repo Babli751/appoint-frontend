@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { authAPI } from '../services/api';
 import { 
   TextField, 
   Button, 
@@ -14,7 +16,6 @@ import {
   Link,
   Stack,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   useTheme,
@@ -30,7 +31,7 @@ import {
   Language
 } from '@mui/icons-material';
 
-export default function Login({ setAuth }) {
+export default function Login() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   
@@ -113,20 +114,26 @@ export default function Login({ setAuth }) {
 
   const t = content[language];
 
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const endpoint = isRegister ? '/auth/register' : '/auth/login';
-      const data = isRegister ? { name, email, password } : { email, password };
-      
-      const response = await api.post(endpoint, data);
-      localStorage.setItem('token', response.data.token);
-      setAuth(true);
+      if (isRegister) {
+        // Register without auto-login and then redirect to signin
+        await authAPI.register(email, password, name.split(' ')[0] || '', name.split(' ')[1] || '');
+        navigate('/signin');
+      } else {
+        // Login and redirect to home
+        await login(email, password);
+        navigate('/');
+      }
     } catch (err) {
-      const errorMessage = isRegister 
+      const errorMessage = isRegister
         ? (language === 'en' ? 'Registration failed: ' : language === 'tr' ? 'Kayıt başarısız: ' : 'Регистрация не удалась: ')
-        : (language === 'en' ? 'Login failed: ' : language === 'tr' ? 'Giriş başarısız: ' : 'Вход не удался: ');
-      alert(errorMessage + (err.response?.data?.error || 'Unknown error'));
+        : (language === 'en' ? 'Login failed: ' : language === 'tr' ? 'Giriş başарısız: ' : 'Вход не удался: ');
+      alert(errorMessage + (err.response?.data?.detail || err.response?.data?.error || err.message || 'Unknown error'));
     }
   };
 

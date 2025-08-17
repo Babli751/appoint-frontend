@@ -1,9 +1,12 @@
 import axios from 'axios';
+import { mockAuthAPI, mockUserAPI, mockBarberAPI } from './mockAuth';
+import { debug } from '../utils/debug';
 
 // 1. BASE URL CONFIGURATION
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8001/api/v1';
 
 const api = axios.create({
+
   baseURL: API_BASE_URL,
 });
 
@@ -18,6 +21,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
+main
   }
 );
 
@@ -25,7 +29,9 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+
     if (error.response?.status === 401) {
+main
       localStorage.removeItem('access_token');
       window.location.href = '/signin';
     }
@@ -36,36 +42,52 @@ api.interceptors.response.use(
 // 4. AUTH API ENDPOINTS
 export const authAPI = {
   login: async (email, password) => {
+
     const params = new URLSearchParams();
     params.append('username', email);
     params.append('password', password);
     
     return api.post('/auth/login', params, {
+ main
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
   },
 
+
   register: async (userData) => {
     return api.post('/auth/register', userData, {
       headers: {
         'Content-Type': 'application/json',
       },
+ main
     });
   },
 
   getProfile: async () => {
+    if (USE_MOCK_API) {
+      return await mockAuthAPI.getProfile();
+    }
+
     const response = await api.get('/auth/me');
     return response.data;
   },
 
   updateProfile: async (profileData) => {
+    if (USE_MOCK_API) {
+      return await mockAuthAPI.updateProfile(profileData);
+    }
+
     const response = await api.put('/auth/profile', profileData);
     return response.data;
   },
 
   changePassword: async (currentPassword, newPassword) => {
+    if (USE_MOCK_API) {
+      return await mockAuthAPI.changePassword(currentPassword, newPassword);
+    }
+
     const response = await api.post('/auth/change-password', {
       current_password: currentPassword,
       new_password: newPassword,
@@ -77,16 +99,28 @@ export const authAPI = {
 // 5. USER API ENDPOINTS
 export const userAPI = {
   getAppointments: async () => {
+    if (USE_MOCK_API) {
+      return await mockUserAPI.getAppointments();
+    }
+
     const response = await api.get('/appointments/my');
     return response.data;
   },
 
   getFavoriteBarbers: async () => {
+    if (USE_MOCK_API) {
+      return await mockUserAPI.getFavoriteBarbers();
+    }
+
     const response = await api.get('/favorites');
     return response.data;
   },
 
   updateNotificationSettings: async (settings) => {
+    if (USE_MOCK_API) {
+      return await mockUserAPI.updateNotificationSettings(settings);
+    }
+
     const response = await api.put('/user/notifications', settings);
     return response.data;
   },
@@ -95,16 +129,28 @@ export const userAPI = {
 // 6. BARBER API ENDPOINTS
 export const barberAPI = {
   getBarbers: async (filters = {}) => {
+    if (USE_MOCK_API) {
+      return await mockBarberAPI.getBarbers(filters);
+    }
+
     const response = await api.get('/barbers', { params: filters });
     return response.data;
   },
 
   getBarberById: async (id) => {
+    if (USE_MOCK_API) {
+      return await mockBarberAPI.getBarberById(id);
+    }
+
     const response = await api.get(`/barbers/${id}`);
     return response.data;
   },
 
   bookAppointment: async (barberId, appointmentData) => {
+    if (USE_MOCK_API) {
+      return await mockBarberAPI.bookAppointment(barberId, appointmentData);
+    }
+
     const response = await api.post(`/barbers/${barberId}/appointments`, appointmentData);
     return response.data;
   },

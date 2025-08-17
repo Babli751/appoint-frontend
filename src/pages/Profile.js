@@ -87,15 +87,15 @@ const Profile = () => {
 
   // Use user data from AuthContext
   const [userInfo, setUserInfo] = useState({
-    firstName: user?.firstName || '',
-    lastName: user?.lastName || '',
+    firstName: user?.firstName || user?.first_name || '',
+    lastName: user?.lastName || user?.last_name || '',
     email: user?.email || '',
     phone: user?.phone || '',
-    birthDate: user?.birthDate || '',
+    birthDate: user?.birthDate || user?.birth_date || '',
     address: user?.address || '',
-    memberSince: user?.memberSince || '',
-    totalAppointments: user?.totalAppointments || 0,
-    favoriteBarbers: user?.favoriteBarbers || 0
+    memberSince: user?.memberSince || new Date().getFullYear(),
+    totalAppointments: user?.totalAppointments || user?.total_appointments || 0,
+    favoriteBarbers: user?.favoriteBarbers || user?.favorite_barbers_count || 0
   });
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
@@ -104,15 +104,15 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       const updatedUserInfo = {
-        firstName: user.firstName || '',
-        lastName: user.lastName || '',
+        firstName: user.firstName || user.first_name || '',
+        lastName: user.lastName || user.last_name || '',
         email: user.email || '',
         phone: user.phone || '',
-        birthDate: user.birthDate || '',
+        birthDate: user.birthDate || user.birth_date || '',
         address: user.address || '',
-        memberSince: user.memberSince || '',
-        totalAppointments: user.totalAppointments || 0,
-        favoriteBarbers: user.favoriteBarbers || 0
+        memberSince: user.memberSince || new Date().getFullYear(),
+        totalAppointments: user.totalAppointments || user.total_appointments || 0,
+        favoriteBarbers: user.favoriteBarbers || user.favorite_barbers_count || 0
       };
       setUserInfo(updatedUserInfo);
       setEditedInfo(updatedUserInfo);
@@ -229,7 +229,7 @@ const Profile = () => {
       preferences: 'Предпочтения',
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
-      privacyPolicy: 'Политика Конфиденциальности',
+      privacyPolicy: 'По��итика Конфиденциальности',
       termsOfService: 'Условия Использов��ния'
     }
   };
@@ -405,7 +405,7 @@ const Profile = () => {
               }}
             >
               <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="en">����🇸 EN</MenuItem>
+              <MenuItem value="en">🇺🇸 EN</MenuItem>
               <MenuItem value="ru">🇷🇺 RU</MenuItem>
             </Select>
           </FormControl>
@@ -432,27 +432,31 @@ const Profile = () => {
               gap: 3 
             }}>
               <Box sx={{ position: 'relative' }}>
-                <Avatar 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                  sx={{ 
-                    width: { xs: 100, md: 120 }, 
-                    height: { xs: 100, md: 120 } 
-                  }} 
-                />
-                <IconButton 
-                  sx={{ 
-                    position: 'absolute',
-                    bottom: 0,
-                    right: 0,
-                    bgcolor: '#00a693',
-                    color: 'white',
-                    width: 35,
-                    height: 35,
-                    '&:hover': { bgcolor: '#007562' }
+                <Avatar
+                  src={user?.avatar || ''}
+                  sx={{
+                    width: { xs: 100, md: 120 },
+                    height: { xs: 100, md: 120 }
                   }}
                 >
-                  <Camera fontSize="small" />
-                </IconButton>
+                  {!user?.avatar && userInfo.firstName ? userInfo.firstName.charAt(0).toUpperCase() : ''}
+                </Avatar>
+                {user?.avatar && (
+                  <IconButton
+                    sx={{
+                      position: 'absolute',
+                      bottom: 0,
+                      right: 0,
+                      bgcolor: '#00a693',
+                      color: 'white',
+                      width: 35,
+                      height: 35,
+                      '&:hover': { bgcolor: '#007562' }
+                    }}
+                  >
+                    <Camera fontSize="small" />
+                  </IconButton>
+                )}
               </Box>
               
               <Box sx={{ 
@@ -460,12 +464,17 @@ const Profile = () => {
                 textAlign: { xs: 'center', md: 'left' },
                 width: { xs: '100%', md: 'auto' }
               }}>
-                <Typography variant="h4" sx={{ 
-                  fontWeight: 'bold', 
+                <Typography variant="h4" sx={{
+                  fontWeight: 'bold',
                   mb: 1,
                   fontSize: { xs: '1.5rem', md: '2rem' }
                 }}>
-                  {userInfo.firstName} {userInfo.lastName}
+                  {userInfo.firstName && userInfo.lastName
+                    ? `${userInfo.firstName} ${userInfo.lastName}`
+                    : userInfo.firstName
+                    ? userInfo.firstName
+                    : userInfo.email?.split('@')[0] || 'User'
+                  }
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
                   {userInfo.email}
@@ -495,7 +504,7 @@ const Profile = () => {
                   <Grid item xs={12} sm={4}>
                     <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#10b981', color: 'white' }}>
                       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        2023
+                        {userInfo.memberSince || new Date().getFullYear()}
                       </Typography>
                       <Typography variant="body2">
                         {profileTranslations.memberSince}
@@ -648,7 +657,7 @@ const Profile = () => {
                     onChange={(e) => changeLanguage(e.target.value)}
                     label={profileTranslations.language}
                   >
-                    <MenuItem value="tr">🇹�� {t.turkish}</MenuItem>
+                    <MenuItem value="tr">🇹🇷 {t.turkish}</MenuItem>
                     <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
                     <MenuItem value="ru">🇷🇺 {t.russian}</MenuItem>
                   </Select>
@@ -839,7 +848,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
              language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
-             'Мы собираем информацию, которую вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
+             'Мы собираем информацию, котор��ю вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>

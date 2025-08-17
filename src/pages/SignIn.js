@@ -29,7 +29,6 @@ import {
   Google,
   Facebook,
   Apple,
-  Language as LanguageIcon
 } from '@mui/icons-material';
 
 const SignIn = () => {
@@ -83,7 +82,7 @@ const SignIn = () => {
     try {
       // Call real login API
       await login(formData.email, formData.password);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err) {
       console.error('Login error:', err);
       const errorMessage = err.response?.data?.detail || t.invalidCredentials;
@@ -96,8 +95,8 @@ const SignIn = () => {
   const handleSocialLogin = (provider) => {
     console.log(`Logging in with ${provider}`);
     // Implement social login logic here
-    login();
-    navigate('/dashboard');
+    // For now, just redirect to home page
+    navigate('/');
   };
 
   return (
@@ -183,6 +182,7 @@ const SignIn = () => {
                 {error}
               </Alert>
             )}
+
 
             <form onSubmit={handleSubmit}>
               {/* Email Field */}

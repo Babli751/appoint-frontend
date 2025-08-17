@@ -166,7 +166,7 @@ const Home = () => {
       isVerified: true,
       instantBooking: false,
       features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
-      responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течение 5 мин',
+      responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течен��е 5 мин',
       isNew: true,
       repeatCustomers: 78,
       city: 'Paris, France'
@@ -259,7 +259,7 @@ const Home = () => {
       coverImage: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=250&fit=crop',
       specialties: [
         language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
-        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'Мастерская стрижка',
+        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'М��стерская стрижка',
         language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
       ],
       nextAvailable: '19:00',
@@ -538,13 +538,13 @@ const Home = () => {
           </ListItemIcon>
           {t.appointments}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>
+        <MenuItem onClick={() => { navigate('/favorites'); handleProfileMenuClose(); }}>
           <ListItemIcon>
             <Favorite fontSize="small" />
           </ListItemIcon>
           {t.favorites}
         </MenuItem>
-        <MenuItem onClick={handleProfileMenuClose}>
+        <MenuItem onClick={() => { navigate('/settings'); handleProfileMenuClose(); }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
@@ -555,7 +555,7 @@ const Home = () => {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'}
+          {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'В��йти'}
         </MenuItem>
       </Menu>
 
@@ -1293,7 +1293,7 @@ const Home = () => {
               <ListItemIcon><Schedule /></ListItemIcon>
               <ListItemText primary={t.appointments} />
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={() => { navigate('/favorites'); setDrawerOpen(false); }}>
               <ListItemIcon><Favorite /></ListItemIcon>
               <ListItemText primary={t.favorites} />
             </ListItemButton>
@@ -1308,7 +1308,7 @@ const Home = () => {
                   <ListItemIcon><Schedule /></ListItemIcon>
                   <ListItemText primary={t.appointments} />
                 </ListItemButton>
-                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                <ListItemButton onClick={() => { navigate('/settings'); setDrawerOpen(false); }}>
                   <ListItemIcon><Settings /></ListItemIcon>
                   <ListItemText primary={language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'} />
                 </ListItemButton>
