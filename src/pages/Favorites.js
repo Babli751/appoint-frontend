@@ -28,7 +28,6 @@ import {
   Star,
   Phone,
   Favorite,
-  FavoriteBorder,
   Schedule
 } from '@mui/icons-material';
 
@@ -72,7 +71,7 @@ const Favorites = () => {
   ]);
 
   const translations = {
-    title: language === 'en' ? 'My Favorites' : language === 'tr' ? 'Favorilerim' : 'Мо�� избранные',
+    title: language === 'en' ? 'My Favorites' : language === 'tr' ? 'Favorilerim' : 'Мои избранные',
     noFavorites: language === 'en' ? 'You haven\'t added any favorite barbers yet.' : language === 'tr' ? 'Henüz favori berber eklemediniz.' : 'Вы еще не добавили избранных парикмахеров.',
     exploreBarbers: language === 'en' ? 'Explore Barbers' : language === 'tr' ? 'Berberleri Keşfet' : 'Исследовать парикмахеров',
     bookAppointment: language === 'en' ? 'Book Appointment' : language === 'tr' ? 'Randevu Al' : 'Записаться',
