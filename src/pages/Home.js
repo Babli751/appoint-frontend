@@ -125,7 +125,7 @@ const Home = () => {
       subtitle: language === 'en'
         ? 'Traditional craftsmanship meets modern style'
         : language === 'tr'
-        ? 'Geleneksel ustal��k modern tarzla buluşuyor'
+        ? 'Geleneksel ustalık modern tarzla buluşuyor'
         : 'Традиционное мастерство встречает современный стиль',
       image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
       features: [
@@ -613,109 +613,37 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Responsive Filter and Sort Bar */}
-      <Box sx={{ bgcolor: 'white', borderBottom: '1px solid #e5e7eb', py: { xs: 1.5, md: 2 } }}>
+      {/* Showcase Introduction */}
+      <Box sx={{ bgcolor: 'white', py: { xs: 3, md: 6 } }}>
         <Container maxWidth="xl">
-          <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: { xs: 1.5, md: 0 }
-          }}>
-            <Typography variant="h5" sx={{
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
+            <Typography variant="h3" sx={{
               fontWeight: 'bold',
               color: '#1f2937',
-              fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.5rem' },
-              textAlign: { xs: 'center', md: 'left' }
+              fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+              mb: 2
             }}>
-              {t.featuredBarbers} ({displayedBarbers.length} {t.results})
-              {getActiveFilterCount() > 0 && (
-                <Chip
-                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь��ров'}`}
-                  size="small"
-                  sx={{ ml: 1, bgcolor: '#00a693', color: 'white' }}
-                  onDelete={() => {
-                    setFilters({});
-                    setFilteredBarbers([]);
-                  }}
-                />
-              )}
+              {language === 'en'
+                ? 'Discover Premium Beauty & Grooming'
+                : language === 'tr'
+                ? 'Premium Güzellik ve Bakım Keşfedin'
+                : 'Откройте премиум красоту и уход'
+              }
             </Typography>
-            <Box sx={{
-              display: 'flex',
-              gap: { xs: 0.5, sm: 1, md: 2 },
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
+            <Typography variant="h6" sx={{
+              color: '#6b7280',
+              fontSize: { xs: '1rem', md: '1.25rem' },
+              maxWidth: 600,
+              mx: 'auto',
+              lineHeight: 1.6
             }}>
-              <Chip
-                label={t.nearest}
-                variant={filters.sortBy === 'nearest' || !filters.sortBy ? "filled" : "outlined"}
-                color="primary"
-                sx={{ bgcolor: (filters.sortBy === 'nearest' || !filters.sortBy) ? '#00a693' : 'transparent', color: (filters.sortBy === 'nearest' || !filters.sortBy) ? 'white' : '#00a693', borderColor: '#00a693' }}
-                size={isMobile ? "small" : "medium"}
-                onClick={() => applyFilters({ ...filters, sortBy: 'nearest' })}
-              />
-              <Chip
-                label={t.popular}
-                variant={filters.sortBy === 'topRated' ? "filled" : "outlined"}
-                sx={{ bgcolor: filters.sortBy === 'topRated' ? '#00a693' : 'transparent', color: filters.sortBy === 'topRated' ? 'white' : '#00a693', borderColor: '#00a693' }}
-                size={isMobile ? "small" : "medium"}
-                onClick={() => applyFilters({ ...filters, sortBy: 'topRated' })}
-              />
-              <Chip
-                label={t.cheapest}
-                variant={filters.sortBy === 'lowToHigh' ? "filled" : "outlined"}
-                sx={{ bgcolor: filters.sortBy === 'lowToHigh' ? '#00a693' : 'transparent', color: filters.sortBy === 'lowToHigh' ? 'white' : '#00a693', borderColor: '#00a693' }}
-                size={isMobile ? "small" : "medium"}
-                onClick={() => applyFilters({ ...filters, sortBy: 'lowToHigh' })}
-              />
-              <Chip
-                label={t.verified}
-                variant={filters.verifiedOnly ? "filled" : "outlined"}
-                sx={{ bgcolor: filters.verifiedOnly ? '#00a693' : 'transparent', color: filters.verifiedOnly ? 'white' : '#00a693', borderColor: '#00a693' }}
-                size={isMobile ? "small" : "medium"}
-                onClick={() => applyFilters({ ...filters, verifiedOnly: !filters.verifiedOnly })}
-              />
-              <Button
-                variant="outlined"
-                startIcon={<FilterList />}
-                sx={{
-                  color: '#00a693',
-                  borderColor: '#00a693',
-                  position: 'relative'
-                }}
-                size={isMobile ? "small" : "medium"}
-                onClick={() => setFilterOpen(true)}
-              >
-                {t.filter}
-                {getActiveFilterCount() > 0 && (
-                  <Chip
-                    label={getActiveFilterCount()}
-                    size="small"
-                    sx={{
-                      position: 'absolute',
-                      top: -8,
-                      right: -8,
-                      bgcolor: '#ff6b35',
-                      color: 'white',
-                      minWidth: 20,
-                      height: 20,
-                      fontSize: '0.7rem'
-                    }}
-                  />
-                )}
-              </Button>
-              <Button
-                variant="outlined"
-                startIcon={<Sort />}
-                sx={{ color: '#00a693', borderColor: '#00a693' }}
-                size={isMobile ? "small" : "medium"}
-              >
-                {t.sort}
-              </Button>
-            </Box>
+              {language === 'en'
+                ? 'From traditional barbershops to modern beauty salons, find the perfect place for your style and wellness needs'
+                : language === 'tr'
+                ? 'Geleneksel berber dükkanlarından modern güzellik salonlarına, tarzınız ve sağlık ihtiyaçlarınız için mükemmel yeri bulun'
+                : 'От традиционных парикмахерских до современных салонов красоты, найдите идеальное место для ваших потребностей в стиле и красоте'
+              }
+            </Typography>
           </Box>
         </Container>
       </Box>
@@ -1009,7 +937,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
+                  : 'Ведущая платфор����а для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
