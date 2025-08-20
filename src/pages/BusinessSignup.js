@@ -20,8 +20,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  useTheme,
-  useMediaQuery,
   List,
   Paper
 } from '@mui/material';
