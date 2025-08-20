@@ -124,10 +124,6 @@ const getTranslations = (lang) => {
       safety: 'Safety',
 
       // Additional common translations
-      claimOffer: 'Claim Offer',
-      validUntil: 'Valid until',
-      newCustomers: 'New Customers',
-      limitedTime: 'Limited Time',
       exclusive: 'Exclusive',
       termsApply: 'Terms and conditions apply',
       getStarted: 'Get Started',
@@ -172,7 +168,6 @@ const getTranslations = (lang) => {
       city: 'City',
       phoneNumber: 'Phone Number',
       businessDescription: 'Business Description',
-      services: 'Services',
       addService: 'Add Service',
       serviceName: 'Service Name',
       servicePrice: 'Price',
