@@ -392,11 +392,29 @@ const BusinessDashboard = () => {
                       {language === 'en' ? 'View All' : language === 'tr' ? 'Tümünü Gör' : 'Смотреть все'}
                     </Button>
                   </Box>
+
+                  {loading ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2">
+                        {language === 'en' ? 'Loading appointments...' :
+                         language === 'tr' ? 'Randevular yükleniyor...' :
+                         'Загрузка встреч...'}
+                      </Typography>
+                    </Box>
+                  ) : error ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2" color="error">
+                        {language === 'en' ? 'Failed to load appointments' :
+                         language === 'tr' ? 'Randevular yüklenemedi' :
+                         'Не удалось загрузить встречи'}
+                      </Typography>
+                    </Box>
+                  ) : upcomingAppointments.length > 0 ? (
                   <List>
                     {upcomingAppointments.map((appointment) => (
-                      <ListItem 
+                      <ListItem
                         key={appointment.id}
-                        sx={{ 
+                        sx={{
                           border: '1px solid #e5e7eb',
                           borderRadius: 2,
                           mb: 1,
@@ -431,6 +449,15 @@ const BusinessDashboard = () => {
                       </ListItem>
                     ))}
                   </List>
+                  ) : (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {language === 'en' ? 'No appointments today' :
+                         language === 'tr' ? 'Bugün randevu yok' :
+                         'Сегодня нет встреч'}
+                      </Typography>
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
@@ -442,6 +469,24 @@ const BusinessDashboard = () => {
                   <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
                     {language === 'en' ? 'Recent Activity' : language === 'tr' ? 'Son Aktiviteler' : 'Недавняя активность'}
                   </Typography>
+
+                  {loading ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2">
+                        {language === 'en' ? 'Loading activity...' :
+                         language === 'tr' ? 'Aktiviteler yükleniyor...' :
+                         'Загрузка активности...'}
+                      </Typography>
+                    </Box>
+                  ) : error ? (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2" color="error">
+                        {language === 'en' ? 'Failed to load activity' :
+                         language === 'tr' ? 'Aktiviteler yüklenemedi' :
+                         'Не удалось загрузить активность'}
+                      </Typography>
+                    </Box>
+                  ) : recentActivity.length > 0 ? (
                   <List>
                     {recentActivity.map((activity) => (
                       <ListItem key={activity.id} sx={{ px: 0 }}>
@@ -454,6 +499,15 @@ const BusinessDashboard = () => {
                       </ListItem>
                     ))}
                   </List>
+                  ) : (
+                    <Box sx={{ textAlign: 'center', py: 4 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {language === 'en' ? 'No recent activity' :
+                         language === 'tr' ? 'Son aktivite yok' :
+                         'Нет недавней активности'}
+                      </Typography>
+                    </Box>
+                  )}
                 </CardContent>
               </Card>
             </Grid>
