@@ -42,29 +42,19 @@ import {
 } from '@mui/material';
 import {
   Business,
-  Dashboard as DashboardIcon,
   Schedule,
   ContentCut,
-  TrendingUp,
   Star,
   Euro,
-  Person,
   Settings,
   Notifications,
-  MoreVert,
   Add,
   Edit,
   Delete,
-  AccessTime,
   Phone,
-  LocationOn,
-  Email,
   CheckCircle,
   Cancel,
   Pending,
-  Analytics,
-  Event,
-  Language,
   Logout,
   ExpandMore
 } from '@mui/icons-material';
@@ -521,7 +511,7 @@ const BusinessDashboard = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Аналитика бизнеса'}
+                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Анали��ика бизнеса'}
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 {language === 'en' 
