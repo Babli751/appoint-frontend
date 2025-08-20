@@ -126,7 +126,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
       features: [
         language === 'en' ? 'Master Barbers' : language === 'tr' ? 'Usta Berberler' : 'Мастер-парикмахеры',
-        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стр��жки',
+        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стрижки',
         language === 'en' ? 'Hot Towel Service' : language === 'tr' ? 'Sıcak Havlu Hizmeti' : 'Горячее полотенце'
       ]
     },
@@ -155,87 +155,13 @@ const Home = () => {
         : 'Полноценный опыт красоты с премиум услугами',
       image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop',
       features: [
-        language === 'en' ? 'Full Service Salon' : language === 'tr' ? 'Tam Hizmet Salon' : 'Полный сервис салон',
+        language === 'en' ? 'Full Service Salon' : language === 'tr' ? 'Tam Hizmet Salon' : 'П��лный сервис салон',
         language === 'en' ? 'Skin Care' : language === 'tr' ? 'Cilt Bakımı' : 'Уход за кожей',
         language === 'en' ? 'Nail Services' : language === 'tr' ? 'Tırnak Hizmetleri' : 'Услуги маникюра'
       ]
     }
   ];
 
-  const handleBookmark = (id) => {
-    setBookmarked(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };
-
-  const applyFilters = (newFilters) => {
-    setFilters(newFilters);
-    let filtered = [...featuredBarbers];
-
-    // Apply location filter
-    if (newFilters.location) {
-      filtered = filtered.filter(barber =>
-        barber.city.toLowerCase().includes(newFilters.location.toLowerCase())
-      );
-    }
-
-    // Apply price filter
-    if (newFilters.priceRange) {
-      filtered = filtered.filter(barber => {
-        const price = parseInt(barber.price.replace('€', ''));
-        return price >= newFilters.priceRange[0] && price <= newFilters.priceRange[1];
-      });
-    }
-
-    // Apply rating filter
-    if (newFilters.rating > 0) {
-      filtered = filtered.filter(barber => barber.rating >= newFilters.rating);
-    }
-
-    // Apply verified filter
-    if (newFilters.verifiedOnly) {
-      filtered = filtered.filter(barber => barber.isVerified);
-    }
-
-    // Apply instant booking filter
-    if (newFilters.instantBooking) {
-      filtered = filtered.filter(barber => barber.instantBooking);
-    }
-
-    // Apply sorting
-    switch (newFilters.sortBy) {
-      case 'topRated':
-        filtered.sort((a, b) => b.rating - a.rating);
-        break;
-      case 'lowToHigh':
-        filtered.sort((a, b) => {
-          const priceA = parseInt(a.price.replace('€', ''));
-          const priceB = parseInt(b.price.replace('€', ''));
-          return priceA - priceB;
-        });
-        break;
-      case 'highToLow':
-        filtered.sort((a, b) => {
-          const priceA = parseInt(a.price.replace('€', ''));
-          const priceB = parseInt(b.price.replace('€', ''));
-          return priceB - priceA;
-        });
-        break;
-      case 'mostBooked':
-        filtered.sort((a, b) => b.repeatCustomers - a.repeatCustomers);
-        break;
-      default: // nearest
-        filtered.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
-    }
-
-    setFilteredBarbers(filtered);
-  };
 
   const handleProfileMenuOpen = (event) => {
     setProfileMenuAnchor(event.currentTarget);
@@ -794,7 +720,7 @@ const Home = () => {
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
                 : language === 'tr'
                 ? 'Güzellik ve bakım ihtiyaçları için bize güvenen binlerce memnun müşteriye katılın'
-                : 'Присоединяйтесь к тысячам довольных клиентов, кото��ые доверяют нам свои потребности в красоте и уходе'
+                : 'Присоединяйтесь к тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
               }
             </Typography>
             <Stack
@@ -1104,7 +1030,7 @@ const Home = () => {
                 </ListItemButton>
                 <ListItemButton onClick={() => { handleLogout(); setDrawerOpen(false); }}>
                   <ListItemIcon><Logout /></ListItemIcon>
-                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'} />
+                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkı�� Yap' : 'Выйти'} />
                 </ListItemButton>
               </>
             ) : (
