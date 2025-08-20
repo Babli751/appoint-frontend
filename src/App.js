@@ -18,6 +18,8 @@ import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
 import Settings from './pages/Settings';
+import BusinessSignup from './pages/BusinessSignup';
+import BusinessDashboard from './pages/BusinessDashboard';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
