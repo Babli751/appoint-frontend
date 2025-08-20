@@ -451,7 +451,7 @@ const Home = () => {
                 <Select
                   value={language}
                   onChange={(e) => changeLanguage(e.target.value)}
-                  sx={{ 
+                  sx={{
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                     '& .MuiSelect-select': { py: { xs: 0.5, md: 1 }, display: 'flex', alignItems: 'center', fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' } }
                   }}
@@ -461,6 +461,25 @@ const Home = () => {
                   <MenuItem value="ru">🇷🇺 {isMobile ? 'RU' : isTablet ? 'RU' : 'Русский'}</MenuItem>
                 </Select>
               </FormControl>
+
+              {/* Try Business Button */}
+              <Button
+                variant="outlined"
+                startIcon={<Business />}
+                sx={{
+                  color: '#ff6b35',
+                  borderColor: '#ff6b35',
+                  fontWeight: 600,
+                  '&:hover': {
+                    bgcolor: 'rgba(255, 107, 53, 0.04)',
+                    borderColor: '#e55a2e'
+                  },
+                  display: { xs: 'none', sm: 'flex' }
+                }}
+                onClick={() => navigate('/business-signup')}
+              >
+                {t.tryBusiness}
+              </Button>
 
               {!isMobile && (
                 <>
@@ -721,7 +740,7 @@ const Home = () => {
               {t.featuredBarbers} ({displayedBarbers.length} {t.results})
               {getActiveFilterCount() > 0 && (
                 <Chip
-                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь��ров'}`}
+                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь����ров'}`}
                   size="small"
                   sx={{ ml: 1, bgcolor: '#00a693', color: 'white' }}
                   onDelete={() => {
