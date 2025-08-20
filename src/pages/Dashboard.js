@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -109,7 +109,7 @@ const Dashboard = () => {
       favoriteBarbers: 'Избранные парикмахеры',
       upcomingAppointment: 'Предстоящая запись',
       pastAppointment: 'Прошедшая запись',
-      favoriteBarber: 'Избранный парикмахер',
+      favoriteBarber: 'Избр��нный парикмахер',
       confirmed: 'Подтверждено',
       pending: 'Ожидание',
       completed: 'Заверш��но',
