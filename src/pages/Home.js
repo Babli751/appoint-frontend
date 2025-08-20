@@ -1117,13 +1117,6 @@ const Home = () => {
           <Search />
         </Fab>
       )}
-      {/* Filter Component */}
-      <BarberFilter
-        open={filterOpen}
-        onClose={() => setFilterOpen(false)}
-        onApply={applyFilters}
-        currentFilters={filters}
-      />
     </Box>
   );
 };
