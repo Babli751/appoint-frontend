@@ -40,7 +40,6 @@ import {
   ArrowBack,
   Add,
   Delete,
-  Language
 } from '@mui/icons-material';
 
 const BusinessSignup = () => {
