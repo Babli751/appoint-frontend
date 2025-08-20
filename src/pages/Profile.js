@@ -103,23 +103,42 @@ const Profile = () => {
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
 
-  // Update local state when user data changes
+  // Fetch user profile data from API
   useEffect(() => {
-    if (user) {
-      const updatedUserInfo = {
-        firstName: user.firstName || user.first_name || '',
-        lastName: user.lastName || user.last_name || '',
-        email: user.email || '',
-        phone: user.phone || '',
-        birthDate: user.birthDate || user.birth_date || '',
-        address: user.address || '',
-        memberSince: user.memberSince || new Date().getFullYear(),
-        totalAppointments: user.totalAppointments || user.total_appointments || 0,
-        favoriteBarbers: user.favoriteBarbers || user.favorite_barbers_count || 0
-      };
-      setUserInfo(updatedUserInfo);
-      setEditedInfo(updatedUserInfo);
-    }
+    const fetchProfileData = async () => {
+      try {
+        setProfileLoading(true);
+        setProfileError(null);
+
+        // TODO: Replace with actual API call
+        // const response = await fetch('/api/user/profile');
+        // const profileData = await response.json();
+
+        // For now, use basic user data from AuthContext if available
+        if (user) {
+          const updatedUserInfo = {
+            firstName: user.firstName || user.first_name || '',
+            lastName: user.lastName || user.last_name || '',
+            email: user.email || '',
+            phone: user.phone || '',
+            birthDate: user.birthDate || user.birth_date || '',
+            address: user.address || '',
+            memberSince: user.memberSince || new Date().getFullYear(),
+            totalAppointments: 0, // Will be fetched from API
+            favoriteBarbers: 0 // Will be fetched from API
+          };
+          setUserInfo(updatedUserInfo);
+          setEditedInfo(updatedUserInfo);
+        }
+      } catch (err) {
+        console.error('Failed to fetch profile data:', err);
+        setProfileError(err.message);
+      } finally {
+        setProfileLoading(false);
+      }
+    };
+
+    fetchProfileData();
   }, [user]);
 
   // Language content (keep as fallback if needed)
@@ -884,7 +903,7 @@ const Profile = () => {
           <Typography variant="body2">
             {language === 'en' ? 'If you have questions about this Privacy Policy, please contact us at support@barberpro.com' :
              language === 'tr' ? 'Bu Gizlilik Politikası hakkında sorularınız varsa, lütfen support@barberpro.com adresinden bizimle iletişime geçin' :
-             'Если у вас есть вопросы об этой Политике конфиденциальности, свяжитесь с нами по адресу support@barberpro.com'}
+             'Если у вас есть вопросы об этой Политике конфиденциальности, свяжитесь с нами по ад��есу support@barberpro.com'}
           </Typography>
         </DialogContent>
         <DialogActions>
@@ -917,7 +936,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'By accessing and using BarberPro, you accept and agree to be bound by the terms and provision of this agreement.' :
              language === 'tr' ? 'BarberPro\'ya erişerek ve kullanarak, bu sözleşmenin hüküm ve koşullarıyla bağlı olmayı kabul etmiş olursunuz.' :
-             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь собл��дать условия и положения этого соглашения.'}
+             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого соглашения.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
