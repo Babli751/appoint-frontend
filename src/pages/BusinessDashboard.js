@@ -24,8 +24,6 @@ import {
   ListItemText,
   Chip,
   Stack,
-  LinearProgress,
-  Paper,
   Table,
   TableBody,
   TableCell,
