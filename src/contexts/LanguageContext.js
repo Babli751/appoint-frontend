@@ -364,7 +364,7 @@ const getTranslations = (lang) => {
       bookNow: 'Забронировать',
       duration: 'Продолжительность',
       price: 'Начиная от',
-      traditional: 'Традиционная',
+      traditional: 'Традицион��ая',
       premium: 'Премиум',
       minutes: 'мин',
       
@@ -395,15 +395,11 @@ const getTranslations = (lang) => {
       
       // Support page
       helpCenter: 'Центр помощи',
-      contactUs: 'Связаться с нами',
+      contactUs: 'Связаться с нам��',
       faq: 'FAQ',
       safety: 'Безопасность',
 
       // Additional common translations
-      claimOffer: 'Получить предложение',
-      validUntil: 'Действительно до',
-      newCustomers: 'Новые клиенты',
-      limitedTime: 'Ограниченное время',
       exclusive: 'Эксклюзивно',
       termsApply: 'Применяются условия и положения',
       getStarted: 'Начать',
@@ -416,7 +412,7 @@ const getTranslations = (lang) => {
       confirm: 'Подтвердить',
       delete: 'Удалить',
       edit: 'Редактировать',
-      update: 'О��новить',
+      update: 'Обновить',
       close: 'Закрыть',
       back: 'Назад',
       next: 'Далее',
@@ -436,7 +432,7 @@ const getTranslations = (lang) => {
       premiumLabel: 'Премиум',
 
       // Business translations
-      tryBusiness: 'Попробовать бизнес',
+      tryBusiness: 'Попр��бовать бизнес',
       businessSignup: 'Регистрация бизнеса',
       businessPortal: 'Бизнес-портал',
       businessDashboard: 'Бизнес-панель',
@@ -447,8 +443,7 @@ const getTranslations = (lang) => {
       businessAddress: 'Адрес бизнеса',
       city: 'Город',
       phoneNumber: 'Номер телефона',
-      businessDescription: 'Описа��ие бизнеса',
-      services: 'Услуги',
+      businessDescription: 'Описание бизнеса',
       addService: 'Добавить услугу',
       serviceName: 'Название услуги',
       servicePrice: 'Цена',
@@ -459,7 +454,7 @@ const getTranslations = (lang) => {
       whyJoinUs: 'Почему стоит присоединиться?',
       increaseBookings: 'Увеличьте бронирования',
       easyManagement: 'Простое управление',
-      growYourBusiness: 'Развивайте свой бизнес'
+      growYourBusiness: 'Развивай��е свой бизнес'
     }
   };
 
