@@ -81,11 +81,6 @@ const Home = () => {
   // Use centralized translations
   const t = translations;
 
-  // European cities and pricing
-  const europeanCities = [
-    'Berlin, Germany', 'Paris, France', 'Madrid, Spain', 'Rome, Italy',
-    'Amsterdam, Netherlands', 'Vienna, Austria', 'Brussels, Belgium'
-  ];
 
   // Showcase categories for beauty salons and barber shops
   const showcaseCategories = [
