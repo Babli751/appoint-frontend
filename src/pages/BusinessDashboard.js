@@ -71,39 +71,67 @@ const BusinessDashboard = () => {
     description: ''
   });
 
-  // Mock business data
-  const businessData = {
-    name: 'Milano Barber Studio',
-    owner: 'Marco Rossi',
-    email: 'marco@milanobarberstudio.com',
-    phone: '+39 02 1234 5678',
-    address: 'Via Roma 123, Milano, Italy',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-    rating: 4.8,
-    reviewCount: 245,
-    totalBookings: 1250,
-    monthlyRevenue: 8500,
-    services: [
-      { id: 1, name: 'Classic Cut', price: 35, duration: 45, bookings: 125 },
-      { id: 2, name: 'Beard Trim', price: 25, duration: 30, bookings: 89 },
-      { id: 3, name: 'Hot Towel Shave', price: 40, duration: 60, bookings: 67 },
-      { id: 4, name: 'Hair Wash', price: 15, duration: 20, bookings: 234 }
-    ]
-  };
+  // State for business data fetched from API
+  const [businessData, setBusinessData] = useState({
+    name: '',
+    owner: '',
+    email: '',
+    phone: '',
+    address: '',
+    avatar: '',
+    rating: 0,
+    reviewCount: 0,
+    totalBookings: 0,
+    monthlyRevenue: 0,
+    services: []
+  });
 
-  const upcomingAppointments = [
-    { id: 1, client: 'Giovanni Bianchi', service: 'Classic Cut', time: '14:30', status: 'confirmed', phone: '+39 333 1234567' },
-    { id: 2, client: 'Luca Verde', service: 'Beard Trim', time: '15:00', status: 'pending', phone: '+39 333 7654321' },
-    { id: 3, client: 'Antonio Rosso', service: 'Hot Towel Shave', time: '15:30', status: 'confirmed', phone: '+39 333 9876543' },
-    { id: 4, client: 'Francesco Nero', service: 'Classic Cut', time: '16:00', status: 'confirmed', phone: '+39 333 5551234' }
-  ];
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const recentActivity = [
-    { id: 1, type: 'booking', message: 'New booking from Giovanni Bianchi', time: '2 min ago' },
-    { id: 2, type: 'review', message: 'New 5-star review received', time: '1 hour ago' },
-    { id: 3, type: 'payment', message: 'Payment received: €35', time: '2 hours ago' },
-    { id: 4, type: 'booking', message: 'Booking confirmed for Luca Verde', time: '3 hours ago' }
-  ];
+  // Fetch business data from API
+  useEffect(() => {
+    const fetchBusinessData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // TODO: Replace with actual API calls
+        // const [businessRes, appointmentsRes, activityRes] = await Promise.all([
+        //   fetch('/api/business/profile'),
+        //   fetch('/api/business/appointments/upcoming'),
+        //   fetch('/api/business/activity/recent')
+        // ]);
+
+        // For now, we'll use empty data until backend is implemented
+        setBusinessData({
+          name: '',
+          owner: '',
+          email: '',
+          phone: '',
+          address: '',
+          avatar: '',
+          rating: 0,
+          reviewCount: 0,
+          totalBookings: 0,
+          monthlyRevenue: 0,
+          services: []
+        });
+        setUpcomingAppointments([]);
+        setRecentActivity([]);
+
+      } catch (err) {
+        console.error('Failed to fetch business data:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBusinessData();
+  }, []);
 
   const stats = [
     {
