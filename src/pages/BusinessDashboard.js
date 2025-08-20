@@ -16,8 +16,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  useTheme,
-  useMediaQuery,
   Divider,
   List,
   ListItem,
