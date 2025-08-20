@@ -61,14 +61,11 @@ import {
 
 const BusinessDashboard = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t } = useLanguage();
 
   const [currentTab, setCurrentTab] = useState(0);
   const [serviceDialogOpen, setServiceDialogOpen] = useState(false);
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
-  const [editingService, setEditingService] = useState(null);
   const [newService, setNewService] = useState({
     name: '',
     price: '',
@@ -511,7 +508,7 @@ const BusinessDashboard = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Анали��ика бизнеса'}
+                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Аналитика бизнеса'}
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 {language === 'en' 
