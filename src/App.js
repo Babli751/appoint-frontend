@@ -175,6 +175,14 @@ function AuthAwareRoutes() {
         path="/support"
         element={<Support />}
       />
+      <Route
+        path="/business-signup"
+        element={<BusinessSignup />}
+      />
+      <Route
+        path="/business-dashboard"
+        element={<BusinessDashboard />}
+      />
     </Routes>
   );
 }
