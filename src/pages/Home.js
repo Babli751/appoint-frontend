@@ -17,7 +17,6 @@ import {
   IconButton,
   Avatar,
   Stack,
-  Badge,
   MenuItem,
   FormControl,
   Select,
@@ -649,7 +648,7 @@ const Home = () => {
                         ? 'Explore Options'
                         : language === 'tr'
                         ? 'Seçenekleri Keşfet'
-                        : '��зучить варианты'
+                        : 'Изучить варианты'
                       }
                     </Button>
                   </CardContent>
