@@ -155,7 +155,7 @@ const Home = () => {
         : 'Полноценный опыт красоты с премиум услугами',
       image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop',
       features: [
-        language === 'en' ? 'Full Service Salon' : language === 'tr' ? 'Tam Hizmet Salon' : 'П��лный сервис салон',
+        language === 'en' ? 'Full Service Salon' : language === 'tr' ? 'Tam Hizmet Salon' : 'Полный сервис салон',
         language === 'en' ? 'Skin Care' : language === 'tr' ? 'Cilt Bakımı' : 'Уход за кожей',
         language === 'en' ? 'Nail Services' : language === 'tr' ? 'Tırnak Hizmetleri' : 'Услуги маникюра'
       ]
@@ -177,16 +177,6 @@ const Home = () => {
     navigate('/');
   };
 
-  const displayedBarbers = filteredBarbers.length > 0 ? filteredBarbers : featuredBarbers;
-  const getActiveFilterCount = () => {
-    let count = 0;
-    if (filters.location) count++;
-    if (filters.priceRange && (filters.priceRange[0] > 0 || filters.priceRange[1] < 100)) count++;
-    if (filters.rating > 0) count++;
-    if (filters.verifiedOnly) count++;
-    if (filters.instantBooking) count++;
-    return count;
-  };
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: '#f8fffe', minHeight: '100vh', pb: { xs: '70px', md: 0 } }}>
@@ -706,7 +696,7 @@ const Home = () => {
                 ? 'Ready to Book Your Next Appointment?'
                 : language === 'tr'
                 ? 'Bir Sonraki Randevunuzu Almaya Hazır mısınız?'
-                : 'Готовы забронировать следующую встречу?'
+                : 'Готовы забронирова��ь следующую встречу?'
               }
             </Typography>
             <Typography variant="h6" sx={{
@@ -797,7 +787,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
+                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских ��слуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
@@ -1030,7 +1020,7 @@ const Home = () => {
                 </ListItemButton>
                 <ListItemButton onClick={() => { handleLogout(); setDrawerOpen(false); }}>
                   <ListItemIcon><Logout /></ListItemIcon>
-                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkı�� Yap' : 'Выйти'} />
+                  <ListItemText primary={language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'} />
                 </ListItemButton>
               </>
             ) : (
