@@ -416,6 +416,30 @@ const Dashboard = () => {
 
           {/* Past Appointments */}
           <TabPanel value={tabValue} index={1}>
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading past appointments...' :
+                   language === 'tr' ? 'Geçmiş randevular yükleniyor...' :
+                   'Загрузка прошлых встреч...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load past appointments' :
+                   language === 'tr' ? 'Geçmiş randevular yüklenemedi' :
+                   'Не удалось загрузить прошлые встречи'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : pastAppointments.length > 0 ? (
             <List>
               {pastAppointments.map((appointment, index) => (
                 <React.Fragment key={appointment.id}>
@@ -468,10 +492,43 @@ const Dashboard = () => {
                 </React.Fragment>
               ))}
             </List>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'No past appointments' :
+                   language === 'tr' ? 'Geçmiş randevu bulunamadı' :
+                   'Нет прошлых встреч'}
+                </Typography>
+              </Box>
+            )}
           </TabPanel>
 
           {/* Favorite Barbers */}
           <TabPanel value={tabValue} index={2}>
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading favorite barbers...' :
+                   language === 'tr' ? 'Favori berberler yükleniyor...' :
+                   'Загрузка любимых парикмахеров...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load favorite barbers' :
+                   language === 'tr' ? 'Favori berberler yüklenemedi' :
+                   'Не удалось загрузить любимых парикмахеров'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : favoriteBarbers.length > 0 ? (
             <List>
               {favoriteBarbers.map((barber, index) => (
                 <React.Fragment key={barber.id}>
@@ -523,6 +580,22 @@ const Dashboard = () => {
                 </React.Fragment>
               ))}
             </List>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'No favorite barbers' :
+                   language === 'tr' ? 'Favori berber bulunamadı' :
+                   'Нет любимых парикмахеров'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={() => navigate('/')}
+                  sx={{ bgcolor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Find Barbers' : language === 'tr' ? 'Berber Bul' : 'Найти парикмахеров'}
+                </Button>
+              </Box>
+            )}
           </TabPanel>
         </Card>
       </Container>
