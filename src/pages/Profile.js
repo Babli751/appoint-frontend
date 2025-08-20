@@ -85,18 +85,21 @@ const Profile = () => {
     sms: false
   });
 
-  // Use user data from AuthContext
+  // State for user data and loading
   const [userInfo, setUserInfo] = useState({
-    firstName: user?.firstName || user?.first_name || '',
-    lastName: user?.lastName || user?.last_name || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
-    birthDate: user?.birthDate || user?.birth_date || '',
-    address: user?.address || '',
-    memberSince: user?.memberSince || new Date().getFullYear(),
-    totalAppointments: user?.totalAppointments || user?.total_appointments || 0,
-    favoriteBarbers: user?.favoriteBarbers || user?.favorite_barbers_count || 0
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    birthDate: '',
+    address: '',
+    memberSince: new Date().getFullYear(),
+    totalAppointments: 0,
+    favoriteBarbers: 0
   });
+
+  const [profileLoading, setProfileLoading] = useState(true);
+  const [profileError, setProfileError] = useState(null);
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
 
@@ -914,7 +917,7 @@ const Profile = () => {
           <Typography variant="body2" sx={{ mb: 2 }}>
             {language === 'en' ? 'By accessing and using BarberPro, you accept and agree to be bound by the terms and provision of this agreement.' :
              language === 'tr' ? 'BarberPro\'ya erişerek ve kullanarak, bu sözleşmenin hüküm ve koşullarıyla bağlı olmayı kabul etmiş olursunuz.' :
-             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого соглашения.'}
+             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь собл��дать условия и положения этого соглашения.'}
           </Typography>
 
           <Typography variant="h6" sx={{ mb: 2 }}>
