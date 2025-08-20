@@ -109,7 +109,7 @@ const Dashboard = () => {
       favoriteBarbers: 'Избранные парикмахеры',
       upcomingAppointment: 'Предстоящая запись',
       pastAppointment: 'Прошедшая запись',
-      favoriteBarber: 'Избр��нный парикмахер',
+      favoriteBarber: 'Избранный парикмахер',
       confirmed: 'Подтверждено',
       pending: 'Ожидание',
       completed: 'Заверш��но',
@@ -292,7 +292,30 @@ const Dashboard = () => {
 
           {/* Upcoming Appointments */}
           <TabPanel value={tabValue} index={0}>
-            {upcomingAppointments.length > 0 ? (
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading appointments...' :
+                   language === 'tr' ? 'Randevular yükleniyor...' :
+                   'Загрузка встреч...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load appointments' :
+                   language === 'tr' ? 'Randevular yüklenemedi' :
+                   'Не удалось загрузить встречи'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : upcomingAppointments.length > 0 ? (
               <List>
                 {upcomingAppointments.map((appointment, index) => (
                   <React.Fragment key={appointment.id}>
