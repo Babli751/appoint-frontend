@@ -39,11 +39,13 @@ import {
 import {
   Search,
   LocationOn,
+  Star,
   Person,
   Notifications,
   Schedule,
   Favorite,
   ContentCut,
+  LocalOffer,
   Language,
   Facebook,
   Twitter,
@@ -647,7 +649,7 @@ const Home = () => {
                         ? 'Explore Options'
                         : language === 'tr'
                         ? 'Seçenekleri Keşfet'
-                        : 'Изучить варианты'
+                        : '��зучить варианты'
                       }
                     </Button>
                   </CardContent>
