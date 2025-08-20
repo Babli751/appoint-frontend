@@ -22,11 +22,6 @@ import {
   MenuItem,
   useTheme,
   useMediaQuery,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Paper
 } from '@mui/material';
 import {
