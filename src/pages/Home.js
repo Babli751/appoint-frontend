@@ -87,7 +87,6 @@ import {
   ExpandMore
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import BarberFilter from '../components/BarberFilter';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -696,7 +695,7 @@ const Home = () => {
                 ? 'Ready to Book Your Next Appointment?'
                 : language === 'tr'
                 ? 'Bir Sonraki Randevunuzu Almaya Hazır mısınız?'
-                : 'Готовы забронирова��ь следующую встречу?'
+                : 'Готовы забронировать следующую встречу?'
               }
             </Typography>
             <Typography variant="h6" sx={{
@@ -787,7 +786,7 @@ const Home = () => {
                   ? 'The leading platform for booking professional barber services across Europe. Find and book the best barbers in your city.'
                   : language === 'tr'
                   ? 'Avrupa\'da profesyonel berber hizmetleri rezervasyonu için önde gelen platform. Şehrinizdeki en iyi berberleri bulun ve rezervasyon yapın.'
-                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских ��слуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
+                  : 'Ведущая платфор��а для бронирования профессиональных парикмахерских услуг по всей Европе. Найдите и забронируйте лучших парикмахеров в своем городе.'
                 }
               </Typography>
               <Stack direction="row" spacing={1}>
