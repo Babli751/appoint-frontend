@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -129,80 +129,42 @@ const Dashboard = () => {
 
   const t = content[language];
 
-  const upcomingAppointments = [
-    {
-      id: 1,
-      barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
-      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
-      service: language === 'en' ? 'Haircut + Beard' : language === 'tr' ? 'Saç Kesimi + Sakal' : 'Стрижка + Борода',
-      date: language === 'en' ? 'January 15, 2024' : language === 'tr' ? '15 Ocak 2024' : '15 января 2024',
-      time: '14:30',
-      price: '€35',
-      status: 'confirmed',
-      barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Mitte District, Friedrichstraße 123, Berlin' : language === 'tr' ? 'Mitte Bölgesi, Friedrichstraße 123, Berlin' : 'Район Митте, Фридрихштрассе 123, Берлин'
-    },
-    {
-      id: 2,
-      barberName: language === 'en' ? 'Marco Rossi' : language === 'tr' ? 'Marco Rossi' : 'Марко Росси',
-      shopName: language === 'en' ? 'Modern Style Studio' : language === 'tr' ? 'Modern Stil Stüdyosu' : 'Современная Студия Стиля',
-      service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
-      date: language === 'en' ? 'January 18, 2024' : language === 'tr' ? '18 Ocak 2024' : '18 января 2024',
-      time: '16:00',
-      price: '€25',
-      status: 'pending',
-      barberImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face',
-      address: language === 'en' ? 'Kızılay District, Atatürk Boulevard' : language === 'tr' ? 'Kızılay Mahallesi, Atatürk Bulvarı' : 'Райо�� Кызылай, бульвар Ататюрк'
-    }
-  ];
+  // State for data fetched from API
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
+  const [pastAppointments, setPastAppointments] = useState([]);
+  const [favoriteBarbers, setFavoriteBarbers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const pastAppointments = [
-    {
-      id: 3,
-      barberName: language === 'en' ? 'Giovanni Costa' : language === 'tr' ? 'Giovanni Costa' : 'Джованни Коста',
-      shopName: language === 'en' ? 'Classic Barber' : language === 'tr' ? 'Klasik Berber' : 'Классическая Пари��махерская',
-      service: language === 'en' ? 'Beard Trim + Massage' : language === 'tr' ? 'Sakal Tıraşı + Masaj' : 'Стрижка бороды + Массаж',
-      date: language === 'en' ? 'January 10, 2024' : language === 'tr' ? '10 Ocak 2024' : '10 января 2024',
-      time: '15:30',
-      price: '€30',
-      status: 'completed',
-      barberImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face',
-      rating: 5,
-      reviewed: true
-    },
-    {
-      id: 4,
-      barberName: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
-      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
-      service: language === 'en' ? 'Haircut' : language === 'tr' ? 'Saç Kesimi' : 'Стрижка',
-      date: language === 'en' ? 'January 5, 2024' : language === 'tr' ? '5 Ocak 2024' : '5 января 2024',
-      time: '11:00',
-      price: '€22',
-      status: 'completed',
-      barberImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face',
-      rating: 4,
-      reviewed: false
-    }
-  ];
+  // Fetch data from API
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-  const favoriteBarbers = [
-    {
-      id: 1,
-      name: language === 'en' ? 'Alexander Smith' : language === 'tr' ? 'Alexander Smith' : 'Александр Смит',
-      shopName: language === 'en' ? 'Elite Barber Shop' : language === 'tr' ? 'Elite Berber Salonu' : 'Элитная Парикмахерская',
-      rating: 4.8,
-      visits: 5,
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face'
-    },
-    {
-      id: 3,
-      name: language === 'en' ? 'Giovanni Costa' : language === 'tr' ? 'Giovanni Costa' : 'Джованни Коста',
-      shopName: language === 'en' ? 'Classic Barber' : language === 'tr' ? 'Klasik Berber' : 'Классическая Парикмахерская',
-      rating: 4.7,
-      visits: 3,
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face'
-    }
-  ];
+        // TODO: Replace with actual API calls
+        // const [upcomingRes, pastRes, favoritesRes] = await Promise.all([
+        //   fetch('/api/appointments/upcoming'),
+        //   fetch('/api/appointments/past'),
+        //   fetch('/api/barbers/favorites')
+        // ]);
+
+        // For now, we'll use empty arrays until backend is implemented
+        setUpcomingAppointments([]);
+        setPastAppointments([]);
+        setFavoriteBarbers([]);
+
+      } catch (err) {
+        console.error('Failed to fetch dashboard data:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -330,7 +292,30 @@ const Dashboard = () => {
 
           {/* Upcoming Appointments */}
           <TabPanel value={tabValue} index={0}>
-            {upcomingAppointments.length > 0 ? (
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading appointments...' :
+                   language === 'tr' ? 'Randevular yükleniyor...' :
+                   'Загрузка встреч...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load appointments' :
+                   language === 'tr' ? 'Randevular yüklenemedi' :
+                   'Не удалось загрузить встречи'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : upcomingAppointments.length > 0 ? (
               <List>
                 {upcomingAppointments.map((appointment, index) => (
                   <React.Fragment key={appointment.id}>
@@ -431,6 +416,30 @@ const Dashboard = () => {
 
           {/* Past Appointments */}
           <TabPanel value={tabValue} index={1}>
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading past appointments...' :
+                   language === 'tr' ? 'Geçmiş randevular yükleniyor...' :
+                   'Загрузка прошлых встреч...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load past appointments' :
+                   language === 'tr' ? 'Geçmiş randevular yüklenemedi' :
+                   'Не удалось загрузить прошлые встречи'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : pastAppointments.length > 0 ? (
             <List>
               {pastAppointments.map((appointment, index) => (
                 <React.Fragment key={appointment.id}>
@@ -483,10 +492,43 @@ const Dashboard = () => {
                 </React.Fragment>
               ))}
             </List>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'No past appointments' :
+                   language === 'tr' ? 'Geçmiş randevu bulunamadı' :
+                   'Нет прошлых встреч'}
+                </Typography>
+              </Box>
+            )}
           </TabPanel>
 
           {/* Favorite Barbers */}
           <TabPanel value={tabValue} index={2}>
+            {loading ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1">
+                  {language === 'en' ? 'Loading favorite barbers...' :
+                   language === 'tr' ? 'Favori berberler yükleniyor...' :
+                   'Загрузка любимых парикмахеров...'}
+                </Typography>
+              </Box>
+            ) : error ? (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="body1" color="error" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'Failed to load favorite barbers' :
+                   language === 'tr' ? 'Favori berberler yüklenemedi' :
+                   'Не удалось загрузить любимых парикмахеров'}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={() => window.location.reload()}
+                  sx={{ color: '#6b46c1', borderColor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Retry' : language === 'tr' ? 'Tekrar Dene' : 'Повторить'}
+                </Button>
+              </Box>
+            ) : favoriteBarbers.length > 0 ? (
             <List>
               {favoriteBarbers.map((barber, index) => (
                 <React.Fragment key={barber.id}>
@@ -538,6 +580,22 @@ const Dashboard = () => {
                 </React.Fragment>
               ))}
             </List>
+            ) : (
+              <Box sx={{ textAlign: 'center', py: 6 }}>
+                <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+                  {language === 'en' ? 'No favorite barbers' :
+                   language === 'tr' ? 'Favori berber bulunamadı' :
+                   'Нет любимых парикмахеров'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  onClick={() => navigate('/')}
+                  sx={{ bgcolor: '#6b46c1' }}
+                >
+                  {language === 'en' ? 'Find Barbers' : language === 'tr' ? 'Berber Bul' : 'Найти парикмахеров'}
+                </Button>
+              </Box>
+            )}
           </TabPanel>
         </Card>
       </Container>

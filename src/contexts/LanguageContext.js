@@ -124,10 +124,6 @@ const getTranslations = (lang) => {
       safety: 'Safety',
 
       // Additional common translations
-      claimOffer: 'Claim Offer',
-      validUntil: 'Valid until',
-      newCustomers: 'New Customers',
-      limitedTime: 'Limited Time',
       exclusive: 'Exclusive',
       termsApply: 'Terms and conditions apply',
       getStarted: 'Get Started',
@@ -157,7 +153,32 @@ const getTranslations = (lang) => {
       barbers: 'Barbers',
       barber: 'barber',
       traditionalLabel: 'Traditional',
-      premiumLabel: 'Premium'
+      premiumLabel: 'Premium',
+
+      // Business translations
+      tryBusiness: 'Try Business',
+      businessSignup: 'Business Signup',
+      businessPortal: 'Business Portal',
+      businessDashboard: 'Business Dashboard',
+      joinOurNetwork: 'Join Our Network',
+      businessSubtitle: 'Grow your barber business with us',
+      businessName: 'Business Name',
+      ownerName: 'Owner Name',
+      businessAddress: 'Business Address',
+      city: 'City',
+      phoneNumber: 'Phone Number',
+      businessDescription: 'Business Description',
+      addService: 'Add Service',
+      serviceName: 'Service Name',
+      servicePrice: 'Price',
+      serviceDuration: 'Duration (minutes)',
+      manageServices: 'Manage Services',
+      businessInfo: 'Business Information',
+      getStartedBusiness: 'Get Started for Business',
+      whyJoinUs: 'Why Join Us?',
+      increaseBookings: 'Increase Bookings',
+      easyManagement: 'Easy Management',
+      growYourBusiness: 'Grow Your Business'
     },
     tr: {
       // Common
@@ -241,10 +262,6 @@ const getTranslations = (lang) => {
       safety: 'Güvenlik',
 
       // Additional common translations
-      claimOffer: 'Teklifi Al',
-      validUntil: 'Geçerlilik tarihi',
-      newCustomers: 'Yeni Müşteriler',
-      limitedTime: 'Sınırlı Süre',
       exclusive: 'Özel',
       termsApply: 'Şartlar ve koşullar geçerlidir',
       getStarted: 'Başlayın',
@@ -274,7 +291,32 @@ const getTranslations = (lang) => {
       barbers: 'Berber',
       barber: 'berber',
       traditionalLabel: 'Geleneksel',
-      premiumLabel: 'Premium'
+      premiumLabel: 'Premium',
+
+      // Business translations
+      tryBusiness: 'İşletme Deneyin',
+      businessSignup: 'İşletme Kaydı',
+      businessPortal: 'İşletme Portalı',
+      businessDashboard: 'İşletme Paneli',
+      joinOurNetwork: 'Ağımıza Katılın',
+      businessSubtitle: 'Berber işletmenizi bizimle büyütün',
+      businessName: 'İşletme Adı',
+      ownerName: 'Sahip Adı',
+      businessAddress: 'İşletme Adresi',
+      city: 'Şehir',
+      phoneNumber: 'Telefon Numarası',
+      businessDescription: 'İşletme Açıklaması',
+      addService: 'Hizmet Ekle',
+      serviceName: 'Hizmet Adı',
+      servicePrice: 'Fiyat',
+      serviceDuration: 'Süre (dakika)',
+      manageServices: 'Hizmetleri Yönet',
+      businessInfo: 'İşletme Bilgileri',
+      getStartedBusiness: 'İşletme İçin Başlayın',
+      whyJoinUs: 'Neden Bize Katılın?',
+      increaseBookings: 'Rezervasyonları Artırın',
+      easyManagement: 'Kolay Yönetim',
+      growYourBusiness: 'İşletmenizi Büyütün'
     },
     ru: {
       // Common
@@ -322,7 +364,7 @@ const getTranslations = (lang) => {
       bookNow: 'Забронировать',
       duration: 'Продолжительность',
       price: 'Начиная от',
-      traditional: 'Традиционная',
+      traditional: 'Традицион��ая',
       premium: 'Премиум',
       minutes: 'мин',
       
@@ -353,15 +395,11 @@ const getTranslations = (lang) => {
       
       // Support page
       helpCenter: 'Центр помощи',
-      contactUs: 'Связаться с нами',
+      contactUs: 'Связаться с нам��',
       faq: 'FAQ',
       safety: 'Безопасность',
 
       // Additional common translations
-      claimOffer: 'Получить предложение',
-      validUntil: 'Действительно до',
-      newCustomers: 'Новые клиенты',
-      limitedTime: 'Ограниченное время',
       exclusive: 'Эксклюзивно',
       termsApply: 'Применяются условия и положения',
       getStarted: 'Начать',
@@ -391,7 +429,32 @@ const getTranslations = (lang) => {
       barbers: 'Парикмахеров',
       barber: 'парикмахеров',
       traditionalLabel: 'Традиционный',
-      premiumLabel: 'Премиум'
+      premiumLabel: 'Премиум',
+
+      // Business translations
+      tryBusiness: 'Попр��бовать бизнес',
+      businessSignup: 'Регистрация бизнеса',
+      businessPortal: 'Бизнес-портал',
+      businessDashboard: 'Бизнес-панель',
+      joinOurNetwork: 'Присоединитесь к нашей сети',
+      businessSubtitle: 'Развивайте свой парикмахерский бизнес с нами',
+      businessName: 'Название бизнеса',
+      ownerName: 'Имя владельца',
+      businessAddress: 'Адрес бизнеса',
+      city: 'Город',
+      phoneNumber: 'Номер телефона',
+      businessDescription: 'Описание бизнеса',
+      addService: 'Добавить услугу',
+      serviceName: 'Название услуги',
+      servicePrice: 'Цена',
+      serviceDuration: 'Продолжительность (минуты)',
+      manageServices: 'Управление услугами',
+      businessInfo: 'Информация о бизнесе',
+      getStartedBusiness: 'Начать для бизнеса',
+      whyJoinUs: 'Почему стоит присоединиться?',
+      increaseBookings: 'Увеличьте бронирования',
+      easyManagement: 'Простое управление',
+      growYourBusiness: 'Развивай��е свой бизнес'
     }
   };
 
