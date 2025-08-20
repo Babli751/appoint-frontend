@@ -98,14 +98,10 @@ const Home = () => {
 
   const [searchLocation, setSearchLocation] = useState('Berlin, Germany');
   const [searchService, setSearchService] = useState('');
-  const [bookmarked, setBookmarked] = useState(new Set([1, 3]));
   const { language, changeLanguage, t: translations } = useLanguage();
   const { isAuthenticated, user, logout } = useAuth();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [bottomNavValue, setBottomNavValue] = useState(0);
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({});
-  const [filteredBarbers, setFilteredBarbers] = useState([]);
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
 
   // Use centralized translations
@@ -130,7 +126,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
       features: [
         language === 'en' ? 'Master Barbers' : language === 'tr' ? 'Usta Berberler' : 'Мастер-парикмахеры',
-        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стрижки',
+        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стр��жки',
         language === 'en' ? 'Hot Towel Service' : language === 'tr' ? 'Sıcak Havlu Hizmeti' : 'Горячее полотенце'
       ]
     },
@@ -151,7 +147,7 @@ const Home = () => {
     },
     {
       id: 3,
-      title: language === 'en' ? 'Luxury Beauty Salons' : language === 'tr' ? 'Lüks Güzellik Salonları' : 'Роскошные сало��ы красоты',
+      title: language === 'en' ? 'Luxury Beauty Salons' : language === 'tr' ? 'Lüks Güzellik Salonları' : 'Роскошные салоны красоты',
       subtitle: language === 'en'
         ? 'Complete beauty experience with premium services'
         : language === 'tr'
@@ -798,7 +794,7 @@ const Home = () => {
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
                 : language === 'tr'
                 ? 'Güzellik ve bakım ihtiyaçları için bize güvenen binlerce memnun müşteriye katılın'
-                : 'Присоединяйтесь к тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
+                : 'Присоединяйтесь к тысячам довольных клиентов, кото��ые доверяют нам свои потребности в красоте и уходе'
               }
             </Typography>
             <Stack
@@ -971,7 +967,7 @@ const Home = () => {
                   sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
                   onClick={() => navigate('/support')}
                 >
-                  {language === 'en' ? 'Safety' : language === 'tr' ? 'G��venlik' : 'Безопасность'}
+                  {language === 'en' ? 'Safety' : language === 'tr' ? 'Güvenlik' : 'Безопасность'}
                 </Link>
               </Stack>
             </Grid>
