@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { 
-  Box, 
-  Typography, 
-  TextField, 
+  Box,
+  Typography,
+  TextField,
   InputAdornment,
   Card,
   CardContent,
   CardMedia,
   Button,
-  Chip,
-  Rating,
   Grid,
   Container,
   AppBar,
@@ -22,7 +20,6 @@ import {
   Badge,
   MenuItem,
   FormControl,
-  InputLabel,
   Select,
   Link,
   Divider,
