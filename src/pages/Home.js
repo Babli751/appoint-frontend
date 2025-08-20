@@ -117,160 +117,52 @@ const Home = () => {
     'Amsterdam, Netherlands', 'Vienna, Austria', 'Brussels, Belgium'
   ];
 
-  const featuredBarbers = [
+  // Showcase categories for beauty salons and barber shops
+  const showcaseCategories = [
     {
       id: 1,
-      name: 'Marco Rossi',
-      shopName: 'Milano Barber Studio',
-      rating: 4.8,
-      reviewCount: 245,
-      distance: '0.8 km',
-      estimatedTime: '12 min',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'Classic Cut' : language === 'tr' ? 'Klasik Kesim' : 'Классическая стрижка',
-        language === 'en' ? 'Beard Trim' : language === 'tr' ? 'Sakal Düzeltme' : 'Стрижка бороды',
-        language === 'en' ? 'Hot Towel' : language === 'tr' ? 'Sıcak Havlu' : 'Горячее полотенц��'
-      ],
-      nextAvailable: '14:30',
-      price: `${t.currency}35`,
-      originalPrice: `${t.currency}45`,
-      discount: 22,
-      isVerified: true,
-      instantBooking: true,
-      features: ['WiFi', language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
-      responseTime: language === 'en' ? 'Within 2 min' : language === 'tr' ? '2 dk içinde' : 'В течение 2 мин',
-      repeatCustomers: 85,
-      city: 'Milan, Italy'
+      title: language === 'en' ? 'Premium Barbershops' : language === 'tr' ? 'Premium Berber Salonları' : 'Премиум парикмахерские',
+      subtitle: language === 'en'
+        ? 'Traditional craftsmanship meets modern style'
+        : language === 'tr'
+        ? 'Geleneksel ustal��k modern tarzla buluşuyor'
+        : 'Традиционное мастерство встречает современный стиль',
+      image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
+      features: [
+        language === 'en' ? 'Master Barbers' : language === 'tr' ? 'Usta Berberler' : 'Мастер-парикмахеры',
+        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стрижки',
+        language === 'en' ? 'Hot Towel Service' : language === 'tr' ? 'Sıcak Havlu Hizmeti' : 'Горячее полотенце'
+      ]
     },
     {
       id: 2,
-      name: 'Jean-Luc Dubois',
-      shopName: 'Salon Parisien',
-      rating: 4.9,
-      reviewCount: 189,
-      distance: '1.2 km',
-      estimatedTime: '18 min',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'French Cut' : language === 'tr' ? 'Fransız Kesim' : 'Французская стрижка',
-        language === 'en' ? 'Styling' : language === 'tr' ? 'Şekillendirme' : 'Укладка',
-        language === 'en' ? 'Consultation' : language === 'tr' ? 'Danışmanlık' : 'Консультация'
-      ],
-      nextAvailable: '15:00',
-      price: `${t.currency}42`,
-      originalPrice: `${t.currency}50`,
-      discount: 16,
-      isVerified: true,
-      instantBooking: false,
-      features: ['WiFi', language === 'en' ? 'Card Payment' : language === 'tr' ? 'Kart Ödeme' : 'Оплата картой'],
-      responseTime: language === 'en' ? 'Within 5 min' : language === 'tr' ? '5 dk içinde' : 'В течен��е 5 мин',
-      isNew: true,
-      repeatCustomers: 78,
-      city: 'Paris, France'
+      title: language === 'en' ? 'Modern Hair Studios' : language === 'tr' ? 'Modern Saç Stüdyoları' : 'Современные студии волос',
+      subtitle: language === 'en'
+        ? 'Cutting-edge techniques and contemporary designs'
+        : language === 'tr'
+        ? 'Son teknoloji ve çağdaş tasarımlar'
+        : 'Передовые техники и современный дизайн',
+      image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=800&h=600&fit=crop',
+      features: [
+        language === 'en' ? 'Trendy Styles' : language === 'tr' ? 'Trend Saç Modelleri' : 'Модные стили',
+        language === 'en' ? 'Color Specialists' : language === 'tr' ? 'Renk Uzmanları' : 'Специалисты по цвету',
+        language === 'en' ? 'Hair Treatments' : language === 'tr' ? 'Saç Bakımı' : 'Уход за волосами'
+      ]
     },
     {
       id: 3,
-      name: 'Hans Mueller',
-      shopName: 'Berlin Barbershop',
-      rating: 4.7,
-      reviewCount: 312,
-      distance: '0.5 km',
-      estimatedTime: '8 min',
-      image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1622034409709-bb8e94e6d9c7?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'Precision Cut' : language === 'tr' ? 'Hassas Kesim' : 'Точная стрижка',
-        language === 'en' ? 'Fade' : language === 'tr' ? 'Solmaya' : 'Фейд',
-        language === 'en' ? 'Grooming' : language === 'tr' ? 'Bakım' : 'Уход'
-      ],
-      nextAvailable: '16:15',
-      price: `${t.currency}38`,
-      isVerified: true,
-      instantBooking: true,
-      features: [language === 'en' ? 'AC' : language === 'tr' ? 'Klima' : 'Кондиционер', language === 'en' ? 'Parking' : language === 'tr' ? 'Otopark' : 'Парковка'],
-      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
-      isTopRated: true,
-      repeatCustomers: 92,
-      city: 'Berlin, Germany'
-    },
-    {
-      id: 4,
-      name: 'Antonio García',
-      shopName: 'Madrid Premium',
-      rating: 4.9,
-      reviewCount: 156,
-      distance: '1.5 km',
-      estimatedTime: '20 min',
-      image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'Premium Service' : language === 'tr' ? 'Premium Hizmet' : 'Премиум услуга',
-        language === 'en' ? 'Traditional Shave' : language === 'tr' ? 'Geleneksel Tıraş' : 'Традиционное бритье',
-        language === 'en' ? 'Facial Care' : language === 'tr' ? 'Yüz Bakımı' : 'Уход за лицом'
-      ],
-      nextAvailable: '17:00',
-      price: `${t.currency}55`,
-      originalPrice: `${t.currency}65`,
-      discount: 15,
-      isVerified: true,
-      instantBooking: true,
-      features: [language === 'en' ? 'Luxury Salon' : language === 'tr' ? 'Lüks Salon' : 'Люкс салон', language === 'en' ? 'Premium Room' : language === 'tr' ? 'Premium Oda' : 'Премиум комната'],
-      responseTime: language === 'en' ? 'Within 1 min' : language === 'tr' ? '1 dk içinde' : 'В течение 1 мин',
-      isPremium: true,
-      repeatCustomers: 95,
-      city: 'Madrid, Spain'
-    },
-    {
-      id: 5,
-      name: 'Viktor Petrov',
-      shopName: 'Amsterdam Style',
-      rating: 4.6,
-      reviewCount: 201,
-      distance: '2.1 km',
-      estimatedTime: '25 min',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'Modern Cut' : language === 'tr' ? 'Modern Kesim' : 'Современная стрижка',
-        'Undercut',
-        language === 'en' ? 'Color' : language === 'tr' ? 'Renk' : 'Окрашивание'
-      ],
-      nextAvailable: '18:30',
-      price: `${t.currency}40`,
-      isVerified: true,
-      instantBooking: true,
-      features: [language === 'en' ? 'Music' : language === 'tr' ? 'Müzik' : 'Музыка', language === 'en' ? 'Coffee' : language === 'tr' ? 'Kahve' : 'Кофе', 'WiFi'],
-      responseTime: language === 'en' ? 'Within 3 min' : language === 'tr' ? '3 dk içinde' : 'В течение 3 мин',
-      repeatCustomers: 82,
-      city: 'Amsterdam, Netherlands'
-    },
-    {
-      id: 6,
-      name: 'Giuseppe Romano',
-      shopName: 'Roma Classica',
-      rating: 4.8,
-      reviewCount: 289,
-      distance: '0.9 km',
-      estimatedTime: '15 min',
-      image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face',
-      coverImage: 'https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=250&fit=crop',
-      specialties: [
-        language === 'en' ? 'Italian Style' : language === 'tr' ? 'İtalyan Tarzı' : 'Итальянский стиль',
-        language === 'en' ? 'Master Cut' : language === 'tr' ? 'Usta Kesimi' : 'М��стерская стрижка',
-        language === 'en' ? 'Pompadour' : language === 'tr' ? 'Pompadur' : 'Помпадур'
-      ],
-      nextAvailable: '19:00',
-      price: `${t.currency}45`,
-      isVerified: true,
-      instantBooking: true,
-      features: [language === 'en' ? 'Traditional' : language === 'tr' ? 'Geleneksel' : 'Традиционный', language === 'en' ? 'Experienced' : language === 'tr' ? 'Deneyimli' : 'Опытный'],
-      responseTime: language === 'en' ? 'Within 2 min' : language === 'tr' ? '2 dk içinde' : 'В течение 2 мин',
-      isTraditional: true,
-      repeatCustomers: 88,
-      city: 'Rome, Italy'
+      title: language === 'en' ? 'Luxury Beauty Salons' : language === 'tr' ? 'Lüks Güzellik Salonları' : 'Роскошные салоны красоты',
+      subtitle: language === 'en'
+        ? 'Complete beauty experience with premium services'
+        : language === 'tr'
+        ? 'Premium hizmetlerle tam güzellik deneyimi'
+        : 'Полноценный опыт красоты с премиум услугами',
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800&h=600&fit=crop',
+      features: [
+        language === 'en' ? 'Full Service Salon' : language === 'tr' ? 'Tam Hizmet Salon' : 'Полный сервис салон',
+        language === 'en' ? 'Skin Care' : language === 'tr' ? 'Cilt Bakımı' : 'Уход за кожей',
+        language === 'en' ? 'Nail Services' : language === 'tr' ? 'Tırnak Hizmetleri' : 'Услуги маникюра'
+      ]
     }
   ];
 
