@@ -740,7 +740,7 @@ const Home = () => {
               {t.featuredBarbers} ({displayedBarbers.length} {t.results})
               {getActiveFilterCount() > 0 && (
                 <Chip
-                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь����ров'}`}
+                  label={`${getActiveFilterCount()} ${language === 'en' ? 'filters' : language === 'tr' ? 'filtre' : 'филь��ров'}`}
                   size="small"
                   sx={{ ml: 1, bgcolor: '#00a693', color: 'white' }}
                   onDelete={() => {
@@ -1307,6 +1307,23 @@ const Home = () => {
             <ListItemButton onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
               <ListItemIcon><SupportIcon /></ListItemIcon>
               <ListItemText primary={t.support} />
+            </ListItemButton>
+            <Divider sx={{ my: 1 }} />
+            <ListItemButton
+              onClick={() => { navigate('/business-signup'); setDrawerOpen(false); }}
+              sx={{
+                bgcolor: 'rgba(255, 107, 53, 0.08)',
+                '&:hover': { bgcolor: 'rgba(255, 107, 53, 0.15)' },
+                mb: 1,
+                borderRadius: 1,
+                mx: 1
+              }}
+            >
+              <ListItemIcon><Business sx={{ color: '#ff6b35' }} /></ListItemIcon>
+              <ListItemText
+                primary={t.tryBusiness}
+                sx={{ '& .MuiTypography-root': { color: '#ff6b35', fontWeight: 600 } }}
+              />
             </ListItemButton>
             <ListItemButton onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
               <ListItemIcon><Schedule /></ListItemIcon>
