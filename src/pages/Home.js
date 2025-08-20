@@ -45,7 +45,6 @@ import {
   Favorite,
   ContentCut,
   LocalOffer,
-  Language,
   Facebook,
   Twitter,
   Instagram,
@@ -686,7 +685,7 @@ const Home = () => {
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
                 : language === 'tr'
                 ? 'Güzellik ve bakım ihtiyaçları için bize güvenen binlerce memnun müşteriye katılın'
-                : 'Присоединяйтесь к тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
+                : 'Присоединяйтесь к тысячам довольных клиентов, ко��орые доверяют нам свои потребности в красоте и уходе'
               }
             </Typography>
             <Stack
