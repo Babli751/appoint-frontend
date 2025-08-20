@@ -443,7 +443,33 @@ const getTranslations = (lang) => {
       barbers: 'Парикмахеров',
       barber: 'парикмахеров',
       traditionalLabel: 'Традиционный',
-      premiumLabel: 'Премиум'
+      premiumLabel: 'Премиум',
+
+      // Business translations
+      tryBusiness: 'Попробовать бизнес',
+      businessSignup: 'Регистрация бизнеса',
+      businessPortal: 'Бизнес-портал',
+      businessDashboard: 'Бизнес-панель',
+      joinOurNetwork: 'Присоединитесь к нашей сети',
+      businessSubtitle: 'Развивайте свой парикмахерский бизнес с нами',
+      businessName: 'Название бизнеса',
+      ownerName: 'Имя владельца',
+      businessAddress: 'Адрес бизнеса',
+      city: 'Город',
+      phoneNumber: 'Номер телефона',
+      businessDescription: 'Описание бизнеса',
+      services: 'Услуги',
+      addService: 'Добавить услугу',
+      serviceName: 'Название услуги',
+      servicePrice: 'Цена',
+      serviceDuration: 'Продолжительность (минуты)',
+      manageServices: 'Управление услугами',
+      businessInfo: 'Информация о бизнесе',
+      getStartedBusiness: 'Начать для бизнеса',
+      whyJoinUs: 'Почему стоит присоединиться?',
+      increaseBookings: 'Увеличьте бронирования',
+      easyManagement: 'Простое управление',
+      growYourBusiness: 'Развивайте свой бизнес'
     }
   };
 
