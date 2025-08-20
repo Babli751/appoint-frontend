@@ -44,8 +44,6 @@ import {
 
 const BusinessSignup = () => {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { language, changeLanguage, t } = useLanguage();
 
   const [activeStep, setActiveStep] = useState(0);
