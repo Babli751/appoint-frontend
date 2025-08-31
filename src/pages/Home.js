@@ -529,7 +529,7 @@ const Home = () => {
                 ? 'From traditional barbershops to modern beauty salons, find the perfect place for your style and wellness needs'
                 : language === 'tr'
                 ? 'Geleneksel berber dükkanlarından modern güzellik salonlarına, tarzınız ve sağlık ihtiyaçlarınız için mükemmel yeri bulun'
-                : 'От традиционных парикмахерских до современных салонов красоты, найдите идеальное место для ваших потребностей в стиле и красоте'
+                : 'От традиционных парикмахерских до современных салонов красоты, найдите идеальное место для ваш��х потребностей в стиле и красоте'
               }
             </Typography>
           </Box>
@@ -639,7 +639,8 @@ const Home = () => {
             <Typography variant="h3" sx={{
               fontWeight: 'bold',
               mb: 2,
-              fontSize: { xs: '2rem', md: '2.5rem' }
+              fontSize: { xs: '2rem', md: '2.5rem' },
+              color: '#000'
             }}>
               {language === 'en'
                 ? 'Ready to Book Your Next Appointment?'
@@ -653,7 +654,8 @@ const Home = () => {
               opacity: 0.9,
               fontSize: { xs: '1.1rem', md: '1.25rem' },
               maxWidth: 600,
-              mx: 'auto'
+              mx: 'auto',
+              color: '#000'
             }}>
               {language === 'en'
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
@@ -665,7 +667,7 @@ const Home = () => {
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
-              sx={{ justifyContent: 'center', alignItems: 'center' }}
+              sx={{ justifyContent: 'center', alignItems: 'center', maxWidth: 600, mx: 'auto' }}
             >
               <Button
                 variant="contained"
