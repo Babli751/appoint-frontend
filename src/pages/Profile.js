@@ -27,7 +27,6 @@ import {
   Switch,
   FormControlLabel,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -37,7 +36,16 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Alert
+  Alert,
+  CircularProgress,
+  Chip,
+  Rating,
+  Fab,
+  Menu,
+  MenuItem as MuiMenuItem,
+  InputAdornment,
+  Snackbar,
+  Input
 } from '@mui/material';
 import {
   ArrowBack,
@@ -53,17 +61,30 @@ import {
   ExitToApp,
   Save,
   Cancel,
-  Camera,
+  CameraAlt,
   DateRange,
   Favorite,
-  History
+  History,
+  Lock,
+  Visibility,
+  VisibilityOff,
+  Share,
+  MoreVert,
+  QrCode,
+  VerifiedUser,
+  CalendarToday,
+  Star,
+  Payment,
+  Loyalty,
+  Description
 } from '@mui/icons-material';
+import { authAPI, profileApi, userAPI } from '../services/api';
 
 const Profile = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { user, updateUser, changePassword, logout } = useAuth();
+  const { user, updateUser, logout } = useAuth();
   const { language, changeLanguage } = useLanguage();
 
   const [tabValue, setTabValue] = useState(0);
@@ -72,76 +93,84 @@ const Profile = () => {
   const [privacyPolicyOpen, setPrivacyPolicyOpen] = useState(false);
   const [termsOfServiceOpen, setTermsOfServiceOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+  const [profileError, setProfileError] = useState(null);
+  const [avatarFile, setAvatarFile] = useState(null);
+
   const [passwordData, setPasswordData] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
+
   const [passwordError, setPasswordError] = useState('');
   const [notifications, setNotifications] = useState({
-    email: true,
-    push: true,
-    sms: false
+    email_notifications: true,
+    push_notifications: true,
+    sms_notifications: false,
   });
 
-  // State for user data and loading
   const [userInfo, setUserInfo] = useState({
-    firstName: '',
-    lastName: '',
+    full_name: '',
     email: '',
-    phone: '',
-    birthDate: '',
+    phone_number: '',
+    birth_date: '',
     address: '',
-    memberSince: new Date().getFullYear(),
-    totalAppointments: 0,
-    favoriteBarbers: 0
+    created_at: '',
+    loyalty_points: 0,
+    membership_tier: 'Bronze',
+    rating: 0,
+    total_appointments: 0,
+    favorite_barbers: 0,
+    upcoming_appointments: 0,
+    avatar_url: ''
   });
-
-  const [profileLoading, setProfileLoading] = useState(true);
-  const [profileError, setProfileError] = useState(null);
 
   const [editedInfo, setEditedInfo] = useState(userInfo);
 
-  // Fetch user profile data from API
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const fetchUserData = async () => {
+      setLoading(true);
       try {
-        setProfileLoading(true);
-        setProfileError(null);
+        const userResponse = await authAPI.getProfile();
+        const statsResponse = await profileApi.getUserStats();
+        
+        const userData = {
+          full_name: userResponse.full_name || '',
+          email: userResponse.email || '',
+          phone_number: userResponse.phone_number || '',
+          birth_date: userResponse.birth_date || '',
+          address: userResponse.address || '',
+          created_at: userResponse.created_at || '',
+          loyalty_points: userResponse.loyalty_points || 0,
+          membership_tier: userResponse.membership_tier || 'Bronze',
+          rating: userResponse.rating || 0,
+          total_appointments: statsResponse.total_appointments || 0,
+          favorite_barbers: statsResponse.favorite_barbers || 0,
+          upcoming_appointments: statsResponse.upcoming_appointments || 0,
+          avatar_url: userResponse.avatar_url || ''
+        };
 
-        // TODO: Replace with actual API call
-        // const response = await fetch('/api/user/profile');
-        // const profileData = await response.json();
-
-        // For now, use basic user data from AuthContext if available
-        if (user) {
-          const updatedUserInfo = {
-            firstName: user.firstName || user.first_name || '',
-            lastName: user.lastName || user.last_name || '',
-            email: user.email || '',
-            phone: user.phone || '',
-            birthDate: user.birthDate || user.birth_date || '',
-            address: user.address || '',
-            memberSince: user.memberSince || new Date().getFullYear(),
-            totalAppointments: 0, // Will be fetched from API
-            favoriteBarbers: 0 // Will be fetched from API
-          };
-          setUserInfo(updatedUserInfo);
-          setEditedInfo(updatedUserInfo);
-        }
-      } catch (err) {
-        console.error('Failed to fetch profile data:', err);
-        setProfileError(err.message);
+        setUserInfo(userData);
+        setEditedInfo(userData);
+        setNotifications(userResponse.notification_settings || {
+          email_notifications: true,
+          push_notifications: true,
+          sms_notifications: false
+        });
+      } catch (error) {
+        setProfileError(error.response?.data?.detail || 'Failed to load profile');
+        setSnackbar({ open: true, message: 'Failed to load profile', severity: 'error' });
       } finally {
-        setProfileLoading(false);
+        setLoading(false);
       }
     };
 
-    fetchProfileData();
-  }, [user]);
+    fetchUserData();
+  }, []);
 
-  // Language content (keep as fallback if needed)
   const content = {
     tr: {
       brand: 'BarberPro',
@@ -149,8 +178,7 @@ const Profile = () => {
       personalInfo: 'Kişisel Bilgiler',
       settings: 'Ayarlar',
       security: 'Güvenlik',
-      firstName: 'Ad',
-      lastName: 'Soyad',
+      fullName: 'Ad Soyad',
       email: 'E-posta',
       phone: 'Telefon',
       birthDate: 'Doğum Tarihi',
@@ -158,6 +186,8 @@ const Profile = () => {
       memberSince: 'Üyelik Tarihi',
       totalAppointments: 'Toplam Randevu',
       favoriteBarbers: 'Favori Berber',
+      loyaltyPoints: 'Sadakat Puanı',
+      membershipTier: 'Üyelik Seviyesi',
       edit: 'Düzenle',
       save: 'Kaydet',
       cancel: 'İptal',
@@ -178,7 +208,30 @@ const Profile = () => {
       support: 'Destek',
       deleteAccount: 'Hesabı Sil',
       privacyPolicy: 'Gizlilik Politikası',
-      termsOfService: 'Kullanım Şartları'
+      termsOfService: 'Kullanım Şartları',
+      loading: 'Yükleniyor...',
+      tryAgain: 'Tekrar Dene',
+      close: 'Kapat',
+      currentPassword: 'Mevcut Şifre',
+      newPassword: 'Yeni Şifre',
+      confirmPassword: 'Yeni Şifreyi Onayla',
+      allFieldsRequired: 'Tüm alanlar zorunludur',
+      passwordsNotMatch: 'Şifreler eşleşmiyor',
+      passwordMinLength: 'Şifre en az 6 karakter olmalıdır',
+      profileUpdated: 'Profil başarıyla güncellendi!',
+      passwordChanged: 'Şifre başarıyla değiştirildi!',
+      quickActions: 'Hızlı İşlemler',
+      shareProfile: 'Profili Paylaş',
+      viewQR: 'QR Kodunu Görüntüle',
+      appointmentHistory: 'Randevu Geçmişi',
+      paymentMethods: 'Ödeme Yöntemleri',
+      securitySettings: 'Güvenlik Ayarları',
+      darkMode: 'Karanlık Mod',
+      deleteAccountConfirm: 'Hesabınızı silmek istediğinize emin misiniz?',
+      cancelAppointment: 'Randevu İptal',
+      reschedule: 'Yeniden Planla',
+      rateService: 'Hizmeti Değerlendir',
+      uploadAvatar: 'Profil Fotoğrafı Yükle'
     },
     en: {
       brand: 'BarberPro',
@@ -186,8 +239,7 @@ const Profile = () => {
       personalInfo: 'Personal Information',
       settings: 'Settings',
       security: 'Security',
-      firstName: 'First Name',
-      lastName: 'Last Name',
+      fullName: 'Full Name',
       email: 'Email',
       phone: 'Phone',
       birthDate: 'Birth Date',
@@ -195,6 +247,8 @@ const Profile = () => {
       memberSince: 'Member Since',
       totalAppointments: 'Total Appointments',
       favoriteBarbers: 'Favorite Barbers',
+      loyaltyPoints: 'Loyalty Points',
+      membershipTier: 'Membership Tier',
       edit: 'Edit',
       save: 'Save',
       cancel: 'Cancel',
@@ -215,16 +269,38 @@ const Profile = () => {
       support: 'Support',
       deleteAccount: 'Delete Account',
       privacyPolicy: 'Privacy Policy',
-      termsOfService: 'Terms of Service'
+      termsOfService: 'Terms of Service',
+      loading: 'Loading...',
+      tryAgain: 'Try Again',
+      close: 'Close',
+      currentPassword: 'Current Password',
+      newPassword: 'New Password',
+      confirmPassword: 'Confirm New Password',
+      allFieldsRequired: 'All fields are required',
+      passwordsNotMatch: 'Passwords do not match',
+      passwordMinLength: 'Password must be at least 6 characters',
+      profileUpdated: 'Profile updated successfully!',
+      passwordChanged: 'Password changed successfully!',
+      quickActions: 'Quick Actions',
+      shareProfile: 'Share Profile',
+      viewQR: 'View QR Code',
+      appointmentHistory: 'Appointment History',
+      paymentMethods: 'Payment Methods',
+      securitySettings: 'Security Settings',
+      darkMode: 'Dark Mode',
+      deleteAccountConfirm: 'Are you sure you want to delete your account?',
+      cancelAppointment: 'Cancel Appointment',
+      reschedule: 'Reschedule',
+      rateService: 'Rate Service',
+      uploadAvatar: 'Upload Profile Picture'
     },
     ru: {
       brand: 'BarberPro',
       profile: 'Мой Профиль',
-      personalInfo: 'Л��чная Информация',
+      personalInfo: 'Личная Информация',
       settings: 'Настройки',
       security: 'Безопасность',
-      firstName: 'Имя',
-      lastName: 'Фамилия',
+      fullName: 'Полное имя',
       email: 'Email',
       phone: 'Телефон',
       birthDate: 'Дата Рождения',
@@ -232,6 +308,8 @@ const Profile = () => {
       memberSince: 'Участник с',
       totalAppointments: 'Всего Записей',
       favoriteBarbers: 'Любимые Парикмахеры',
+      loyaltyPoints: 'Баллы Лояльности',
+      membershipTier: 'Уровень Членства',
       edit: 'Редактировать',
       save: 'Сохранить',
       cancel: 'Отмена',
@@ -251,40 +329,41 @@ const Profile = () => {
       preferences: 'Предпочтения',
       support: 'Поддержка',
       deleteAccount: 'Удалить Аккаунт',
-      privacyPolicy: 'По��итика Конфиденциальности',
-      termsOfService: 'Условия Использов��ния'
+      privacyPolicy: 'Политика Конфиденциальности',
+      termsOfService: 'Условия Использования',
+      loading: 'Загрузка...',
+      tryAgain: 'Попробовать снова',
+      close: 'Закрыть',
+      currentPassword: 'Текущий пароль',
+      newPassword: 'Новый пароль',
+      confirmPassword: 'Подтвердите новый пароль',
+      allFieldsRequired: 'Все поля обязательны',
+      passwordsNotMatch: 'Пароли не совпадают',
+      passwordMinLength: 'Пароль должен содержать минимум 6 символов',
+      profileUpdated: 'Профиль успешно обновлен!',
+      passwordChanged: 'Пароль успешно изменен!',
+      quickActions: 'Быстрые Действия',
+      shareProfile: 'Поделиться Профилем',
+      viewQR: 'Посмотреть QR-код',
+      appointmentHistory: 'История Записей',
+      paymentMethods: 'Способы Оплаты',
+      securitySettings: 'Настройки Безопасности',
+      darkMode: 'Темный Режим',
+      deleteAccountConfirm: 'Вы уверены, что хотите удалить аккаунт?',
+      cancelAppointment: 'Отменить Запись',
+      reschedule: 'Перенести',
+      rateService: 'Оценить Услугу',
+      uploadAvatar: 'Загрузить фото профиля'
     }
   };
 
-  const t = content[language];
+  const t = content[language] || content.en;
 
-  // Use fallback translations for profile-specific content
-  const profileTranslations = {
-    profile: language === 'en' ? 'My Profile' : language === 'tr' ? 'Profilim' : 'Мой Профиль',
-    personalInfo: language === 'en' ? 'Personal Information' : language === 'tr' ? 'Kişisel Bilgiler' : 'Личная Информация',
-    settings: language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки',
-    security: language === 'en' ? 'Security' : language === 'tr' ? 'Güvenlik' : 'Безопасность',
-    firstName: language === 'en' ? 'First Name' : language === 'tr' ? 'Ad' : 'Имя',
-    lastName: language === 'en' ? 'Last Name' : language === 'tr' ? 'Soyad' : 'Фамилия',
-    email: language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email',
-    phone: language === 'en' ? 'Phone' : language === 'tr' ? 'Telefon' : 'Телефон',
-    birthDate: language === 'en' ? 'Birth Date' : language === 'tr' ? 'Doğum Tarihi' : 'Дата Рождения',
-    address: language === 'en' ? 'Address' : language === 'tr' ? 'Adres' : 'Адрес',
-    totalAppointments: language === 'en' ? 'Total Appointments' : language === 'tr' ? 'Toplam Randevu' : 'Всего Записей',
-    favoriteBarbers: language === 'en' ? 'Favorite Barbers' : language === 'tr' ? 'Favori Berber' : 'Любимые Парикмахеры',
-    memberSince: language === 'en' ? 'Member Since' : language === 'tr' ? 'Üyelik Tarihi' : 'Участник с',
-    edit: language === 'en' ? 'Edit' : language === 'tr' ? 'Düzenle' : 'Редактировать',
-    save: language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить',
-    cancel: language === 'en' ? 'Cancel' : language === 'tr' ? 'İptal' : 'Отмена',
-    changePassword: language === 'en' ? 'Change Password' : language === 'tr' ? 'Şifre Değiştir' : 'Изменить Пароль',
-    logout: language === 'en' ? 'Logout' : language === 'tr' ? 'Çıkış Yap' : 'Выйти',
-    notifications: language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления',
-    preferences: language === 'en' ? 'Preferences' : language === 'tr' ? 'Tercihler' : 'Предпочтения',
-    language: language === 'en' ? 'Language' : language === 'tr' ? 'Dil' : 'Язык',
-    help: language === 'en' ? 'Help' : language === 'tr' ? 'Yardım' : 'Помощь',
-    privacyPolicy: language === 'en' ? 'Privacy Policy' : language === 'tr' ? 'Gizlilik Politikası' : 'Политика Конфиденциальности',
-    termsOfService: language === 'en' ? 'Terms of Service' : language === 'tr' ? 'Kullanım Şartları' : 'Условия Использования'
-  };
+  const TabPanel = ({ children, value, index }) => (
+    <div hidden={value !== index} style={{ width: '100%' }}>
+      {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
+    </div>
+  );
 
   const handleInputChange = (field) => (event) => {
     setEditedInfo(prev => ({
@@ -293,93 +372,105 @@ const Profile = () => {
     }));
   };
 
-  const handleSave = async () => {
-    setLoading(true);
-    try {
-      const updatedProfile = {
-        first_name: editedInfo.firstName,
-        last_name: editedInfo.lastName,
-        email: editedInfo.email,
-        phone: editedInfo.phone,
-        birth_date: editedInfo.birthDate,
-        address: editedInfo.address
-      };
-
-      await updateUser(updatedProfile);
-      setUserInfo(editedInfo);
-      setEditing(false);
-      setUpdateSuccess(true);
-
-      // Hide success message after 3 seconds
-      setTimeout(() => setUpdateSuccess(false), 3000);
-    } catch (error) {
-      console.error('Failed to update profile:', error);
-      alert(language === 'en' ? 'Failed to update profile' :
-            language === 'tr' ? 'Profil güncellenemedi' :
-            'Не удалось обновить профиль');
-    } finally {
-      setLoading(false);
+  const handleAvatarChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAvatarFile(file);
+      const formData = new FormData();
+      formData.append('file', file);
+      setLoading(true);
+      try {
+        const response = await profileApi.uploadAvatar(formData);
+        setUserInfo(prev => ({ ...prev, avatar_url: response.avatar_url }));
+        setSnackbar({ open: true, message: 'Profile picture uploaded successfully', severity: 'success' });
+      } catch (error) {
+        setSnackbar({ open: true, message: error.response?.data?.detail || 'Failed to upload avatar', severity: 'error' });
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
-  const handleCancel = () => {
-    setEditedInfo(userInfo);
-    setEditing(false);
-  };
-
-  const handleChangePassword = () => {
-    setChangePasswordOpen(true);
-    setPasswordError('');
-  };
-
-  const handlePasswordChange = (field) => (event) => {
-    setPasswordData(prev => ({
-      ...prev,
-      [field]: event.target.value
-    }));
-    setPasswordError('');
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      const updateData = {
+        full_name: editedInfo.full_name,
+        phone_number: editedInfo.phone_number,
+        birth_date: editedInfo.birth_date,
+        address: editedInfo.address
+      };
+      const response = await authAPI.updateProfile(updateData);
+      setUserInfo(prev => ({ ...prev, ...response }));
+      setEditing(false);
+      setSnackbar({ open: true, message: t.profileUpdated, severity: 'success' });
+    } catch (error) {
+      setSnackbar({ open: true, message: error.response?.data?.detail || 'Update failed', severity: 'error' });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handlePasswordSubmit = async () => {
     if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
-      setPasswordError(language === 'en' ? 'All fields are required' : language === 'tr' ? 'Tüm alanlar zorunludur' : 'Все поля обязательны');
+      setPasswordError(t.allFieldsRequired);
       return;
     }
 
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordError(language === 'en' ? 'Passwords do not match' : language === 'tr' ? 'Şifreler eşleşmiyor' : 'Пароли не совпадают');
+      setPasswordError(t.passwordsNotMatch);
       return;
     }
 
     if (passwordData.newPassword.length < 6) {
-      setPasswordError(language === 'en' ? 'Password must be at least 6 characters' : language === 'tr' ? 'Şifre en az 6 karakter olmalıdır' : 'Пароль должен содержать минимум 6 символов');
+      setPasswordError(t.passwordMinLength);
       return;
     }
 
     setLoading(true);
     try {
-      await changePassword(passwordData.currentPassword, passwordData.newPassword);
+      await authAPI.changePassword(passwordData.currentPassword, passwordData.newPassword);
       setChangePasswordOpen(false);
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-
-      alert(language === 'en' ? 'Password changed successfully' :
-            language === 'tr' ? 'Şifre başarıyla değiştirildi' :
-            'Пароль успешно изменен');
+      setSnackbar({ open: true, message: t.passwordChanged, severity: 'success' });
     } catch (error) {
-      console.error('Password change failed:', error);
-      setPasswordError(
-        error.response?.data?.detail ||
-        (language === 'en' ? 'Failed to change password' :
-         language === 'tr' ? 'Şifre değiştirilemedi' :
-         'Не удалось изменить пароль')
-      );
+      setPasswordError(error.response?.data?.detail || t.passwordChangeFailed);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleHelp = () => {
-    navigate('/support');
+  const handleNotificationChange = (field) => (event) => {
+    setNotifications(prev => ({
+      ...prev,
+      [field]: event.target.checked
+    }));
+  };
+
+  const handleSaveNotifications = async () => {
+    setLoading(true);
+    try {
+      await userAPI.updateNotificationSettings(notifications);
+      setSnackbar({ open: true, message: 'Notifications updated successfully', severity: 'success' });
+    } catch (error) {
+      setSnackbar({ open: true, message: error.response?.data?.detail || 'Failed to update notifications', severity: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleShareProfile = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setSnackbar({ open: true, message: 'Profile link copied!', severity: 'success' });
+    handleMenuClose();
   };
 
   const handlePrivacyPolicy = () => {
@@ -390,17 +481,37 @@ const Profile = () => {
     setTermsOfServiceOpen(true);
   };
 
-  const TabPanel = ({ children, value, index }) => (
-    <div hidden={value !== index}>
-      {value === index && <Box sx={{ py: 3 }}>{children}</Box>}
-    </div>
-  );
+  const getTierColor = (tier) => {
+    switch (tier.toLowerCase()) {
+      case 'gold': return '#FFD700';
+      case 'silver': return '#C0C0C0';
+      case 'bronze': return '#CD7F32';
+      default: return '#00a693';
+    }
+  };
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress sx={{ color: '#00a693' }} />
+      </Box>
+    );
+  }
+
+  if (profileError) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Alert severity="error">{profileError}</Alert>
+      </Box>
+    );
+  }
 
   return (
-    <Box sx={{ bgcolor: '#f8f9fa', minHeight: '100vh' }}>
+    <Box sx={{ bgcolor: '#f5f5f5', minHeight: '100vh', pb: 4 }}>
       {/* Header */}
-      <AppBar position="static" sx={{ 
-        background: 'linear-gradient(135deg, #00a693 0%, #4fd5c7 100%)'
+      <AppBar position="sticky" sx={{ 
+        background: 'linear-gradient(135deg, #00a693 0%, #00897b 100%)',
+        boxShadow: '0 2px 20px rgba(0,0,0,0.1)'
       }}>
         <Toolbar>
           <IconButton 
@@ -411,383 +522,493 @@ const Profile = () => {
           >
             <ArrowBack />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-            {profileTranslations.profile}
+          <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+            {t.profile}
           </Typography>
           
-          {/* Language Selector */}
-          <FormControl size="small" sx={{ minWidth: 100, mr: 2 }}>
-            <Select
-              value={language}
-              onChange={(e) => changeLanguage(e.target.value)}
-              sx={{
-                color: 'white',
-                '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
-                '& .MuiSvgIcon-root': { color: 'white' }
-              }}
-            >
-              <MenuItem value="tr">🇹🇷 TR</MenuItem>
-              <MenuItem value="en">🇺🇸 EN</MenuItem>
-              <MenuItem value="ru">🇷🇺 RU</MenuItem>
-            </Select>
-          </FormControl>
+          <IconButton color="inherit" onClick={handleMenuOpen}>
+            <MoreVert />
+          </IconButton>
+          
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            <MuiMenuItem onClick={handleShareProfile}>
+              <Share sx={{ mr: 1 }} /> {t.shareProfile}
+            </MuiMenuItem>
+            <MuiMenuItem onClick={() => navigate('/appointments')}>
+              <History sx={{ mr: 1 }} /> {t.appointmentHistory}
+            </MuiMenuItem>
+            <MuiMenuItem onClick={() => navigate('/payments')}>
+              <Payment sx={{ mr: 1 }} /> {t.paymentMethods}
+            </MuiMenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
 
-      <Container sx={{ py: { xs: 2, md: 3 } }}>
-        {/* Success Alert */}
-        {updateSuccess && (
-          <Alert severity="success" sx={{ mb: 3 }}>
-            {language === 'en' ? 'Profile updated successfully!' :
-             language === 'tr' ? 'Profil başarıyla güncellendi!' :
-             'Профиль успешно обновлен!'}
-          </Alert>
-        )}
+      <Container maxWidth="lg" sx={{ py: 3 }}>
+        {/* Quick Actions */}
+        <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid item xs={6} md={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<CalendarToday />}
+              onClick={() => navigate('/appointments')}
+              sx={{ py: 1.5, background: 'linear-gradient(45deg, #00a693, #4fd5c7)' }}
+            >
+              {t.appointmentHistory}
+            </Button>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<Payment />}
+              onClick={() => navigate('/payments')}
+              sx={{ py: 1.5, background: 'linear-gradient(45deg, #ff6b35, #ff9b6a)' }}
+            >
+              {t.paymentMethods}
+            </Button>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<Loyalty />}
+              onClick={() => navigate('/loyalty')}
+              sx={{ py: 1.5, background: 'linear-gradient(45deg, #10b981, #34d399)' }}
+            >
+              {t.loyaltyPoints}
+            </Button>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <Button
+              fullWidth
+              variant="contained"
+              startIcon={<Star />}
+              onClick={() => navigate('/ratings')}
+              sx={{ py: 1.5, background: 'linear-gradient(45deg, #f59e0b, #fbbf24)' }}
+            >
+              {t.rateService}
+            </Button>
+          </Grid>
+        </Grid>
 
-        {/* Profile Header */}
-        <Card sx={{ mb: 3 }}>
-          <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-            <Box sx={{ 
-              display: 'flex', 
-              flexDirection: { xs: 'column', md: 'row' },
-              alignItems: { xs: 'center', md: 'flex-start' },
-              gap: 3 
-            }}>
-              <Box sx={{ position: 'relative' }}>
-                <Avatar
-                  src={user?.avatar || ''}
-                  sx={{
-                    width: { xs: 100, md: 120 },
-                    height: { xs: 100, md: 120 }
-                  }}
-                >
-                  {!user?.avatar && userInfo.firstName ? userInfo.firstName.charAt(0).toUpperCase() : ''}
-                </Avatar>
-                {user?.avatar && (
-                  <IconButton
+        <Grid container spacing={3}>
+          {/* Left Sidebar - Profile Summary */}
+          <Grid item xs={12} md={4}>
+            <Card sx={{ mb: 3, borderRadius: 3, boxShadow: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
+                  <Avatar
+                    src={userInfo.avatar_url}
                     sx={{
-                      position: 'absolute',
-                      bottom: 0,
-                      right: 0,
+                      width: 120,
+                      height: 120,
+                      fontSize: '3rem',
                       bgcolor: '#00a693',
-                      color: 'white',
-                      width: 35,
-                      height: 35,
-                      '&:hover': { bgcolor: '#007562' }
+                      border: '4px solid white',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
                     }}
                   >
-                    <Camera fontSize="small" />
-                  </IconButton>
-                )}
-              </Box>
-              
-              <Box sx={{ 
-                flex: 1, 
-                textAlign: { xs: 'center', md: 'left' },
-                width: { xs: '100%', md: 'auto' }
-              }}>
-                <Typography variant="h4" sx={{
-                  fontWeight: 'bold',
-                  mb: 1,
-                  fontSize: { xs: '1.5rem', md: '2rem' }
-                }}>
-                  {userInfo.firstName && userInfo.lastName
-                    ? `${userInfo.firstName} ${userInfo.lastName}`
-                    : userInfo.firstName
-                    ? userInfo.firstName
-                    : userInfo.email?.split('@')[0] || 'User'
-                  }
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                  {userInfo.email}
+                    {!userInfo.avatar_url && userInfo.full_name ? userInfo.full_name.charAt(0) : ''}
+                  </Avatar>
+                  <label htmlFor="avatar-upload">
+                    <Fab
+                      size="small"
+                      sx={{
+                        position: 'absolute',
+                        bottom: 8,
+                        right: 8,
+                        bgcolor: '#00a693',
+                        color: 'white',
+                        '&:hover': { bgcolor: '#007562' }
+                      }}
+                      component="span"
+                    >
+                      <CameraAlt />
+                    </Fab>
+                  </label>
+                  <Input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    sx={{ display: 'none' }}
+                  />
+                </Box>
+
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
+                  {userInfo.full_name}
                 </Typography>
                 
-                <Grid container spacing={2} sx={{ mt: 2 }}>
-                  <Grid item xs={12} sm={4}>
-                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#00a693', color: 'white' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        {userInfo.totalAppointments}
-                      </Typography>
-                      <Typography variant="body2">
-                        {profileTranslations.totalAppointments}
-                      </Typography>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#ff6b35', color: 'white' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        {userInfo.favoriteBarbers}
-                      </Typography>
-                      <Typography variant="body2">
-                        {profileTranslations.favoriteBarbers}
-                      </Typography>
-                    </Paper>
-                  </Grid>
-                  <Grid item xs={12} sm={4}>
-                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#10b981', color: 'white' }}>
-                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                        {userInfo.memberSince || new Date().getFullYear()}
-                      </Typography>
-                      <Typography variant="body2">
-                        {profileTranslations.memberSince}
-                      </Typography>
-                    </Paper>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </CardContent>
-        </Card>
-
-        {/* Tabs */}
-        <Card>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs 
-              value={tabValue} 
-              onChange={(e, newValue) => setTabValue(newValue)}
-              variant={isMobile ? "scrollable" : "standard"}
-              scrollButtons={isMobile ? "auto" : false}
-            >
-              <Tab label={profileTranslations.personalInfo} />
-              <Tab label={profileTranslations.settings} />
-              <Tab label={profileTranslations.security} />
-            </Tabs>
-          </Box>
-
-          {/* Personal Information Tab */}
-          <TabPanel value={tabValue} index={0}>
-            <Box sx={{ p: { xs: 2, md: 3 } }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                  {profileTranslations.personalInfo}
-                </Typography>
-                {!editing ? (
-                  <Button 
-                    startIcon={<Edit />}
-                    onClick={() => setEditing(true)}
-                    sx={{ color: '#00a693' }}
-                  >
-                    {profileTranslations.edit}
-                  </Button>
-                ) : (
-                  <Stack direction="row" spacing={1}>
-                    <Button 
-                      startIcon={<Save />}
-                      variant="contained"
-                      onClick={handleSave}
-                      sx={{ bgcolor: '#00a693' }}
-                    >
-                      {profileTranslations.save}
-                    </Button>
-                    <Button 
-                      startIcon={<Cancel />}
-                      variant="outlined"
-                      onClick={handleCancel}
-                    >
-                      {profileTranslations.cancel}
-                    </Button>
-                  </Stack>
-                )}
-              </Box>
-
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.firstName}
-                    value={editing ? editedInfo.firstName : userInfo.firstName}
-                    onChange={handleInputChange('firstName')}
-                    disabled={!editing}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.lastName}
-                    value={editing ? editedInfo.lastName : userInfo.lastName}
-                    onChange={handleInputChange('lastName')}
-                    disabled={!editing}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.email}
-                    type="email"
-                    value={editing ? editedInfo.email : userInfo.email}
-                    onChange={handleInputChange('email')}
-                    disabled={!editing}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.phone}
-                    value={editing ? editedInfo.phone : userInfo.phone}
-                    onChange={handleInputChange('phone')}
-                    disabled={!editing}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.birthDate}
-                    type="date"
-                    value={editing ? editedInfo.birthDate : userInfo.birthDate}
-                    onChange={handleInputChange('birthDate')}
-                    disabled={!editing}
-                    variant="outlined"
-                    InputLabelProps={{ shrink: true }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label={profileTranslations.address}
-                    multiline
-                    rows={3}
-                    value={editing ? editedInfo.address : userInfo.address}
-                    onChange={handleInputChange('address')}
-                    disabled={!editing}
-                    variant="outlined"
-                  />
-                </Grid>
-              </Grid>
-            </Box>
-          </TabPanel>
-
-          {/* Settings Tab */}
-          <TabPanel value={tabValue} index={1}>
-            <Box sx={{ p: { xs: 2, md: 3 } }}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {profileTranslations.preferences}
-              </Typography>
-
-              {/* Language Settings */}
-              <Box sx={{ mb: 4 }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {profileTranslations.language}
-                </Typography>
-                <FormControl fullWidth sx={{ maxWidth: 300 }}>
-                  <InputLabel>{t.language}</InputLabel>
-                  <Select
-                    value={language}
-                    onChange={(e) => changeLanguage(e.target.value)}
-                    label={profileTranslations.language}
-                  >
-                    <MenuItem value="tr">🇹🇷 {t.turkish}</MenuItem>
-                    <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
-                    <MenuItem value="ru">🇷🇺 {t.russian}</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-
-              {/* Notification Settings */}
-              <Box sx={{ mb: 4 }}>
-                <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {profileTranslations.notifications}
-                </Typography>
-                <Stack spacing={2}>
-                  <FormControlLabel
-                    control={
-                      <Switch 
-                        checked={notifications.email}
-                        onChange={(e) => setNotifications(prev => ({ ...prev, email: e.target.checked }))}
-                        sx={{ 
-                          '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
-                          '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
-                        }}
-                      />
-                    }
-                    label={t.emailNotifications}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Switch 
-                        checked={notifications.push}
-                        onChange={(e) => setNotifications(prev => ({ ...prev, push: e.target.checked }))}
-                        sx={{ 
-                          '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
-                          '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
-                        }}
-                      />
-                    }
-                    label={t.pushNotifications}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Switch 
-                        checked={notifications.sms}
-                        onChange={(e) => setNotifications(prev => ({ ...prev, sms: e.target.checked }))}
-                        sx={{ 
-                          '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
-                          '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
-                        }}
-                      />
-                    }
-                    label={t.smsNotifications}
-                  />
-                </Stack>
-              </Box>
-            </Box>
-          </TabPanel>
-
-          {/* Security Tab */}
-          <TabPanel value={tabValue} index={2}>
-            <Box sx={{ p: { xs: 2, md: 3 } }}>
-              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {profileTranslations.security}
-              </Typography>
-
-              <List>
-                <ListItemButton onClick={handleChangePassword}>
-                  <ListItemIcon>
-                    <Security sx={{ color: '#00a693' }} />
-                  </ListItemIcon>
-                  <ListItemText primary={profileTranslations.changePassword} />
-                </ListItemButton>
-                <Divider />
-                <ListItemButton onClick={handleHelp}>
-                  <ListItemIcon>
-                    <Help sx={{ color: '#00a693' }} />
-                  </ListItemIcon>
-                  <ListItemText primary={profileTranslations.help} />
-                </ListItemButton>
-                <Divider />
-                <ListItemButton onClick={handlePrivacyPolicy}>
-                  <ListItemIcon>
-                    <Security sx={{ color: '#00a693' }} />
-                  </ListItemIcon>
-                  <ListItemText primary={profileTranslations.privacyPolicy} />
-                </ListItemButton>
-                <Divider />
-                <ListItemButton onClick={handleTermsOfService}>
-                  <ListItemIcon>
-                    <Security sx={{ color: '#00a693' }} />
-                  </ListItemIcon>
-                  <ListItemText primary={profileTranslations.termsOfService} />
-                </ListItemButton>
-                <Divider />
-                <ListItemButton
-                  onClick={() => {
-                    logout();
-                    navigate('/');
+                <Chip
+                  icon={<VerifiedUser />}
+                  label={userInfo.membership_tier}
+                  sx={{
+                    bgcolor: getTierColor(userInfo.membership_tier),
+                    color: 'white',
+                    fontWeight: 'bold',
+                    mb: 2
                   }}
-                  sx={{ color: '#ef4444' }}
+                />
+
+                <Rating
+                  value={userInfo.rating}
+                  readOnly
+                  precision={0.1}
+                  sx={{ mb: 2 }}
+                />
+
+                <Box sx={{ textAlign: 'left', mt: 3 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Email sx={{ color: '#00a693', mr: 2 }} />
+                    <Typography variant="body2">{userInfo.email}</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Phone sx={{ color: '#00a693', mr: 2 }} />
+                    <Typography variant="body2">{userInfo.phone_number || 'N/A'}</Typography>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <DateRange sx={{ color: '#00a693', mr: 2 }} />
+                    <Typography variant="body2">
+                      {t.memberSince}: {new Date(userInfo.created_at).toLocaleDateString()}
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardContent>
+            </Card>
+
+            {/* Stats Card */}
+            <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+              <CardContent>
+                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                  {t.accountInfo}
+                </Typography>
+                
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#00a693', color: 'white', borderRadius: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        {userInfo.total_appointments}
+                      </Typography>
+                      <Typography variant="body2">
+                        {t.totalAppointments}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#ff6b35', color: 'white', borderRadius: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        {userInfo.favorite_barbers}
+                      </Typography>
+                      <Typography variant="body2">
+                        {t.favoriteBarbers}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#10b981', color: 'white', borderRadius: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        {userInfo.loyalty_points}
+                      </Typography>
+                      <Typography variant="body2">
+                        {t.loyaltyPoints}
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#8b5cf6', color: 'white', borderRadius: 2 }}>
+                      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        {userInfo.rating}
+                      </Typography>
+                      <Typography variant="body2">
+                        Rating
+                      </Typography>
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+
+          {/* Main Content */}
+          <Grid item xs={12} md={8}>
+            <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs
+                  value={tabValue}
+                  onChange={(e, newValue) => setTabValue(newValue)}
+                  variant={isMobile ? "scrollable" : "fullWidth"}
+                  sx={{
+                    '& .MuiTab-root': { fontWeight: 'bold' },
+                    '& .Mui-selected': { color: '#00a693' }
+                  }}
                 >
-                  <ListItemIcon>
-                    <ExitToApp sx={{ color: '#ef4444' }} />
-                  </ListItemIcon>
-                  <ListItemText primary={profileTranslations.logout} />
-                </ListItemButton>
-              </List>
-            </Box>
-          </TabPanel>
-        </Card>
+                  <Tab label={t.personalInfo} />
+                  <Tab label={t.settings} />
+                  <Tab label={t.security} />
+                </Tabs>
+              </Box>
+
+              {/* Personal Information Tab */}
+              <TabPanel value={tabValue} index={0}>
+                <Box sx={{ p: 3 }}>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                      {t.personalInfo}
+                    </Typography>
+                    {!editing ? (
+                      <Button
+                        startIcon={<Edit />}
+                        onClick={() => setEditing(true)}
+                        variant="outlined"
+                        sx={{ color: '#00a693', borderColor: '#00a693' }}
+                      >
+                        {t.edit}
+                      </Button>
+                    ) : (
+                      <Stack direction="row" spacing={1}>
+                        <Button
+                          startIcon={<Save />}
+                          variant="contained"
+                          onClick={handleSave}
+                          disabled={loading}
+                          sx={{ bgcolor: '#00a693' }}
+                        >
+                          {loading ? <CircularProgress size={20} /> : t.save}
+                        </Button>
+                        <Button
+                          startIcon={<Cancel />}
+                          variant="outlined"
+                          onClick={() => setEditing(false)}
+                          disabled={loading}
+                        >
+                          {t.cancel}
+                        </Button>
+                      </Stack>
+                    )}
+                  </Box>
+
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        label={t.fullName}
+                        value={editing ? editedInfo.full_name : userInfo.full_name}
+                        onChange={handleInputChange('full_name')}
+                        disabled={!editing}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label={t.email}
+                        type="email"
+                        value={editing ? editedInfo.email : userInfo.email}
+                        onChange={handleInputChange('email')}
+                        disabled
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label={t.phone}
+                        value={editing ? editedInfo.phone_number : userInfo.phone_number || 'N/A'}
+                        onChange={handleInputChange('phone_number')}
+                        disabled={!editing}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <TextField
+                        fullWidth
+                        label={t.birthDate}
+                        type="date"
+                        value={editing ? editedInfo.birth_date : userInfo.birth_date || ''}
+                        onChange={handleInputChange('birth_date')}
+                        disabled={!editing}
+                        variant="outlined"
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        label={t.address}
+                        multiline
+                        rows={3}
+                        value={editing ? editedInfo.address : userInfo.address || ''}
+                        onChange={handleInputChange('address')}
+                        disabled={!editing}
+                        variant="outlined"
+                      />
+                    </Grid>
+                  </Grid>
+                </Box>
+              </TabPanel>
+
+              {/* Settings Tab */}
+              <TabPanel value={tabValue} index={1}>
+                <Box sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                    {t.preferences}
+                  </Typography>
+
+                  <Box sx={{ mb: 4 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
+                      {t.language}
+                    </Typography>
+                    <FormControl fullWidth sx={{ maxWidth: 300 }}>
+                      <InputLabel>{t.language}</InputLabel>
+                      <Select
+                        value={language}
+                        onChange={(e) => changeLanguage(e.target.value)}
+                        label={t.language}
+                      >
+                        <MenuItem value="tr">🇹🇷 {t.turkish}</MenuItem>
+                        <MenuItem value="en">🇺🇸 {t.english}</MenuItem>
+                        <MenuItem value="ru">🇷🇺 {t.russian}</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+
+                  <Box sx={{ mb: 4 }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 2 }}>
+                      {t.notifications}
+                    </Typography>
+                    <Stack spacing={2}>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={notifications.email_notifications}
+                            onChange={handleNotificationChange('email_notifications')}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
+                            }}
+                          />
+                        }
+                        label={t.emailNotifications}
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={notifications.push_notifications}
+                            onChange={handleNotificationChange('push_notifications')}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
+                            }}
+                          />
+                        }
+                        label={t.pushNotifications}
+                      />
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={notifications.sms_notifications}
+                            onChange={handleNotificationChange('sms_notifications')}
+                            sx={{
+                              '& .MuiSwitch-switchBase.Mui-checked': { color: '#00a693' },
+                              '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#00a693' }
+                            }}
+                          />
+                        }
+                        label={t.smsNotifications}
+                      />
+                      <Button
+                        variant="contained"
+                        onClick={handleSaveNotifications}
+                        sx={{ mt: 2, bgcolor: '#00a693' }}
+                      >
+                        {t.save}
+                      </Button>
+                    </Stack>
+                  </Box>
+                </Box>
+              </TabPanel>
+
+              {/* Security Tab */}
+              <TabPanel value={tabValue} index={2}>
+                <Box sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                    {t.security}
+                  </Typography>
+
+                  <List>
+                    <ListItemButton onClick={() => setChangePasswordOpen(true)}>
+                      <ListItemIcon>
+                        <Lock sx={{ color: '#00a693' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.changePassword} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton onClick={() => navigate('/security')}>
+                      <ListItemIcon>
+                        <Security sx={{ color: '#00a693' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.securitySettings} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton onClick={() => navigate('/support')}>
+                      <ListItemIcon>
+                        <Help sx={{ color: '#00a693' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.help} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton onClick={handlePrivacyPolicy}>
+                      <ListItemIcon>
+                        <VerifiedUser sx={{ color: '#00a693' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.privacyPolicy} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton onClick={handleTermsOfService}>
+                      <ListItemIcon>
+                        <Description sx={{ color: '#00a693' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.termsOfService} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton
+                      onClick={() => {
+                        if (window.confirm(t.deleteAccountConfirm)) {
+                          // Handle account deletion (backend endpoint eklenebilir)
+                        }
+                      }}
+                      sx={{ color: '#ef4444' }}
+                    >
+                      <ListItemIcon>
+                        <ExitToApp sx={{ color: '#ef4444' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.deleteAccount} />
+                    </ListItemButton>
+                    <Divider />
+                    <ListItemButton
+                      onClick={() => {
+                        logout();
+                        navigate('/');
+                      }}
+                      sx={{ color: '#ef4444' }}
+                    >
+                      <ListItemIcon>
+                        <ExitToApp sx={{ color: '#ef4444' }} />
+                      </ListItemIcon>
+                      <ListItemText primary={t.logout} />
+                    </ListItemButton>
+                  </List>
+                </Box>
+              </TabPanel>
+            </Card>
+          </Grid>
+        </Grid>
       </Container>
 
       {/* Change Password Dialog */}
@@ -797,10 +1018,10 @@ const Profile = () => {
         maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>
-          {profileTranslations.changePassword}
+        <DialogTitle sx={{ bgcolor: '#00a693', color: 'white' }}>
+          {t.changePassword}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ pt: 3 }}>
           {passwordError && (
             <Alert severity="error" sx={{ mb: 2 }}>
               {passwordError}
@@ -809,28 +1030,37 @@ const Profile = () => {
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Current Password' : language === 'tr' ? 'Mevcut Şifre' : 'Текущий пароль'}
-            type="password"
+            label={t.currentPassword}
+            type={showPassword ? 'text' : 'password'}
             value={passwordData.currentPassword}
-            onChange={handlePasswordChange('currentPassword')}
+            onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
             margin="normal"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
           />
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'New Password' : language === 'tr' ? 'Yeni Şifre' : 'Новый пароль'}
-            type="password"
+            label={t.newPassword}
+            type={showPassword ? 'text' : 'password'}
             value={passwordData.newPassword}
-            onChange={handlePasswordChange('newPassword')}
+            onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
             margin="normal"
           />
 
           <TextField
             fullWidth
-            label={language === 'en' ? 'Confirm New Password' : language === 'tr' ? 'Yeni Şifreyi Onayla' : 'Подтвердите ��овый пароль'}
-            type="password"
+            label={t.confirmPassword}
+            type={showPassword ? 'text' : 'password'}
             value={passwordData.confirmPassword}
-            onChange={handlePasswordChange('confirmPassword')}
+            onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
             margin="normal"
           />
         </DialogContent>
@@ -839,14 +1069,15 @@ const Profile = () => {
             onClick={() => setChangePasswordOpen(false)}
             color="inherit"
           >
-            {profileTranslations.cancel}
+            {t.cancel}
           </Button>
           <Button
             onClick={handlePasswordSubmit}
             variant="contained"
+            disabled={loading}
             sx={{ bgcolor: '#00a693' }}
           >
-            {profileTranslations.save}
+            {loading ? <CircularProgress size={20} /> : t.save}
           </Button>
         </DialogActions>
       </Dialog>
@@ -855,64 +1086,23 @@ const Profile = () => {
       <Dialog
         open={privacyPolicyOpen}
         onClose={() => setPrivacyPolicyOpen(false)}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>
-          {profileTranslations.privacyPolicy}
+        <DialogTitle sx={{ bgcolor: '#00a693', color: 'white' }}>
+          {t.privacyPolicy}
         </DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '1. Information Collection' :
-             language === 'tr' ? '1. Bilgi Toplama' :
-             '1. Сбор информации'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'We collect information you provide directly to us, such as when you create an account, book appointments, or contact us for support.' :
-             language === 'tr' ? 'Hesap oluşturduğunuzda, randevu aldığınızda veya destek için bizimle iletişime geçtiğinizde doğrudan bize sağladığınız bilgileri topluyoruz.' :
-             'Мы собираем информацию, котор��ю вы предоставляете нам напрямую, например, при создании учетной записи, бронировании встреч или обращении в службу поддержки.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '2. Information Use' :
-             language === 'tr' ? '2. Bilgi Kullanımı' :
-             '2. Использование информации'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'We use the information we collect to provide, maintain, and improve our services, process appointments, and communicate with you.' :
-             language === 'tr' ? 'Topladığımız bilgileri hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, randevuları işlemek ve sizinle iletişim kurmak için kullanırız.' :
-             'Мы используем собранную информацию для предоставления, поддержания и улучшения наших услуг, обработки встреч и общения с вами.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '3. Information Sharing' :
-             language === 'tr' ? '3. Bilgi Paylaşımı' :
-             '3. Обмен информацией'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.' :
-             language === 'tr' ? 'Kişisel bilgilerinizi, bu politikada açıklananlar dışında, izniniz olmadan üçüncü taraflara satmaz, takas etmez veya başka şekilde aktarmayız.' :
-             'Мы не продаем, не обмениваем и не передаем вашу личную информацию третьим лицам без вашего согласия, за исключением случаев, описанных в этой политике.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '4. Contact Us' :
-             language === 'tr' ? '4. Bize Ulaşın' :
-             '4. Свяжитесь с нами'}
-          </Typography>
-          <Typography variant="body2">
-            {language === 'en' ? 'If you have questions about this Privacy Policy, please contact us at support@barberpro.com' :
-             language === 'tr' ? 'Bu Gizlilik Politikası hakkında sorularınız varsa, lütfen support@barberpro.com adresinden bizimle iletişime geçin' :
-             'Если у вас есть вопросы об этой Политике конфиденциальности, свяжитесь с нами по ад��есу support@barberpro.com'}
+        <DialogContent sx={{ pt: 3 }}>
+          <Typography variant="body1">
+            This is the Privacy Policy content. Replace with actual content or load from an API.
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={() => setPrivacyPolicyOpen(false)}
-            variant="contained"
-            sx={{ bgcolor: '#00a693' }}
+            color="inherit"
           >
-            {language === 'en' ? 'Close' : language === 'tr' ? 'Kapat' : 'Закрыть'}
+            {t.close}
           </Button>
         </DialogActions>
       </Dialog>
@@ -921,67 +1111,38 @@ const Profile = () => {
       <Dialog
         open={termsOfServiceOpen}
         onClose={() => setTermsOfServiceOpen(false)}
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
       >
-        <DialogTitle>
-          {profileTranslations.termsOfService}
+        <DialogTitle sx={{ bgcolor: '#00a693', color: 'white' }}>
+          {t.termsOfService}
         </DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '1. Acceptance of Terms' :
-             language === 'tr' ? '1. Şartların Kabulü' :
-             '1. Принятие условий'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'By accessing and using BarberPro, you accept and agree to be bound by the terms and provision of this agreement.' :
-             language === 'tr' ? 'BarberPro\'ya erişerek ve kullanarak, bu sözleşmenin hüküm ve koşullarıyla bağlı olmayı kabul etmiş olursunuz.' :
-             'Получая доступ к BarberPro и используя его, вы принимаете и соглашаетесь соблюдать условия и положения этого соглашения.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '2. Service Description' :
-             language === 'tr' ? '2. Hizmet Açıklaması' :
-             '2. Описание услуги'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'BarberPro is a platform that connects customers with barber services. We facilitate appointment booking and payment processing.' :
-             language === 'tr' ? 'BarberPro, müşterileri berber hizmetleriyle buluşturan bir platformdur. Randevu rezervasyonu ve ödeme işlemlerini kolaylaştırırız.' :
-             'BarberPro - это платформа, которая связывает клиентов с парикмахерскими услугами. Мы облегчаем бронирование встреч и обработку платежей.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '3. User Responsibilities' :
-             language === 'tr' ? '3. Kullanıcı Sorumlulukları' :
-             '3. Обязанности пользователя'}
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 2 }}>
-            {language === 'en' ? 'Users are responsible for maintaining the confidentiality of their account information and for all activities that occur under their account.' :
-             language === 'tr' ? 'Kullanıcılar hesap bilgilerinin gizliliğini korumaktan ve hesapları altında gerçekleşen tüm aktivitelerden sorumludur.' :
-             'Пользователи несут ответственность за сохранение конфиденциальности информации своей учетной записи и за все действия, происходящие под их учетной записью.'}
-          </Typography>
-
-          <Typography variant="h6" sx={{ mb: 2 }}>
-            {language === 'en' ? '4. Cancellation Policy' :
-             language === 'tr' ? '4. İptal Politikası' :
-             '4. Политика отмены'}
-          </Typography>
-          <Typography variant="body2">
-            {language === 'en' ? 'Appointments must be cancelled at least 24 hours in advance. Late cancellations may result in charges.' :
-             language === 'tr' ? 'Randevular en az 24 saat önceden iptal edilmelidir. Geç iptaller ücretlendirme ile sonuçlanabilir.' :
-             'Встречи должны быть отменены не менее чем за 24 часа. Поздние отмены могут привести к дополнительным расходам.'}
+        <DialogContent sx={{ pt: 3 }}>
+          <Typography variant="body1">
+            This is the Terms of Service content. Replace with actual content or load from an API.
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={() => setTermsOfServiceOpen(false)}
-            variant="contained"
-            sx={{ bgcolor: '#00a693' }}
+            color="inherit"
           >
-            {language === 'en' ? 'Close' : language === 'tr' ? 'Kapat' : 'Закрыть'}
+            {t.close}
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
