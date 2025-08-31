@@ -95,7 +95,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
       features: [
         language === 'en' ? 'Master Barbers' : language === 'tr' ? 'Usta Berberler' : 'Мастер-парикмахеры',
-        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стрижки',
+        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классичес��ие стрижки',
         language === 'en' ? 'Hot Towel Service' : language === 'tr' ? 'Sıcak Havlu Hizmeti' : 'Горячее полотенце'
       ]
     },
@@ -206,12 +206,19 @@ const Home = () => {
                   >
                     {t.offers}
                   </Button>
-                  <Button 
-                    color="inherit" 
+                  <Button
+                    color="inherit"
                     sx={{ fontWeight: 500 }}
                     onClick={() => navigate('/about')}
                   >
                     {t.about}
+                  </Button>
+                  <Button
+                    color="inherit"
+                    sx={{ fontWeight: 500 }}
+                    onClick={() => navigate('/appoint')}
+                  >
+                    {language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записаться'}
                   </Button>
                 </Stack>
               )}
@@ -665,7 +672,7 @@ const Home = () => {
                 ? 'Ready to Book Your Next Appointment?'
                 : language === 'tr'
                 ? 'Bir Sonraki Randevunuzu Almaya Hazır mısınız?'
-                : 'Готовы забронировать следующую вс��речу?'
+                : 'Готовы забронировать следующую встречу?'
               }
             </Typography>
             <Typography variant="h6" sx={{
@@ -946,6 +953,10 @@ const Home = () => {
             <ListItemButton onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
               <ListItemIcon><SupportIcon /></ListItemIcon>
               <ListItemText primary={t.support} />
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/appoint'); setDrawerOpen(false); }}>
+              <ListItemIcon><Schedule /></ListItemIcon>
+              <ListItemText primary={language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записаться'} />
             </ListItemButton>
             <Divider sx={{ my: 1 }} />
             <ListItemButton
