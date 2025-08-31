@@ -624,33 +624,6 @@ const Home = () => {
                       ))}
                     </Stack>
 
-                    {/* Action Button */}
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      sx={{
-                        mt: 3,
-                        color: '#00a693',
-                        borderColor: '#00a693',
-                        fontWeight: 'bold',
-                        py: 1.5,
-                        '&:hover': {
-                          bgcolor: '#00a693',
-                          color: 'white'
-                        }
-                      }}
-                      onClick={() => {
-                        // Navigate to specific category or show search results
-                        console.log('Navigate to category:', category.title);
-                      }}
-                    >
-                      {language === 'en'
-                        ? 'Explore Options'
-                        : language === 'tr'
-                        ? 'Seçenekleri Keşfet'
-                        : 'Изучить варианты'
-                      }
-                    </Button>
                   </CardContent>
                 </Card>
               </Grid>
