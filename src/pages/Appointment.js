@@ -106,7 +106,7 @@ const Appointment = () => {
                       displayEmpty
                     >
                       {barbers.map((b) => {
-                        const id = b.id || b._id || b.uuid;
+                        const id = b.id || b._id || b.uuid || String(Math.random());
                         const name = b.name || b.full_name || `${b.firstName || b.first_name || ''} ${b.lastName || b.last_name || ''}`.trim() || 'Barber';
                         return (
                           <MenuItem key={id} value={id}>
