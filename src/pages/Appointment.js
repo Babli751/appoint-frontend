@@ -31,14 +31,6 @@ const Appointment = () => {
   const [selectedBarberId, setSelectedBarberId] = useState('');
 
   useEffect(() => {
-    const mockBarbers = () => {
-      return [
-        { id: 'b1', name: language === 'tr' ? 'Usta Berber' : language === 'ru' ? 'Мастер-барбер' : 'Master Barber' },
-        { id: 'b2', name: language === 'tr' ? 'Klasik Berber' : language === 'ru' ? 'Классик барбер' : 'Classic Barber' },
-        { id: 'b3', name: language === 'tr' ? 'Premium Berber' : language === 'ru' ? 'Премиум барбер' : 'Premium Barber' }
-      ];
-    };
-
     const fetchBarbers = async () => {
       try {
         setLoading(true);
@@ -48,14 +40,12 @@ const Appointment = () => {
           id: b.id || b._id || b.uuid || String(Math.random()),
           name: b.name || b.full_name || `${b.firstName || b.first_name || ''} ${b.lastName || b.last_name || ''}`.trim() || 'Barber'
         }));
-        const finalBarbers = normalized.length > 0 ? normalized : mockBarbers();
-        setBarbers(finalBarbers);
-        setSelectedBarberId(finalBarbers[0]?.id || '');
+        setBarbers(normalized);
+        setSelectedBarberId(normalized[0]?.id || '');
         setError('');
       } catch (_) {
-        const fallbacks = mockBarbers();
-        setBarbers(fallbacks);
-        setSelectedBarberId(fallbacks[0]?.id || '');
+        setBarbers([]);
+        setSelectedBarberId('');
         setError('');
       } finally {
         setLoading(false);
@@ -107,8 +97,10 @@ const Appointment = () => {
               </Box>
             )}
 
-            {!loading && error && barbers.length === 0 && (
-              <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
+            {!loading && barbers.length === 0 && (
+              <Alert severity="info" sx={{ mb: 2 }}>
+                {language === 'en' ? 'No barbers available yet. Connect your database and registered barbers will appear here.' : language === 'tr' ? 'Henüz berber yok. Veritabanınızı bağlayın, kayıtl�� berberler burada görünecek.' : 'Парикмахеры недоступны. Подключите базу данных, и зарегистрированные барберы появятся здесь.'}
+              </Alert>
             )}
 
             {!loading && (
@@ -120,6 +112,9 @@ const Appointment = () => {
                       onChange={(e) => setSelectedBarberId(e.target.value)}
                       displayEmpty
                     >
+                      <MenuItem value="">
+                        {language === 'en' ? 'Select Barber' : language === 'tr' ? 'Berber Seçin' : 'Выберите парикмахера'}
+                      </MenuItem>
                       {barbers.map((b) => {
                         const id = b.id || b._id || b.uuid || String(Math.random());
                         const name = b.name || b.full_name || `${b.firstName || b.first_name || ''} ${b.lastName || b.last_name || ''}`.trim() || 'Barber';
