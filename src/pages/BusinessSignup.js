@@ -151,8 +151,9 @@ const BusinessSignup = () => {
             <Tabs value={activeTab} onChange={(e, val) => setActiveTab(val)} variant="fullWidth"
               sx={{ '& .MuiTab-root': { py: 2, fontSize: '1rem', fontWeight: 'bold' }, '& .Mui-selected': { color: '#00a693 !important' } }}
             >
-              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'Business Login' : language === 'tr' ? 'İşletme Girişi' : 'Бизнес Вход'} />
+              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'Login' : language === 'tr' ? 'Giriş' : 'Войти'} />
               <Tab icon={<AppRegistration />} iconPosition="start" label={language === 'en' ? 'Business Sign Up' : language === 'tr' ? 'İşletme Kaydı' : 'Бизнес Регистрация'} />
+              <Tab icon={<ContentCut />} iconPosition="start" label={language === 'en' ? 'Barber Sign Up' : language === 'tr' ? 'Berber Kaydı' : 'Регистрация Барбера'} />
             </Tabs>
             <Divider />
 
@@ -187,10 +188,10 @@ const BusinessSignup = () => {
                       <TextField fullWidth label={t.ownerName} value={businessData.ownerName} onChange={(e) => handleInputChange('ownerName', e.target.value)} InputProps={{ startAdornment: <Person sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField fullWidth label={t.email} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" />
+                      <TextField fullWidth label={t.email} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" InputLabelProps={{ shrink: true }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField fullWidth label="Password" value={businessData.password} onChange={(e) => handleInputChange('password', e.target.value)} type="password" />
+                      <TextField fullWidth label="Password" value={businessData.password} onChange={(e) => handleInputChange('password', e.target.value)} type="password" InputLabelProps={{ shrink: true }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <TextField fullWidth label={t.phoneNumber} value={businessData.phone} onChange={(e) => handleInputChange('phone', e.target.value)} InputProps={{ startAdornment: <Phone sx={{ mr: 1, color: '#00a693' }} /> }} />
@@ -199,7 +200,7 @@ const BusinessSignup = () => {
                       <TextField fullWidth label={t.businessAddress} value={businessData.address} onChange={(e) => handleInputChange('address', e.target.value)} InputProps={{ startAdornment: <LocationOn sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={4}>
-                      <TextField fullWidth label={t.city} value={businessData.city} onChange={(e) => handleInputChange('city', e.target.value)} />
+                      <TextField fullWidth label={t.city} value={businessData.city} onChange={(e) => handleInputChange('city', e.target.value)} InputLabelProps={{ shrink: true }} />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField fullWidth label={t.businessDescription} multiline rows={3} value={businessData.description} onChange={(e) => handleInputChange('description', e.target.value)} InputProps={{ startAdornment: <Description sx={{ mr: 1, color: '#00a693', mt: 1 }} /> }} />
@@ -258,6 +259,20 @@ const BusinessSignup = () => {
                     <Button variant="contained" onClick={handleNext} disabled={!canProceed()}>Next</Button>
                   </Box>
                 )}
+              </Box>
+            )}
+            {/* Barber Sign Up */}
+            {activeTab === 2 && (
+              <Box sx={{ p: { xs: 3, md: 4 }, textAlign: 'center' }}>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                  {language === 'en' ? 'Join as a Barber' : language === 'tr' ? 'Berber Olarak Katılın' : 'Присоединяйтесь как Барбер'}
+                </Typography>
+                <Typography sx={{ mb: 3 }}>
+                  {language === 'en' ? 'Create a barber account to accept bookings and manage your profile.' : language === 'tr' ? 'Rezervasyon almak ve profilinizi yönetmek için berber hesabı oluşturun.' : 'Создай��е аккаунт барбера, чтобы принимать бронирования и управлять профилем.'}
+                </Typography>
+                <Button variant="contained" size="large" onClick={() => navigate('/signup')} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
+                  {language === 'en' ? 'Go to Barber Sign Up' : language === 'tr' ? 'Berber Kaydına Git' : 'Перейти к регистрации барбера'}
+                </Button>
               </Box>
             )}
           </CardContent>
