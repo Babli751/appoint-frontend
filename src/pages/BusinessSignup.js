@@ -1,4 +1,4 @@
-import { businessAPI } from '../services/api';
+import { businessAPI, authAPI } from '../services/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -34,6 +34,18 @@ const BusinessSignup = () => {
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [newService, setNewService] = useState({ name: '', price: '', duration: '' });
+
+  const [barberData, setBarberData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    city: '',
+    phone: ''
+  });
+
+  const handleBarberInputChange = (field, value) => {
+    setBarberData(prev => ({ ...prev, [field]: value }));
+  };
 
   const steps = [
     t.businessInfo,
@@ -103,6 +115,26 @@ const BusinessSignup = () => {
       navigate('/business-dashboard');
     } catch (err) {
       alert('Kayıt sırasında hata: ' + (err.response?.data?.message || err.message));
+    }
+  };
+
+  const handleBarberSignup = async () => {
+    try {
+      const parts = (barberData.fullName || '').trim().split(' ');
+      const first_name = parts[0] || '';
+      const last_name = parts.slice(1).join(' ') || '';
+      await authAPI.register({
+        first_name,
+        last_name,
+        email: barberData.email,
+        password: barberData.password,
+        city: barberData.city,
+        phone: barberData.phone
+      });
+      setActiveTab(0);
+      alert(language === 'en' ? 'Registration successful. Please log in.' : language === 'tr' ? 'Kayıt başarılı. Lütfen giriş yapın.' : 'Регистрация ус��ешна. Пожалуйста, войдите.');
+    } catch (err) {
+      alert((language === 'en' ? 'Registration error: ' : language === 'tr' ? 'Kayıt hatası: ' : 'Ошибка регистрации: ') + (err.response?.data?.detail || err.message));
     }
   };
 
@@ -263,16 +295,29 @@ const BusinessSignup = () => {
             )}
             {/* Barber Sign Up */}
             {activeTab === 2 && (
-              <Box sx={{ p: { xs: 3, md: 4 }, textAlign: 'center' }}>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
-                  {language === 'en' ? 'Join as a Barber' : language === 'tr' ? 'Berber Olarak Katılın' : 'Присоединяйтесь как Барбер'}
-                </Typography>
-                <Typography sx={{ mb: 3 }}>
-                  {language === 'en' ? 'Create a barber account to accept bookings and manage your profile.' : language === 'tr' ? 'Rezervasyon almak ve profilinizi yönetmek için berber hesabı oluşturun.' : 'Создай��е аккаунт барбера, чтобы принимать бронирования и управлять профилем.'}
-                </Typography>
-                <Button variant="contained" size="large" onClick={() => navigate('/signup')} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
-                  {language === 'en' ? 'Go to Barber Sign Up' : language === 'tr' ? 'Berber Kaydına Git' : 'Перейти к регистрации барбера'}
-                </Button>
+              <Box sx={{ p: { xs: 3, md: 4 } }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={6}>
+                    <TextField fullWidth label={language === 'en' ? 'Full Name' : language === 'tr' ? 'Ad Soyad' : 'Полное имя'} value={barberData.fullName} onChange={(e) => handleBarberInputChange('fullName', e.target.value)} InputLabelProps={{ shrink: true }} />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField fullWidth label={t.email} type="email" value={barberData.email} onChange={(e) => handleBarberInputChange('email', e.target.value)} InputLabelProps={{ shrink: true }} />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField fullWidth label={language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль'} type="password" value={barberData.password} onChange={(e) => handleBarberInputChange('password', e.target.value)} InputLabelProps={{ shrink: true }} />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <TextField fullWidth label={t.city} value={barberData.city} onChange={(e) => handleBarberInputChange('city', e.target.value)} InputLabelProps={{ shrink: true }} />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <TextField fullWidth label={t.phoneNumber} value={barberData.phone} onChange={(e) => handleBarberInputChange('phone', e.target.value)} InputLabelProps={{ shrink: true }} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button variant="contained" size="large" onClick={handleBarberSignup} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
+                      {language === 'en' ? 'Sign Up' : language === 'tr' ? 'Kayıt Ol' : 'Зарегистрироваться'}
+                    </Button>
+                  </Grid>
+                </Grid>
               </Box>
             )}
           </CardContent>
