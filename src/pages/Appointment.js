@@ -107,11 +107,11 @@ const Appointment = () => {
               </Box>
             )}
 
-            {!loading && error && (
+            {!loading && error && barbers.length === 0 && (
               <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
             )}
 
-            {!loading && !error && (
+            {!loading && (
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <FormControl fullWidth>
