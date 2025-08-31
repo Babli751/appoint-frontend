@@ -20,6 +20,7 @@ import Favorites from './pages/Favorites';
 import Settings from './pages/Settings';
 import BusinessSignup from './pages/BusinessSignup';
 import BusinessDashboard from './pages/BusinessDashboard';
+import Appointment from './pages/Appointment';
 
 // Booksy-inspired color scheme
 const theme = createTheme({
@@ -182,6 +183,10 @@ function AuthAwareRoutes() {
       <Route
         path="/business-dashboard"
         element={<BusinessDashboard />}
+      />
+      <Route
+        path="/appoint"
+        element={<Appointment />}
       />
     </Routes>
   );

@@ -95,7 +95,7 @@ const Home = () => {
       image: 'https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=800&h=600&fit=crop',
       features: [
         language === 'en' ? 'Master Barbers' : language === 'tr' ? 'Usta Berberler' : 'Мастер-парикмахеры',
-        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классические стрижки',
+        language === 'en' ? 'Classic Cuts' : language === 'tr' ? 'Klasik Kesimler' : 'Классичес��ие стрижки',
         language === 'en' ? 'Hot Towel Service' : language === 'tr' ? 'Sıcak Havlu Hizmeti' : 'Горячее полотенце'
       ]
     },
@@ -206,12 +206,19 @@ const Home = () => {
                   >
                     {t.offers}
                   </Button>
-                  <Button 
-                    color="inherit" 
+                  <Button
+                    color="inherit"
                     sx={{ fontWeight: 500 }}
                     onClick={() => navigate('/about')}
                   >
                     {t.about}
+                  </Button>
+                  <Button
+                    color="inherit"
+                    sx={{ fontWeight: 500 }}
+                    onClick={() => navigate('/appoint')}
+                  >
+                    {language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записаться'}
                   </Button>
                 </Stack>
               )}
@@ -617,33 +624,6 @@ const Home = () => {
                       ))}
                     </Stack>
 
-                    {/* Action Button */}
-                    <Button
-                      fullWidth
-                      variant="outlined"
-                      sx={{
-                        mt: 3,
-                        color: '#00a693',
-                        borderColor: '#00a693',
-                        fontWeight: 'bold',
-                        py: 1.5,
-                        '&:hover': {
-                          bgcolor: '#00a693',
-                          color: 'white'
-                        }
-                      }}
-                      onClick={() => {
-                        // Navigate to specific category or show search results
-                        console.log('Navigate to category:', category.title);
-                      }}
-                    >
-                      {language === 'en'
-                        ? 'Explore Options'
-                        : language === 'tr'
-                        ? 'Seçenekleri Keşfet'
-                        : 'Изучить варианты'
-                      }
-                    </Button>
                   </CardContent>
                 </Card>
               </Grid>
@@ -659,7 +639,10 @@ const Home = () => {
             <Typography variant="h3" sx={{
               fontWeight: 'bold',
               mb: 2,
-              fontSize: { xs: '2rem', md: '2.5rem' }
+              fontSize: { xs: '2rem', md: '2.5rem' },
+              color: '#1f2937',
+              maxWidth: 600,
+              mx: 'auto'
             }}>
               {language === 'en'
                 ? 'Ready to Book Your Next Appointment?'
@@ -673,19 +656,20 @@ const Home = () => {
               opacity: 0.9,
               fontSize: { xs: '1.1rem', md: '1.25rem' },
               maxWidth: 600,
-              mx: 'auto'
+              mx: 'auto',
+              color: '#374151'
             }}>
               {language === 'en'
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
                 : language === 'tr'
                 ? 'Güzellik ve bakım ihtiyaçları için bize güvenen binlerce memnun müşteriye katılın'
-                : 'Присоединяйтесь к тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
+                : 'Присоединяйтесь �� тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
               }
             </Typography>
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
-              sx={{ justifyContent: 'center', alignItems: 'center' }}
+              sx={{ justifyContent: { xs: 'center', sm: 'flex-end' }, alignItems: 'center', maxWidth: 600, mx: 'auto', width: '100%' }}
             >
               <Button
                 variant="contained"
@@ -796,14 +780,6 @@ const Home = () => {
                   onClick={() => navigate('/company')}
                 >
                   {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
-                </Link>
-                <Link 
-                  href="#" 
-                  color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
-                  onClick={() => navigate('/company')}
-                >
-                  {language === 'en' ? 'Press' : language === 'tr' ? 'Basın' : 'Пресса'}
                 </Link>
                 <Link 
                   href="#" 
@@ -946,6 +922,10 @@ const Home = () => {
             <ListItemButton onClick={() => { navigate('/support'); setDrawerOpen(false); }}>
               <ListItemIcon><SupportIcon /></ListItemIcon>
               <ListItemText primary={t.support} />
+            </ListItemButton>
+            <ListItemButton onClick={() => { navigate('/appoint'); setDrawerOpen(false); }}>
+              <ListItemIcon><Schedule /></ListItemIcon>
+              <ListItemText primary={language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записатьс��'} />
             </ListItemButton>
             <Divider sx={{ my: 1 }} />
             <ListItemButton

@@ -215,7 +215,7 @@ const Company = () => {
       city: 'Paris',
       country: 'France',
       address: '75 Avenue des Champs-Élysées, 75008 Paris',
-      type: language === 'en' ? 'Regional Office' : language === 'tr' ? 'Bölge Ofisi' : 'Региональный офис'
+      type: language === 'en' ? 'Regional Office' : language === 'tr' ? 'Bölge Ofisi' : 'Ре��иональный офис'
     }
   ];
 
@@ -346,6 +346,17 @@ const Company = () => {
                       fontWeight: 'bold',
                       '&:hover': { bgcolor: `${section.color}dd` }
                     }}
+                    onClick={() => {
+                      if (section.id === 'careers') {
+                        window.location.href = 'mailto:careers@barberpro.eu';
+                      } else if (section.id === 'press') {
+                        navigate('/support');
+                      } else if (section.id === 'partners') {
+                        navigate('/business-signup');
+                      } else if (section.id === 'contact') {
+                        navigate('/support');
+                      }
+                    }}
                   >
                     {section.action}
                   </Button>
@@ -391,37 +402,6 @@ const Company = () => {
           ))}
         </Grid>
 
-        {/* Offices */}
-        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
-          {language === 'en' ? 'Our Offices' : language === 'tr' ? 'Ofislerimiz' : 'Наши офисы'}
-        </Typography>
-
-        <Grid container spacing={3} sx={{ mb: 6 }}>
-          {offices.map((office, index) => (
-            <Grid item xs={12} md={4} key={index}>
-              <Card sx={{ 
-                height: '100%',
-                transition: 'transform 0.3s ease',
-                '&:hover': { transform: 'translateY(-4px)' }
-              }}>
-                <CardContent sx={{ p: 3 }}>
-                  <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
-                    {office.city}
-                  </Typography>
-                  <Typography variant="subtitle1" color="primary" sx={{ mb: 2 }}>
-                    {office.type}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {office.country}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {office.address}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
 
         {/* Call to Action */}
         <Box sx={{ 
@@ -458,6 +438,7 @@ const Company = () => {
                 py: 1.5,
                 '&:hover': { bgcolor: '#007562' }
               }}
+              onClick={() => navigate('/support')}
             >
               {language === 'en' ? 'Contact Us' : language === 'tr' ? 'İletişime Geçin' : 'Связаться с нами'}
             </Button>
@@ -472,6 +453,7 @@ const Company = () => {
                 py: 1.5,
                 '&:hover': { bgcolor: '#e6f7f5' }
               }}
+              onClick={() => { window.location.href = 'mailto:careers@barberpro.eu'; }}
             >
               {language === 'en' ? 'View Careers' : language === 'tr' ? 'Kariyer Fırsatları' : 'Посмотреть вакансии'}
             </Button>
