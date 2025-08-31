@@ -640,7 +640,9 @@ const Home = () => {
               fontWeight: 'bold',
               mb: 2,
               fontSize: { xs: '2rem', md: '2.5rem' },
-              color: '#000'
+              color: '#1f2937',
+              maxWidth: 600,
+              mx: 'auto'
             }}>
               {language === 'en'
                 ? 'Ready to Book Your Next Appointment?'
@@ -655,7 +657,7 @@ const Home = () => {
               fontSize: { xs: '1.1rem', md: '1.25rem' },
               maxWidth: 600,
               mx: 'auto',
-              color: '#000'
+              color: '#374151'
             }}>
               {language === 'en'
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
@@ -667,7 +669,7 @@ const Home = () => {
             <Stack
               direction={{ xs: 'column', sm: 'row' }}
               spacing={2}
-              sx={{ justifyContent: 'center', alignItems: 'center', maxWidth: 600, mx: 'auto' }}
+              sx={{ justifyContent: { xs: 'center', sm: 'flex-end' }, alignItems: 'center', maxWidth: 600, mx: 'auto', width: '100%' }}
             >
               <Button
                 variant="contained"
