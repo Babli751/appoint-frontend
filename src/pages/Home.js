@@ -252,6 +252,24 @@ const Home = () => {
                 onClick={() => navigate('/business-signup')}
               >
                 {t.tryBusiness}
+              </Button
+              >
+              <Button
+                variant="outlined"
+                startIcon={<ContentCut />}
+                sx={{
+                  color: '#00a693',
+                  borderColor: '#00a693',
+                  fontWeight: 600,
+                  '&:hover': {
+                    bgcolor: 'rgba(0, 166, 147, 0.04)',
+                    borderColor: '#007562'
+                  },
+                  display: { xs: 'none', sm: 'flex' }
+                }}
+                onClick={() => navigate('/signup')}
+              >
+                {language === 'en' ? 'Barber Sign Up' : language === 'tr' ? 'Berber Kaydı' : 'Регистрация Барбера'}
               </Button>
 
               {!isMobile && (
@@ -736,6 +754,27 @@ const Home = () => {
                 onClick={() => navigate('/business-signup')}
               >
                 {t.tryBusiness}
+              </Button
+              >
+              <Button
+                variant="outlined"
+                size="large"
+                startIcon={<ContentCut />}
+                sx={{
+                  borderColor: 'white',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '1.1rem',
+                  '&:hover': {
+                    bgcolor: 'rgba(255,255,255,0.1)',
+                    borderColor: 'white'
+                  }
+                }}
+                onClick={() => navigate('/signup')}
+              >
+                {language === 'en' ? 'Barber Sign Up' : language === 'tr' ? 'Berber Kaydı' : 'Регистрация Барбера'}
               </Button>
             </Stack>
           </Box>
@@ -963,6 +1002,11 @@ const Home = () => {
                 primary={t.tryBusiness}
                 sx={{ '& .MuiTypography-root': { color: '#ff6b35', fontWeight: 600 } }}
               />
+            </ListItemButton
+            >
+            <ListItemButton onClick={() => { navigate('/signup'); setDrawerOpen(false); }}>
+              <ListItemIcon><ContentCut /></ListItemIcon>
+              <ListItemText primary={language === 'en' ? 'Barber Sign Up' : language === 'tr' ? 'Berber Kaydı' : 'Регистрация Барбера'} />
             </ListItemButton>
             <ListItemButton onClick={() => { navigate('/dashboard'); setDrawerOpen(false); }}>
               <ListItemIcon><Schedule /></ListItemIcon>
