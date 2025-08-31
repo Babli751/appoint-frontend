@@ -132,7 +132,7 @@ const BusinessSignup = () => {
         phone: barberData.phone
       });
       setActiveTab(0);
-      alert(language === 'en' ? 'Registration successful. Please log in.' : language === 'tr' ? 'Kayıt başarılı. Lütfen giriş yapın.' : 'Регистрация ус��ешна. Пожалуйста, войдите.');
+      alert(language === 'en' ? 'Registration successful. Please log in.' : language === 'tr' ? 'Kayıt başarılı. Lütfen giriş yapın.' : 'Регистрация успешна. Пожалуйста, войдите.');
     } catch (err) {
       alert((language === 'en' ? 'Registration error: ' : language === 'tr' ? 'Kayıt hatası: ' : 'Ошибка регистрации: ') + (err.response?.data?.detail || err.message));
     }
@@ -220,7 +220,7 @@ const BusinessSignup = () => {
                       <TextField fullWidth label={t.ownerName} value={businessData.ownerName} onChange={(e) => handleInputChange('ownerName', e.target.value)} InputProps={{ startAdornment: <Person sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField fullWidth label={t.email} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" InputLabelProps={{ shrink: true }} />
+                      <TextField fullWidth label={language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email'} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" InputLabelProps={{ shrink: true }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <TextField fullWidth label="Password" value={businessData.password} onChange={(e) => handleInputChange('password', e.target.value)} type="password" InputLabelProps={{ shrink: true }} />
@@ -301,7 +301,7 @@ const BusinessSignup = () => {
                     <TextField fullWidth label={language === 'en' ? 'Full Name' : language === 'tr' ? 'Ad Soyad' : 'Полное имя'} value={barberData.fullName} onChange={(e) => handleBarberInputChange('fullName', e.target.value)} InputLabelProps={{ shrink: true }} />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label={t.email} type="email" value={barberData.email} onChange={(e) => handleBarberInputChange('email', e.target.value)} InputLabelProps={{ shrink: true }} />
+                    <TextField fullWidth label={language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email'} type="email" value={barberData.email} onChange={(e) => handleBarberInputChange('email', e.target.value)} InputLabelProps={{ shrink: true }} />
                   </Grid>
                   <Grid item xs={12} md={6}>
                     <TextField fullWidth label={language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль'} type="password" value={barberData.password} onChange={(e) => handleBarberInputChange('password', e.target.value)} InputLabelProps={{ shrink: true }} />
