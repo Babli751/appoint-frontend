@@ -529,7 +529,7 @@ const Home = () => {
                 ? 'From traditional barbershops to modern beauty salons, find the perfect place for your style and wellness needs'
                 : language === 'tr'
                 ? 'Geleneksel berber dükkanlarından modern güzellik salonlarına, tarzınız ve sağlık ihtiyaçlarınız için mükemmel yeri bulun'
-                : 'От традиционных парикмахерских до современных салонов красоты, найдите идеальное место для ваш��х потребностей в стиле и красоте'
+                : 'От традиционных парикмахерских до современных салонов красоты, найдите идеальное место для ваших потребностей в стиле и красоте'
               }
             </Typography>
           </Box>
@@ -663,7 +663,7 @@ const Home = () => {
                 ? 'Join thousands of satisfied customers who trust us with their beauty and grooming needs'
                 : language === 'tr'
                 ? 'Güzellik ve bakım ihtiyaçları için bize güvenen binlerce memnun müşteriye katılın'
-                : 'Присоединяйтесь к тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
+                : 'Присоединяйтесь �� тысячам довольных клиентов, которые доверяют нам свои потребности в красоте и уходе'
               }
             </Typography>
             <Stack
@@ -780,14 +780,6 @@ const Home = () => {
                   onClick={() => navigate('/company')}
                 >
                   {language === 'en' ? 'Careers' : language === 'tr' ? 'Kariyer' : 'Карьера'}
-                </Link>
-                <Link 
-                  href="#" 
-                  color="inherit" 
-                  sx={{ opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 }, fontSize: { xs: '0.85rem', md: '0.875rem' } }}
-                  onClick={() => navigate('/company')}
-                >
-                  {language === 'en' ? 'Press' : language === 'tr' ? 'Basın' : 'Пресса'}
                 </Link>
                 <Link 
                   href="#" 
@@ -933,7 +925,7 @@ const Home = () => {
             </ListItemButton>
             <ListItemButton onClick={() => { navigate('/appoint'); setDrawerOpen(false); }}>
               <ListItemIcon><Schedule /></ListItemIcon>
-              <ListItemText primary={language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записаться'} />
+              <ListItemText primary={language === 'en' ? 'Appoint' : language === 'tr' ? 'Randevu Al' : 'Записатьс��'} />
             </ListItemButton>
             <Divider sx={{ my: 1 }} />
             <ListItemButton
