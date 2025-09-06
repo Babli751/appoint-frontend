@@ -5,6 +5,7 @@ import {
   Container,
   Typography,
   Card,
+  CardContent,
   Button,
   Grid,
   Avatar,
