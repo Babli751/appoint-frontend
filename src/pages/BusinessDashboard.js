@@ -426,7 +426,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с вашим бизнесом с��годня.'
+              : 'Вот что происходит с вашим бизнесом сегодня.'
             }
           </Typography>
         </Box>
@@ -767,14 +767,40 @@ const BusinessDashboard = () => {
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
                 {language === 'en' ? 'All Appointments' : language === 'tr' ? 'Tüm Randevular' : 'Все встречи'}
               </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {language === 'en' 
-                  ? 'Full appointment management coming soon...'
-                  : language === 'tr'
-                  ? 'Tam randevu yönetimi yakında gelecek...'
-                  : 'Полное управление встречами скоро появится...'
-                }
-              </Typography>
+
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{language === 'en' ? 'Time' : language === 'tr' ? 'Saat' : 'Время'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Client' : language === 'tr' ? 'Müşteri' : 'Клиент'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Service' : language === 'tr' ? 'Hizmet' : 'Услуга'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Status' : language === 'tr' ? 'Durum' : 'Статус'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Actions' : language === 'tr' ? 'İşlemler' : 'Действия'}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {upcomingAppointments.map((a) => (
+                      <TableRow key={a.id}>
+                        <TableCell>{a.time}</TableCell>
+                        <TableCell>{a.client}</TableCell>
+                        <TableCell>{a.service}</TableCell>
+                        <TableCell>
+                          <Chip
+                            label={a.status}
+                            size="small"
+                            icon={getStatusIcon(a.status)}
+                            sx={{ bgcolor: `${getStatusColor(a.status)}15`, color: getStatusColor(a.status), fontWeight: 'bold' }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{language === 'en' ? 'Call' : language === 'tr' ? 'Ara' : 'Позвонить'}</Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </CardContent>
           </Card>
         )}
