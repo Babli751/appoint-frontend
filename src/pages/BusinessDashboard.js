@@ -71,6 +71,34 @@ const BusinessDashboard = () => {
     description: ''
   });
 
+  const [notifAnchor, setNotifAnchor] = useState(null);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: language === 'en' ? 'New booking' : language === 'tr' ? 'Yeni rezervasyon' : 'Новая бронь', body: '12:30 - Haircut by Mehmet', time: '2m', read: false },
+    { id: 2, title: language === 'en' ? 'Review received' : language === 'tr' ? 'Yeni yorum' : 'Новый отзыв', body: '4.8★ from Ayşe', time: '1h', read: false },
+    { id: 3, title: language === 'en' ? 'Cancellation' : language === 'tr' ? 'İptal' : 'Отмена', body: 'Ali cancelled 16:00', time: '3h', read: true }
+  ]);
+
+  const [businessInfo, setBusinessInfo] = useState({
+    address: '',
+    photoUrl: '',
+    workingHours: {
+      mon: { open: '09:00', close: '19:00' },
+      tue: { open: '09:00', close: '19:00' },
+      wed: { open: '09:00', close: '19:00' },
+      thu: { open: '09:00', close: '19:00' },
+      fri: { open: '09:00', close: '19:00' },
+      sat: { open: '10:00', close: '18:00' },
+      sun: { open: 'Closed', close: 'Closed' }
+    }
+  });
+
+  const [barbers, setBarbers] = useState([
+    { id: 1, name: 'Mehmet Kaya', email: 'mehmet@example.com' },
+    { id: 2, name: 'Ahmet Demir', email: 'ahmet@example.com' }
+  ]);
+  const [barberDialogOpen, setBarberDialogOpen] = useState(false);
+  const [newBarber, setNewBarber] = useState({ name: '', email: '' });
+
   // State for business data fetched from API
   const [businessData, setBusinessData] = useState({
     name: '',
