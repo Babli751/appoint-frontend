@@ -26,13 +26,12 @@ import {
   Tab,
   Tabs,
   TextField,
-  Typography
+  Typography,
+  Toolbar
 } from '@mui/material';
 import {
   ArrowBack,
-  ContentCut,
   Schedule,
-  Star,
   Phone,
   Delete,
   Edit
@@ -76,7 +75,7 @@ const BarberDashboard = () => {
       editFree: 'Изменить окно',
       date: 'Дата', start: 'Начало', end: 'Конец', save: 'Сохранить', cancel: 'Отмена', add: 'Добавить',
       today: 'Сегодня', tomorrow: 'Завтра', week: 'Неделя',
-      time: 'Время', client: 'Клиент', service: 'Услуга', phone: 'Телефон', call: 'Позвонить', rating: 'Рейтинг',
+      time: '��ремя', client: 'Клиент', service: 'Услуга', phone: 'Телефон', call: 'Позвонить', rating: 'Рейтинг',
       customers: 'Клиенты', noCustomers: 'Пока нет клиентов',
       profile: 'Пр��филь', services: 'Услуги', price: 'Цена', duration: 'Длительность (мин)', bio: 'О себе', uploadPhoto: 'Загрузить фото'
     }
