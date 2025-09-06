@@ -147,8 +147,15 @@ const BusinessDashboard = () => {
           monthlyRevenue: 0,
           services: []
         });
-        setUpcomingAppointments([]);
-        setRecentActivity([]);
+        setUpcomingAppointments([
+          { id: 1, client: 'Ali Yılmaz', service: 'Saç Kesimi', time: '10:00', phone: '+90 555 111 22 33', status: 'confirmed' },
+          { id: 2, client: 'John Doe', service: 'Sakal Traşı', time: '11:30', phone: '+90 555 444 55 66', status: 'pending' },
+          { id: 3, client: 'Maria Ivanova', service: 'Haircut', time: '15:00', phone: '+90 555 777 88 99', status: 'cancelled' }
+        ]);
+        setRecentActivity([
+          { id: 1, message: language === 'en' ? 'New booking by Ali' : language === 'tr' ? 'Ali yeni rezervasyon yaptı' : 'Новая бронь от Али', time: '2m' },
+          { id: 2, message: language === 'en' ? 'Review 4.8★ from Ayşe' : language === 'tr' ? 'Ayşe 4.8★ yorum bıraktı' : 'Отзыв 4.8★ от Айше', time: '1h' }
+        ]);
 
       } catch (err) {
         console.error('Failed to fetch business data:', err);
@@ -419,7 +426,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с вашим бизнесом сегодня.'
+              : 'Вот что происходит с вашим бизнесом с��годня.'
             }
           </Typography>
         </Box>
