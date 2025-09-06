@@ -5,7 +5,6 @@ import {
   Container,
   Typography,
   Card,
-  CardContent,
   Button,
   Grid,
   Avatar,
@@ -23,7 +22,6 @@ import {
   Tab,
   Tabs,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   useTheme,
@@ -36,11 +34,9 @@ import {
   Star,
   AccessTime,
   LocationOn,
-  Phone,
   History,
   Favorite,
-  Settings,
-  Language
+  Settings
 } from '@mui/icons-material';
 
 const Dashboard = () => {
