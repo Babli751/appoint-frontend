@@ -11,7 +11,7 @@ const api = axios.create({
 // 2. REQUEST INTERCEPTOR
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('access_token') || localStorage.getItem('businessToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -28,6 +28,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('access_token');
+      localStorage.removeItem('businessToken');
       window.location.href = '/signin';
     }
     return Promise.reject(error);
@@ -73,7 +74,7 @@ export const authAPI = {
 // 5. USER API ENDPOINTS
 export const userAPI = {
   getAppointments: async () => {
-    const response = await api.get('/appointments/my');
+    const response = await api.post('/appointments');
     return response.data;
   },
 
@@ -107,6 +108,24 @@ export const profileApi = {
 
 // 7. BARBER API ENDPOINTS
 export const barberAPI = {
+  login: async (email, password) => {
+    const formData = new URLSearchParams();
+    formData.append('username', email);
+    formData.append('password', password);
+
+    const response = await api.post('/auth/login', formData, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
+    return response.data;
+  },
+
+  register: async (barberData) => {
+    const response = await api.post('/auth/register', barberData, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return response.data;
+  },
+
   getBarbers: async (filters = {}) => {
     const response = await api.get('/barbers', { params: filters });
     return response.data;
@@ -123,9 +142,12 @@ export const barberAPI = {
   },
 };
 
+// 8. BUSINESS API ENDPOINTS
 export const businessAPI = {
   signup: async (businessData) => {
-    const response = await api.post('/business/signup', businessData);
+    const response = await api.post('/business/signup', businessData, {
+      headers: { 'Content-Type': 'application/json' }
+    });
     return response.data;
   },
 
@@ -134,13 +156,10 @@ export const businessAPI = {
       email: email,
       password: password
     }, {
-      headers: {
-        'Content-Type': 'application/json' // JSON body olduğuna dikkat
-      }
+      headers: { 'Content-Type': 'application/json' }
     });
     return response.data;
   }
 };
-
 
 export default api;

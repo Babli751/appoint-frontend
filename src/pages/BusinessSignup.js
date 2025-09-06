@@ -1,4 +1,4 @@
-import { businessAPI, authAPI } from '../services/api';
+import { businessAPI, authAPI, barberAPI } from '../services/api';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -17,7 +17,7 @@ const BusinessSignup = () => {
   const navigate = useNavigate();
   const { language, changeLanguage, t } = useLanguage();
 
-  const [activeTab, setActiveTab] = useState(0); // 0: Login, 1: Sign Up
+  const [activeTab, setActiveTab] = useState(0); // 0: Login, 1: Business Sign Up, 2: Barber Sign Up
   const [activeStep, setActiveStep] = useState(0);
 
   const [businessData, setBusinessData] = useState({
@@ -33,6 +33,8 @@ const BusinessSignup = () => {
   });
 
   const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [barberLoginData, setBarberLoginData] = useState({ email: '', password: '' });
+
   const [newService, setNewService] = useState({ name: '', price: '', duration: '' });
 
   const [barberData, setBarberData] = useState({
@@ -43,22 +45,20 @@ const BusinessSignup = () => {
     phone: ''
   });
 
-  const handleBarberInputChange = (field, value) => {
-    setBarberData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const steps = [
-    t.businessInfo,
-    t.services,
-    language === 'en' ? 'Complete' : language === 'tr' ? 'Tamamla' : 'Завершить'
-  ];
-
   const handleInputChange = (field, value) => {
     setBusinessData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleLoginChange = (field, value) => {
     setLoginData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleBarberLoginChange = (field, value) => {
+    setBarberLoginData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleBarberInputChange = (field, value) => {
+    setBarberData(prev => ({ ...prev, [field]: value }));
   };
 
   const handleAddService = () => {
@@ -81,18 +81,44 @@ const BusinessSignup = () => {
   const handleNext = () => setActiveStep(prev => prev + 1);
   const handleBack = () => setActiveStep(prev => prev - 1);
 
-  // ✅ Login
-  const handleLogin = async () => {
+  // ------------------------------
+  // LOGIN FUNCTIONS
+  // ------------------------------
+
+  const handleUserLogin = async () => {
+    try {
+      const result = await authAPI.login(loginData.email, loginData.password);
+      localStorage.setItem('access_token', result.access_token);
+      navigate('/user-dashboard');
+    } catch (err) {
+      alert('User login error: ' + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const handleBusinessLogin = async () => {
     try {
       const result = await businessAPI.login(loginData.email, loginData.password);
       localStorage.setItem('businessToken', result.access_token);
       navigate('/business-dashboard');
     } catch (err) {
-      alert('Giriş sırasında hata: ' + (err.response?.data?.detail || err.message));
+      alert('Business login error: ' + (err.response?.data?.detail || err.message));
     }
   };
 
-  // ✅ Signup
+  const handleBarberLogin = async () => {
+    try {
+      const result = await barberAPI.login(barberLoginData.email, barberLoginData.password);
+      localStorage.setItem('access_token', result.access_token);
+      navigate('/barber-dashboard');
+    } catch (err) {
+      alert('Barber login error: ' + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  // ------------------------------
+  // SIGNUP FUNCTIONS
+  // ------------------------------
+
   const handleSubmit = async () => {
     try {
       const payload = {
@@ -114,7 +140,7 @@ const BusinessSignup = () => {
       localStorage.setItem('businessToken', result.access_token);
       navigate('/business-dashboard');
     } catch (err) {
-      alert('Kayıt sırasında hata: ' + (err.response?.data?.message || err.message));
+      alert('Business signup error: ' + (err.response?.data?.message || err.message));
     }
   };
 
@@ -131,12 +157,18 @@ const BusinessSignup = () => {
         city: barberData.city,
         phone: barberData.phone
       });
-      setActiveTab(0);
+      setActiveTab(2); // Switch to barber login tab
       alert(language === 'en' ? 'Registration successful. Please log in.' : language === 'tr' ? 'Kayıt başarılı. Lütfen giriş yapın.' : 'Регистрация успешна. Пожалуйста, войдите.');
     } catch (err) {
       alert((language === 'en' ? 'Registration error: ' : language === 'tr' ? 'Kayıt hatası: ' : 'Ошибка регистрации: ') + (err.response?.data?.detail || err.message));
     }
   };
+
+  const steps = [
+    t.businessInfo,
+    t.services,
+    language === 'en' ? 'Complete' : language === 'tr' ? 'Tamamla' : 'Завершить'
+  ];
 
   const canProceed = () => {
     switch (activeStep) {
@@ -183,28 +215,47 @@ const BusinessSignup = () => {
             <Tabs value={activeTab} onChange={(e, val) => setActiveTab(val)} variant="fullWidth"
               sx={{ '& .MuiTab-root': { py: 2, fontSize: '1rem', fontWeight: 'bold' }, '& .Mui-selected': { color: '#00a693 !important' } }}
             >
-              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'Login' : language === 'tr' ? 'Giriş' : 'Войти'} />
+              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'User Login' : language === 'tr' ? 'Kullanıcı Giriş' : 'Войти'} />
               <Tab icon={<AppRegistration />} iconPosition="start" label={language === 'en' ? 'Business Sign Up' : language === 'tr' ? 'İşletme Kaydı' : 'Бизнес Регистрация'} />
-              <Tab icon={<ContentCut />} iconPosition="start" label={language === 'en' ? 'Barber Sign Up' : language === 'tr' ? 'Berber Kaydı' : 'Регистрация Барбера'} />
+              <Tab icon={<ContentCut />} iconPosition="start" label={language === 'en' ? 'Barber Sign Up / Login' : language === 'tr' ? 'Berber Kaydı / Giriş' : 'Регистрация / Вход Барбера'} />
             </Tabs>
             <Divider />
 
-            {/* Login */}
-            {activeTab === 0 && (
-              <Box sx={{ p: { xs: 3, md: 4 } }}>
-                <Stack spacing={3}>
-                  <TextField fullWidth label="Email" value={loginData.email} onChange={(e) => handleLoginChange('email', e.target.value)} type="email" />
-                  <TextField fullWidth label="Password" value={loginData.password} onChange={(e) => handleLoginChange('password', e.target.value)} type="password" />
-                  <Button variant="contained" size="large" onClick={handleLogin} disabled={!loginData.email || !loginData.password} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
-                    Login
-                  </Button>
-                </Stack>
-              </Box>
-            )}
+{/* BUSINESS LOGIN */}
+{activeTab === 0 && (
+  <Box sx={{ p: { xs: 3, md: 4 } }}>
+    <Stack spacing={3}>
+      <TextField
+        fullWidth
+        label={language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email'}
+        value={loginData.email}
+        onChange={(e) => handleLoginChange('email', e.target.value)}
+        type="email"
+      />
+      <TextField
+        fullWidth
+        label={language === 'en' ? 'Password' : language === 'tr' ? 'Şifre' : 'Пароль'}
+        value={loginData.password}
+        onChange={(e) => handleLoginChange('password', e.target.value)}
+        type="password"
+      />
+      <Button
+        variant="contained"
+        size="large"
+        onClick={handleBusinessLogin}
+        disabled={!loginData.email || !loginData.password}
+        sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}
+      >
+        {language === 'en' ? 'Business Login' : language === 'tr' ? 'İşletme Giriş' : 'Войти'}
+      </Button>
+    </Stack>
+  </Box>
+)}
 
-            {/* Sign Up */}
+            {/* BUSINESS SIGNUP */}
             {activeTab === 1 && (
               <Box sx={{ p: { xs: 3, md: 4 } }}>
+                {/* Stepper + Form */}
                 <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
                   {steps.map((label) => (
                     <Step key={label}><StepLabel>{label}</StepLabel></Step>
@@ -293,7 +344,8 @@ const BusinessSignup = () => {
                 )}
               </Box>
             )}
-            {/* Barber Sign Up */}
+
+            {/* BARBER SIGNUP + LOGIN */}
             {activeTab === 2 && (
               <Box sx={{ p: { xs: 3, md: 4 } }}>
                 <Grid container spacing={3}>
@@ -312,9 +364,16 @@ const BusinessSignup = () => {
                   <Grid item xs={12} md={3}>
                     <TextField fullWidth label={t.phoneNumber} value={barberData.phone} onChange={(e) => handleBarberInputChange('phone', e.target.value)} InputLabelProps={{ shrink: true }} />
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} md={6}>
                     <Button variant="contained" size="large" onClick={handleBarberSignup} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
                       {language === 'en' ? 'Sign Up' : language === 'tr' ? 'Kayıt Ol' : 'Зарегистрироваться'}
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <TextField fullWidth label={language === 'en' ? 'Login Email' : language === 'tr' ? 'Giriş E-posta' : 'Email для входа'} value={barberLoginData.email} onChange={(e) => handleBarberLoginChange('email', e.target.value)} />
+                    <TextField fullWidth label={language === 'en' ? 'Login Password' : language === 'tr' ? 'Giriş Şifre' : 'Пароль для входа'} type="password" value={barberLoginData.password} onChange={(e) => handleBarberLoginChange('password', e.target.value)} />
+                    <Button variant="contained" size="large" onClick={handleBarberLogin} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' }, mt: 2 }}>
+                      {language === 'en' ? 'Login' : language === 'tr' ? 'Giriş' : 'Войти'}
                     </Button>
                   </Grid>
                 </Grid>
