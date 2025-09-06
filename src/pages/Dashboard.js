@@ -625,7 +625,7 @@ const Dashboard = () => {
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Card>
-                  <CardContent>
+                  <Box sx={{ p: 2 }}>
                     <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
                       <Avatar sx={{ width: 64, height: 64 }} />
                       <Box>
@@ -650,7 +650,7 @@ const Dashboard = () => {
                         </React.Fragment>
                       ))}
                     </List>
-                  </CardContent>
+                  </Box>
                 </Card>
               </Grid>
             </Grid>
@@ -663,7 +663,7 @@ const Dashboard = () => {
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Card>
-                  <CardContent>
+                  <Box sx={{ p: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
                       {language === 'tr' ? 'Yaklaşan' : language === 'en' ? 'Upcoming' : 'Предстоящие'}
                     </Typography>
@@ -678,12 +678,12 @@ const Dashboard = () => {
                         </React.Fragment>
                       ))}
                     </List>
-                  </CardContent>
+                  </Box>
                 </Card>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Card>
-                  <CardContent>
+                  <Box sx={{ p: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
                       {language === 'tr' ? 'Geçmiş' : language === 'en' ? 'Past' : 'Прошлые'}
                     </Typography>
@@ -697,7 +697,7 @@ const Dashboard = () => {
                         </React.Fragment>
                       ))}
                     </List>
-                  </CardContent>
+                  </Box>
                 </Card>
               </Grid>
             </Grid>
@@ -708,7 +708,7 @@ const Dashboard = () => {
         <Card sx={{ mt: 3 }}>
           <TabPanel value={tabValue} index={5}>
             <Card>
-              <CardContent>
+              <Box sx={{ p: 2 }}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
                   <TextField fullWidth label={language === 'tr' ? 'Şehir' : language === 'en' ? 'City' : 'Город'} value={searchCity} onChange={(e) => setSearchCity(e.target.value)} InputProps={{ startAdornment: <LocationOn sx={{ color: '#6b46c1', mr: 1 }} /> }} />
                   <Button variant="contained" sx={{ bgcolor: '#6b46c1' }}>
@@ -719,7 +719,7 @@ const Dashboard = () => {
                   {demoBarbers.filter(b => !searchCity || b.city.toLowerCase().includes(searchCity.toLowerCase())).map((b) => (
                     <Grid item xs={12} sm={6} md={4} key={b.id}>
                       <Card>
-                        <CardContent>
+                        <Box sx={{ p: 2 }}>
                           <Stack direction="row" spacing={2} alignItems="center">
                             <ListItemAvatar>
                               <Avatar src={b.image} />
@@ -736,12 +736,12 @@ const Dashboard = () => {
                           <Button fullWidth variant="contained" sx={{ mt: 2, bgcolor: '#6b46c1' }} onClick={() => navigate('/barber-dashboard')}>
                             {language === 'tr' ? 'Berber Profiline Git' : language === 'en' ? 'View Barber Profile' : 'К профилю парикмахера'}
                           </Button>
-                        </CardContent>
+                        </Box>
                       </Card>
                     </Grid>
                   ))}
                 </Grid>
-              </CardContent>
+              </Box>
             </Card>
           </TabPanel>
         </Card>
