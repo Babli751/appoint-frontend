@@ -419,7 +419,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с вашим бизнесом сегодня.'
+              : 'Вот что происходит с ��ашим бизнесом сегодня.'
             }
           </Typography>
         </Box>
@@ -719,7 +719,42 @@ const BusinessDashboard = () => {
           </Card>
         )}
 
-        {currentTab === 2 && (
+        {currentTab === 3 && (
+          <Card>
+            <CardContent>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                  {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berberler' : 'Парикмахеры'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  startIcon={<Add />}
+                  onClick={() => setBarberDialogOpen(true)}
+                  sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}
+                >
+                  {language === 'en' ? 'Add Barber' : language === 'tr' ? 'Berber Ekle' : 'Добавить'}
+                </Button>
+              </Box>
+              <List>
+                {barbers.map((b) => (
+                  <ListItem key={b.id} sx={{ px: 0 }}>
+                    <ListItemText primary={b.name} secondary={b.email} />
+                    <IconButton onClick={() => removeBarber(b.id)} sx={{ color: '#ef4444' }}>
+                      <Delete />
+                    </IconButton>
+                  </ListItem>
+                ))}
+                {!barbers.length && (
+                  <Typography variant="body2" color="text.secondary">
+                    {language === 'en' ? 'No barbers added' : language === 'tr' ? 'Berber ekli değil' : 'Нет парикмахеров'}
+                  </Typography>
+                )}
+              </List>
+            </CardContent>
+          </Card>
+        )}
+
+        {currentTab === 4 && (
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
