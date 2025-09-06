@@ -419,7 +419,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с ��ашим бизнесом сегодня.'
+              : 'Вот что происходит с вашим бизнесом сегодня.'
             }
           </Typography>
         </Box>
@@ -772,18 +772,18 @@ const BusinessDashboard = () => {
           </Card>
         )}
 
-        {currentTab === 3 && (
+        {currentTab === 5 && (
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Аналитика бизнеса'}
+                {language === 'en' ? 'Income Reports' : language === 'tr' ? 'Gelir Raporları' : 'Отчеты о доходах'}
               </Typography>
               <Typography variant="body1" color="text.secondary">
                 {language === 'en' 
                   ? 'Detailed analytics and reports coming soon...'
                   : language === 'tr'
                   ? 'Detaylı analitik ve raporlar yakında gelecek...'
-                  : 'Подробная аналитика и отчеты скоро появятся...'
+                  : 'Подробная аналитика и ��тчеты скоро появятся...'
                 }
               </Typography>
             </CardContent>
