@@ -5,7 +5,6 @@ import {
   Container,
   Typography,
   Card,
-  CardContent,
   Button,
   Grid,
   Avatar,
@@ -517,7 +516,7 @@ const Dashboard = () => {
                 <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
                   {language === 'en' ? 'No past appointments' :
                    language === 'tr' ? 'Geçmiş randevu bulunamadı' :
-                   'Нет прошлых встреч'}
+                   'Нет прошлы�� встреч'}
                 </Typography>
               </Box>
             )}
