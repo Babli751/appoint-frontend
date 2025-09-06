@@ -367,6 +367,45 @@ const BusinessDashboard = () => {
         </MenuItem>
       </Menu>
 
+      <Menu
+        anchorEl={notifAnchor}
+        open={Boolean(notifAnchor)}
+        onClose={handleNotifClose}
+        sx={{ mt: 1 }}
+      >
+        <Box sx={{ px: 2, py: 1, minWidth: 320 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+              {language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления'}
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Button size="small" onClick={markAllNotificationsRead}>
+                {language === 'en' ? 'Mark all read' : language === 'tr' ? 'Tümünü okundu yap' : 'Отметить как прочит.'}
+              </Button>
+              <Button size="small" color="error" onClick={clearNotifications}>
+                {language === 'en' ? 'Clear' : language === 'tr' ? 'Temizle' : 'Очистить'}
+              </Button>
+            </Stack>
+          </Box>
+          {notifications.length ? (
+            <List sx={{ pt: 0 }}>
+              {notifications.map(n => (
+                <ListItem key={n.id} sx={{ px: 0 }}>
+                  <ListItemText
+                    primary={<Typography sx={{ fontWeight: n.read ? 400 : 700 }}>{n.title}</Typography>}
+                    secondary={<Typography color="text.secondary">{n.body} • {n.time}</Typography>}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              {language === 'en' ? 'No notifications' : language === 'tr' ? 'Bildirim yok' : 'Нет уведомлений'}
+            </Typography>
+          )}
+        </Box>
+      </Menu>
+
       <Container maxWidth="xl" sx={{ py: 4 }}>
         {/* Welcome Section */}
         <Box sx={{ mb: 4 }}>
