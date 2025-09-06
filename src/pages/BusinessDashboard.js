@@ -419,7 +419,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с вашим бизнесом сегодня.'
+              : 'Вот что происходит с вашим бизнесом сег��дня.'
             }
           </Typography>
         </Box>
@@ -779,11 +779,11 @@ const BusinessDashboard = () => {
                 {language === 'en' ? 'Income Reports' : language === 'tr' ? 'Gelir Raporları' : 'Отчеты о доходах'}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {language === 'en' 
-                  ? 'Detailed analytics and reports coming soon...'
+                {language === 'en'
+                  ? 'Revenue reports and insights coming soon...'
                   : language === 'tr'
-                  ? 'Detaylı analitik ve raporlar yakında gelecek...'
-                  : 'Подробная аналитика и ��тчеты скоро появятся...'
+                  ? 'Gelir raporları ve içgörüler yakında...'
+                  : 'Отчеты о доходах и аналитика скоро...'
                 }
               </Typography>
             </CardContent>
