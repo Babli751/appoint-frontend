@@ -188,6 +188,8 @@ const BusinessDashboard = () => {
     }
   ];
 
+  const unreadCount = notifications.filter(n => !n.read).length;
+
   const handleProfileMenuOpen = (event) => {
     setProfileMenuAnchor(event.currentTarget);
   };
@@ -330,7 +332,7 @@ const BusinessDashboard = () => {
       >
         <MenuItem onClick={() => { /* Handle settings */ }}>
           <Settings sx={{ mr: 2 }} />
-          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'}
+          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настр��йки'}
         </MenuItem>
         <MenuItem onClick={() => navigate('/')}>
           <Business sx={{ mr: 2 }} />
