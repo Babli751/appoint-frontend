@@ -567,7 +567,7 @@ const Dashboard = () => {
                               mt: 1,
                               alignSelf: { xs: 'stretch', sm: 'flex-start' }
                             }}
-                            onClick={() => navigate(`/barber/${barber.id}`)}
+                            onClick={() => navigate('/barber-dashboard')}
                             fullWidth={isMobile}
                           >
                             {t.bookAppointment}

@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
-import BarberDetail from './pages/BarberDetail';
 import Services from './pages/Services';
 import Offers from './pages/Offers';
 import About from './pages/About';
@@ -153,10 +152,7 @@ function AuthAwareRoutes() {
         path="/settings"
         element={isAuthenticated ? <Settings /> : <Navigate to="/signin" />}
       />
-      <Route
-        path="/barber/:id"
-        element={<BarberDetail />}
-      />
+      <Route path="/barber/:id" element={<Navigate to="/barber-dashboard" replace />} />
       <Route
         path="/services"
         element={<Services />}
