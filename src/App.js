@@ -20,7 +20,6 @@ import Settings from './pages/Settings';
 import BusinessSignup from './pages/BusinessSignup';
 import BusinessDashboard from './pages/BusinessDashboard';
 import BarberDashboard from './pages/BarberDashboard';
-import UserPortal from './pages/UserPortal';
 import Appointment from './pages/Appointment';
 
 // Booksy-inspired color scheme
@@ -187,10 +186,6 @@ function AuthAwareRoutes() {
       <Route path="/barber-dashboard" element={<BarberDashboard />} />
       <Route path="/BarberDashboard" element={<Navigate to="/barber-dashboard" replace />} />
 
-      {/* User public profile/portal */}
-      <Route path="/user-profile" element={<UserPortal />} />
-      <Route path="/UserProfile" element={<Navigate to="/user-profile" replace />} />
-      <Route path="/user-portal" element={<UserPortal />} />
       <Route
         path="/appoint"
         element={<Appointment />}
