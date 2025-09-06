@@ -212,6 +212,28 @@ const BusinessDashboard = () => {
     }
   };
 
+  const handleNotifOpen = (e) => setNotifAnchor(e.currentTarget);
+  const handleNotifClose = () => setNotifAnchor(null);
+  const markAllNotificationsRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  const clearNotifications = () => setNotifications([]);
+
+  const handleBusinessPhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setBusinessInfo(prev => ({ ...prev, photoUrl: URL.createObjectURL(file) }));
+  };
+
+  const saveBusinessInfo = () => {
+    alert(language === 'en' ? 'Saved' : language === 'tr' ? 'Kaydedildi' : 'Сохранено');
+  };
+
+  const addBarber = () => {
+    if (!newBarber.name || !newBarber.email) return;
+    setBarbers(prev => [...prev, { id: Date.now(), ...newBarber }]);
+    setNewBarber({ name: '', email: '' });
+    setBarberDialogOpen(false);
+  };
+  const removeBarber = (id) => setBarbers(prev => prev.filter(b => b.id !== id));
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'confirmed':
@@ -332,11 +354,11 @@ const BusinessDashboard = () => {
       >
         <MenuItem onClick={() => { /* Handle settings */ }}>
           <Settings sx={{ mr: 2 }} />
-          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настр��йки'}
+          {language === 'en' ? 'Settings' : language === 'tr' ? 'Ayarlar' : 'Настройки'}
         </MenuItem>
         <MenuItem onClick={() => navigate('/')}>
           <Business sx={{ mr: 2 }} />
-          {language === 'en' ? 'View as Customer' : language === 'tr' ? 'Müşteri Olarak Görüntüle' : 'Смотреть как клиент'}
+          {language === 'en' ? 'View as Customer' : language === 'tr' ? 'Müşteri Olarak Görüntüle' : 'Смотреть ��ак клиент'}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>
@@ -484,7 +506,7 @@ const BusinessDashboard = () => {
                       <Typography variant="body2" color="text.secondary">
                         {language === 'en' ? 'No appointments today' :
                          language === 'tr' ? 'Bugün randevu yok' :
-                         'Сегодня нет встреч'}
+                         'Сегодня ��ет встреч'}
                       </Typography>
                     </Box>
                   )}
