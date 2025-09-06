@@ -607,6 +607,66 @@ const BusinessDashboard = () => {
           </Grid>
         )}
 
+        {currentTab === 2 && (
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                {language === 'en' ? 'Salon Information' : language === 'tr' ? 'Salon Bilgisi' : 'Информация о салоне'}
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={8}>
+                  <TextField
+                    fullWidth
+                    label={language === 'en' ? 'Address' : language === 'tr' ? 'Adres' : 'Адрес'}
+                    value={businessInfo.address}
+                    onChange={(e) => setBusinessInfo(prev => ({ ...prev, address: e.target.value }))}
+                  />
+                  <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
+                    {[
+                      { key: 'mon', label: language==='en'?'Mon':language==='tr'?'Pzt':'Пн' },
+                      { key: 'tue', label: language==='en'?'Tue':language==='tr'?'Sal':'Вт' },
+                      { key: 'wed', label: language==='en'?'Wed':language==='tr'?'Çar':'Ср' },
+                      { key: 'thu', label: language==='en'?'Thu':language==='tr'?'Per':'Чт' },
+                      { key: 'fri', label: language==='en'?'Fri':language==='tr'?'Cum':'Пт' },
+                      { key: 'sat', label: language==='en'?'Sat':language==='tr'?'Cts':'Сб' },
+                      { key: 'sun', label: language==='en'?'Sun':language==='tr'?'Paz':'Вс' },
+                    ].map(d => (
+                      <Box key={d.key} sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: '48%', md: '32%' } }}>
+                        <Typography variant="body2" sx={{ width: 40 }}>{d.label}</Typography>
+                        <TextField
+                          size="small"
+                          value={businessInfo.workingHours[d.key].open}
+                          onChange={(e)=> setBusinessInfo(prev=> ({ ...prev, workingHours: { ...prev.workingHours, [d.key]: { ...prev.workingHours[d.key], open: e.target.value } } }))}
+                          placeholder="09:00"
+                        />
+                        <Typography variant="body2">-</Typography>
+                        <TextField
+                          size="small"
+                          value={businessInfo.workingHours[d.key].close}
+                          onChange={(e)=> setBusinessInfo(prev=> ({ ...prev, workingHours: { ...prev.workingHours, [d.key]: { ...prev.workingHours[d.key], close: e.target.value } } }))}
+                          placeholder="19:00"
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                    <Avatar src={businessInfo.photoUrl} sx={{ width: 120, height: 120 }} />
+                    <Button component="label" variant="outlined" sx={{ color: '#00a693', borderColor: '#00a693' }}>
+                      {language === 'en' ? 'Upload Photo' : language === 'tr' ? 'Fotoğraf Yükle' : 'Загрузить фото'}
+                      <input hidden accept="image/*" type="file" onChange={handleBusinessPhotoChange} />
+                    </Button>
+                    <Button variant="contained" sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }} onClick={saveBusinessInfo}>
+                      {language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить'}
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        )}
+
         {currentTab === 1 && (
           <Card>
             <CardContent>
