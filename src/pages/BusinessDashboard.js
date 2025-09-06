@@ -419,7 +419,7 @@ const BusinessDashboard = () => {
               ? 'Here\'s what\'s happening with your business today.'
               : language === 'tr'
               ? 'İşletmenizde bugün neler oluyor.'
-              : 'Вот что происходит с вашим бизнесом сег��дня.'
+              : 'Вот что происходит с вашим бизнесом сегодня.'
             }
           </Typography>
         </Box>
@@ -474,7 +474,7 @@ const BusinessDashboard = () => {
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                      {language === 'en' ? 'Today\'s Appointments' : language === 'tr' ? 'Bugünün Randevuları' : 'Сегодняшние встречи'}
+                      {language === 'en' ? 'Today\'s Appointments' : language === 'tr' ? 'Bugünün Randevuları' : 'Сегодняшние вс��речи'}
                     </Typography>
                     <Button
                       variant="outlined"
@@ -840,6 +840,33 @@ const BusinessDashboard = () => {
             sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}
           >
             {t.addService}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={barberDialogOpen} onClose={() => setBarberDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>{language === 'en' ? 'Add Barber' : language === 'tr' ? 'Berber Ekle' : 'Добавить парикмахера'}</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField
+              fullWidth
+              label={language === 'en' ? 'Full Name' : language === 'tr' ? 'Ad Soyad' : 'Полное имя'}
+              value={newBarber.name}
+              onChange={(e) => setNewBarber(prev => ({ ...prev, name: e.target.value }))}
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              type="email"
+              value={newBarber.email}
+              onChange={(e) => setNewBarber(prev => ({ ...prev, email: e.target.value }))}
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setBarberDialogOpen(false)}>{t.cancel}</Button>
+          <Button variant="contained" onClick={addBarber} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
+            {language === 'en' ? 'Add' : language === 'tr' ? 'Ekle' : 'Добавить'}
           </Button>
         </DialogActions>
       </Dialog>
