@@ -25,7 +25,8 @@ import {
   Select,
   MenuItem,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  TextField
 } from '@mui/material';
 import {
   ArrowBack,
@@ -132,6 +133,16 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // User profile basic info (public preview)
+  const [profileInfo] = useState({ fullName: 'Guest User', phone: '+90 5xx xxx xx xx' });
+  const [searchCity, setSearchCity] = useState('');
+  const demoBarbers = [
+    { id: 101, name: 'Ahmet Usta', city: 'Istanbul', rating: 4.8, visits: 122, image: '', shopName: 'Usta Barber' },
+    { id: 102, name: 'Mehmet Kaya', city: 'Ankara', rating: 4.6, visits: 88, image: '', shopName: 'Kaya Kuaför' },
+    { id: 103, name: 'John Doe', city: 'Istanbul', rating: 4.7, visits: 64, image: '', shopName: 'Downtown Cuts' },
+    { id: 104, name: 'Maria Ivanova', city: 'Izmir', rating: 4.9, visits: 140, image: '', shopName: 'Salon Maria' }
+  ];
+
   // Fetch data from API
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -146,10 +157,19 @@ const Dashboard = () => {
         //   fetch('/api/barbers/favorites')
         // ]);
 
-        // For now, we'll use empty arrays until backend is implemented
-        setUpcomingAppointments([]);
-        setPastAppointments([]);
-        setFavoriteBarbers([]);
+        // Seed demo data for public preview
+        setUpcomingAppointments([
+          { id: 1, barberName: 'Ahmet Usta', shopName: 'Usta Barber', service: 'Saç Kesimi', date: '2025-09-07', time: '10:00', address: 'Istanbul', status: 'confirmed', price: '₺300' },
+          { id: 2, barberName: 'John Doe', shopName: 'Downtown Cuts', service: 'Haircut', date: '2025-09-08', time: '14:00', address: 'Istanbul', status: 'pending', price: '€25' }
+        ]);
+        setPastAppointments([
+          { id: 3, barberName: 'Mehmet Kaya', shopName: 'Kaya Kuaför', service: 'Sakal Traşı', date: '2025-09-03', time: '16:00', address: 'Ankara', status: 'completed', price: '₺200', rating: 5 },
+          { id: 4, barberName: 'Maria Ivanova', shopName: 'Salon Maria', service: 'Haircut', date: '2025-09-01', time: '11:30', address: 'Izmir', status: 'completed', price: '€30', rating: 4 }
+        ]);
+        setFavoriteBarbers([
+          { id: 101, name: 'Ahmet Usta', shopName: 'Usta Barber', rating: 4.8, visits: 122, image: '' },
+          { id: 104, name: 'Maria Ivanova', shopName: 'Salon Maria', rating: 4.9, visits: 140, image: '' }
+        ]);
 
       } catch (err) {
         console.error('Failed to fetch dashboard data:', err);
@@ -283,6 +303,9 @@ const Dashboard = () => {
               <Tab label={t.upcomingAppointments} />
               <Tab label={t.pastAppointments} />
               <Tab label={t.favoriteBarbers} />
+              <Tab label={language === 'tr' ? 'Profilim' : language === 'en' ? 'Profile' : 'Профиль'} />
+              <Tab label={language === 'tr' ? 'Randevularım' : language === 'en' ? 'My Appointments' : 'Мои встречи'} />
+              <Tab label={language === 'tr' ? 'Berber Ara' : language === 'en' ? 'Search Barbers' : 'Найти парикмахера'} />
             </Tabs>
           </Box>
 
@@ -592,6 +615,133 @@ const Dashboard = () => {
                 </Button>
               </Box>
             )}
+          </TabPanel>
+        </Card>
+
+        {/* Profile Tab */}
+        <Card sx={{ mt: 3 }}>
+          <TabPanel value={tabValue} index={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Card>
+                  <CardContent>
+                    <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+                      <Avatar sx={{ width: 64, height: 64 }} />
+                      <Box>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{profileInfo.fullName}</Typography>
+                        <Stack direction="row" spacing={1} alignItems="center">
+                          <Typography variant="body2">{language === 'tr' ? 'Telefon' : language === 'en' ? 'Phone' : 'Телефон'}:</Typography>
+                          <Typography variant="body2">{profileInfo.phone}</Typography>
+                        </Stack>
+                      </Box>
+                    </Stack>
+                    <Divider sx={{ my: 2 }} />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
+                      {language === 'tr' ? 'Geçmiş Randevular' : language === 'en' ? 'Past Appointments' : 'Прошлые записи'}
+                    </Typography>
+                    <List>
+                      {pastAppointments.map((a, idx) => (
+                        <React.Fragment key={a.id}>
+                          <ListItem sx={{ px: 0 }}>
+                            <ListItemText primary={`${a.date} • ${a.time} — ${a.barberName}`} secondary={a.service} />
+                          </ListItem>
+                          {idx < pastAppointments.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </TabPanel>
+        </Card>
+
+        {/* My Appointments Tab */}
+        <Card sx={{ mt: 3 }}>
+          <TabPanel value={tabValue} index={4}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+                      {language === 'tr' ? 'Yaklaşan' : language === 'en' ? 'Upcoming' : 'Предстоящие'}
+                    </Typography>
+                    <List>
+                      {upcomingAppointments.map((a, idx) => (
+                        <React.Fragment key={a.id}>
+                          <ListItem sx={{ px: 0 }}>
+                            <ListItemText primary={`${a.date} • ${a.time} — ${a.barberName}`} secondary={a.service} />
+                            <Chip label={language === 'tr' ? 'Yaklaşan' : 'upcoming'} size="small" sx={{ bgcolor: '#e6f7f5', color: '#00a693', fontWeight: 'bold' }} />
+                          </ListItem>
+                          {idx < upcomingAppointments.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+                      {language === 'tr' ? 'Geçmiş' : language === 'en' ? 'Past' : 'Прошлые'}
+                    </Typography>
+                    <List>
+                      {pastAppointments.map((a, idx) => (
+                        <React.Fragment key={a.id}>
+                          <ListItem sx={{ px: 0 }}>
+                            <ListItemText primary={`${a.date} • ${a.time} — ${a.barberName}`} secondary={a.service} />
+                          </ListItem>
+                          {idx < pastAppointments.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+          </TabPanel>
+        </Card>
+
+        {/* Search Barbers Tab */}
+        <Card sx={{ mt: 3 }}>
+          <TabPanel value={tabValue} index={5}>
+            <Card>
+              <CardContent>
+                <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
+                  <TextField fullWidth label={language === 'tr' ? 'Şehir' : language === 'en' ? 'City' : 'Город'} value={searchCity} onChange={(e) => setSearchCity(e.target.value)} InputProps={{ startAdornment: <LocationOn sx={{ color: '#6b46c1', mr: 1 }} /> }} />
+                  <Button variant="contained" sx={{ bgcolor: '#6b46c1' }}>
+                    {language === 'tr' ? 'Ara' : language === 'en' ? 'Search' : 'Поиск'}
+                  </Button>
+                </Stack>
+                <Grid container spacing={2}>
+                  {demoBarbers.filter(b => !searchCity || b.city.toLowerCase().includes(searchCity.toLowerCase())).map((b) => (
+                    <Grid item xs={12} sm={6} md={4} key={b.id}>
+                      <Card>
+                        <CardContent>
+                          <Stack direction="row" spacing={2} alignItems="center">
+                            <ListItemAvatar>
+                              <Avatar src={b.image} />
+                            </ListItemAvatar>
+                            <Box sx={{ flex: 1 }}>
+                              <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{b.name}</Typography>
+                              <Typography variant="body2" color="text.secondary">{b.shopName} • {b.city}</Typography>
+                              <Stack direction="row" spacing={1} alignItems="center">
+                                <Star sx={{ color: '#f59e0b', fontSize: 18 }} />
+                                <Typography variant="body2">{b.rating} • {b.visits}</Typography>
+                              </Stack>
+                            </Box>
+                          </Stack>
+                          <Button fullWidth variant="contained" sx={{ mt: 2, bgcolor: '#6b46c1' }} onClick={() => navigate('/barber-dashboard')}>
+                            {language === 'tr' ? 'Berber Profiline Git' : language === 'en' ? 'View Barber Profile' : 'К профилю парикмахера'}
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+                </Grid>
+              </CardContent>
+            </Card>
           </TabPanel>
         </Card>
       </Container>
