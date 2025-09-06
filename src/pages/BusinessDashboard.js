@@ -263,8 +263,10 @@ const BusinessDashboard = () => {
   const tabLabels = [
     language === 'en' ? 'Overview' : language === 'tr' ? 'Genel Bakış' : 'Обзор',
     t.services,
+    language === 'en' ? 'Salon Info' : language === 'tr' ? 'Salon Bilgisi' : 'Инфо салона',
+    language === 'en' ? 'Barbers' : language === 'tr' ? 'Berberler' : 'Парикмахеры',
     language === 'en' ? 'Appointments' : language === 'tr' ? 'Randevular' : 'Встречи',
-    language === 'en' ? 'Analytics' : language === 'tr' ? 'Analitik' : 'Аналитика'
+    language === 'en' ? 'Income Reports' : language === 'tr' ? 'Gelir Raporları' : 'Отчеты о доходах'
   ];
 
   return (
