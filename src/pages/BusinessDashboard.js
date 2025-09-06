@@ -309,8 +309,8 @@ const BusinessDashboard = () => {
                 </Select>
               </FormControl>
 
-              <IconButton sx={{ color: '#00a693' }}>
-                <Badge badgeContent={3} color="error">
+              <IconButton sx={{ color: '#00a693' }} onClick={handleNotifOpen}>
+                <Badge badgeContent={unreadCount} color="error">
                   <Notifications />
                 </Badge>
               </IconButton>
@@ -358,7 +358,7 @@ const BusinessDashboard = () => {
         </MenuItem>
         <MenuItem onClick={() => navigate('/')}>
           <Business sx={{ mr: 2 }} />
-          {language === 'en' ? 'View as Customer' : language === 'tr' ? 'Müşteri Olarak Görüntüle' : 'Смотреть ��ак клиент'}
+          {language === 'en' ? 'View as Customer' : language === 'tr' ? 'Müşteri Olarak Görüntüle' : 'Смотреть как клиент'}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>
@@ -506,7 +506,7 @@ const BusinessDashboard = () => {
                       <Typography variant="body2" color="text.secondary">
                         {language === 'en' ? 'No appointments today' :
                          language === 'tr' ? 'Bugün randevu yok' :
-                         'Сегодня ��ет встреч'}
+                         'Сегодня нет встреч'}
                       </Typography>
                     </Box>
                   )}
