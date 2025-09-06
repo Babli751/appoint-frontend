@@ -95,7 +95,7 @@ export default function Login() {
       welcomeSubtitle: 'Войдите в свой аккаунт',
       createAccountSubtitle: 'Создайте новый аккаунт и открывайте парикмахеров',
       fullName: 'Полное имя',
-      email: 'Электронная почта',
+      email: 'Электронная по��та',
       password: 'Пароль',
       signIn: 'Войти',
       createAccount: 'Создать аккаунт',
@@ -125,9 +125,9 @@ export default function Login() {
         await authAPI.register(email, password, name.split(' ')[0] || '', name.split(' ')[1] || '');
         navigate('/signin');
       } else {
-        // Login and redirect to home
+        // Login and redirect to dashboard
         await login(email, password);
-        navigate('/');
+        navigate('/dashboard');
       }
     } catch (err) {
       const errorMessage = isRegister
