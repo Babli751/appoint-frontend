@@ -93,7 +93,7 @@ const Favorites = () => {
   };
 
   const handleBookAppointment = (barberId) => {
-    navigate(`/barber/${barberId}`);
+    navigate('/barber-dashboard');
   };
 
   if (!isAuthenticated) {
