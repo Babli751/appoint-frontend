@@ -382,7 +382,7 @@ const Dashboard = () => {
                                   variant="contained"
                                   size="small"
                                   sx={{ bgcolor: '#6b46c1' }}
-                                  onClick={() => navigate(`/barber/${appointment.barberId}`)}
+                                  onClick={() => navigate('/barber-dashboard')}
                                   fullWidth={isMobile}
                                 >
                                   {t.details}
