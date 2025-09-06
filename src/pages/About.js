@@ -139,34 +139,24 @@ const About = () => {
 
   const team = [
     {
-      name: 'Alessandro Romano',
+      name: 'Babek Mammadov',
       position: language === 'en' ? 'CEO & Founder' : language === 'tr' ? 'CEO ve Kurucu' : 'Генеральный директор и основатель',
-      bio: language === 'en' 
-        ? 'Former tech executive with 15 years experience in marketplace platforms'
-        : language === 'tr' 
-        ? 'Pazar yeri platformlarında 15 yıl deneyime sahip eski teknoloji yöneticisi'
-        : 'Бывший технический руководитель с 15-летним опытом работы на платформах маркетплейсов',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+      bio: language === 'en'
+        ? 'Entrepreneur leading BarberPro’s vision and growth across Europe'
+        : language === 'tr'
+        ? 'BarberPro’nun vizyonunu ve Avrupa genelindeki büyümesini yöneten girişimci'
+        : 'Предприниматель, ведущий видение и рост BarberPro по всей Европе',
+      image: 'https://images.unsplash.com/photo-1608160888760-3d4b4a3f95b9?w=150&h=150&fit=crop&crop=face'
     },
     {
-      name: 'Maria González',
-      position: language === 'en' ? 'Head of Operations' : language === 'tr' ? 'Operasyon Direktörü' : 'Руководитель операций',
-      bio: language === 'en' 
-        ? 'Beauty industry veteran focused on service quality and customer satisfaction'
-        : language === 'tr' 
-        ? 'Hizmet kalitesi ve müşteri memnuniyetine odaklanan güzellik sektörü veteranı'
-        : 'Ветеран индустрии красоты, сосредоточенный на качестве обслуживания и удовлетворенности клиентов',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b1e6?w=150&h=150&fit=crop&crop=face'
-    },
-    {
-      name: 'Thomas Mueller',
-      position: language === 'en' ? 'CTO' : language === 'tr' ? 'CTO' : 'Технический директор',
-      bio: language === 'en' 
-        ? 'Technology leader building scalable platforms for millions of users'
-        : language === 'tr' 
-        ? 'Milyonlarca kullanıcı için ölçeklenebilir platformlar oluşturan teknoloji lideri'
-        : 'Технологический лидер, создающий масштабируемые платформы для миллионов пользователей',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+      name: 'Cavansir Mammadov',
+      position: language === 'en' ? 'COO' : language === 'tr' ? 'Operasyon Direktörü' : 'Операционный директор',
+      bio: language === 'en'
+        ? 'Operations leader focused on service excellence and customer experience'
+        : language === 'tr'
+        ? 'Hizmet mükemmeliyeti ve müşteri deneyimine odaklanan operasyon lideri'
+        : 'Руководитель операций, сосредоточенный на качестве сервиса и опыте клиентов',
+      image: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=150&h=150&fit=crop&crop=face'
     }
   ];
 
