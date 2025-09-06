@@ -14,7 +14,6 @@ import Company from './pages/Company';
 import Support from './pages/Support';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
 import Settings from './pages/Settings';
 import BusinessSignup from './pages/BusinessSignup';
@@ -141,10 +140,6 @@ function AuthAwareRoutes() {
         element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
       />
       <Route
-        path="/profile"
-        element={isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
-      />
-      <Route
         path="/favorites"
         element={isAuthenticated ? <Favorites /> : <Navigate to="/signin" />}
       />
@@ -180,9 +175,6 @@ function AuthAwareRoutes() {
       <Route path="/business-dashboard" element={<BusinessDashboard />} />
       <Route path="/BusinessDashboard" element={<Navigate to="/business-dashboard" replace />} />
 
-      {/* Public preview routes (no auth) */}
-      <Route path="/user-dashboard" element={<Dashboard />} />
-      <Route path="/UserDashboard" element={<Navigate to="/user-dashboard" replace />} />
       <Route path="/barber-dashboard" element={<BarberDashboard />} />
       <Route path="/BarberDashboard" element={<Navigate to="/barber-dashboard" replace />} />
 
