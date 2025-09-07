@@ -247,33 +247,81 @@ const Appointment = () => {
                 </Grid>
 
                 {/* Date & Time */}
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={8}>
                   <Grow in timeout={600}>
                     <Box>
                       <Typography variant="subtitle2" sx={{ mb: 1, color: '#6b7280' }}>
                         {language === 'en' ? 'Select Date & Time' : language === 'tr' ? 'Tarih ve Saat Seçin' : 'Выберите дату и время'}
                       </Typography>
-                      <TextField
-                        type="date"
-                        fullWidth
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        InputLabelProps={{ shrink: true }}
-                        sx={{ mb: 1.5 }}
-                      />
-                      <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
-                        {['09:00', '11:00', '14:00', '16:00', '18:00'].map(t => (
-                          <Chip
-                            key={t}
-                            label={t}
-                            onClick={() => setSelectedTime(t)}
-                            color={selectedTime === t ? 'primary' : 'default'}
-                            variant={selectedTime === t ? 'filled' : 'outlined'}
-                          />
+
+                      {/* Week day scroller */}
+                      <Stack direction="row" spacing={1} sx={{ overflowX: 'auto', pb: 1, mb: 2 }}>
+                        {weekDays.map((d) => (
+                          <Button
+                            key={d}
+                            variant={selectedDate === d ? 'contained' : 'outlined'}
+                            onClick={() => { setSelectedDate(d); setSelectedTime(''); }}
+                            sx={{
+                              whiteSpace: 'nowrap',
+                              bgcolor: selectedDate === d ? '#00a693' : 'transparent',
+                              color: selectedDate === d ? 'white' : '#1f2937',
+                              borderColor: '#00a693',
+                              '&:hover': { bgcolor: selectedDate === d ? '#007562' : '#e6f7f5' }
+                            }}
+                          >
+                            {formatDayLabel(d)}
+                          </Button>
                         ))}
                       </Stack>
+
+                      {/* Time grid */}
+                      <Grid container spacing={1} columns={{ xs: 12, sm: 12, md: 12 }}>
+                        {timeSlots.map((t) => (
+                          <Grid key={t} item xs={4} sm={3} md={2}>
+                            <Button
+                              fullWidth
+                              variant={selectedTime === t ? 'contained' : 'outlined'}
+                              onClick={() => setSelectedTime(t)}
+                              sx={{
+                                bgcolor: selectedTime === t ? '#00a693' : 'white',
+                                color: selectedTime === t ? 'white' : '#1f2937',
+                                borderColor: selectedTime === t ? '#00a693' : '#e5e7eb',
+                                fontWeight: 600
+                              }}
+                            >
+                              {t}
+                            </Button>
+                          </Grid>
+                        ))}
+                      </Grid>
                     </Box>
                   </Grow>
+                </Grid>
+
+                {/* Selected date preview */}
+                <Grid item xs={12} md={4}>
+                  <Card variant="outlined" sx={{ height: '100%' }}>
+                    <CardContent>
+                      <Typography variant="subtitle2" sx={{ color: '#6b7280', mb: 1 }}>
+                        {language === 'en' ? 'Selection' : language === 'tr' ? 'Seçim' : 'Выбор'}
+                      </Typography>
+                      <Stack spacing={1}>
+                        <TextField
+                          type="date"
+                          label={language === 'en' ? 'Date' : language === 'tr' ? 'Tarih' : 'Дата'}
+                          value={selectedDate}
+                          onChange={(e) => setSelectedDate(e.target.value)}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                        <TextField
+                          label={language === 'en' ? 'Time' : language === 'tr' ? 'Saat' : 'Время'}
+                          value={selectedTime}
+                          onChange={(e) => setSelectedTime(e.target.value)}
+                          placeholder="--:--"
+                        />
+                      </Stack>
+                    </CardContent>
+                  </Card>
                 </Grid>
 
                 {/* Book button */}
