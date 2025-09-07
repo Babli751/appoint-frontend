@@ -8,7 +8,7 @@ import {
   Select, MenuItem, List, Paper, Tabs, Tab, Divider
 } from '@mui/material';
 import {
-  Business, Person, LocationOn, Phone, Description, ContentCut, Euro,
+  Business, Person, LocationOn, Phone, Description, ContentCut, Euro, Email, Lock, LocationCity,
   AccessTime, CheckCircle, TrendingUp, Schedule, Star, ArrowBack, Add, Delete,
   Login, AppRegistration
 } from '@mui/icons-material';
@@ -215,7 +215,7 @@ const BusinessSignup = () => {
             <Tabs value={activeTab} onChange={(e, val) => setActiveTab(val)} variant="fullWidth"
               sx={{ '& .MuiTab-root': { py: 2, fontSize: '1rem', fontWeight: 'bold' }, '& .Mui-selected': { color: '#00a693 !important' } }}
             >
-              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'User Login' : language === 'tr' ? 'Kullanıcı Giriş' : 'Войти'} />
+              <Tab icon={<Login />} iconPosition="start" label={language === 'en' ? 'Business Login' : language === 'tr' ? 'İşletme Giriş' : 'Вход бизнеса'} />
               <Tab icon={<AppRegistration />} iconPosition="start" label={language === 'en' ? 'Business Sign Up' : language === 'tr' ? 'İşletme Kaydı' : 'Бизнес Регистрация'} />
               <Tab icon={<ContentCut />} iconPosition="start" label={language === 'en' ? 'Barber Sign Up / Login' : language === 'tr' ? 'Berber Kaydı / Giriş' : 'Регистрация / Вход Барбера'} />
             </Tabs>
@@ -271,10 +271,10 @@ const BusinessSignup = () => {
                       <TextField fullWidth label={t.ownerName} value={businessData.ownerName} onChange={(e) => handleInputChange('ownerName', e.target.value)} InputProps={{ startAdornment: <Person sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField fullWidth label={language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email'} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" InputLabelProps={{ shrink: true }} />
+                      <TextField fullWidth label={language === 'en' ? 'Email' : language === 'tr' ? 'E-posta' : 'Email'} value={businessData.email} onChange={(e) => handleInputChange('email', e.target.value)} type="email" InputLabelProps={{ shrink: true }} InputProps={{ startAdornment: <Email sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <TextField fullWidth label="Password" value={businessData.password} onChange={(e) => handleInputChange('password', e.target.value)} type="password" InputLabelProps={{ shrink: true }} />
+                      <TextField fullWidth label="Password" value={businessData.password} onChange={(e) => handleInputChange('password', e.target.value)} type="password" InputLabelProps={{ shrink: true }} InputProps={{ startAdornment: <Lock sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <TextField fullWidth label={t.phoneNumber} value={businessData.phone} onChange={(e) => handleInputChange('phone', e.target.value)} InputProps={{ startAdornment: <Phone sx={{ mr: 1, color: '#00a693' }} /> }} />
@@ -283,7 +283,7 @@ const BusinessSignup = () => {
                       <TextField fullWidth label={t.businessAddress} value={businessData.address} onChange={(e) => handleInputChange('address', e.target.value)} InputProps={{ startAdornment: <LocationOn sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12} md={4}>
-                      <TextField fullWidth label={t.city} value={businessData.city} onChange={(e) => handleInputChange('city', e.target.value)} InputLabelProps={{ shrink: true }} />
+                      <TextField fullWidth label={t.city} value={businessData.city} onChange={(e) => handleInputChange('city', e.target.value)} InputLabelProps={{ shrink: true }} InputProps={{ startAdornment: <LocationCity sx={{ mr: 1, color: '#00a693' }} /> }} />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField fullWidth label={t.businessDescription} multiline rows={3} value={businessData.description} onChange={(e) => handleInputChange('description', e.target.value)} InputProps={{ startAdornment: <Description sx={{ mr: 1, color: '#00a693', mt: 1 }} /> }} />

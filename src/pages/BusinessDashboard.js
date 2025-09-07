@@ -71,6 +71,34 @@ const BusinessDashboard = () => {
     description: ''
   });
 
+  const [notifAnchor, setNotifAnchor] = useState(null);
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: language === 'en' ? 'New booking' : language === 'tr' ? 'Yeni rezervasyon' : 'Новая бронь', body: '12:30 - Haircut by Mehmet', time: '2m', read: false },
+    { id: 2, title: language === 'en' ? 'Review received' : language === 'tr' ? 'Yeni yorum' : 'Новый отзыв', body: '4.8★ from Ayşe', time: '1h', read: false },
+    { id: 3, title: language === 'en' ? 'Cancellation' : language === 'tr' ? 'İptal' : 'Отмена', body: 'Ali cancelled 16:00', time: '3h', read: true }
+  ]);
+
+  const [businessInfo, setBusinessInfo] = useState({
+    address: '',
+    photoUrl: '',
+    workingHours: {
+      mon: { open: '09:00', close: '19:00' },
+      tue: { open: '09:00', close: '19:00' },
+      wed: { open: '09:00', close: '19:00' },
+      thu: { open: '09:00', close: '19:00' },
+      fri: { open: '09:00', close: '19:00' },
+      sat: { open: '10:00', close: '18:00' },
+      sun: { open: 'Closed', close: 'Closed' }
+    }
+  });
+
+  const [barbers, setBarbers] = useState([
+    { id: 1, name: 'Mehmet Kaya', email: 'mehmet@example.com' },
+    { id: 2, name: 'Ahmet Demir', email: 'ahmet@example.com' }
+  ]);
+  const [barberDialogOpen, setBarberDialogOpen] = useState(false);
+  const [newBarber, setNewBarber] = useState({ name: '', email: '' });
+
   // State for business data fetched from API
   const [businessData, setBusinessData] = useState({
     name: '',
@@ -119,8 +147,15 @@ const BusinessDashboard = () => {
           monthlyRevenue: 0,
           services: []
         });
-        setUpcomingAppointments([]);
-        setRecentActivity([]);
+        setUpcomingAppointments([
+          { id: 1, client: 'Ali Yılmaz', service: 'Saç Kesimi', time: '10:00', phone: '+90 555 111 22 33', status: 'confirmed' },
+          { id: 2, client: 'John Doe', service: 'Sakal Traşı', time: '11:30', phone: '+90 555 444 55 66', status: 'pending' },
+          { id: 3, client: 'Maria Ivanova', service: 'Haircut', time: '15:00', phone: '+90 555 777 88 99', status: 'cancelled' }
+        ]);
+        setRecentActivity([
+          { id: 1, message: language === 'en' ? 'New booking by Ali' : language === 'tr' ? 'Ali yeni rezervasyon yaptı' : 'Новая бронь от Али', time: '2m' },
+          { id: 2, message: language === 'en' ? 'Review 4.8★ from Ayşe' : language === 'tr' ? 'Ayşe 4.8★ yorum bıraktı' : 'Отзыв 4.8★ от Айше', time: '1h' }
+        ]);
 
       } catch (err) {
         console.error('Failed to fetch business data:', err);
@@ -160,6 +195,8 @@ const BusinessDashboard = () => {
     }
   ];
 
+  const unreadCount = notifications.filter(n => !n.read).length;
+
   const handleProfileMenuOpen = (event) => {
     setProfileMenuAnchor(event.currentTarget);
   };
@@ -181,6 +218,28 @@ const BusinessDashboard = () => {
       setNewService({ name: '', price: '', duration: '', description: '' });
     }
   };
+
+  const handleNotifOpen = (e) => setNotifAnchor(e.currentTarget);
+  const handleNotifClose = () => setNotifAnchor(null);
+  const markAllNotificationsRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  const clearNotifications = () => setNotifications([]);
+
+  const handleBusinessPhotoChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) setBusinessInfo(prev => ({ ...prev, photoUrl: URL.createObjectURL(file) }));
+  };
+
+  const saveBusinessInfo = () => {
+    alert(language === 'en' ? 'Saved' : language === 'tr' ? 'Kaydedildi' : 'Сохранено');
+  };
+
+  const addBarber = () => {
+    if (!newBarber.name || !newBarber.email) return;
+    setBarbers(prev => [...prev, { id: Date.now(), ...newBarber }]);
+    setNewBarber({ name: '', email: '' });
+    setBarberDialogOpen(false);
+  };
+  const removeBarber = (id) => setBarbers(prev => prev.filter(b => b.id !== id));
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -211,8 +270,10 @@ const BusinessDashboard = () => {
   const tabLabels = [
     language === 'en' ? 'Overview' : language === 'tr' ? 'Genel Bakış' : 'Обзор',
     t.services,
+    language === 'en' ? 'Salon Info' : language === 'tr' ? 'Salon Bilgisi' : 'Инфо салона',
+    language === 'en' ? 'Barbers' : language === 'tr' ? 'Berberler' : 'Парикмахеры',
     language === 'en' ? 'Appointments' : language === 'tr' ? 'Randevular' : 'Встречи',
-    language === 'en' ? 'Analytics' : language === 'tr' ? 'Analitik' : 'Аналитика'
+    language === 'en' ? 'Income Reports' : language === 'tr' ? 'Gelir Raporları' : 'Отчеты о доходах'
   ];
 
   return (
@@ -257,8 +318,8 @@ const BusinessDashboard = () => {
                 </Select>
               </FormControl>
 
-              <IconButton sx={{ color: '#00a693' }}>
-                <Badge badgeContent={3} color="error">
+              <IconButton sx={{ color: '#00a693' }} onClick={handleNotifOpen}>
+                <Badge badgeContent={unreadCount} color="error">
                   <Notifications />
                 </Badge>
               </IconButton>
@@ -313,6 +374,45 @@ const BusinessDashboard = () => {
           <Logout sx={{ mr: 2 }} />
           {language === 'en' ? 'Sign Out' : language === 'tr' ? 'Çıkış Yap' : 'Выйти'}
         </MenuItem>
+      </Menu>
+
+      <Menu
+        anchorEl={notifAnchor}
+        open={Boolean(notifAnchor)}
+        onClose={handleNotifClose}
+        sx={{ mt: 1 }}
+      >
+        <Box sx={{ px: 2, py: 1, minWidth: 320 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+              {language === 'en' ? 'Notifications' : language === 'tr' ? 'Bildirimler' : 'Уведомления'}
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              <Button size="small" onClick={markAllNotificationsRead}>
+                {language === 'en' ? 'Mark all read' : language === 'tr' ? 'Tümünü okundu yap' : 'Отметить как прочит.'}
+              </Button>
+              <Button size="small" color="error" onClick={clearNotifications}>
+                {language === 'en' ? 'Clear' : language === 'tr' ? 'Temizle' : 'Очистить'}
+              </Button>
+            </Stack>
+          </Box>
+          {notifications.length ? (
+            <List sx={{ pt: 0 }}>
+              {notifications.map(n => (
+                <ListItem key={n.id} sx={{ px: 0 }}>
+                  <ListItemText
+                    primary={<Typography sx={{ fontWeight: n.read ? 400 : 700 }}>{n.title}</Typography>}
+                    secondary={<Typography color="text.secondary">{n.body} • {n.time}</Typography>}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              {language === 'en' ? 'No notifications' : language === 'tr' ? 'Bildirim yok' : 'Нет уведомлений'}
+            </Typography>
+          )}
+        </Box>
       </Menu>
 
       <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -381,7 +481,7 @@ const BusinessDashboard = () => {
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-                      {language === 'en' ? 'Today\'s Appointments' : language === 'tr' ? 'Bugünün Randevuları' : 'Сегодняшние встречи'}
+                      {language === 'en' ? 'Today\'s Appointments' : language === 'tr' ? 'Bugünün Randevuları' : 'Сегодняшние вс��речи'}
                     </Typography>
                     <Button
                       variant="outlined"
@@ -514,6 +614,66 @@ const BusinessDashboard = () => {
           </Grid>
         )}
 
+        {currentTab === 2 && (
+          <Card>
+            <CardContent>
+              <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
+                {language === 'en' ? 'Salon Information' : language === 'tr' ? 'Salon Bilgisi' : 'Информация о салоне'}
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={8}>
+                  <TextField
+                    fullWidth
+                    label={language === 'en' ? 'Address' : language === 'tr' ? 'Adres' : 'Адрес'}
+                    value={businessInfo.address}
+                    onChange={(e) => setBusinessInfo(prev => ({ ...prev, address: e.target.value }))}
+                  />
+                  <Box sx={{ display: 'flex', gap: 2, mt: 2, flexWrap: 'wrap' }}>
+                    {[
+                      { key: 'mon', label: language==='en'?'Mon':language==='tr'?'Pzt':'Пн' },
+                      { key: 'tue', label: language==='en'?'Tue':language==='tr'?'Sal':'Вт' },
+                      { key: 'wed', label: language==='en'?'Wed':language==='tr'?'Çar':'Ср' },
+                      { key: 'thu', label: language==='en'?'Thu':language==='tr'?'Per':'Чт' },
+                      { key: 'fri', label: language==='en'?'Fri':language==='tr'?'Cum':'Пт' },
+                      { key: 'sat', label: language==='en'?'Sat':language==='tr'?'Cts':'Сб' },
+                      { key: 'sun', label: language==='en'?'Sun':language==='tr'?'Paz':'Вс' },
+                    ].map(d => (
+                      <Box key={d.key} sx={{ display: 'flex', alignItems: 'center', gap: 1, width: { xs: '100%', sm: '48%', md: '32%' } }}>
+                        <Typography variant="body2" sx={{ width: 40 }}>{d.label}</Typography>
+                        <TextField
+                          size="small"
+                          value={businessInfo.workingHours[d.key].open}
+                          onChange={(e)=> setBusinessInfo(prev=> ({ ...prev, workingHours: { ...prev.workingHours, [d.key]: { ...prev.workingHours[d.key], open: e.target.value } } }))}
+                          placeholder="09:00"
+                        />
+                        <Typography variant="body2">-</Typography>
+                        <TextField
+                          size="small"
+                          value={businessInfo.workingHours[d.key].close}
+                          onChange={(e)=> setBusinessInfo(prev=> ({ ...prev, workingHours: { ...prev.workingHours, [d.key]: { ...prev.workingHours[d.key], close: e.target.value } } }))}
+                          placeholder="19:00"
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+                    <Avatar src={businessInfo.photoUrl} sx={{ width: 120, height: 120 }} />
+                    <Button component="label" variant="outlined" sx={{ color: '#00a693', borderColor: '#00a693' }}>
+                      {language === 'en' ? 'Upload Photo' : language === 'tr' ? 'Fotoğraf Yükle' : 'Загрузить фото'}
+                      <input hidden accept="image/*" type="file" onChange={handleBusinessPhotoChange} />
+                    </Button>
+                    <Button variant="contained" sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }} onClick={saveBusinessInfo}>
+                      {language === 'en' ? 'Save' : language === 'tr' ? 'Kaydet' : 'Сохранить'}
+                    </Button>
+                  </Box>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        )}
+
         {currentTab === 1 && (
           <Card>
             <CardContent>
@@ -566,36 +726,97 @@ const BusinessDashboard = () => {
           </Card>
         )}
 
-        {currentTab === 2 && (
+        {currentTab === 3 && (
+          <Card>
+            <CardContent>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                  {language === 'en' ? 'Barbers' : language === 'tr' ? 'Berberler' : 'Парикмахеры'}
+                </Typography>
+                <Button
+                  variant="contained"
+                  startIcon={<Add />}
+                  onClick={() => setBarberDialogOpen(true)}
+                  sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}
+                >
+                  {language === 'en' ? 'Add Barber' : language === 'tr' ? 'Berber Ekle' : 'Добавить'}
+                </Button>
+              </Box>
+              <List>
+                {barbers.map((b) => (
+                  <ListItem key={b.id} sx={{ px: 0 }}>
+                    <ListItemText primary={b.name} secondary={b.email} />
+                    <IconButton onClick={() => removeBarber(b.id)} sx={{ color: '#ef4444' }}>
+                      <Delete />
+                    </IconButton>
+                  </ListItem>
+                ))}
+                {!barbers.length && (
+                  <Typography variant="body2" color="text.secondary">
+                    {language === 'en' ? 'No barbers added' : language === 'tr' ? 'Berber ekli değil' : 'Нет парикмахеров'}
+                  </Typography>
+                )}
+              </List>
+            </CardContent>
+          </Card>
+        )}
+
+        {currentTab === 4 && (
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
                 {language === 'en' ? 'All Appointments' : language === 'tr' ? 'Tüm Randevular' : 'Все встречи'}
               </Typography>
-              <Typography variant="body1" color="text.secondary">
-                {language === 'en' 
-                  ? 'Full appointment management coming soon...'
-                  : language === 'tr'
-                  ? 'Tam randevu yönetimi yakında gelecek...'
-                  : 'Полное управление встречами скоро появится...'
-                }
-              </Typography>
+
+              <TableContainer>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{language === 'en' ? 'Time' : language === 'tr' ? 'Saat' : 'Время'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Client' : language === 'tr' ? 'Müşteri' : 'Клиент'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Service' : language === 'tr' ? 'Hizmet' : 'Услуга'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Status' : language === 'tr' ? 'Durum' : 'Статус'}</TableCell>
+                      <TableCell>{language === 'en' ? 'Actions' : language === 'tr' ? 'İşlemler' : 'Действия'}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {upcomingAppointments.map((a) => (
+                      <TableRow key={a.id}>
+                        <TableCell>{a.time}</TableCell>
+                        <TableCell>{a.client}</TableCell>
+                        <TableCell>{a.service}</TableCell>
+                        <TableCell>
+                          <Chip
+                            label={a.status}
+                            size="small"
+                            icon={getStatusIcon(a.status)}
+                            sx={{ bgcolor: `${getStatusColor(a.status)}15`, color: getStatusColor(a.status), fontWeight: 'bold' }}
+                          />
+                        </TableCell>
+                        <TableCell>
+                          <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{language === 'en' ? 'Call' : language === 'tr' ? 'Ara' : 'Позвонить'}</Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </CardContent>
           </Card>
         )}
 
-        {currentTab === 3 && (
+        {currentTab === 5 && (
           <Card>
             <CardContent>
               <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3 }}>
-                {language === 'en' ? 'Business Analytics' : language === 'tr' ? 'İşletme Analitikleri' : 'Аналитика бизнеса'}
+                {language === 'en' ? 'Income Reports' : language === 'tr' ? 'Gelir Raporları' : 'Отчеты о доходах'}
               </Typography>
               <Typography variant="body1" color="text.secondary">
-                {language === 'en' 
-                  ? 'Detailed analytics and reports coming soon...'
+                {language === 'en'
+                  ? 'Revenue reports and insights coming soon...'
                   : language === 'tr'
-                  ? 'Detaylı analitik ve raporlar yakında gelecek...'
-                  : 'Подробная аналитика и отчеты скоро появятся...'
+                  ? 'Gelir raporları ve içgörüler yakında...'
+                  : 'Отчеты о доходах и аналитика скоро...'
                 }
               </Typography>
             </CardContent>
@@ -652,6 +873,33 @@ const BusinessDashboard = () => {
             sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}
           >
             {t.addService}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={barberDialogOpen} onClose={() => setBarberDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>{language === 'en' ? 'Add Barber' : language === 'tr' ? 'Berber Ekle' : 'Добавить парикмахера'}</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField
+              fullWidth
+              label={language === 'en' ? 'Full Name' : language === 'tr' ? 'Ad Soyad' : 'Полное имя'}
+              value={newBarber.name}
+              onChange={(e) => setNewBarber(prev => ({ ...prev, name: e.target.value }))}
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              type="email"
+              value={newBarber.email}
+              onChange={(e) => setNewBarber(prev => ({ ...prev, email: e.target.value }))}
+            />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setBarberDialogOpen(false)}>{t.cancel}</Button>
+          <Button variant="contained" onClick={addBarber} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>
+            {language === 'en' ? 'Add' : language === 'tr' ? 'Ekle' : 'Добавить'}
           </Button>
         </DialogActions>
       </Dialog>

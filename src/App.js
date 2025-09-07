@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import Login from './components/Login';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
-import BarberDetail from './pages/BarberDetail';
 import Services from './pages/Services';
 import Offers from './pages/Offers';
 import About from './pages/About';
@@ -15,11 +14,11 @@ import Company from './pages/Company';
 import Support from './pages/Support';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
 import Settings from './pages/Settings';
 import BusinessSignup from './pages/BusinessSignup';
 import BusinessDashboard from './pages/BusinessDashboard';
+import BarberDashboard from './pages/BarberDashboard';
 import Appointment from './pages/Appointment';
 
 // Booksy-inspired color scheme
@@ -141,10 +140,6 @@ function AuthAwareRoutes() {
         element={isAuthenticated ? <Dashboard /> : <Navigate to="/signin" />}
       />
       <Route
-        path="/profile"
-        element={isAuthenticated ? <Profile /> : <Navigate to="/signin" />}
-      />
-      <Route
         path="/favorites"
         element={isAuthenticated ? <Favorites /> : <Navigate to="/signin" />}
       />
@@ -152,10 +147,7 @@ function AuthAwareRoutes() {
         path="/settings"
         element={isAuthenticated ? <Settings /> : <Navigate to="/signin" />}
       />
-      <Route
-        path="/barber/:id"
-        element={<BarberDetail />}
-      />
+      <Route path="/barber/:id" element={<Navigate to="/barber-dashboard" replace />} />
       <Route
         path="/services"
         element={<Services />}
@@ -180,10 +172,12 @@ function AuthAwareRoutes() {
         path="/business-signup"
         element={<BusinessSignup />}
       />
-      <Route
-        path="/business-dashboard"
-        element={<BusinessDashboard />}
-      />
+      <Route path="/business-dashboard" element={<BusinessDashboard />} />
+      <Route path="/BusinessDashboard" element={<Navigate to="/business-dashboard" replace />} />
+
+      <Route path="/barber-dashboard" element={<BarberDashboard />} />
+      <Route path="/BarberDashboard" element={<Navigate to="/barber-dashboard" replace />} />
+
       <Route
         path="/appoint"
         element={<Appointment />}
