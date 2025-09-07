@@ -38,6 +38,29 @@ const Appointment = () => {
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [selectedTime, setSelectedTime] = useState('');
 
+  const addDays = (dateStr, days) => {
+    const d = new Date(dateStr + 'T00:00:00');
+    d.setDate(d.getDate() + days);
+    return d.toISOString().slice(0, 10);
+  };
+  const formatDayLabel = (dateStr) => {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString(language === 'ru' ? 'ru-RU' : language === 'tr' ? 'tr-TR' : 'en-GB', { weekday: 'short', month: 'short', day: 'numeric' });
+  };
+  const timeSlots = React.useMemo(() => {
+    const slots = [];
+    let h = 9, m = 0; // 09:00 - 19:00
+    while (h < 19 || (h === 19 && m === 0)) {
+      const hh = String(h).padStart(2, '0');
+      const mm = String(m).padStart(2, '0');
+      slots.push(`${hh}:${mm}`);
+      m += 30;
+      if (m >= 60) { m = 0; h += 1; }
+    }
+    return slots;
+  }, []);
+  const weekDays = React.useMemo(() => Array.from({ length: 7 }, (_, i) => addDays(selectedDate, i)), [selectedDate]);
+
   // Barbers fetch
   useEffect(() => {
     const fetchBarbers = async () => {
