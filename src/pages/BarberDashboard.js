@@ -10,6 +10,8 @@ import {
   Chip,
   Container,
   Dialog,
+  Menu,
+  Badge,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -34,7 +36,8 @@ import {
   Schedule,
   Phone,
   Delete,
-  Edit
+  Edit,
+  Notifications as NotificationsIcon
 } from '@mui/icons-material';
 
 function formatDate(d) {
@@ -55,7 +58,10 @@ const BarberDashboard = () => {
       today: 'Today', tomorrow: 'Tomorrow', week: 'This Week',
       time: 'Time', client: 'Client', service: 'Service', phone: 'Phone', call: 'Call', rating: 'Rating',
       customers: 'Customers', noCustomers: 'No customers yet',
-      profile: 'Profile', services: 'Services', price: 'Price', duration: 'Duration (min)', bio: 'Bio', uploadPhoto: 'Upload Photo'
+      profile: 'Profile', services: 'Services', price: 'Price', duration: 'Duration (min)', bio: 'Bio', uploadPhoto: 'Upload Photo',
+      reschedule: 'Reschedule',
+      cancelAppt: 'Cancel',
+      notifications: 'Notifications'
     },
     tr: {
       title: 'Berber Portalı',
@@ -66,7 +72,10 @@ const BarberDashboard = () => {
       today: 'Bugün', tomorrow: 'Yarın', week: 'Haftalık',
       time: 'Saat', client: 'Müşteri', service: 'Hizmet', phone: 'Telefon', call: 'Ara', rating: 'Puan',
       customers: 'Müşteriler', noCustomers: 'Henüz müşteri yok',
-      profile: 'Profil', services: 'Hizmetler', price: 'Fiyat', duration: 'Süre (dk)', bio: 'Hakkımda', uploadPhoto: 'Fotoğraf Yükle'
+      profile: 'Profil', services: 'Hizmetler', price: 'Fiyat', duration: 'Süre (dk)', bio: 'Hakkımda', uploadPhoto: 'Fotoğraf Yükle',
+      reschedule: 'Yeniden Planla',
+      cancelAppt: 'İptal',
+      notifications: 'Bildirimler'
     },
     ru: {
       title: 'Портал Барбера',
@@ -114,6 +123,15 @@ const BarberDashboard = () => {
   });
   const [newService, setNewService] = useState({ name: '', price: '', duration: '' });
 
+  // Notifications
+  const [notifAnchor, setNotifAnchor] = useState(null);
+  const [notifications, setNotifications] = useState([]);
+
+  // Appointment edit
+  const [apptDialogOpen, setApptDialogOpen] = useState(false);
+  const [editingAppt, setEditingAppt] = useState(null);
+  const [apptForm, setApptForm] = useState({ date: today, time: '' });
+
   useEffect(() => {
     // Public preview mode
   }, []);
@@ -160,6 +178,35 @@ const BarberDashboard = () => {
   };
   const deleteSlot = (id) => setSlots(prev => prev.filter(s => s.id !== id));
 
+  // Notifications handlers
+  const unreadCount = notifications.filter(n => !n.read).length;
+  const handleNotifOpen = (e) => setNotifAnchor(e.currentTarget);
+  const handleNotifClose = () => setNotifAnchor(null);
+  const markAllNotificationsRead = () => setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  const clearNotifications = () => setNotifications([]);
+
+  // Appointments actions
+  const openReschedule = (a) => {
+    setEditingAppt(a);
+    setApptForm({ date: a.date, time: a.time });
+    setApptDialogOpen(true);
+  };
+  const saveReschedule = () => {
+    if (!apptForm.date || !apptForm.time) return;
+    setAppointments(prev => prev.map(ap => ap.id === editingAppt.id ? { ...ap, date: apptForm.date, time: apptForm.time } : ap));
+    setNotifications(prev => [
+      { id: Date.now(), title: dict.notifications, body: `${editingAppt.client} randevusu ${apptForm.date} ${apptForm.time} olarak güncellendi`, time: 'now', read: false }
+    ]);
+    setApptDialogOpen(false);
+  };
+  const cancelAppointment = (a) => {
+    if (!window.confirm(language === 'tr' ? 'Randevu iptal edilsin mi?' : language === 'en' ? 'Cancel this appointment?' : 'Отменить встречу?')) return;
+    setAppointments(prev => prev.filter(ap => ap.id !== a.id));
+    setNotifications(prev => [
+      { id: Date.now(), title: dict.notifications, body: `${a.client} için ${a.date} ${a.time} randevusu iptal edildi`, time: 'now', read: false }
+    ]);
+  };
+
   const addService = () => {
     if (!newService.name || !newService.price || !newService.duration) return;
     setProfile(prev => ({ ...prev, services: [...prev.services, { id: Date.now(), ...newService }] }));
@@ -190,11 +237,39 @@ const BarberDashboard = () => {
                   <MenuItem value="ru">🇷🇺 RU</MenuItem>
                 </Select>
               </FormControl>
+              <IconButton onClick={handleNotifOpen} sx={{ color: '#00a693' }}>
+                <Badge badgeContent={unreadCount} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
               <Avatar alt="Barber" src={profile.photoUrl} />
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
+
+      <Menu anchorEl={notifAnchor} open={Boolean(notifAnchor)} onClose={handleNotifClose} sx={{ mt: 1 }}>
+        <Box sx={{ px: 2, py: 1, minWidth: 320 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>{dict.notifications}</Typography>
+            <Stack direction="row" spacing={1}>
+              <Button size="small" onClick={markAllNotificationsRead}>{language === 'tr' ? 'Tümünü okundu' : 'Mark all read'}</Button>
+              <Button size="small" color="error" onClick={clearNotifications}>{language === 'tr' ? 'Temizle' : 'Clear'}</Button>
+            </Stack>
+          </Box>
+          {notifications.length ? (
+            <List sx={{ pt: 0 }}>
+              {notifications.map(n => (
+                <ListItem key={n.id} sx={{ px: 0 }}>
+                  <ListItemText primary={<Typography sx={{ fontWeight: n.read ? 400 : 700 }}>{n.title}</Typography>} secondary={<Typography color="text.secondary">{n.body} • {n.time}</Typography>} />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <Typography variant="body2" color="text.secondary">{language === 'tr' ? 'Bildirim yok' : 'No notifications'}</Typography>
+          )}
+        </Box>
+      </Menu>
 
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
@@ -247,21 +322,33 @@ const BarberDashboard = () => {
                 {filteredAppointments('today').map((a) => (
                   <ListItem key={`t-${a.id}`} sx={{ px: 0 }}>
                     <ListItemText primary={`${a.date} • ${a.time} — ${a.client}`} secondary={`${dict.service}: ${a.service}`} />
-                    <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    <Stack direction="row" spacing={1}>
+                      <Button size="small" onClick={() => openReschedule(a)}>{dict.reschedule}</Button>
+                      <Button size="small" color="error" onClick={() => cancelAppointment(a)}>{dict.cancelAppt}</Button>
+                      <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    </Stack>
                   </ListItem>
                 ))}
                 <Divider sx={{ my: 1 }} />
                 {filteredAppointments('tomorrow').map((a) => (
                   <ListItem key={`tm-${a.id}`} sx={{ px: 0 }}>
                     <ListItemText primary={`${a.date} • ${a.time} — ${a.client}`} secondary={`${dict.service}: ${a.service}`} />
-                    <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    <Stack direction="row" spacing={1}>
+                      <Button size="small" onClick={() => openReschedule(a)}>{dict.reschedule}</Button>
+                      <Button size="small" color="error" onClick={() => cancelAppointment(a)}>{dict.cancelAppt}</Button>
+                      <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    </Stack>
                   </ListItem>
                 ))}
                 <Divider sx={{ my: 1 }} />
                 {filteredAppointments('week').map((a) => (
                   <ListItem key={`w-${a.id}`} sx={{ px: 0 }}>
                     <ListItemText primary={`${a.date} • ${a.time} — ${a.client}`} secondary={`${dict.service}: ${a.service}`} />
-                    <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    <Stack direction="row" spacing={1}>
+                      <Button size="small" onClick={() => openReschedule(a)}>{dict.reschedule}</Button>
+                      <Button size="small" color="error" onClick={() => cancelAppointment(a)}>{dict.cancelAppt}</Button>
+                      <Button size="small" startIcon={<Phone />} sx={{ color: '#00a693' }}>{dict.call}</Button>
+                    </Stack>
                   </ListItem>
                 ))}
               </List>
@@ -350,6 +437,20 @@ const BarberDashboard = () => {
         <DialogActions>
           <Button onClick={() => setSlotDialogOpen(false)}>{dict.cancel}</Button>
           <Button variant="contained" onClick={saveSlot} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>{dict.save}</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={apptDialogOpen} onClose={() => setApptDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>{dict.reschedule}</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField label={dict.date} type="date" value={apptForm.date} onChange={(e) => setApptForm(prev => ({ ...prev, date: e.target.value }))} InputLabelProps={{ shrink: true }} />
+            <TextField label={dict.time} type="time" value={apptForm.time} onChange={(e) => setApptForm(prev => ({ ...prev, time: e.target.value }))} InputLabelProps={{ shrink: true }} />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setApptDialogOpen(false)}>{dict.cancel}</Button>
+          <Button variant="contained" onClick={saveReschedule} sx={{ bgcolor: '#00a693', '&:hover': { bgcolor: '#007562' } }}>{dict.save}</Button>
         </DialogActions>
       </Dialog>
     </Box>
